@@ -157,4 +157,117 @@
          </nfed:nfeDadosMsg>\r
       </nfed:nfeDistDFeInteresse>\r
    </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.portalfiscal.inf.br/nfe/wsdl/NFeDistribuicaoDFe/nfeDistDFeInteresse"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.portalfiscal.inf.br/nfe/wsdl/NFeDistribuicaoDFe/nfeDistDFeInteresse"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" id="9f438772-3eba-43aa-8af1-5e49f983c0d6" wsaVersion="NONE" name="NFeRecepcaoEvento4Soap12" type="wsdl" bindingName="{http://www.portalfiscal.inf.br/nfe/wsdl/NFeRecepcaoEvento4}NFeRecepcaoEvento4Soap12" soapVersion="1_2" anonymous="optional" definition="https://www.nfe.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache/><con:endpoints><con:endpoint>https://www.nfe.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx</con:endpoint></con:endpoints><con:operation id="1e283359-0378-472d-844f-9564557df568" isOneWay="false" action="http://www.portalfiscal.inf.br/nfe/wsdl/NFeRecepcaoEvento4/nfeRecepcaoEventoNF" name="nfeRecepcaoEventoNF" bindingOperationName="nfeRecepcaoEventoNF" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="4aefb82f-8d45-4c65-9a15-f3d73915b68e" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://www.nfe.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:nfer="http://www.portalfiscal.inf.br/nfe/wsdl/NFeRecepcaoEvento4">\r
+   <soap:Header/>\r
+   <soap:Body>\r
+      <nfer:nfeDadosMsg>\r
+<envEvento versao="1.00" xmlns="http://www.portalfiscal.inf.br/nfe">
+  <idLote>000000000000001</idLote>
+  <evento versao="1.00">
+    <infEvento Id="ID2102004113010442481300016055001000020124101705827901">
+      <cOrgao>91</cOrgao>
+      <tpAmb>2</tpAmb>
+      <CNPJ>53420477000192</CNPJ>
+      <chNFe>41130104424813000160550010000201241017058279</chNFe>
+      <dhEvento>2013-01-18T08:39:23-02:00</dhEvento>
+      <tpEvento>210200</tpEvento>
+      <nSeqEvento>1</nSeqEvento>
+      <verEvento>1.00</verEvento>
+      <detEvento versao="1.00">
+        <descEvento>Confirmacao da Operacao</descEvento>
+      </detEvento>
+    </infEvento>
+  </evento>
+</envEvento>      </nfer:nfeDadosMsg>\r
+   </soap:Body>\r
+</soap:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.portalfiscal.inf.br/nfe/wsdl/NFeRecepcaoEvento4/NFeRecepcaoEvento4Soap/nfeRecepcaoEventoNFRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" id="76c300bd-f964-4560-ad29-0f9f56c088b6" wsaVersion="NONE" name="NFeRecepcaoEvento4Soap" type="wsdl" bindingName="{http://www.portalfiscal.inf.br/nfe/wsdl/NFeRecepcaoEvento4}NFeRecepcaoEvento4Soap" soapVersion="1_1" anonymous="optional" definition="https://www.nfe.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="https://www.nfe.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx?wsdl"><con:part><con:url>https://www.nfe.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx?wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://www.portalfiscal.inf.br/nfe/wsdl/NFeRecepcaoEvento4" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.portalfiscal.inf.br/nfe/wsdl/NFeRecepcaoEvento4" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.portalfiscal.inf.br/nfe/wsdl/NFeRecepcaoEvento4">
+      <s:element name="nfeDadosMsg">
+        <s:complexType mixed="true">
+          <s:sequence>
+            <s:any/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="nfeRecepcaoEventoNFResult">
+        <s:complexType mixed="true">
+          <s:sequence>
+            <s:any/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="nfeRecepcaoEventoNFSoapIn">
+    <wsdl:part name="nfeDadosMsg" element="tns:nfeDadosMsg"/>
+  </wsdl:message>
+  <wsdl:message name="nfeRecepcaoEventoNFSoapOut">
+    <wsdl:part name="nfeRecepcaoEventoNFResult" element="tns:nfeRecepcaoEventoNFResult"/>
+  </wsdl:message>
+  <wsdl:portType name="NFeRecepcaoEvento4Soap">
+    <wsdl:operation name="nfeRecepcaoEventoNF">
+      <wsdl:documentation>Serviço destinado à recepção de mensagem de Evento da NF-e.</wsdl:documentation>
+      <wsdl:input message="tns:nfeRecepcaoEventoNFSoapIn"/>
+      <wsdl:output message="tns:nfeRecepcaoEventoNFSoapOut"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NFeRecepcaoEvento4Soap" type="tns:NFeRecepcaoEvento4Soap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="nfeRecepcaoEventoNF">
+      <soap:operation soapAction="http://www.portalfiscal.inf.br/nfe/wsdl/NFeRecepcaoEvento4/nfeRecepcaoEventoNF" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="NFeRecepcaoEvento4Soap12" type="tns:NFeRecepcaoEvento4Soap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="nfeRecepcaoEventoNF">
+      <soap12:operation soapAction="http://www.portalfiscal.inf.br/nfe/wsdl/NFeRecepcaoEvento4/nfeRecepcaoEventoNF" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="NFeRecepcaoEvento4">
+    <wsdl:port name="NFeRecepcaoEvento4Soap" binding="tns:NFeRecepcaoEvento4Soap">
+      <soap:address location="https://www.nfe.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx"/>
+    </wsdl:port>
+    <wsdl:port name="NFeRecepcaoEvento4Soap12" binding="tns:NFeRecepcaoEvento4Soap12">
+      <soap12:address location="https://www.nfe.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>https://www.nfe.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx</con:endpoint></con:endpoints><con:operation id="84477740-bb2c-442d-8f7a-8e29c13aa6cb" isOneWay="false" action="http://www.portalfiscal.inf.br/nfe/wsdl/NFeRecepcaoEvento4/nfeRecepcaoEventoNF" name="nfeRecepcaoEventoNF" bindingOperationName="nfeRecepcaoEventoNF" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="22a92bcf-0416-4393-a7ef-be5135fcd260" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://www.nfe.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nfer="http://www.portalfiscal.inf.br/nfe/wsdl/NFeRecepcaoEvento4">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <nfer:nfeDadosMsg>\r
+
+<envEvento versao="1.00" xmlns="http://www.portalfiscal.inf.br/nfe">
+  <idLote>000000000000001</idLote>
+  <evento versao="1.00">
+    <infEvento Id="ID2102004113010442481300016055001000020124101705827901">
+      <cOrgao>91</cOrgao>
+      <tpAmb>2</tpAmb>
+      <CNPJ>53420477000192</CNPJ>
+      <chNFe>41130104424813000160550010000201241017058279</chNFe>
+      <dhEvento>2013-01-18T08:39:23-02:00</dhEvento>
+      <tpEvento>210200</tpEvento>
+      <nSeqEvento>1</nSeqEvento>
+      <verEvento>1.00</verEvento>
+      <detEvento versao="1.00">
+        <descEvento>Confirmacao da Operacao</descEvento>
+      </detEvento>
+    </infEvento>
+  </evento>
+</envEvento>  
+      
+      </nfer:nfeDadosMsg>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.portalfiscal.inf.br/nfe/wsdl/NFeRecepcaoEvento4/nfeRecepcaoEventoNF"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>

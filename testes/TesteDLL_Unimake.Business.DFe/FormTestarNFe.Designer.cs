@@ -40,14 +40,27 @@
             this.button11 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
             this.pbConsultaDFe = new System.Windows.Forms.ProgressBar();
+            this.button10 = new System.Windows.Forms.Button();
+            this.groupBoxNFe = new System.Windows.Forms.GroupBox();
+            this.groupBoxNFCe = new System.Windows.Forms.GroupBox();
+            this.button18 = new System.Windows.Forms.Button();
+            this.button17 = new System.Windows.Forms.Button();
+            this.button16 = new System.Windows.Forms.Button();
+            this.button15 = new System.Windows.Forms.Button();
+            this.button14 = new System.Windows.Forms.Button();
+            this.button13 = new System.Windows.Forms.Button();
+            this.button12 = new System.Windows.Forms.Button();
+            this.button19 = new System.Windows.Forms.Button();
+            this.groupBoxNFe.SuspendLayout();
+            this.groupBoxNFCe.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(13, 14);
-            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button1.Location = new System.Drawing.Point(15, 36);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(329, 39);
+            this.button1.Size = new System.Drawing.Size(247, 32);
             this.button1.TabIndex = 0;
             this.button1.Text = "Consulta Status NFe";
             this.button1.UseVisualStyleBackColor = true;
@@ -55,10 +68,10 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(13, 58);
-            this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button2.Location = new System.Drawing.Point(15, 72);
+            this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(329, 39);
+            this.button2.Size = new System.Drawing.Size(247, 32);
             this.button2.TabIndex = 1;
             this.button2.Text = "Consulta Situação da NFe";
             this.button2.UseVisualStyleBackColor = true;
@@ -66,10 +79,10 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(13, 103);
-            this.button3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button3.Location = new System.Drawing.Point(15, 109);
+            this.button3.Margin = new System.Windows.Forms.Padding(2);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(329, 39);
+            this.button3.Size = new System.Drawing.Size(247, 32);
             this.button3.TabIndex = 2;
             this.button3.Text = "Inutilização de Números da NFe";
             this.button3.UseVisualStyleBackColor = true;
@@ -77,10 +90,10 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(13, 148);
-            this.button4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button4.Location = new System.Drawing.Point(15, 145);
+            this.button4.Margin = new System.Windows.Forms.Padding(2);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(329, 39);
+            this.button4.Size = new System.Drawing.Size(247, 32);
             this.button4.TabIndex = 3;
             this.button4.Text = "Consulta Cadastro do Contribuinte";
             this.button4.UseVisualStyleBackColor = true;
@@ -88,21 +101,21 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(13, 192);
-            this.button5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button5.Location = new System.Drawing.Point(15, 181);
+            this.button5.Margin = new System.Windows.Forms.Padding(2);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(329, 39);
+            this.button5.Size = new System.Drawing.Size(247, 32);
             this.button5.TabIndex = 4;
-            this.button5.Text = "Evento de Cancelamento";
+            this.button5.Text = "Evento de Cancelamento NFe";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.Button5_Click);
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(12, 353);
-            this.button6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button6.Location = new System.Drawing.Point(16, 253);
+            this.button6.Margin = new System.Windows.Forms.Padding(2);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(329, 39);
+            this.button6.Size = new System.Drawing.Size(247, 32);
             this.button6.TabIndex = 5;
             this.button6.Text = "Enviar NFe";
             this.button6.UseVisualStyleBackColor = true;
@@ -110,10 +123,10 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(13, 398);
-            this.button7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button7.Location = new System.Drawing.Point(15, 289);
+            this.button7.Margin = new System.Windows.Forms.Padding(2);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(328, 39);
+            this.button7.Size = new System.Drawing.Size(246, 32);
             this.button7.TabIndex = 6;
             this.button7.Text = "Consulta Recibo NFe";
             this.button7.UseVisualStyleBackColor = true;
@@ -121,10 +134,10 @@
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(457, 59);
-            this.button8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button8.Location = new System.Drawing.Point(792, 49);
+            this.button8.Margin = new System.Windows.Forms.Padding(2);
             this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(328, 39);
+            this.button8.Size = new System.Drawing.Size(246, 32);
             this.button8.TabIndex = 7;
             this.button8.Text = "Assinar XML NF Paraguay";
             this.button8.UseVisualStyleBackColor = true;
@@ -132,10 +145,9 @@
             // 
             // btnAbrirCertificadoArquivo
             // 
-            this.btnAbrirCertificadoArquivo.Location = new System.Drawing.Point(457, 14);
-            this.btnAbrirCertificadoArquivo.Margin = new System.Windows.Forms.Padding(4);
+            this.btnAbrirCertificadoArquivo.Location = new System.Drawing.Point(792, 12);
             this.btnAbrirCertificadoArquivo.Name = "btnAbrirCertificadoArquivo";
-            this.btnAbrirCertificadoArquivo.Size = new System.Drawing.Size(328, 39);
+            this.btnAbrirCertificadoArquivo.Size = new System.Drawing.Size(246, 32);
             this.btnAbrirCertificadoArquivo.TabIndex = 8;
             this.btnAbrirCertificadoArquivo.Text = "Abrir certificado de arquivo";
             this.btnAbrirCertificadoArquivo.UseVisualStyleBackColor = true;
@@ -143,10 +155,10 @@
             // 
             // button11
             // 
-            this.button11.Location = new System.Drawing.Point(15, 236);
-            this.button11.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button11.Location = new System.Drawing.Point(16, 217);
+            this.button11.Margin = new System.Windows.Forms.Padding(2);
             this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(329, 39);
+            this.button11.Size = new System.Drawing.Size(247, 32);
             this.button11.TabIndex = 10;
             this.button11.Text = "Evento de CCE";
             this.button11.UseVisualStyleBackColor = true;
@@ -154,10 +166,10 @@
             // 
             // button9
             // 
-            this.button9.Location = new System.Drawing.Point(457, 148);
-            this.button9.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button9.Location = new System.Drawing.Point(15, 325);
+            this.button9.Margin = new System.Windows.Forms.Padding(2);
             this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(329, 39);
+            this.button9.Size = new System.Drawing.Size(247, 32);
             this.button9.TabIndex = 11;
             this.button9.Text = "Consulta Distribuição DFe (NFe)";
             this.button9.UseVisualStyleBackColor = true;
@@ -165,33 +177,164 @@
             // 
             // pbConsultaDFe
             // 
-            this.pbConsultaDFe.Location = new System.Drawing.Point(457, 192);
+            this.pbConsultaDFe.Location = new System.Drawing.Point(15, 361);
+            this.pbConsultaDFe.Margin = new System.Windows.Forms.Padding(2);
             this.pbConsultaDFe.Name = "pbConsultaDFe";
-            this.pbConsultaDFe.Size = new System.Drawing.Size(328, 22);
+            this.pbConsultaDFe.Size = new System.Drawing.Size(246, 18);
             this.pbConsultaDFe.TabIndex = 13;
             this.pbConsultaDFe.Visible = false;
             // 
+            // button10
+            // 
+            this.button10.Location = new System.Drawing.Point(15, 383);
+            this.button10.Margin = new System.Windows.Forms.Padding(2);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(247, 32);
+            this.button10.TabIndex = 14;
+            this.button10.Text = "Manifestação da NFe";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
+            // 
+            // groupBoxNFe
+            // 
+            this.groupBoxNFe.Controls.Add(this.button1);
+            this.groupBoxNFe.Controls.Add(this.button10);
+            this.groupBoxNFe.Controls.Add(this.button2);
+            this.groupBoxNFe.Controls.Add(this.pbConsultaDFe);
+            this.groupBoxNFe.Controls.Add(this.button3);
+            this.groupBoxNFe.Controls.Add(this.button9);
+            this.groupBoxNFe.Controls.Add(this.button4);
+            this.groupBoxNFe.Controls.Add(this.button11);
+            this.groupBoxNFe.Controls.Add(this.button5);
+            this.groupBoxNFe.Controls.Add(this.button6);
+            this.groupBoxNFe.Controls.Add(this.button7);
+            this.groupBoxNFe.Location = new System.Drawing.Point(12, 12);
+            this.groupBoxNFe.Name = "groupBoxNFe";
+            this.groupBoxNFe.Size = new System.Drawing.Size(275, 444);
+            this.groupBoxNFe.TabIndex = 15;
+            this.groupBoxNFe.TabStop = false;
+            this.groupBoxNFe.Text = "Serviços NFe";
+            // 
+            // groupBoxNFCe
+            // 
+            this.groupBoxNFCe.Controls.Add(this.button19);
+            this.groupBoxNFCe.Controls.Add(this.button18);
+            this.groupBoxNFCe.Controls.Add(this.button17);
+            this.groupBoxNFCe.Controls.Add(this.button16);
+            this.groupBoxNFCe.Controls.Add(this.button15);
+            this.groupBoxNFCe.Controls.Add(this.button14);
+            this.groupBoxNFCe.Controls.Add(this.button13);
+            this.groupBoxNFCe.Controls.Add(this.button12);
+            this.groupBoxNFCe.Location = new System.Drawing.Point(293, 12);
+            this.groupBoxNFCe.Name = "groupBoxNFCe";
+            this.groupBoxNFCe.Size = new System.Drawing.Size(261, 443);
+            this.groupBoxNFCe.TabIndex = 16;
+            this.groupBoxNFCe.TabStop = false;
+            this.groupBoxNFCe.Text = "Serviços NFCe";
+            // 
+            // button18
+            // 
+            this.button18.Location = new System.Drawing.Point(5, 253);
+            this.button18.Margin = new System.Windows.Forms.Padding(2);
+            this.button18.Name = "button18";
+            this.button18.Size = new System.Drawing.Size(247, 32);
+            this.button18.TabIndex = 15;
+            this.button18.Text = "Enviar NFCe";
+            this.button18.UseVisualStyleBackColor = true;
+            this.button18.Click += new System.EventHandler(this.button18_Click);
+            // 
+            // button17
+            // 
+            this.button17.Location = new System.Drawing.Point(5, 217);
+            this.button17.Margin = new System.Windows.Forms.Padding(2);
+            this.button17.Name = "button17";
+            this.button17.Size = new System.Drawing.Size(247, 32);
+            this.button17.TabIndex = 15;
+            this.button17.Text = "Evento de CCE";
+            this.button17.UseVisualStyleBackColor = true;
+            this.button17.Click += new System.EventHandler(this.button17_Click);
+            // 
+            // button16
+            // 
+            this.button16.Location = new System.Drawing.Point(5, 181);
+            this.button16.Margin = new System.Windows.Forms.Padding(2);
+            this.button16.Name = "button16";
+            this.button16.Size = new System.Drawing.Size(247, 32);
+            this.button16.TabIndex = 15;
+            this.button16.Text = "Evento de Cancelamento NFCe";
+            this.button16.UseVisualStyleBackColor = true;
+            this.button16.Click += new System.EventHandler(this.button16_Click);
+            // 
+            // button15
+            // 
+            this.button15.Location = new System.Drawing.Point(5, 145);
+            this.button15.Margin = new System.Windows.Forms.Padding(2);
+            this.button15.Name = "button15";
+            this.button15.Size = new System.Drawing.Size(247, 32);
+            this.button15.TabIndex = 15;
+            this.button15.Text = "Consulta Cadastro do Contribuinte";
+            this.button15.UseVisualStyleBackColor = true;
+            this.button15.Click += new System.EventHandler(this.button15_Click);
+            // 
+            // button14
+            // 
+            this.button14.Location = new System.Drawing.Point(5, 109);
+            this.button14.Margin = new System.Windows.Forms.Padding(2);
+            this.button14.Name = "button14";
+            this.button14.Size = new System.Drawing.Size(247, 32);
+            this.button14.TabIndex = 15;
+            this.button14.Text = "Inutilização de Números da NFCe";
+            this.button14.UseVisualStyleBackColor = true;
+            this.button14.Click += new System.EventHandler(this.button14_Click);
+            // 
+            // button13
+            // 
+            this.button13.Location = new System.Drawing.Point(5, 72);
+            this.button13.Margin = new System.Windows.Forms.Padding(2);
+            this.button13.Name = "button13";
+            this.button13.Size = new System.Drawing.Size(247, 32);
+            this.button13.TabIndex = 15;
+            this.button13.Text = "Consulta Situação da NFCe";
+            this.button13.UseVisualStyleBackColor = true;
+            this.button13.Click += new System.EventHandler(this.button13_Click);
+            // 
+            // button12
+            // 
+            this.button12.Location = new System.Drawing.Point(5, 36);
+            this.button12.Margin = new System.Windows.Forms.Padding(2);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(247, 32);
+            this.button12.TabIndex = 15;
+            this.button12.Text = "Consulta Status NFCe";
+            this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
+            // 
+            // button19
+            // 
+            this.button19.Location = new System.Drawing.Point(5, 289);
+            this.button19.Margin = new System.Windows.Forms.Padding(2);
+            this.button19.Name = "button19";
+            this.button19.Size = new System.Drawing.Size(246, 32);
+            this.button19.TabIndex = 15;
+            this.button19.Text = "Consulta Recibo NFCe";
+            this.button19.UseVisualStyleBackColor = true;
+            this.button19.Click += new System.EventHandler(this.button19_Click);
+            // 
             // FormTestarNFe
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.pbConsultaDFe);
-            this.Controls.Add(this.button9);
-            this.Controls.Add(this.button11);
+            this.ClientSize = new System.Drawing.Size(1050, 716);
+            this.Controls.Add(this.groupBoxNFCe);
+            this.Controls.Add(this.groupBoxNFe);
             this.Controls.Add(this.btnAbrirCertificadoArquivo);
             this.Controls.Add(this.button8);
-            this.Controls.Add(this.button7);
-            this.Controls.Add(this.button6);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FormTestarNFe";
             this.Text = "Form1";
             this.Shown += new System.EventHandler(this.FormTestarNFe_Shown);
+            this.groupBoxNFe.ResumeLayout(false);
+            this.groupBoxNFCe.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -210,6 +353,17 @@
         private System.Windows.Forms.Button button11;
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.ProgressBar pbConsultaDFe;
+        private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.GroupBox groupBoxNFe;
+        private System.Windows.Forms.GroupBox groupBoxNFCe;
+        private System.Windows.Forms.Button button13;
+        private System.Windows.Forms.Button button12;
+        private System.Windows.Forms.Button button14;
+        private System.Windows.Forms.Button button15;
+        private System.Windows.Forms.Button button16;
+        private System.Windows.Forms.Button button17;
+        private System.Windows.Forms.Button button18;
+        private System.Windows.Forms.Button button19;
     }
 }
 
