@@ -401,7 +401,8 @@ namespace NFe.Service.NFSe
                         break;
 
                     case PadroesNFSe.PORTALFACIL_ACTCON_202:
-                        cabecMsg = "<cabecalho><versaoDados>2.02</versaoDados></cabecalho>";
+                        if (oDadosPedCanNfse.cMunicipio != 3169901)
+                            cabecMsg = "<cabecalho><versaoDados>2.02</versaoDados></cabecalho>";
                         break;
 
                     case PadroesNFSe.PORTALFACIL_ACTCON:
@@ -494,7 +495,9 @@ namespace NFe.Service.NFSe
                             oDadosPedCanNfse.cMunicipio == 4314423 ||
                             oDadosPedCanNfse.cMunicipio == 3511102 ||
                             oDadosPedCanNfse.cMunicipio == 3535804 ||
-                            oDadosPedCanNfse.cMunicipio == 4306932)
+                            oDadosPedCanNfse.cMunicipio == 4306932 ||
+                            oDadosPedCanNfse.cMunicipio == 4322400 ||
+                            oDadosPedCanNfse.cMunicipio == 4302808)
                         {
                             Pronin pronin = new Pronin((TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
                                 Empresas.Configuracoes[emp].PastaXmlRetorno,

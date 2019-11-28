@@ -273,6 +273,8 @@ namespace NFe.ConvertTxt
         tpEvDesconhecimentoOperacao = 210220,
         [Description("EPEC")]
         tpEvEPEC = 110140,
+        [Description("EPEC - CTe")]
+        tpEvEPECCTe = 110113,
         [Description("Operação nao Realizada")]
         tpEvOperacaoNaoRealizada = 210240,
         [Description("Encerramento MDFe")]
