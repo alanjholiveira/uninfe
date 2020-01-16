@@ -662,7 +662,7 @@ namespace NFe.Components
         CANOAS_RS,
 
         /// <summary>
-        /// Padrão da ISS Net / NotaControl
+        /// Padrão da ISS Net / Nota Control Tecnologia
         /// </summary>
         [Description("ISS Net")]
         ISSNET,

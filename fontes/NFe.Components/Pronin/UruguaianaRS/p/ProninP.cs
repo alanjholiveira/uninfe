@@ -36,8 +36,8 @@ namespace NFe.Components.Pronin.Uruguaiana.p
             ServiceConsultas.ClientCertificates.Add(certificado);
 
             Cabecalho cabecMsg = new Cabecalho();
-            cabecMsg.versao = "1.00";
-            cabecMsg.versaoDados = "1.00";
+            cabecMsg.versao = "2.03";
+            cabecMsg.versaoDados = "2.03";
 
             ServiceGeracao.cabecalho = cabecMsg;
             ServiceConsultas.cabecalho = cabecMsg;
