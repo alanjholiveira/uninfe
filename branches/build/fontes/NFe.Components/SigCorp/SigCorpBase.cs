@@ -42,11 +42,7 @@ namespace NFe.Components.SigCorp
                             case 3530706: //Mogi Guaçu-SP
                                 sigCorpService = new MogiGuacuSP.h.SigCorpH(tpAmb, PastaRetorno);
                                 break;
-
-                            case 3507506: //Botucatu-SP
-                                sigCorpService = new BotucatuSP.h.SigCorpH(tpAmb, PastaRetorno);
-                                break;
-
+                      
                             case 3127701: //Governador Valadares-MG
                                 sigCorpService = new GovernadorValadaresMG.h.SigCorpH(tpAmb, PastaRetorno);
                                 break;
@@ -72,11 +68,7 @@ namespace NFe.Components.SigCorp
                             case 3304904: //São Gonçalo-RJ
                                 sigCorpService = new SaoGoncaloRJ.p.SigCorpP(tpAmb, PastaRetorno);
                                 break;
-
-                            case 3507506: //Botucatu-SP
-                                sigCorpService = new BotucatuSP.p.SigCorpP(tpAmb, PastaRetorno);
-                                break;
-
+                          
                             case 4113700: //Londrina-PR
                                 sigCorpService = new LondrinaPR.p.SigCorpP(tpAmb, PastaRetorno);
                                 break;

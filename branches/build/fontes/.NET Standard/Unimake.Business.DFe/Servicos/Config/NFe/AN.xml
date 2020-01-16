@@ -8,11 +8,7 @@
       <WebEnderecoProducao>https://www.nfe.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx</WebEnderecoProducao>
       <WebActionHomologacao>http://www.portalfiscal.inf.br/nfe/wsdl/NFeRecepcaoEvento4</WebActionHomologacao>
       <WebActionProducao>http://www.portalfiscal.inf.br/nfe/wsdl/NFeRecepcaoEvento4</WebActionProducao>
-      <WebContentType></WebContentType>
-      <WebSoapString></WebSoapString>
-      <!--<WebSoapString><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nfer="http://www.portalfiscal.inf.br/nfe/wsdl/NFeRecepcaoEvento4"><soapenv:Header/><soapenv:Body><nfer:nfeDadosMsg>{xmlBody}</nfer:nfeDadosMsg></soapenv:Body></soapenv:Envelope>]]></WebSoapString>-->
       <WebTagRetorno>nfeRecepcaoEventoNFResult</WebTagRetorno>
-      <WebSoapVersion>soap12</WebSoapVersion>
       <SchemaArquivo></SchemaArquivo>
       <SchemasEspecificos>
         <Tipo>
@@ -36,7 +32,6 @@
           <SchemaArquivoEspecifico>e210240_v{0}.xsd</SchemaArquivoEspecifico>
         </Tipo>
       </SchemasEspecificos>
-      <SchemaVersao>1.00</SchemaVersao>
       <TagAssinatura>evento</TagAssinatura>
       <TagAtributoID>infEvento</TagAtributoID>
       <TagLoteAssinatura></TagLoteAssinatura>
@@ -49,17 +44,14 @@
       <WebEnderecoProducao>https://www1.nfe.fazenda.gov.br/NFeDistribuicaoDFe/NFeDistribuicaoDFe.asmx</WebEnderecoProducao>
       <WebActionHomologacao>http://www.portalfiscal.inf.br/nfe/wsdl/NFeDistribuicaoDFe/nfeDistDFeInteresse</WebActionHomologacao>
       <WebActionProducao>http://www.portalfiscal.inf.br/nfe/wsdl/NFeDistribuicaoDFe/nfeDistDFeInteresse</WebActionProducao>
-      <WebContentType></WebContentType>
       <WebSoapString><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:nfed="http://www.portalfiscal.inf.br/nfe/wsdl/NFeDistribuicaoDFe"><soap:Header/><soap:Body><nfed:nfeDistDFeInteresse><nfed:nfeDadosMsg>{xmlBody}</nfed:nfeDadosMsg></nfed:nfeDistDFeInteresse></soap:Body></soap:Envelope>]]></WebSoapString>
       <WebTagRetorno>nfeDistDFeInteresseResult</WebTagRetorno>
-      <WebSoapVersion>soap12</WebSoapVersion>
       <SchemaArquivo>distDFeInt_v{0}.xsd</SchemaArquivo>
       <SchemaVersao>1.01</SchemaVersao>
       <TagAssinatura></TagAssinatura>
       <TagAtributoID></TagAtributoID>
       <TagLoteAssinatura></TagLoteAssinatura>
       <TagLoteAtributoID></TagLoteAtributoID>
-      <TargetNS>http://www.portalfiscal.inf.br/nfe</TargetNS>
     </DistribuicaoDFe>
   </Servicos>
 </Configuracoes>

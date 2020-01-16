@@ -43,6 +43,7 @@
             this.button10 = new System.Windows.Forms.Button();
             this.groupBoxNFe = new System.Windows.Forms.GroupBox();
             this.groupBoxNFCe = new System.Windows.Forms.GroupBox();
+            this.button19 = new System.Windows.Forms.Button();
             this.button18 = new System.Windows.Forms.Button();
             this.button17 = new System.Windows.Forms.Button();
             this.button16 = new System.Windows.Forms.Button();
@@ -50,9 +51,13 @@
             this.button14 = new System.Windows.Forms.Button();
             this.button13 = new System.Windows.Forms.Button();
             this.button12 = new System.Windows.Forms.Button();
-            this.button19 = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button26 = new System.Windows.Forms.Button();
+            this.button27 = new System.Windows.Forms.Button();
+            this.button20 = new System.Windows.Forms.Button();
             this.groupBoxNFe.SuspendLayout();
             this.groupBoxNFCe.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -134,7 +139,7 @@
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(792, 49);
+            this.button8.Location = new System.Drawing.Point(792, 668);
             this.button8.Margin = new System.Windows.Forms.Padding(2);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(246, 32);
@@ -145,7 +150,7 @@
             // 
             // btnAbrirCertificadoArquivo
             // 
-            this.btnAbrirCertificadoArquivo.Location = new System.Drawing.Point(792, 12);
+            this.btnAbrirCertificadoArquivo.Location = new System.Drawing.Point(792, 631);
             this.btnAbrirCertificadoArquivo.Name = "btnAbrirCertificadoArquivo";
             this.btnAbrirCertificadoArquivo.Size = new System.Drawing.Size(246, 32);
             this.btnAbrirCertificadoArquivo.TabIndex = 8;
@@ -232,6 +237,17 @@
             this.groupBoxNFCe.TabStop = false;
             this.groupBoxNFCe.Text = "Serviços NFCe";
             // 
+            // button19
+            // 
+            this.button19.Location = new System.Drawing.Point(5, 289);
+            this.button19.Margin = new System.Windows.Forms.Padding(2);
+            this.button19.Name = "button19";
+            this.button19.Size = new System.Drawing.Size(246, 32);
+            this.button19.TabIndex = 15;
+            this.button19.Text = "Consulta Recibo NFCe";
+            this.button19.UseVisualStyleBackColor = true;
+            this.button19.Click += new System.EventHandler(this.button19_Click);
+            // 
             // button18
             // 
             this.button18.Location = new System.Drawing.Point(5, 253);
@@ -309,22 +325,57 @@
             this.button12.UseVisualStyleBackColor = true;
             this.button12.Click += new System.EventHandler(this.button12_Click);
             // 
-            // button19
+            // groupBox1
             // 
-            this.button19.Location = new System.Drawing.Point(5, 289);
-            this.button19.Margin = new System.Windows.Forms.Padding(2);
-            this.button19.Name = "button19";
-            this.button19.Size = new System.Drawing.Size(246, 32);
-            this.button19.TabIndex = 15;
-            this.button19.Text = "Consulta Recibo NFCe";
-            this.button19.UseVisualStyleBackColor = true;
-            this.button19.Click += new System.EventHandler(this.button19_Click);
+            this.groupBox1.Controls.Add(this.button20);
+            this.groupBox1.Controls.Add(this.button26);
+            this.groupBox1.Controls.Add(this.button27);
+            this.groupBox1.Location = new System.Drawing.Point(560, 13);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(261, 443);
+            this.groupBox1.TabIndex = 17;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Serviços NFCe";
+            // 
+            // button26
+            // 
+            this.button26.Location = new System.Drawing.Point(5, 72);
+            this.button26.Margin = new System.Windows.Forms.Padding(2);
+            this.button26.Name = "button26";
+            this.button26.Size = new System.Drawing.Size(247, 32);
+            this.button26.TabIndex = 15;
+            this.button26.Text = "Consulta Situação do CTe";
+            this.button26.UseVisualStyleBackColor = true;
+            this.button26.Click += new System.EventHandler(this.button26_Click);
+            // 
+            // button27
+            // 
+            this.button27.Location = new System.Drawing.Point(5, 36);
+            this.button27.Margin = new System.Windows.Forms.Padding(2);
+            this.button27.Name = "button27";
+            this.button27.Size = new System.Drawing.Size(247, 32);
+            this.button27.TabIndex = 15;
+            this.button27.Text = "Consulta Status CTe";
+            this.button27.UseVisualStyleBackColor = true;
+            this.button27.Click += new System.EventHandler(this.button27_Click);
+            // 
+            // button20
+            // 
+            this.button20.Location = new System.Drawing.Point(5, 108);
+            this.button20.Margin = new System.Windows.Forms.Padding(2);
+            this.button20.Name = "button20";
+            this.button20.Size = new System.Drawing.Size(247, 32);
+            this.button20.TabIndex = 16;
+            this.button20.Text = "Inutilização de Números da CTe";
+            this.button20.UseVisualStyleBackColor = true;
+            this.button20.Click += new System.EventHandler(this.button20_Click);
             // 
             // FormTestarNFe
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1050, 716);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBoxNFCe);
             this.Controls.Add(this.groupBoxNFe);
             this.Controls.Add(this.btnAbrirCertificadoArquivo);
@@ -335,6 +386,7 @@
             this.Shown += new System.EventHandler(this.FormTestarNFe_Shown);
             this.groupBoxNFe.ResumeLayout(false);
             this.groupBoxNFCe.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -364,6 +416,10 @@
         private System.Windows.Forms.Button button17;
         private System.Windows.Forms.Button button18;
         private System.Windows.Forms.Button button19;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button button26;
+        private System.Windows.Forms.Button button27;
+        private System.Windows.Forms.Button button20;
     }
 }
 

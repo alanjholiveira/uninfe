@@ -152,6 +152,7 @@ namespace NFe.ConvertTxt
         dbisListaNeutra = 3, 
         dbisMargemValorAgregado = 4, 
         dbisPauta = 5,
+        dbisValorOperacao = 6,
         NaoInserirTagNoXML = 100 //Quando a tag não é obrigatórioa, vamos retornar este valor para termos controle sobre a situação.
     }
     public enum TpcnOrigemMercadoria
