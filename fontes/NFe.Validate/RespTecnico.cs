@@ -56,7 +56,7 @@ namespace NFe.Validate
                 XmlNode infRespTec = conteudoXML.GetElementsByTagName("infRespTec")[0];
 
                 if (infRespTec != null)
-                    return;
+                    return false;
 
                 if (!string.IsNullOrEmpty(RespTecCNPJ) ||
                     !string.IsNullOrEmpty(RespTecXContato) ||
@@ -96,8 +96,10 @@ namespace NFe.Validate
                     }
 
                     infDFe.AppendChild(infRespTecnico);
+                    return true;
                 }
             }
+            return false;
         }
 
         private string GerarHashCSRT(string csrt, string chaveDFe)

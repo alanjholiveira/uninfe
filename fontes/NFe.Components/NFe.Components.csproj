@@ -139,17 +139,33 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.OracleClient" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Net" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Security.AccessControl, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.AccessControl.4.7.0\lib\net461\System.Security.AccessControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Xml, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Xml.4.7.0\lib\net461\System.Security.Cryptography.Xml.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Permissions, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Permissions.4.7.0\lib\net461\System.Security.Permissions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Principal.Windows, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Principal.Windows.4.7.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
+    </Reference>
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Channels" />
     <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\EmiteNFSeBase.cs" />
@@ -182,6 +198,12 @@
     <Compile Include="Coplan\Coplan.cs" />
     <Compile Include="Coplan\CoplanBase.cs" />
     <Compile Include="CPF.cs" />
+    <Compile Include="EloTech\Elotech.cs" />
+    <Compile Include="EloTech\ElotechBase.cs" />
+    <Compile Include="EloTech\WS\ElotechService.cs" />
+    <Compile Include="EloTech\LoandaPR.cs" />
+    <Compile Include="EloTech\WS\ElotechServiceResult.cs" />
+    <Compile Include="EloTech\WS\SignedXmlWithId.cs" />
     <Compile Include="EL\BarraDeSaoFranciscoES\p\ELP.cs" />
     <Compile Include="EL\IconhaES\p\ELP.cs" />
     <Compile Include="EL\SaoJoaoParaisoMG\p\ELP.cs" />
@@ -230,6 +252,8 @@
     <Compile Include="Pronin\AlvaresMachadoSP\p\ProninP.cs" />
     <Compile Include="Pronin\BastosSP\h\ProninH.cs" />
     <Compile Include="Pronin\BastosSP\p\ProninP.cs" />
+    <Compile Include="Pronin\AgudoRS\h\ProninH.cs" />
+    <Compile Include="Pronin\AgudoRS\p\ProninP.cs" />
     <Compile Include="Pronin\CosmopolisSP\p\ProninP.cs" />
     <Compile Include="Pronin\EntreIjuisRS\h\ProninH.cs" />
     <Compile Include="Pronin\EntreIjuisRS\p\ProninP.cs" />
@@ -238,6 +262,7 @@
     <Compile Include="Pronin\MirassolSP\p\ProninP.cs" />
     <Compile Include="Pronin\CacapavaDoSulRS\h\ProninH.cs" />
     <Compile Include="Pronin\CacapavaDoSulRS\p\ProninP.cs" />
+    <Compile Include="Pronin\PicadaCafeRS\p\ProninP.cs" />
     <Compile Include="Pronin\UruguaianaRS\h\ProninH.cs" />
     <Compile Include="Pronin\PatoBrancoPR\h\ProninH.cs" />
     <Compile Include="Pronin\PatoBrancoPR\p\ProninP.cs" />
@@ -248,7 +273,6 @@
     <Compile Include="Pronin\NaviraiMS\h\ProninH.cs" />
     <Compile Include="Pronin\NaviraiMS\p\ProninP.cs" />
     <Compile Include="Pronin\PicadaCafeRS\h\ProninH.cs" />
-    <Compile Include="Pronin\PicadaCafeRS\p\ProninP.cs" />
     <Compile Include="Pronin\ParanapanemaSP\h\ProninH.cs" />
     <Compile Include="Pronin\ParanapanemaSP\p\ProninP.cs" />
     <Compile Include="Pronin\TeodoroSampaioSP\h\ProninH.cs" />
@@ -273,6 +297,7 @@
     <Compile Include="Schemas\SchemaXMLNFSe_SMARAPD_204.cs" />
     <Compile Include="Schemas\SchemaXMLNFSe_SISPMJP﻿.cs" />
     <Compile Include="Schemas\SchemaXMLNFSe_SIGCORP_SIGISS_203.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_ELOTECH.cs" />
     <Compile Include="Schemas\SchemaXMLNFSe_VITORIA_ES.cs" />
     <Compile Include="Schemas\SchemaXMLNFSe_DESENVOLVECIDADE.cs" />
     <Compile Include="Schemas\SchemaXMLNFSe_EMBRAS.cs" />
@@ -910,6 +935,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
+    <Compile Include="Web References\HAgudoRS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
     <Compile Include="Web References\HAlvaresMachadoSP\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1016,6 +1046,11 @@
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
     <Compile Include="Web References\HPeixotoAzevedoMT\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\HPicadaCafe\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
@@ -1275,11 +1310,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
-    <Compile Include="Web References\HPicadaCafeRS\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.map</DependentUpon>
-    </Compile>
     <Compile Include="Web References\HPotirendabaSP\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1336,6 +1366,26 @@
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
     <Compile Include="Web References\HXangrilaRS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\PAgudoRS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\PJataiGO\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\PPicadaCafe\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\WSLoandaPR\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
@@ -1817,11 +1867,6 @@
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
     <Compile Include="Web References\PPetropolisRJ\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.map</DependentUpon>
-    </Compile>
-    <Compile Include="Web References\PPicadaCafeRS\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
@@ -3673,6 +3718,17 @@
     <None Include="Web References\FiorilliH\SubstituirNfseResposta1.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
+    <None Include="Web References\HAgudoRS\NFSeIntegracao.wsdl" />
+    <None Include="Web References\HAgudoRS\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\HAgudoRS\Services.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\HAgudoRS\Services0.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Web References\HAlvaresMachadoSP\NFSeIntegracao.wsdl" />
     <None Include="Web References\HAlvaresMachadoSP\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
@@ -3941,6 +3997,17 @@
     <None Include="Web References\HPeixotoAzevedoMT\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\HPicadaCafe\NFSeIntegracao.wsdl" />
+    <None Include="Web References\HPicadaCafe\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\HPicadaCafe\Services.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\HPicadaCafe\Services0.xsd">
+      <SubType>Designer</SubType>
     </None>
     <None Include="Web References\HPiratiningaSP\CancelarNfseResposta.datasource">
       <DependentUpon>Reference.map</DependentUpon>
@@ -4534,17 +4601,6 @@
     <None Include="Web References\HPetropolisRJ\tcRetornoNota.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
-    <None Include="Web References\HPicadaCafeRS\NFSeIntegracao.wsdl" />
-    <None Include="Web References\HPicadaCafeRS\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Web References\HPicadaCafeRS\Services.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Web References\HPicadaCafeRS\Services0.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Web References\HPotirendabaSP\CancelarNfseResposta1.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
@@ -4763,6 +4819,63 @@
     </None>
     <None Include="Web References\HXangrilaRS\SubstituirNfseResposta.datasource">
       <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\PAgudoRS\NFSeIntegracao.wsdl" />
+    <None Include="Web References\PAgudoRS\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\PAgudoRS\Services.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\PAgudoRS\Services0.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\PJataiGO\nfseWS.wsdl" />
+    <None Include="Web References\PJataiGO\nfseWS0.wsdl" />
+    <None Include="Web References\PJataiGO\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\PPicadaCafe\NFSeIntegracao.wsdl" />
+    <None Include="Web References\PPicadaCafe\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\PPicadaCafe\Services.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\PPicadaCafe\Services0.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\WSLoandaPR\CancelarNfseResposta1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WSLoandaPR\ConsultarLoteRpsResposta1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WSLoandaPR\ConsultarNfseFaixaResposta1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WSLoandaPR\ConsultarNfseRpsResposta1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WSLoandaPR\ConsultarNfseServicoPrestadoResposta1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WSLoandaPR\ConsultarNfseServicoTomadoResposta1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WSLoandaPR\EnviarLoteRpsResposta1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WSLoandaPR\EnviarLoteRpsSincronoResposta1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WSLoandaPR\nfse203.wsdl" />
+    <None Include="Web References\WSLoandaPR\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Web References\PAlvaresMachadoSP\NFSeIntegracao.wsdl" />
     <None Include="Web References\PAlvaresMachadoSP\Reference.map">
@@ -6024,17 +6137,6 @@
     <None Include="Web References\PPetropolisRJ\tcRetornoNota.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
-    <None Include="Web References\PPicadaCafeRS\NFSeIntegracao.wsdl" />
-    <None Include="Web References\PPicadaCafeRS\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Web References\PPicadaCafeRS\Services.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Web References\PPicadaCafeRS\Services0.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Web References\PPotirendabaSP\CancelarNfseResposta1.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
@@ -6430,6 +6532,9 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Web References\PXangrilaRS\SubstituirNfseResposta.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WSLoandaPR\SubstituirNfseResposta1.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
   </ItemGroup>
@@ -7754,6 +7859,17 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>NFe_Components_br_gov_sp_presidenteprudente_sistemas_www_p_NfseService</CachedSettingsPropName>
     </WebReferenceUrl>
+    <WebReferenceUrl Include="D:\Projetos\uninfe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Homologacao\HAgudoRS-PRONIN.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\HAgudoRS\</RelPath>
+      <UpdateFromURL>D:\Projetos\uninfe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Homologacao\HAgudoRS-PRONIN.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>NFe_Components_HAgudoRS_NFSeIntegracao</CachedSettingsPropName>
+    </WebReferenceUrl>
     <WebReferenceUrl Include="D:\Projetos\UniNFe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Homologacao\HDuartinaSP-FIORILLI.wsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\HDuartinaSP\</RelPath>
@@ -7797,6 +7913,17 @@
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>NFe_Components_HOuroFinoMG_IssWebWS</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="D:\Projetos\uninfe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Homologacao\HPicadaCafe-PRONIN.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\HPicadaCafe\</RelPath>
+      <UpdateFromURL>D:\Projetos\uninfe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Homologacao\HPicadaCafe-PRONIN.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>NFe_Components_HPicadaCafe_NFSeIntegracao</CachedSettingsPropName>
     </WebReferenceUrl>
     <WebReferenceUrl Include="D:\Projetos\UniNFe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Homologacao\HPiratiningaSP-FIORILLI.wsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
@@ -7875,17 +8002,6 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>NFe_Components_HParanapanemaSP_NFSeIntegracao</CachedSettingsPropName>
     </WebReferenceUrl>
-    <WebReferenceUrl Include="D:\projetos\uninfe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Homologacao\HPicadaCafe-PRONIN.wsdl">
-      <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\HPicadaCafeRS\</RelPath>
-      <UpdateFromURL>D:\projetos\uninfe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Homologacao\HPicadaCafe-PRONIN.wsdl</UpdateFromURL>
-      <ServiceLocationURL>
-      </ServiceLocationURL>
-      <CachedDynamicPropName>
-      </CachedDynamicPropName>
-      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>NFe_Components_HPicadaCafeRS_NFSeIntegracao</CachedSettingsPropName>
-    </WebReferenceUrl>
     <WebReferenceUrl Include="D:\projetos\uninfe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Homologacao\HRegenteFeijo-PRONIN.wsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\HRegenteFeijoSP\</RelPath>
@@ -7918,6 +8034,17 @@
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>NFe_Components_HXangrilaRS_IssWebWS</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="D:\Projetos\uninfe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Producao\PAgudoRS-PRONIN.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\PAgudoRS\</RelPath>
+      <UpdateFromURL>D:\Projetos\uninfe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Producao\PAgudoRS-PRONIN.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>NFe_Components_PAgudoRS_NFSeIntegracao</CachedSettingsPropName>
     </WebReferenceUrl>
     <WebReferenceUrl Include="D:\Projetos\UniNFe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Producao\PCabedeloPB-CancelarNfse-TINUS.wsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
@@ -8018,6 +8145,17 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>NFe_Components_PGarcaSP_IssWebWS</CachedSettingsPropName>
     </WebReferenceUrl>
+    <WebReferenceUrl Include="D:\Projetos\uninfe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Producao\PJataiGO-BSITBR.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\PJataiGO\</RelPath>
+      <UpdateFromURL>D:\Projetos\uninfe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Producao\PJataiGO-BSITBR.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>NFe_Components_PJataiGO_nfseWS</CachedSettingsPropName>
+    </WebReferenceUrl>
     <WebReferenceUrl Include="D:\Projetos\UniNFe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Producao\POuroFinoMG-FIORILLI.wsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\POuroFinoMG\</RelPath>
@@ -8028,6 +8166,17 @@
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>NFe_Components_POuroFinoMG_IssWebWS</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="D:\Proje tos\uninfe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Producao\PPicadaCafe-PRONIN.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\PPicadaCafe\</RelPath>
+      <UpdateFromURL>D:\Proje tos\uninfe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Producao\PPicadaCafe-PRONIN.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>NFe_Components_PPicadaCafe_NFSeIntegracao</CachedSettingsPropName>
     </WebReferenceUrl>
     <WebReferenceUrl Include="D:\Projetos\UniNFe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Producao\PPiratiningaSP-FIORILLI.wsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
@@ -8105,17 +8254,6 @@
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>NFe_Components_PParanapanemaSP_NFSeIntegracao</CachedSettingsPropName>
-    </WebReferenceUrl>
-    <WebReferenceUrl Include="D:\projetos\uninfe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Producao\PPicadaCafe-PRONIN.wsdl">
-      <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\PPicadaCafeRS\</RelPath>
-      <UpdateFromURL>D:\projetos\uninfe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Producao\PPicadaCafe-PRONIN.wsdl</UpdateFromURL>
-      <ServiceLocationURL>
-      </ServiceLocationURL>
-      <CachedDynamicPropName>
-      </CachedDynamicPropName>
-      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>NFe_Components_PPicadaCafeRS_NFSeIntegracao</CachedSettingsPropName>
     </WebReferenceUrl>
     <WebReferenceUrl Include="D:\projetos\uninfe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Producao\PRegenteFeijo-PRONIN.wsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
@@ -8270,6 +8408,17 @@
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>NFe_Components_br_net_taquarituba_fiorilli_h_IssWebWS</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://200.2.100.110:8080/WebEloWS/nfse203.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\WSLoandaPR\</RelPath>
+      <UpdateFromURL>http://200.2.100.110:8080/WebEloWS/nfse203.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>NFe_Components_LoandaPR_NfsePortService</CachedSettingsPropName>
     </WebReferenceUrl>
     <WebReferenceUrl Include="http://200.240.233.10:8082/NFSe.Portal.integracao.Teste/services.svc%3fwsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
@@ -9560,7 +9709,6 @@
     </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="EloTech\" />
     <Folder Include="EL\ColatinaES\h\" />
     <Folder Include="EL\SimoesFilhoBA\h\" />
   </ItemGroup>

@@ -28,6 +28,7 @@ using NFe.Components.WEBFISCO_TECNOLOGIA;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml;
 using System.Text.RegularExpressions;
+using NFe.Components.Elotech;
 #if _fw46
 using System.ServiceModel;
 using static NFe.Components.Security.SOAPSecurity;
@@ -228,6 +229,10 @@ namespace NFe.Service.NFSe
 
                                 case 3507506:
                                     envLoteRps = new Components.PBotucatuSP.nfseWS();
+                                    break;
+
+                                case 5211909:
+                                    envLoteRps = new Components.PJataiGO.nfseWS();
                                     break;
                             }
                         }
@@ -592,7 +597,8 @@ namespace NFe.Service.NFSe
                             oDadosEnvLoteRps.cMunicipio == 4306932 ||
                             oDadosEnvLoteRps.cMunicipio == 4322400 ||
                             oDadosEnvLoteRps.cMunicipio == 4302808 ||
-							oDadosEnvLoteRps.cMunicipio == 3501301)
+							oDadosEnvLoteRps.cMunicipio == 3501301 ||
+							oDadosEnvLoteRps.cMunicipio == 4300109)
                         {
                             Pronin pronin = new Pronin((TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
                                 Empresas.Configuracoes[emp].PastaXmlRetorno,
@@ -833,6 +839,18 @@ namespace NFe.Service.NFSe
                                            Empresas.Configuracoes[emp].SenhaWS);
                         webTecnologia.EmiteNF(NomeArquivoXML);
                         break;
+
+                    case PadroesNFSe.ELOTECH:
+                        Elotech elotech = new Elotech((TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
+                            Empresas.Configuracoes[emp].PastaXmlRetorno,
+                            oDadosEnvLoteRps.cMunicipio,
+                            ConfiguracaoApp.ProxyUsuario,
+                            ConfiguracaoApp.ProxySenha,
+                            ConfiguracaoApp.ProxyServidor,
+                            Empresas.Configuracoes[emp].X509Certificado);
+
+                        elotech.EmiteNF(NomeArquivoXML);
+                        break;
                 }
 
                 if (IsInvocar(padraoNFSe, Servico, oDadosEnvLoteRps.cMunicipio))
@@ -888,10 +906,10 @@ namespace NFe.Service.NFSe
             XmlDocument doc = new XmlDocument();
             doc.Load(NomeArquivoXML);
             string conteudoXML, integridade;
-            conteudoXML = doc.OuterXml;
-            conteudoXML =  Regex.Replace(conteudoXML, "/[^\x20-\x7E]+/", "");
-            conteudoXML = Regex.Replace(conteudoXML, "/[ ]+/", "");
-            integridade = Criptografia.GerarRSASHA512(conteudoXML + token);
+            conteudoXML = doc.GetElementsByTagName("Rps")[0].OuterXml;
+            conteudoXML = Regex.Replace(conteudoXML, "[^\x20-\x7E]+", "");
+            conteudoXML = Regex.Replace(conteudoXML, "[ ]+", "");
+            integridade = Criptografia.GerarRSASHA512(conteudoXML + token, true);
 
             foreach (object item in ConteudoXML)
             {

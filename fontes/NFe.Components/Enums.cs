@@ -908,7 +908,6 @@ namespace NFe.Components
 
         /// <summary>
         /// Padrão EloTech
-        /// Prefeitura de Quatro Barras - PR
         /// </summary>
         [Description("EloTech")]
         ELOTECH,
@@ -998,9 +997,9 @@ namespace NFe.Components
         PUBLICA,
 
         /// <summary>
-        /// Padrão BSIT-BR
+        /// Padrão BSIT-BR / SIGEP
         /// </summary>
-        [Description("BSIT-BR")]
+        [Description("BSIT-BR / SIGEP")]
         BSITBR,
 
         /// <summary>
