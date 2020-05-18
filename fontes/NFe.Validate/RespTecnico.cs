@@ -23,7 +23,7 @@ namespace NFe.Validate
         private string RespTecIdCSRT { get; set; }
         private string RespTecCSRT { get; set; }
 
-        public void AdicionarResponsavelTecnico(XmlDocument conteudoXML)
+        public bool AdicionarResponsavelTecnico(XmlDocument conteudoXML)
         {
             XmlNode infDFe = null;
             bool isNFe = false;

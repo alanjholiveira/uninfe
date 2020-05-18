@@ -205,7 +205,7 @@ namespace NFe.Components.EloTech.WS
                     //http://www.pontagrossa.pr.gov.br/files/elotech_manual_lista_de_erros.pdf
                     //Mas não achei o retorno que diz sucesso, logo assumo o campo "Correcao".
 
-                    if(!string.IsNullOrWhiteSpace(soapResult.Correcao))
+                    if(!string.IsNullOrEmpty(soapResult.Correcao))
                     {
                         throw (Exception)soapResult;
                     }
