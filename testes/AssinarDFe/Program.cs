@@ -78,22 +78,20 @@ namespace AssinarDFe
                 try
                 {
                     X509Certificate2 x509Cert = null;
-                    var cert = new CertificadoDigital();
 
                     if (!string.IsNullOrWhiteSpace(serialNumberCertificado))
                     {
-                        x509Cert = cert.BuscarCertificadoDigital(serialNumberCertificado);
+                        x509Cert = CertificadoDigital.BuscarCertificadoDigital(serialNumberCertificado);
                     }
                     else if (!string.IsNullOrWhiteSpace(pfx))
                     {
-                        x509Cert = cert.CarregarCertificadoDigitalA1(@pfx, pfxSenha);
+                        x509Cert = CertificadoDigital.CarregarCertificadoDigitalA1(@pfx, pfxSenha);
                     }
 
                     XmlDocument xml = new XmlDocument();
                     xml.Load(@arqXML);
 
-                    AssinaturaDigital assinaturaDigital = new AssinaturaDigital();
-                    assinaturaDigital.Assinar(xml, tagAssinatura, tagAtributoId, x509Cert, algorithmType, true, "", idAttributeName);
+                    AssinaturaDigital.Assinar(xml, tagAssinatura, tagAtributoId, x509Cert, algorithmType, true, "", idAttributeName);
 
                     string xmlAssinado = arqXML + ".ass";
 

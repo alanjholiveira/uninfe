@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Xml.Serialization;
 using Unimake.Business.DFe.Servicos;
-using Unimake.Business.DFe.Xml.CTe;
 
 namespace Unimake.Business.DFe.Xml.CTe
 {
     [Serializable()]
     [XmlRoot("retConsReciCTe", Namespace = "http://www.portalfiscal.inf.br/cte", IsNullable = false)]
-    public class RetConsReciCTe : XMLBase
+    public class RetConsReciCTe: XMLBase
     {
         [XmlAttribute(AttributeName = "versao", DataType = "token")]
         public string Versao { get; set; }
@@ -46,7 +45,7 @@ namespace Unimake.Business.DFe.Xml.CTe
             get => DhRecbto.ToString("yyyy-MM-ddTHH:mm:sszzz");
             set
             {
-                if (!string.IsNullOrWhiteSpace(value))
+                if(!string.IsNullOrWhiteSpace(value))
                 {
                     DhRecbto = DateTime.Parse(value);
                 }

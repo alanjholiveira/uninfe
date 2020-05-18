@@ -83,7 +83,11 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitTest\CTe\DeserializaEventoCartaCorrecaoTest.cs" />
+    <Compile Include="UnitTest\CTe\SerializaEventoComprovanteEntrega.cs" />
+    <Compile Include="UnitTest\CTe\DeserializaEventoComprovanteEntregaTest.cs" />
     <Compile Include="UnitTest\CTe\DeserializaRetornoCancelamentoCTeTest.cs" />
+    <Compile Include="UnitTest\CTe\ValidarXMLConsStatServCteTest.cs" />
     <EmbeddedResource Include="FormTestarNFe.resx">
       <DependentUpon>FormTestarNFe.cs</DependentUpon>
     </EmbeddedResource>
