@@ -42,6 +42,8 @@
             this.pbConsultaDFe = new System.Windows.Forms.ProgressBar();
             this.button10 = new System.Windows.Forms.Button();
             this.groupBoxNFe = new System.Windows.Forms.GroupBox();
+            this.button46 = new System.Windows.Forms.Button();
+            this.button43 = new System.Windows.Forms.Button();
             this.button36 = new System.Windows.Forms.Button();
             this.groupBoxNFCe = new System.Windows.Forms.GroupBox();
             this.button39 = new System.Windows.Forms.Button();
@@ -69,6 +71,8 @@
             this.button26 = new System.Windows.Forms.Button();
             this.button27 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.button45 = new System.Windows.Forms.Button();
+            this.button42 = new System.Windows.Forms.Button();
             this.button41 = new System.Windows.Forms.Button();
             this.button40 = new System.Windows.Forms.Button();
             this.button32 = new System.Windows.Forms.Button();
@@ -76,11 +80,20 @@
             this.button29 = new System.Windows.Forms.Button();
             this.button24 = new System.Windows.Forms.Button();
             this.button25 = new System.Windows.Forms.Button();
-            this.button42 = new System.Windows.Forms.Button();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.button47 = new System.Windows.Forms.Button();
+            this.button50 = new System.Windows.Forms.Button();
+            this.button54 = new System.Windows.Forms.Button();
+            this.button57 = new System.Windows.Forms.Button();
+            this.button58 = new System.Windows.Forms.Button();
+            this.button59 = new System.Windows.Forms.Button();
+            this.button60 = new System.Windows.Forms.Button();
+            this.button44 = new System.Windows.Forms.Button();
             this.groupBoxNFe.SuspendLayout();
             this.groupBoxNFCe.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -151,14 +164,14 @@
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(247, 32);
             this.button6.TabIndex = 5;
-            this.button6.Text = "Enviar NFe";
+            this.button6.Text = "Enviar NFe no modelo Síncrono";
             this.button6.UseVisualStyleBackColor = false;
             this.button6.Click += new System.EventHandler(this.Button6_Click);
             // 
             // button7
             // 
             this.button7.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.button7.Location = new System.Drawing.Point(15, 289);
+            this.button7.Location = new System.Drawing.Point(16, 342);
             this.button7.Margin = new System.Windows.Forms.Padding(2);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(246, 32);
@@ -170,7 +183,7 @@
             // button8
             // 
             this.button8.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.button8.Location = new System.Drawing.Point(792, 668);
+            this.button8.Location = new System.Drawing.Point(827, 668);
             this.button8.Margin = new System.Windows.Forms.Padding(2);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(246, 32);
@@ -182,7 +195,7 @@
             // btnAbrirCertificadoArquivo
             // 
             this.btnAbrirCertificadoArquivo.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.btnAbrirCertificadoArquivo.Location = new System.Drawing.Point(792, 631);
+            this.btnAbrirCertificadoArquivo.Location = new System.Drawing.Point(827, 631);
             this.btnAbrirCertificadoArquivo.Name = "btnAbrirCertificadoArquivo";
             this.btnAbrirCertificadoArquivo.Size = new System.Drawing.Size(246, 32);
             this.btnAbrirCertificadoArquivo.TabIndex = 8;
@@ -205,7 +218,7 @@
             // button9
             // 
             this.button9.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.button9.Location = new System.Drawing.Point(15, 325);
+            this.button9.Location = new System.Drawing.Point(16, 378);
             this.button9.Margin = new System.Windows.Forms.Padding(2);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(247, 32);
@@ -216,7 +229,7 @@
             // 
             // pbConsultaDFe
             // 
-            this.pbConsultaDFe.Location = new System.Drawing.Point(15, 361);
+            this.pbConsultaDFe.Location = new System.Drawing.Point(16, 414);
             this.pbConsultaDFe.Margin = new System.Windows.Forms.Padding(2);
             this.pbConsultaDFe.Name = "pbConsultaDFe";
             this.pbConsultaDFe.Size = new System.Drawing.Size(246, 18);
@@ -226,7 +239,7 @@
             // button10
             // 
             this.button10.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.button10.Location = new System.Drawing.Point(15, 383);
+            this.button10.Location = new System.Drawing.Point(16, 436);
             this.button10.Margin = new System.Windows.Forms.Padding(2);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(247, 32);
@@ -237,6 +250,9 @@
             // 
             // groupBoxNFe
             // 
+            this.groupBoxNFe.Controls.Add(this.button44);
+            this.groupBoxNFe.Controls.Add(this.button46);
+            this.groupBoxNFe.Controls.Add(this.button43);
             this.groupBoxNFe.Controls.Add(this.button36);
             this.groupBoxNFe.Controls.Add(this.button1);
             this.groupBoxNFe.Controls.Add(this.button10);
@@ -256,10 +272,33 @@
             this.groupBoxNFe.TabStop = false;
             this.groupBoxNFe.Text = "Serviços NFe";
             // 
+            // button46
+            // 
+            this.button46.BackColor = System.Drawing.SystemColors.Control;
+            this.button46.Location = new System.Drawing.Point(17, 525);
+            this.button46.Name = "button46";
+            this.button46.Size = new System.Drawing.Size(246, 46);
+            this.button46.TabIndex = 21;
+            this.button46.Text = "Ler XML de um arquivo e construir o -procnfe a partir da consulta situação";
+            this.button46.UseVisualStyleBackColor = false;
+            this.button46.Click += new System.EventHandler(this.button46_Click);
+            // 
+            // button43
+            // 
+            this.button43.BackColor = System.Drawing.SystemColors.Control;
+            this.button43.Location = new System.Drawing.Point(16, 289);
+            this.button43.Margin = new System.Windows.Forms.Padding(2);
+            this.button43.Name = "button43";
+            this.button43.Size = new System.Drawing.Size(247, 49);
+            this.button43.TabIndex = 20;
+            this.button43.Text = "Enviar NFe no modelo Assincrono (2 NFe no Lote)";
+            this.button43.UseVisualStyleBackColor = false;
+            this.button43.Click += new System.EventHandler(this.button43_Click);
+            // 
             // button36
             // 
-            this.button36.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.button36.Location = new System.Drawing.Point(16, 420);
+            this.button36.BackColor = System.Drawing.SystemColors.Control;
+            this.button36.Location = new System.Drawing.Point(17, 473);
             this.button36.Name = "button36";
             this.button36.Size = new System.Drawing.Size(246, 46);
             this.button36.TabIndex = 19;
@@ -411,7 +450,7 @@
             this.groupBox1.Controls.Add(this.button27);
             this.groupBox1.Location = new System.Drawing.Point(560, 13);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(261, 612);
+            this.groupBox1.Size = new System.Drawing.Size(261, 687);
             this.groupBox1.TabIndex = 17;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Serviços CTe";
@@ -583,6 +622,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.button45);
             this.groupBox2.Controls.Add(this.button42);
             this.groupBox2.Controls.Add(this.button41);
             this.groupBox2.Controls.Add(this.button40);
@@ -597,6 +637,30 @@
             this.groupBox2.TabIndex = 18;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Serviços MDFe";
+            // 
+            // button45
+            // 
+            this.button45.BackColor = System.Drawing.SystemColors.Control;
+            this.button45.Location = new System.Drawing.Point(4, 396);
+            this.button45.Margin = new System.Windows.Forms.Padding(2);
+            this.button45.Name = "button45";
+            this.button45.Size = new System.Drawing.Size(247, 32);
+            this.button45.TabIndex = 25;
+            this.button45.Text = "Evento de Encerramento MDFe";
+            this.button45.UseVisualStyleBackColor = false;
+            this.button45.Click += new System.EventHandler(this.button45_Click);
+            // 
+            // button42
+            // 
+            this.button42.BackColor = System.Drawing.SystemColors.Control;
+            this.button42.Location = new System.Drawing.Point(5, 252);
+            this.button42.Margin = new System.Windows.Forms.Padding(2);
+            this.button42.Name = "button42";
+            this.button42.Size = new System.Drawing.Size(247, 32);
+            this.button42.TabIndex = 24;
+            this.button42.Text = "Enviar 1 MDFe";
+            this.button42.UseVisualStyleBackColor = false;
+            this.button42.Click += new System.EventHandler(this.button42_Click);
             // 
             // button41
             // 
@@ -682,23 +746,123 @@
             this.button25.UseVisualStyleBackColor = false;
             this.button25.Click += new System.EventHandler(this.button25_Click);
             // 
-            // button42
+            // groupBox3
             // 
-            this.button42.BackColor = System.Drawing.SystemColors.Control;
-            this.button42.Location = new System.Drawing.Point(5, 252);
-            this.button42.Margin = new System.Windows.Forms.Padding(2);
-            this.button42.Name = "button42";
-            this.button42.Size = new System.Drawing.Size(247, 32);
-            this.button42.TabIndex = 24;
-            this.button42.Text = "Enviar 1 MDFe";
-            this.button42.UseVisualStyleBackColor = false;
-            this.button42.Click += new System.EventHandler(this.button42_Click);
+            this.groupBox3.Controls.Add(this.button47);
+            this.groupBox3.Controls.Add(this.button50);
+            this.groupBox3.Controls.Add(this.button54);
+            this.groupBox3.Controls.Add(this.button57);
+            this.groupBox3.Controls.Add(this.button58);
+            this.groupBox3.Controls.Add(this.button59);
+            this.groupBox3.Controls.Add(this.button60);
+            this.groupBox3.Location = new System.Drawing.Point(1106, 13);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(261, 687);
+            this.groupBox3.TabIndex = 19;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Serviços CTeOS";
+            // 
+            // button47
+            // 
+            this.button47.BackColor = System.Drawing.SystemColors.Control;
+            this.button47.Location = new System.Drawing.Point(5, 252);
+            this.button47.Margin = new System.Windows.Forms.Padding(2);
+            this.button47.Name = "button47";
+            this.button47.Size = new System.Drawing.Size(247, 32);
+            this.button47.TabIndex = 25;
+            this.button47.Text = "Enviar 1 CTeOS";
+            this.button47.UseVisualStyleBackColor = false;
+            this.button47.Click += new System.EventHandler(this.button47_Click);
+            // 
+            // button50
+            // 
+            this.button50.BackColor = System.Drawing.SystemColors.Control;
+            this.button50.Location = new System.Drawing.Point(5, 217);
+            this.button50.Margin = new System.Windows.Forms.Padding(2);
+            this.button50.Name = "button50";
+            this.button50.Size = new System.Drawing.Size(247, 32);
+            this.button50.TabIndex = 22;
+            this.button50.Text = "Evento de CCe (CTeOS)";
+            this.button50.UseVisualStyleBackColor = false;
+            this.button50.Click += new System.EventHandler(this.button50_Click);
+            // 
+            // button54
+            // 
+            this.button54.BackColor = System.Drawing.SystemColors.Control;
+            this.button54.Location = new System.Drawing.Point(5, 180);
+            this.button54.Margin = new System.Windows.Forms.Padding(2);
+            this.button54.Name = "button54";
+            this.button54.Size = new System.Drawing.Size(247, 32);
+            this.button54.TabIndex = 18;
+            this.button54.Text = "Evento de Cancelamento CTeOS";
+            this.button54.UseVisualStyleBackColor = false;
+            this.button54.Click += new System.EventHandler(this.button54_Click);
+            // 
+            // button57
+            // 
+            this.button57.BackColor = System.Drawing.SystemColors.Control;
+            this.button57.Location = new System.Drawing.Point(5, 144);
+            this.button57.Margin = new System.Windows.Forms.Padding(2);
+            this.button57.Name = "button57";
+            this.button57.Size = new System.Drawing.Size(247, 32);
+            this.button57.TabIndex = 16;
+            this.button57.Text = "Consulta Cadastro do Contribuinte";
+            this.button57.UseVisualStyleBackColor = false;
+            this.button57.Click += new System.EventHandler(this.button57_Click);
+            // 
+            // button58
+            // 
+            this.button58.BackColor = System.Drawing.SystemColors.Control;
+            this.button58.Location = new System.Drawing.Point(5, 108);
+            this.button58.Margin = new System.Windows.Forms.Padding(2);
+            this.button58.Name = "button58";
+            this.button58.Size = new System.Drawing.Size(247, 32);
+            this.button58.TabIndex = 16;
+            this.button58.Text = "Inutilização de Números da CTeOS";
+            this.button58.UseVisualStyleBackColor = false;
+            this.button58.Click += new System.EventHandler(this.button58_Click);
+            // 
+            // button59
+            // 
+            this.button59.BackColor = System.Drawing.SystemColors.Control;
+            this.button59.Location = new System.Drawing.Point(5, 72);
+            this.button59.Margin = new System.Windows.Forms.Padding(2);
+            this.button59.Name = "button59";
+            this.button59.Size = new System.Drawing.Size(247, 32);
+            this.button59.TabIndex = 15;
+            this.button59.Text = "Consulta Situação do CTeOS";
+            this.button59.UseVisualStyleBackColor = false;
+            this.button59.Click += new System.EventHandler(this.button59_Click);
+            // 
+            // button60
+            // 
+            this.button60.BackColor = System.Drawing.SystemColors.Control;
+            this.button60.Location = new System.Drawing.Point(5, 36);
+            this.button60.Margin = new System.Windows.Forms.Padding(2);
+            this.button60.Name = "button60";
+            this.button60.Size = new System.Drawing.Size(247, 32);
+            this.button60.TabIndex = 15;
+            this.button60.Text = "Consulta Status CTeOS";
+            this.button60.UseVisualStyleBackColor = false;
+            this.button60.Click += new System.EventHandler(this.button60_Click);
+            // 
+            // button44
+            // 
+            this.button44.BackColor = System.Drawing.SystemColors.Control;
+            this.button44.Location = new System.Drawing.Point(15, 640);
+            this.button44.Name = "button44";
+            this.button44.Size = new System.Drawing.Size(246, 46);
+            this.button44.TabIndex = 22;
+            this.button44.Text = "Testes gerais";
+            this.button44.UseVisualStyleBackColor = false;
+            this.button44.Click += new System.EventHandler(this.button44_Click);
             // 
             // FormTestarNFe
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1338, 716);
+            this.ClientSize = new System.Drawing.Size(1375, 716);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBoxNFCe);
@@ -713,6 +877,7 @@
             this.groupBoxNFCe.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -767,6 +932,18 @@
         private System.Windows.Forms.Button button40;
         private System.Windows.Forms.Button button41;
         private System.Windows.Forms.Button button42;
+        private System.Windows.Forms.Button button43;
+        private System.Windows.Forms.Button button45;
+        private System.Windows.Forms.Button button46;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Button button47;
+        private System.Windows.Forms.Button button50;
+        private System.Windows.Forms.Button button54;
+        private System.Windows.Forms.Button button57;
+        private System.Windows.Forms.Button button58;
+        private System.Windows.Forms.Button button59;
+        private System.Windows.Forms.Button button60;
+        private System.Windows.Forms.Button button44;
     }
 }
 
