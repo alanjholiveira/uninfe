@@ -88,6 +88,8 @@
     <Compile Include="UnitTest\CTe\DeserializaEventoComprovanteEntregaTest.cs" />
     <Compile Include="UnitTest\CTe\DeserializaRetornoCancelamentoCTeTest.cs" />
     <Compile Include="UnitTest\CTe\ValidarXMLConsStatServCteTest.cs" />
+    <Compile Include="UnitTest\GNRE\ConsultaConfigUFTest.cs" />
+    <Compile Include="UnitTest\GNRE\SerializaConsultaConfigUFTest.cs" />
     <EmbeddedResource Include="FormTestarNFe.resx">
       <DependentUpon>FormTestarNFe.cs</DependentUpon>
     </EmbeddedResource>
@@ -126,5 +128,6 @@
       <Name>Unimake.Business.DFe</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

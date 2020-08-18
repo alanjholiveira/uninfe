@@ -42,6 +42,7 @@
             this.pbConsultaDFe = new System.Windows.Forms.ProgressBar();
             this.button10 = new System.Windows.Forms.Button();
             this.groupBoxNFe = new System.Windows.Forms.GroupBox();
+            this.button44 = new System.Windows.Forms.Button();
             this.button46 = new System.Windows.Forms.Button();
             this.button43 = new System.Windows.Forms.Button();
             this.button36 = new System.Windows.Forms.Button();
@@ -88,7 +89,7 @@
             this.button58 = new System.Windows.Forms.Button();
             this.button59 = new System.Windows.Forms.Button();
             this.button60 = new System.Windows.Forms.Button();
-            this.button44 = new System.Windows.Forms.Button();
+            this.button48 = new System.Windows.Forms.Button();
             this.groupBoxNFe.SuspendLayout();
             this.groupBoxNFCe.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -271,6 +272,17 @@
             this.groupBoxNFe.TabIndex = 15;
             this.groupBoxNFe.TabStop = false;
             this.groupBoxNFe.Text = "Serviços NFe";
+            // 
+            // button44
+            // 
+            this.button44.BackColor = System.Drawing.SystemColors.Control;
+            this.button44.Location = new System.Drawing.Point(15, 640);
+            this.button44.Name = "button44";
+            this.button44.Size = new System.Drawing.Size(246, 46);
+            this.button44.TabIndex = 22;
+            this.button44.Text = "Testes gerais";
+            this.button44.UseVisualStyleBackColor = false;
+            this.button44.Click += new System.EventHandler(this.button44_Click);
             // 
             // button46
             // 
@@ -633,7 +645,7 @@
             this.groupBox2.Controls.Add(this.button25);
             this.groupBox2.Location = new System.Drawing.Point(827, 13);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(261, 612);
+            this.groupBox2.Size = new System.Drawing.Size(261, 442);
             this.groupBox2.TabIndex = 18;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Serviços MDFe";
@@ -846,22 +858,24 @@
             this.button60.UseVisualStyleBackColor = false;
             this.button60.Click += new System.EventHandler(this.button60_Click);
             // 
-            // button44
+            // button48
             // 
-            this.button44.BackColor = System.Drawing.SystemColors.Control;
-            this.button44.Location = new System.Drawing.Point(15, 640);
-            this.button44.Name = "button44";
-            this.button44.Size = new System.Drawing.Size(246, 46);
-            this.button44.TabIndex = 22;
-            this.button44.Text = "Testes gerais";
-            this.button44.UseVisualStyleBackColor = false;
-            this.button44.Click += new System.EventHandler(this.button44_Click);
+            this.button48.BackColor = System.Drawing.SystemColors.Control;
+            this.button48.Location = new System.Drawing.Point(827, 594);
+            this.button48.Margin = new System.Windows.Forms.Padding(2);
+            this.button48.Name = "button48";
+            this.button48.Size = new System.Drawing.Size(247, 32);
+            this.button48.TabIndex = 26;
+            this.button48.Text = "Validar XML";
+            this.button48.UseVisualStyleBackColor = false;
+            this.button48.Click += new System.EventHandler(this.button48_Click);
             // 
             // FormTestarNFe
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1375, 716);
+            this.Controls.Add(this.button48);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -944,6 +958,7 @@
         private System.Windows.Forms.Button button59;
         private System.Windows.Forms.Button button60;
         private System.Windows.Forms.Button button44;
+        private System.Windows.Forms.Button button48;
     }
 }
 

@@ -7,6 +7,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml;
+using Unimake.Business.DFe;
 using Unimake.Business.DFe.Security;
 using Unimake.Business.DFe.Servicos;
 using Unimake.Business.DFe.Servicos.NFe;
@@ -58,7 +59,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 var xml = new ConsStatServ
                 {
                     Versao = "4.00",
-                    CUF = UFBrasil.PR,
+                    CUF = UFBrasil.SC,
                     TpAmb = TipoAmbiente.Homologacao
                 };
 
@@ -1526,7 +1527,8 @@ namespace TesteDLL_Unimake.Business.DFe
                                                 QTrib = 305,
                                                 VUnTrib = 0.46,
                                                 IndTot = SimNao.Sim,
-                                                NItemPed = 1
+                                                NItemPed = 1,
+                                                Comb = CriarComb()
                                             },
                                             Imposto = new Imposto
                                             {
@@ -1703,6 +1705,32 @@ namespace TesteDLL_Unimake.Business.DFe
             {
                 CatchException(ex);
             }
+        }
+
+        private List<Comb> CriarComb()
+        {
+            List<Comb> comb = new List<Comb>();
+
+            //Primeiro Comb
+            comb.Add(new Comb
+            { 
+                CODIF = "",
+                CProdANP = "",
+                DescANP = ""
+                //Demais tags..
+
+            });
+
+            //Segundo comb, etc...
+            comb.Add(new Comb
+            {
+                CODIF = "",
+                CProdANP = "",
+                DescANP = ""
+                //Demais tags..
+            });
+
+            return comb;
         }
 
         private void Button7_Click(object sender, EventArgs e)
@@ -4125,11 +4153,11 @@ namespace TesteDLL_Unimake.Business.DFe
             var xml = new EnviNFe
             {
                 IdLote = "000001",
-                IndSinc = SimNao.Sim,
+                IndSinc = SimNao.Nao,
                 Versao = "4.00",
                 NFe = new List<NFe>
                 {
-                    xmlNFe.LoadFromFile(@"C:\Users\Wandrey\Downloads\Telegram Desktop\31200722204648000112550010001517231000545390-NFe.xml")
+                    xmlNFe.LoadFromFile(@"C:\Users\Wandrey\Downloads\31200801618295000127550010001013511001392018-NFe (2).xml")
                 }
             };
 
@@ -5241,6 +5269,26 @@ namespace TesteDLL_Unimake.Business.DFe
             return emit;
         }
 
+        private void button48_Click(object sender, EventArgs e)
+        {
+            ValidarSchema validarSchema = new ValidarSchema();
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(@"C:\Users\Wandrey\Downloads\41170706117473000150550010000463201612756527-procNFe.xml");
+
+            string schema = "NFe.nfe_v4.00.xsd";
+
+            validarSchema.Validar(doc, schema, "http://www.portalfiscal.inf.br/nfe");
+
+            if (!validarSchema.Success)
+            {
+                MessageBox.Show("Code: " + validarSchema.ErrorCode + "\r\n\r\nMessage: "+validarSchema.ErrorMessage);               
+            }
+            else
+            {
+                MessageBox.Show("XML validado com sucesso.");
+            }
+        }
     }
 }
 
