@@ -3,6 +3,9 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace Unimake.Business.DFe.Servicos
 {
+    /// <summary>
+    /// Classe das configurações para conexão e envio dos XMLs para os webservices
+    /// </summary>
     public class Configuracao
     {
         /// <summary>
@@ -44,11 +47,6 @@ namespace Unimake.Business.DFe.Servicos
         /// Tipo do Documento Fiscal Eletrônico (DF-e)
         /// </summary>
         public TipoDFe TipoDFe { get; set; }
-
-        /// <summary>
-        /// Pasta do arquivo de schema de validação do XML
-        /// </summary>
-        public string SchemaPasta { get; set; }
 
         /// <summary>
         /// Nome do arquivo de schema para validação do XML

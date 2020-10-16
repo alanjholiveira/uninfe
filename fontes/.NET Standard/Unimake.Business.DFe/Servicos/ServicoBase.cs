@@ -1,20 +1,24 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Xml;
-using Unimake.Business.DFe.ConfigurationManager;
 using Unimake.Business.DFe.Security;
 using Unimake.Business.DFe.Utility;
 using Unimake.Business.DFe.Xml;
 
 namespace Unimake.Business.DFe.Servicos
 {
+    /// <summary>
+    /// Classe base abastrata para elaboração dos serviços dos documentos fiscais eletrônicos (NFe, NFCe, MDFe, NFSe, CTe, GNRE, etc...)
+    /// </summary>
     [ComVisible(true)]
     public abstract class ServicoBase
     {
         #region Private Fields
 
         private XmlDocument _conteudoXML;
+        private Assembly _assembly = Assembly.GetExecutingAssembly();
 
         #endregion Private Fields
 
@@ -26,18 +30,24 @@ namespace Unimake.Business.DFe.Servicos
         /// <returns>Nome da tag</returns>
         private string DefinirNomeTag() => GetType().Name;
 
-        private string GetConfigFile(XmlElement elementArquivos)
-        {
-            var configTipo = Configuracoes.TipoDFe.ToString();
-            var arqConfig = elementArquivos.GetElementsByTagName("ArqConfig")[0].InnerText;
+        /// <summary>
+        /// Namespace onde estão contidos os XMLs de configurações embutidos na DLL por tipo de documento (NFe, NFCe, CTe, etc...)
+        /// </summary>
+        private string NamespaceConfig => Configuration.NamespaceConfig + Configuracoes.TipoDFe.ToString() + ".";
 
-            if(arqConfig.Contains(configTipo + "/"))
-            {
-                return Path.Combine(CurrentConfig.PastaArqConfig, arqConfig);
-            }
+        /// <summary>
+        /// Ler conteúdo do arquivo de configurações contido nos recursos da DLL
+        /// </summary>
+        /// <param name="arquivo">Nome do arquivo que é para ler o conteúdo</param>
+        /// <returns>Stream do arquivo de configuração contido nos recursos da DLL</returns>
+        private Stream LoadXmlConfig(string arquivo) => _assembly.GetManifestResourceStream(arquivo);
 
-            return Path.Combine(CurrentConfig.PastaArqConfig, configTipo, arqConfig);
-        }
+        /// <summary>
+        /// Retorna o nome do arquivo de configurações específicas do estado, município, etc...
+        /// </summary>
+        /// <param name="arqConfig">Arquivo de configuração</param>
+        /// <returns>Retorna Namespace + Nome do arquivo de configuração de serviços</returns>
+        private string GetConfigFile(string arqConfig) => NamespaceConfig + arqConfig;
 
         /// <summary>
         /// Verifica se o XML está assinado, se não estiver assina. Só faz isso para XMLs que tem tag de assinatura, demais ele mantem como está, sem assinar.
@@ -64,7 +74,7 @@ namespace Unimake.Business.DFe.Servicos
         /// Ler as configurações do XML
         /// </summary>
         /// <param name="doc">Documento XML</param>
-        /// <param name="arqConfig">Caminho/Nome do arquivo de configuração</param>
+        /// <param name="arqConfig">Nome do arquivo de configuração</param>
         private void LerConfig(XmlDocument doc, string arqConfig)
         {
             if(doc.GetElementsByTagName("Servicos")[0] != null)
@@ -240,17 +250,21 @@ namespace Unimake.Business.DFe.Servicos
 
         private void LerConfigPadrao()
         {
-            var arqConfig = Path.Combine(CurrentConfig.PastaArqConfig, Configuracoes.TipoDFe.ToString(), CurrentConfig.ArquivoConfigPadrao);
-            if(!File.Exists(arqConfig))
+            var arqConfig = NamespaceConfig + Configuration.ArquivoConfigPadrao;
+
+            var xmlDoc = new XmlDocument();
+
+            var stream = LoadXmlConfig(arqConfig);
+            if(stream != null)
             {
-                throw new System.Exception("Não foi localizado o arquivo de configuração padrão do serviço de " + Configuracoes.TipoDFe.ToString() + ".\r\n\r\n" + arqConfig);
+                xmlDoc.Load(stream);
+            }
+            else
+            {
+                throw new System.Exception("Não foi localizado o arquivo de configuração padrão do serviço de " + arqConfig);
             }
 
             var achouConfigVersao = false;
-
-            var xmlDoc = new XmlDocument();
-            xmlDoc.Load(arqConfig);
-
             var listConfigPadrao = xmlDoc.GetElementsByTagName("ConfigPadrao");
 
             foreach(var nodeConfigPadrao in listConfigPadrao)
@@ -313,8 +327,7 @@ namespace Unimake.Business.DFe.Servicos
         private void LerXmlConfigEspecifico(string xmlConfigEspecifico)
         {
             var doc = new XmlDocument();
-            doc.Load(xmlConfigEspecifico);
-
+            doc.Load(LoadXmlConfig(xmlConfigEspecifico));
 
             #region Leitura do XML do SVC - Sistema Virtual de Contingência
 
@@ -325,23 +338,23 @@ namespace Unimake.Business.DFe.Servicos
             {
                 case TipoEmissao.ContingenciaSVCRS:
                     svc = true;
-                    arqConfigSVC = Path.Combine(CurrentConfig.PastaArqConfig, Configuracoes.TipoDFe.ToString(), (Configuracoes.TipoDFe == TipoDFe.NFe ? "SVCRS.xml" : "SVRS.xml"));
+                    arqConfigSVC = NamespaceConfig + (Configuracoes.TipoDFe == TipoDFe.NFe ? "SVCRS.xml" : "SVRS.xml");
                     goto default;
 
                 case TipoEmissao.ContingenciaSVCAN:
                     svc = true;
-                    arqConfigSVC = Path.Combine(CurrentConfig.PastaArqConfig, Configuracoes.TipoDFe.ToString(), "SVCAN.xml");
+                    arqConfigSVC = NamespaceConfig + "SVCAN.xml";
                     goto default;
 
                 case TipoEmissao.ContingenciaSVCSP:
                     svc = true;
-                    arqConfigSVC = Path.Combine(CurrentConfig.PastaArqConfig, Configuracoes.TipoDFe.ToString(), "SVSP.xml");
+                    arqConfigSVC = NamespaceConfig + "SVSP.xml";
                     goto default;
 
                 default:
                     if(svc)
                     {
-                        doc.Load(arqConfigSVC);
+                        doc.Load(LoadXmlConfig(arqConfigSVC));
                         LerConfig(doc, arqConfigSVC);
                     }
                     break;
@@ -357,17 +370,14 @@ namespace Unimake.Business.DFe.Servicos
 
                 if(doc.GetElementsByTagName("Heranca")[0] != null)
                 {
-                    var arqConfigHeranca =
-                        Path.Combine(CurrentConfig.PastaArqConfig,
-                        Configuracoes.TipoDFe.ToString(),
-                        doc.GetElementsByTagName("Heranca")[0].InnerText);
+                    var arqConfigHeranca = NamespaceConfig + doc.GetElementsByTagName("Heranca")[0].InnerText;
 
                     temHeranca = true;
 
-                    doc.Load(arqConfigHeranca);
+                    doc.Load(LoadXmlConfig(arqConfigHeranca));
                     LerConfig(doc, arqConfigHeranca);
 
-                    doc.Load(xmlConfigEspecifico);
+                    doc.Load(LoadXmlConfig(xmlConfigEspecifico));
                 }
 
                 #endregion Leitura do XML herdado, quando tem herança.
@@ -426,10 +436,18 @@ namespace Unimake.Business.DFe.Servicos
 
         #region Protected Constructors
 
+        /// <summary>
+        /// Construtor
+        /// </summary>
         protected ServicoBase()
         {
         }
 
+        /// <summary>
+        /// Construtor
+        /// </summary>
+        /// <param name="conteudoXML">Conteúdo do XML a ser enviado para o webservice</param>
+        /// <param name="configuracao">Configurações a serem utilizadas para conexão e envio do XML para o webservice</param>
         protected ServicoBase(XmlDocument conteudoXML, Configuracao configuracao)
                     : this() => PrepararServico(conteudoXML, configuracao);
 
@@ -447,6 +465,11 @@ namespace Unimake.Business.DFe.Servicos
         /// </summary>
         protected abstract void DefinirConfiguracao();
 
+        /// <summary>
+        /// Preparar o ambiente para consumir o serviço
+        /// </summary>
+        /// <param name="conteudoXML">XML que será enviado para o webservice</param>
+        /// <param name="configuracao">Configurações que serão utilizadas para conexão e envio do XML para o webservice</param>
         protected void PrepararServico(XmlDocument conteudoXML, Configuracao configuracao)
         {
             if(configuracao == null)
@@ -461,9 +484,14 @@ namespace Unimake.Business.DFe.Servicos
         }
 
         /// <summary>
-        /// Método para validar o schema do XML
+        /// Validar o schema do XML
         /// </summary>
         protected abstract void XmlValidar();
+
+        /// <summary>
+        /// Validar o conteúdo das tags do XML, alguns validações manuais que o schema não faz. Vamos implementando novas regras na medida da necessidade de cada serviço.
+        /// </summary>
+        protected abstract void XmlValidarConteudo();
 
         #endregion Protected Methods
 
@@ -490,7 +518,7 @@ namespace Unimake.Business.DFe.Servicos
             if(Configuracoes.CodigoUF != 0)
             {
                 var doc = new XmlDocument();
-                doc.Load(CurrentConfig.ArquivoConfigGeral);
+                doc.Load(LoadXmlConfig(Configuration.ArquivoConfigGeral));
 
                 var listConfiguracoes = doc.GetElementsByTagName("Configuracoes");
 
@@ -510,7 +538,7 @@ namespace Unimake.Business.DFe.Servicos
 
                         Configuracoes.Nome = elementArquivos.GetElementsByTagName("Nome")[0].InnerText;
                         Configuracoes.NomeUF = elementArquivos.GetElementsByTagName("UF")[0].InnerText;
-                        LerXmlConfigEspecifico(GetConfigFile(elementArquivos));
+                        LerXmlConfigEspecifico(GetConfigFile(elementArquivos.GetElementsByTagName("ArqConfig")[0].InnerText));
 
                         break;
                     }
@@ -522,6 +550,9 @@ namespace Unimake.Business.DFe.Servicos
 
         #region Public Properties
 
+        /// <summary>
+        /// Configurações diversas para consumir os serviços
+        /// </summary>
         public Configuracao Configuracoes { get; set; }
 
         /// <summary>
@@ -543,8 +574,14 @@ namespace Unimake.Business.DFe.Servicos
         /// </summary>
         public XmlDocument ConteudoXMLOriginal { get; private set; }
 
+        /// <summary>
+        /// String do XML retornado pelo WebService
+        /// </summary>
         public string RetornoWSString { get; set; }
 
+        /// <summary>
+        /// XML retornado pelo Webservice
+        /// </summary>
         public XmlDocument RetornoWSXML { get; set; }
 
         #endregion Public Properties
