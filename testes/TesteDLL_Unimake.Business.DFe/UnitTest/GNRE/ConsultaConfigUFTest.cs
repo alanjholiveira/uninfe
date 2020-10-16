@@ -45,7 +45,8 @@ namespace TesteDLL_Unimake.Business.DFe.UnitTest.GNRE
             //TODO: Wandrey - Propriedade Result da consultaConfigUF está com falha
             consultaConfigUF.Executar();
 
-            //Debug.Assert(ambiente.Equals("2"));
+            Debug.Assert(consultaConfigUF.Result != null);
+            Debug.Assert(!string.IsNullOrWhiteSpace(consultaConfigUF.Result.SituacaoConsulta.Codigo));
         }
 
         #endregion Public Methods

@@ -523,7 +523,7 @@
             this.button33.Name = "button33";
             this.button33.Size = new System.Drawing.Size(247, 41);
             this.button33.TabIndex = 20;
-            this.button33.Text = "Evento de Cancelamento do Comrovante de Entrega (CTe)";
+            this.button33.Text = "Evento de Cancelamento do Comprovante de Entrega (CTe)";
             this.button33.UseVisualStyleBackColor = false;
             this.button33.Click += new System.EventHandler(this.button33_Click);
             // 

@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq.Expressions;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Windows.Forms;
@@ -919,7 +920,7 @@ namespace TesteDLL_Unimake.Business.DFe
                         }
 
                         //Salvar os XMLs do docZIP no HD
-                        distribuicaoDFe.GravarXMLDocZIP(folder, true);
+                        distribuicaoDFe.GravarXMLDocZIP(folder);
                     }
 
                     nsu = distribuicaoDFe.Result.UltNSU;
@@ -1713,7 +1714,7 @@ namespace TesteDLL_Unimake.Business.DFe
 
             //Primeiro Comb
             comb.Add(new Comb
-            { 
+            {
                 CODIF = "",
                 CProdANP = "",
                 DescANP = ""
@@ -1896,26 +1897,6 @@ namespace TesteDLL_Unimake.Business.DFe
                     {
                         VTotTrib = 12.63,
                         ICMS = CriarICMS(),
-                        PIS = new PIS
-                        {
-                            PISOutr = new PISOutr
-                            {
-                                CST = "99",
-                                VBC = 0.00,
-                                PPIS = 0.00,
-                                VPIS = 0.00
-                            }
-                        },
-                        COFINS = new COFINS
-                        {
-                            COFINSOutr = new COFINSOutr
-                            {
-                                CST = "99",
-                                VBC = 0.00,
-                                PCOFINS = 0.00,
-                                VCOFINS = 0.00
-                            }
-                        }
                     }
                 });
             }
@@ -1929,22 +1910,37 @@ namespace TesteDLL_Unimake.Business.DFe
         /// <returns></returns>
         private List<Unimake.Business.DFe.Xml.NFe.ICMS> CriarICMS()
         {
-            var icms = new List<Unimake.Business.DFe.Xml.NFe.ICMS>();
+            var icmslist = new List<Unimake.Business.DFe.Xml.NFe.ICMS>();
 
-            for(var i = 0; i < 1; i++)
+            var icms = new Unimake.Business.DFe.Xml.NFe.ICMS();
+
+            string cst = "102";
+
+            switch(cst)
             {
-                icms.Add(
-                    new Unimake.Business.DFe.Xml.NFe.ICMS
-                    {
-                        ICMSSN102 = new ICMSSN102
-                        {
-                            Orig = OrigemMercadoria.Nacional,
-                            CSOSN = "102"
-                        }
-                    });
+                case "102":
+                    icms.ICMSSN102.Orig = OrigemMercadoria.Nacional;
+                    icms.ICMSSN102.CSOSN = "102";
+                    break;
+
+                case "101":
+                    icms.ICMSSN101.Orig = OrigemMercadoria.Nacional;
+                    icms.ICMSSN101.CSOSN = "101";
+                    break;
+
+                case "10":
+                    icms.ICMS10.Orig = OrigemMercadoria.Nacional;
+                    icms.ICMS10.CST = "10";
+                    break;
+
+                default:
+                    break;
             }
 
-            return icms;
+
+            icmslist.Add(icms);
+
+            return icmslist;
         }
 
         private void FormTestarNFe_Shown(object sender, EventArgs e)
@@ -3339,7 +3335,7 @@ namespace TesteDLL_Unimake.Business.DFe
                         VersaoEvento = "3.00",
                         EventoIncDFeMDFe = new EventoIncDFeMDFe
                         {
-                            DescEvento = "Inclusao DFe",
+                            DescEvento = "Inclusao DF-e",
                             NProt = "941190000014312",
                             CMunCarrega = "4118402",
                             XMunCarrega = "PARANAVAI",
@@ -4102,7 +4098,7 @@ namespace TesteDLL_Unimake.Business.DFe
                         ChMDFe = "41200210859283000185570010000005671227070615",
                         CNPJ = "10859283000185",
                         DhEvento = DateTime.Now,
-                        TpEvento = TipoEventoMDFe.Cancelamento,
+                        TpEvento = TipoEventoMDFe.Encerramento,
                         NSeqEvento = 1,
                         TpAmb = TipoAmbiente.Homologacao
                     }
@@ -4698,7 +4694,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 var xml = new ConsStatServCte
                 {
                     Versao = "3.00",
-                    TpAmb = TipoAmbiente.Homologacao                    
+                    TpAmb = TipoAmbiente.Homologacao
                 };
 
                 var configuracao = new Configuracao
@@ -5280,9 +5276,9 @@ namespace TesteDLL_Unimake.Business.DFe
 
             validarSchema.Validar(doc, schema, "http://www.portalfiscal.inf.br/nfe");
 
-            if (!validarSchema.Success)
+            if(!validarSchema.Success)
             {
-                MessageBox.Show("Code: " + validarSchema.ErrorCode + "\r\n\r\nMessage: "+validarSchema.ErrorMessage);               
+                MessageBox.Show("Code: " + validarSchema.ErrorCode + "\r\n\r\nMessage: " + validarSchema.ErrorMessage);
             }
             else
             {

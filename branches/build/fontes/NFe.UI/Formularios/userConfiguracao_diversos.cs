@@ -547,8 +547,12 @@ namespace NFe.UI.Formularios
                            ufCod == 3146008 /*Ouro Fino-MG*/||
                            ufCod == 4323804 /*Xangri-la-RS*/||
                            ufCod == 5107925 /*Sorriso-MT*/ ||
+						   ufCod == 3549102 /*São João da Boa Vista-SP*/ ||
+                           ufCod == 3556404 /*Vargem Grande do Sul-SP*/ ||
+
                            ufCod == 4104808 /*Cascavel-PR*/ ||
-                           ufCod == 4303103 /*Cachoeirinha-RS*/;
+                           ufCod == 4303103 /*Cachoeirinha-RS*/ ||
+                           ufCod == 3204203 /*Piuma-ES*/;
 
             lbl_UsuarioWS.Visible = txtUsuarioWS.Visible = lbl_SenhaWS.Visible = txtSenhaWS.Visible = visible;
         }
@@ -581,7 +585,7 @@ namespace NFe.UI.Formularios
                     txtClientSecret.Visible = true;
                 }
                 //Se o município for Sorriso, temos que demonstrar os campos: ClientID e Client Secret
-                if (edtCodMun.Text.Equals("5107925"))
+               else if (edtCodMun.Text.Equals("5107925"))
                 {
                     lblClienteID.Visible = true;
                     lblClientSecret.Visible = true;
@@ -745,6 +749,38 @@ namespace NFe.UI.Formularios
                 case TipoAplicativo.eSocial:
                 case TipoAplicativo.EFDReinfeSocial:
                     comboBox_UF.Visible = false;
+                    comboBox_tpEmis.Visible = false;
+                    udTempoConsulta.Visible = false;
+                    checkBoxGravarEventosCancelamentoNaPastaEnviadosNFe.Visible = false;
+                    checkBoxGravarEventosDeTerceiros.Visible = false;
+                    checkBoxGravarEventosNaPastaEnviadosNFe.Visible = false;
+                    checkBoxRetornoNFETxt.Visible = false;
+                    cbIndSinc.Visible = false;
+                    grpQRCode.Visible = false;
+                    metroLabel11.Visible = false;
+                    lbl_udTempoConsulta.Visible = false;
+                    labelUF.Visible = false;
+                    lbl_CodMun.Visible = false;
+                    edtCodMun.Visible = false;
+                    edtPadrao.Visible = false;
+                    lbl_Padrao.Visible = false;
+                    lblClienteID.Visible = false;
+                    lblClientSecret.Visible = false;
+                    txtClienteID.Visible = false;
+                    txtClientSecret.Visible = false;
+                    checkBoxArqNSU.Visible = false;
+                    checkBoxValidarDigestValue.Visible = false;
+                    lbl_udDiasLimpeza.Location = new System.Drawing.Point(3, 147);
+                    udDiasLimpeza.Location = new System.Drawing.Point(3, 166);
+                    break;
+
+                case TipoAplicativo.GNRE:
+                    labelUF.Visible = true;
+                    labelUF.Text = "Unidade Federativa (UF)";
+                    comboBox_UF.Visible = true;
+                    cboDiretorioSalvarComo.Visible = true;
+                    lbl_DiretorioSalvarComo.Visible = true;
+
                     comboBox_tpEmis.Visible = false;
                     udTempoConsulta.Visible = false;
                     checkBoxGravarEventosCancelamentoNaPastaEnviadosNFe.Visible = false;

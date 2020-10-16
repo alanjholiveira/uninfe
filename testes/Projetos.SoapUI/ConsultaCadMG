@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="6c22fe45-4be4-4d73-b1f4-2ec079203dc4" activeEnvironment="Default" name="ConsultaCadMG" resourceRoot="" soapui-version="5.5.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="8005d9ae-d974-45bd-8e0b-5279551be87e" wsaVersion="NONE" name="CadConsultaCadastro2Soap12" type="wsdl" bindingName="{http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2}CadConsultaCadastro2Soap12" soapVersion="1_2" anonymous="optional" definition="file:/C:/projetos/uninfe/trunk/fontes/NFe.Components.Wsdl/NFe/WSDL/Producao/MG/PMGNFeCadConsultaCadastro.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:\C:\projetos\uninfe\trunk\fontes\NFe.Components.Wsdl\NFe\WSDL\Producao\MG\PMGNFeCadConsultaCadastro.wsdl"><con:part><con:url>file:\C:\projetos\uninfe\trunk\fontes\NFe.Components.Wsdl\NFe\WSDL\Producao\MG\PMGNFeCadConsultaCadastro.wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation>Servi�o destinado ao atendimento de solicita��es de consulta ao Cadastro de Contribuintes do ICMS da Secretaria de Fazenda Estatual.</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2">
+      <s:element name="nfeDadosMsg">
+        <s:complexType mixed="true">
+          <s:sequence>
+            <s:any/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="consultaCadastro2Result">
+        <s:complexType mixed="true">
+          <s:sequence>
+            <s:any/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="nfeCabecMsg" type="tns:nfeCabecMsg"/>
+      <s:complexType name="nfeCabecMsg">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="cUF" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="versaoDados" type="s:string"/>
+        </s:sequence>
+        <s:anyAttribute/>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="consultaCadastro2Soap12In">
+    <wsdl:part name="nfeDadosMsg" element="tns:nfeDadosMsg"/>
+  </wsdl:message>
+  <wsdl:message name="consultaCadastro2Soap12Out">
+    <wsdl:part name="consultaCadastro2Result" element="tns:consultaCadastro2Result"/>
+  </wsdl:message>
+  <wsdl:message name="consultaCadastro2nfeCabecMsg">
+    <wsdl:part name="nfeCabecMsg" element="tns:nfeCabecMsg"/>
+  </wsdl:message>
+  <wsdl:portType name="CadConsultaCadastro2Soap12">
+    <wsdl:operation name="consultaCadastro2">
+      <wsdl:documentation>Consulta Cadastro de Contribuintes do ICMS</wsdl:documentation>
+      <wsdl:input message="tns:consultaCadastro2Soap12In"/>
+      <wsdl:output message="tns:consultaCadastro2Soap12Out"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CadConsultaCadastro2Soap12" type="tns:CadConsultaCadastro2Soap12">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="consultaCadastro2">
+      <soap12:operation soapAction="http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2/consultaCadastro2" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:consultaCadastro2nfeCabecMsg" part="nfeCabecMsg" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:consultaCadastro2nfeCabecMsg" part="nfeCabecMsg" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CadConsultaCadastro2">
+    <wsdl:documentation>Servi�o destinado ao atendimento de solicita��es de consulta ao Cadastro de Contribuintes do ICMS da Secretaria de Fazenda Estatual.</wsdl:documentation>
+    <wsdl:port name="CadConsultaCadastro2Soap12" binding="tns:CadConsultaCadastro2Soap12">
+      <soap12:address location="https://nfe.fazenda.mg.gov.br/nfe2/services/cadconsultacadastro2"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>https://nfe.fazenda.mg.gov.br/nfe2/services/cadconsultacadastro2</con:endpoint></con:endpoints><con:operation id="37a32987-dd41-4531-ae04-025d7b05fd3a" isOneWay="false" action="http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2/consultaCadastro2" name="consultaCadastro2" bindingOperationName="consultaCadastro2" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="693952ed-6f57-4cf3-8d1d-3de39a1cbc3b" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://nfe.fazenda.mg.gov.br/nfe2/services/cadconsultacadastro2</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:cad="http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2">\r
+   <soap:Header>\r
+      <cad:nfeCabecMsg>\r
+         <cad:cUF>31</cad:cUF>\r
+         <cad:versaoDados>2.00</cad:versaoDados>\r
+      </cad:nfeCabecMsg>\r
+   </soap:Header>\r
+   <soap:Body>\r
+      <cad:nfeDadosMsg>\r
+<ConsCad xmlns="http://www.portalfiscal.inf.br/nfe" versao="2.00">
+  <infCons>
+    <xServ>CONS-CAD</xServ>
+    <UF>MG</UF>
+    <CNPJ>00438756000117</CNPJ>
+  </infCons>
+</ConsCad>
+      </cad:nfeDadosMsg>\r
+   </soap:Body>\r
+</soap:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2/CadConsultaCadastro2Soap12/consultaCadastro2Request"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>
