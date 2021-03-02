@@ -42,6 +42,7 @@
             this.pbConsultaDFe = new System.Windows.Forms.ProgressBar();
             this.button10 = new System.Windows.Forms.Button();
             this.groupBoxNFe = new System.Windows.Forms.GroupBox();
+            this.button49 = new System.Windows.Forms.Button();
             this.button44 = new System.Windows.Forms.Button();
             this.button46 = new System.Windows.Forms.Button();
             this.button43 = new System.Windows.Forms.Button();
@@ -57,6 +58,7 @@
             this.button13 = new System.Windows.Forms.Button();
             this.button12 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button51 = new System.Windows.Forms.Button();
             this.button38 = new System.Windows.Forms.Button();
             this.button37 = new System.Windows.Forms.Button();
             this.button35 = new System.Windows.Forms.Button();
@@ -90,6 +92,7 @@
             this.button59 = new System.Windows.Forms.Button();
             this.button60 = new System.Windows.Forms.Button();
             this.button48 = new System.Windows.Forms.Button();
+            this.button52 = new System.Windows.Forms.Button();
             this.groupBoxNFe.SuspendLayout();
             this.groupBoxNFCe.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -251,6 +254,7 @@
             // 
             // groupBoxNFe
             // 
+            this.groupBoxNFe.Controls.Add(this.button49);
             this.groupBoxNFe.Controls.Add(this.button44);
             this.groupBoxNFe.Controls.Add(this.button46);
             this.groupBoxNFe.Controls.Add(this.button43);
@@ -272,6 +276,17 @@
             this.groupBoxNFe.TabIndex = 15;
             this.groupBoxNFe.TabStop = false;
             this.groupBoxNFe.Text = "Serviços NFe";
+            // 
+            // button49
+            // 
+            this.button49.BackColor = System.Drawing.SystemColors.Control;
+            this.button49.Location = new System.Drawing.Point(15, 582);
+            this.button49.Name = "button49";
+            this.button49.Size = new System.Drawing.Size(246, 32);
+            this.button49.TabIndex = 23;
+            this.button49.Text = "Evento de EPEC";
+            this.button49.UseVisualStyleBackColor = false;
+            this.button49.Click += new System.EventHandler(this.button49_Click);
             // 
             // button44
             // 
@@ -446,6 +461,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button51);
             this.groupBox1.Controls.Add(this.button38);
             this.groupBox1.Controls.Add(this.button37);
             this.groupBox1.Controls.Add(this.button35);
@@ -466,6 +482,17 @@
             this.groupBox1.TabIndex = 17;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Serviços CTe";
+            // 
+            // button51
+            // 
+            this.button51.BackColor = System.Drawing.SystemColors.Control;
+            this.button51.Location = new System.Drawing.Point(5, 546);
+            this.button51.Name = "button51";
+            this.button51.Size = new System.Drawing.Size(246, 32);
+            this.button51.TabIndex = 24;
+            this.button51.Text = "Evento de EPEC";
+            this.button51.UseVisualStyleBackColor = false;
+            this.button51.Click += new System.EventHandler(this.button51_Click);
             // 
             // button38
             // 
@@ -760,6 +787,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.button52);
             this.groupBox3.Controls.Add(this.button47);
             this.groupBox3.Controls.Add(this.button50);
             this.groupBox3.Controls.Add(this.button54);
@@ -870,6 +898,17 @@
             this.button48.UseVisualStyleBackColor = false;
             this.button48.Click += new System.EventHandler(this.button48_Click);
             // 
+            // button52
+            // 
+            this.button52.BackColor = System.Drawing.SystemColors.Control;
+            this.button52.Location = new System.Drawing.Point(9, 635);
+            this.button52.Name = "button52";
+            this.button52.Size = new System.Drawing.Size(246, 46);
+            this.button52.TabIndex = 24;
+            this.button52.Text = "Testes gerais";
+            this.button52.UseVisualStyleBackColor = false;
+            this.button52.Click += new System.EventHandler(this.button52_Click);
+            // 
             // FormTestarNFe
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -959,6 +998,9 @@
         private System.Windows.Forms.Button button60;
         private System.Windows.Forms.Button button44;
         private System.Windows.Forms.Button button48;
+        private System.Windows.Forms.Button button49;
+        private System.Windows.Forms.Button button51;
+        private System.Windows.Forms.Button button52;
     }
 }
 
