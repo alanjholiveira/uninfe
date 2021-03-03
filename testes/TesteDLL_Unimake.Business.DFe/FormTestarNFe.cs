@@ -1778,7 +1778,14 @@ namespace TesteDLL_Unimake.Business.DFe
                 };
 
                 var autorizacao = new Autorizacao(xml, configuracao);
+
+                NFe nfe = XMLUtility.Deserializar<NFe>(autorizacao.ConteudoXMLAssinado);
+
+                XMLUtility.Serializar<NFe>(autorizacao.EnviNFe.NFe[0]).OuterXml;
+
                 autorizacao.Executar();
+
+
                 MessageBox.Show(autorizacao.RetornoWSString);
                 MessageBox.Show(autorizacao.Result.XMotivo);
 
