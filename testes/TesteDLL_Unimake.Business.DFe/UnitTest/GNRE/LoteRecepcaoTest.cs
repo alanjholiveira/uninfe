@@ -113,11 +113,14 @@ namespace TesteDLL_Unimake.Business.DFe.UnitTest.GNRE
                 }
             };
 
+            int Ambiente = 2;
+
             var configuracao = new Configuracao
             {
                 TipoDFe = TipoDFe.GNRE,
                 TipoEmissao = TipoEmissao.Normal,
                 CertificadoDigital = CertificadoSelecionado,
+                TipoAmbiente = (TipoAmbiente)Ambiente,
                 CodigoUF = 41 //Paraná
             };
 

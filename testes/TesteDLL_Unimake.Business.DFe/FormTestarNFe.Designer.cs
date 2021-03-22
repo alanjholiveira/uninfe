@@ -84,6 +84,7 @@
             this.button24 = new System.Windows.Forms.Button();
             this.button25 = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.button52 = new System.Windows.Forms.Button();
             this.button47 = new System.Windows.Forms.Button();
             this.button50 = new System.Windows.Forms.Button();
             this.button54 = new System.Windows.Forms.Button();
@@ -92,7 +93,6 @@
             this.button59 = new System.Windows.Forms.Button();
             this.button60 = new System.Windows.Forms.Button();
             this.button48 = new System.Windows.Forms.Button();
-            this.button52 = new System.Windows.Forms.Button();
             this.groupBoxNFe.SuspendLayout();
             this.groupBoxNFCe.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -691,7 +691,7 @@
             // 
             // button42
             // 
-            this.button42.BackColor = System.Drawing.SystemColors.Control;
+            this.button42.BackColor = System.Drawing.SystemColors.ControlDark;
             this.button42.Location = new System.Drawing.Point(5, 252);
             this.button42.Margin = new System.Windows.Forms.Padding(2);
             this.button42.Name = "button42";
@@ -715,7 +715,7 @@
             // 
             // button40
             // 
-            this.button40.BackColor = System.Drawing.SystemColors.Control;
+            this.button40.BackColor = System.Drawing.SystemColors.ControlDark;
             this.button40.Location = new System.Drawing.Point(4, 324);
             this.button40.Margin = new System.Windows.Forms.Padding(2);
             this.button40.Name = "button40";
@@ -801,6 +801,17 @@
             this.groupBox3.TabIndex = 19;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Serviços CTeOS";
+            // 
+            // button52
+            // 
+            this.button52.BackColor = System.Drawing.SystemColors.Control;
+            this.button52.Location = new System.Drawing.Point(9, 635);
+            this.button52.Name = "button52";
+            this.button52.Size = new System.Drawing.Size(246, 46);
+            this.button52.TabIndex = 24;
+            this.button52.Text = "Testes gerais";
+            this.button52.UseVisualStyleBackColor = false;
+            this.button52.Click += new System.EventHandler(this.button52_Click);
             // 
             // button47
             // 
@@ -888,7 +899,7 @@
             // 
             // button48
             // 
-            this.button48.BackColor = System.Drawing.SystemColors.Control;
+            this.button48.BackColor = System.Drawing.SystemColors.ControlDark;
             this.button48.Location = new System.Drawing.Point(827, 594);
             this.button48.Margin = new System.Windows.Forms.Padding(2);
             this.button48.Name = "button48";
@@ -897,17 +908,6 @@
             this.button48.Text = "Validar XML";
             this.button48.UseVisualStyleBackColor = false;
             this.button48.Click += new System.EventHandler(this.button48_Click);
-            // 
-            // button52
-            // 
-            this.button52.BackColor = System.Drawing.SystemColors.Control;
-            this.button52.Location = new System.Drawing.Point(9, 635);
-            this.button52.Name = "button52";
-            this.button52.Size = new System.Drawing.Size(246, 46);
-            this.button52.TabIndex = 24;
-            this.button52.Text = "Testes gerais";
-            this.button52.UseVisualStyleBackColor = false;
-            this.button52.Click += new System.EventHandler(this.button52_Click);
             // 
             // FormTestarNFe
             // 

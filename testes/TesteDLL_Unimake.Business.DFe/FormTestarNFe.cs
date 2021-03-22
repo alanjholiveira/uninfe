@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -30,7 +31,7 @@ using InfRespTec = Unimake.Business.DFe.Xml.NFe.InfRespTec;
 
 namespace TesteDLL_Unimake.Business.DFe
 {
-    public partial class FormTestarNFe: Form
+    public partial class FormTestarNFe : Form
     {
         #region Private Fields
 
@@ -57,7 +58,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 CertificadoSelecionado = new CertificadoDigital().CarregarCertificadoDigitalA1(path, password);
                 MessageBox.Show("O certificado foi selecionado.", "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "ERRO!!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -91,7 +92,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(statusServico.RetornoWSString);
                 MessageBox.Show(statusServico.Result.XMotivo);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -140,9 +141,9 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(recepcaoEvento.Result.XMotivo);
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                if(recepcaoEvento.Result.CStat == 128) //128 = Lote de evento processado com sucesso
+                if (recepcaoEvento.Result.CStat == 128) //128 = Lote de evento processado com sucesso
                 {
-                    switch(recepcaoEvento.Result.RetEvento[0].InfEvento.CStat)
+                    switch (recepcaoEvento.Result.RetEvento[0].InfEvento.CStat)
                     {
                         case 135: //Evento homologado com vinculação da respectiva NFe
                         case 136: //Evento homologado sem vinculação com a respectiva NFe (SEFAZ não encontrou a NFe na base dela)
@@ -156,7 +157,7 @@ namespace TesteDLL_Unimake.Business.DFe
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -230,9 +231,9 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(recepcaoEvento.Result.XMotivo);
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                if(recepcaoEvento.Result.CStat == 128) //128 = Lote de evento processado com sucesso
+                if (recepcaoEvento.Result.CStat == 128) //128 = Lote de evento processado com sucesso
                 {
-                    switch(recepcaoEvento.Result.RetEvento[0].InfEvento.CStat)
+                    switch (recepcaoEvento.Result.RetEvento[0].InfEvento.CStat)
                     {
                         case 135: //Evento homologado com vinculação da respectiva NFe
                         case 136: //Evento homologado sem vinculação com a respectiva NFe (SEFAZ não encontrou a NFe na base dela)
@@ -246,7 +247,7 @@ namespace TesteDLL_Unimake.Business.DFe
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -274,7 +275,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(statusServico.RetornoWSString);
                 MessageBox.Show(statusServico.Result.XMotivo);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -302,7 +303,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(consultaProtocolo.RetornoWSString);
                 MessageBox.Show(consultaProtocolo.Result.XMotivo);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -341,7 +342,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(inutilizacao.Result.InfInut.XMotivo);
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                switch(inutilizacao.Result.InfInut.CStat)
+                switch (inutilizacao.Result.InfInut.CStat)
                 {
                     case 102: //Inutilização homologada
                         inutilizacao.GravarXmlDistribuicao(@"c:\testenfe\");
@@ -352,7 +353,7 @@ namespace TesteDLL_Unimake.Business.DFe
                         break;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -383,7 +384,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(consultaCad.RetornoWSString);
                 MessageBox.Show(consultaCad.Result.InfCons.XMotivo);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -433,9 +434,9 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(recepcaoEvento.Result.XMotivo);
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                if(recepcaoEvento.Result.CStat == 128) //128 = Lote de evento processado com sucesso
+                if (recepcaoEvento.Result.CStat == 128) //128 = Lote de evento processado com sucesso
                 {
-                    switch(recepcaoEvento.Result.RetEvento[0].InfEvento.CStat)
+                    switch (recepcaoEvento.Result.RetEvento[0].InfEvento.CStat)
                     {
                         case 135: //Evento homologado com vinculação da respectiva NFe
                         case 136: //Evento homologado sem vinculação com a respectiva NFe (SEFAZ não encontrou a NFe na base dela)
@@ -449,7 +450,7 @@ namespace TesteDLL_Unimake.Business.DFe
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -517,9 +518,9 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(recepcaoEvento.Result.XMotivo);
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                if(recepcaoEvento.Result.CStat == 128) //128 = Lote de evento processado com sucesso
+                if (recepcaoEvento.Result.CStat == 128) //128 = Lote de evento processado com sucesso
                 {
-                    switch(recepcaoEvento.Result.RetEvento[0].InfEvento.CStat)
+                    switch (recepcaoEvento.Result.RetEvento[0].InfEvento.CStat)
                     {
                         case 135: //Evento homologado com vinculação da respectiva NFe
                         case 136: //Evento homologado sem vinculação com a respectiva NFe (SEFAZ não encontrou a NFe na base dela)
@@ -533,7 +534,7 @@ namespace TesteDLL_Unimake.Business.DFe
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -718,9 +719,9 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(autorizacao.Result.XMotivo);
 
                 //Gravar o XML de distribuição se a nota foi autorizada ou denegada
-                if(autorizacao.Result.ProtNFe != null)
+                if (autorizacao.Result.ProtNFe != null)
                 {
-                    switch(autorizacao.Result.ProtNFe.InfProt.CStat)
+                    switch (autorizacao.Result.ProtNFe.InfProt.CStat)
                     {
                         case 100: //Autorizado o uso da NF-e
                         case 110: //Uso Denegado
@@ -739,7 +740,7 @@ namespace TesteDLL_Unimake.Business.DFe
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -768,7 +769,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(retAutorizacao.RetornoWSString);
                 MessageBox.Show(retAutorizacao.Result.XMotivo);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -793,9 +794,9 @@ namespace TesteDLL_Unimake.Business.DFe
                 var consultaProtocolo = new ConsultaProtocolo(xml, configuracao);
                 consultaProtocolo.Executar();
                 MessageBox.Show(consultaProtocolo.RetornoWSString);
-                if(consultaProtocolo.Result.CStat == 100)
+                if (consultaProtocolo.Result.CStat == 100)
                 {
-                    if(consultaProtocolo.Result.ProtNFe != null) //Retornou o protocolo de autorização
+                    if (consultaProtocolo.Result.ProtNFe != null) //Retornou o protocolo de autorização
                     {
                         MessageBox.Show(consultaProtocolo.Result.ProtNFe.InfProt.NProt); //Demonstrar o protocolo de autorização
                     }
@@ -809,7 +810,7 @@ namespace TesteDLL_Unimake.Business.DFe
                     MessageBox.Show(consultaProtocolo.Result.XMotivo);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -848,7 +849,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(inutilizacao.Result.InfInut.XMotivo);
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                switch(inutilizacao.Result.InfInut.CStat)
+                switch (inutilizacao.Result.InfInut.CStat)
                 {
                     case 102: //Inutilização homologada
                         inutilizacao.GravarXmlDistribuicao(@"c:\testenfe\");
@@ -859,7 +860,7 @@ namespace TesteDLL_Unimake.Business.DFe
                         break;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -890,7 +891,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(consultaCad.RetornoWSString);
                 MessageBox.Show(consultaCad.Result.InfCons.XMotivo);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -910,7 +911,7 @@ namespace TesteDLL_Unimake.Business.DFe
             Application.DoEvents();
             pbConsultaDFe.Refresh();
 
-            while(true)
+            while (true)
             {
                 try
                 {
@@ -931,7 +932,7 @@ namespace TesteDLL_Unimake.Business.DFe
 
                     #region Atualizar ProgressBar
 
-                    if(pbConsultaDFe.Maximum != Convert.ToInt32(distribuicaoDFe.Result.MaxNSU))
+                    if (pbConsultaDFe.Maximum != Convert.ToInt32(distribuicaoDFe.Result.MaxNSU))
                     {
                         pbConsultaDFe.Maximum = Convert.ToInt32(distribuicaoDFe.Result.MaxNSU);
                     }
@@ -942,11 +943,11 @@ namespace TesteDLL_Unimake.Business.DFe
 
                     #endregion Atualizar ProgressBar
 
-                    if(distribuicaoDFe.Result.CStat.Equals(138)) //Documentos localizados
+                    if (distribuicaoDFe.Result.CStat.Equals(138)) //Documentos localizados
                     {
                         var folder = @"c:\testenfe\doczipcte";
 
-                        if(Environment.MachineName == "MARCELO-PC")
+                        if (Environment.MachineName == "MARCELO-PC")
                         {
                             folder = @"D:\temp\uninfe";
                         }
@@ -957,12 +958,12 @@ namespace TesteDLL_Unimake.Business.DFe
 
                     nsu = distribuicaoDFe.Result.UltNSU;
 
-                    if(Convert.ToInt64(distribuicaoDFe.Result.UltNSU) >= Convert.ToInt64(distribuicaoDFe.Result.MaxNSU))
+                    if (Convert.ToInt64(distribuicaoDFe.Result.UltNSU) >= Convert.ToInt64(distribuicaoDFe.Result.MaxNSU))
                     {
                         break;
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     CatchException(ex);
                 }
@@ -997,7 +998,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(consultaProtocolo.RetornoWSString);
                 MessageBox.Show(consultaProtocolo.Result.XMotivo);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -1025,7 +1026,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(statusServico.RetornoWSString);
                 MessageBox.Show(statusServico.Result.XMotivo);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -1035,68 +1036,68 @@ namespace TesteDLL_Unimake.Business.DFe
         {
             try
             {
-                var xmlRetConsSitCTe = new RetConsSitCTe
-                {
-                    TpAmb = TipoAmbiente.Producao,
-                    VerAplic = "PR-v3_1_26",
-                    CStat = 101,
-                    XMotivo = "Cancelamento de CT-e homologado",
-                    CUF = UFBrasil.PR,
-                    ProtCTe = new ProtCTe
-                    {
-                        Versao = "3.00",
-                        InfProt = new Unimake.Business.DFe.Xml.CTe.InfProt
-                        {
-                            TpAmb = TipoAmbiente.Producao,
-                            VerAplic = "PR-v3_1_26",
-                            ChCTe = "41210180568835000181570010000007221820184779",
-                            DhRecbtoField = "2021-01-20T16:38:30-03:00",
-                            NProt = "141210008271578",
-                            DigVal = "6iI9oC1Ti7f4Gj/IquVfDemGwtg=",
-                            CStat = 100,
-                            XMotivo = "Autorizado o uso do CT-e"
-                        }
-                    },
-                    ProcEventoCTe = new List<Unimake.Business.DFe.Xml.XMLBase>
-                    {
-                        new ProcEventoCTe<InfEventoCanc>
-                        {
-                            Versao = "3.00",
-                            EventoCTe = new EventoCTe<InfEventoCanc>
-                            {
-                                Versao = "3.00",
-                                InfEvento = new InfEventoCanc
-                                {
-                                    COrgao = UFBrasil.PR,
-                                    TpAmb = TipoAmbiente.Producao,
-                                    CNPJ = "80568835000181",
-                                    ChCTe = "41210180568835000181570010000007221820184779",
-                                    DhEventoField = "2021-01-21T10:41:20-03:00",
-                                    TpEvento = TipoEventoCTe.Cancelamento,
-                                    NSeqEvento = 1,
-                                    DetEvento = new Unimake.Business.DFe.Xml.CTe.DetEventoCanc
-                                    {
-                                        VersaoEvento = "3.00",
-                                        EvCancCTe = new EvCancCTe
-                                        {
-                                            DescEvento = "Cancelamento",
-                                            NProt = "141210008271578",
-                                            XJust = "nao vai mais o pedido, foi cancelado"
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                };
+                //var xmlRetConsSitCTe = new RetConsSitCTe
+                //{
+                //    TpAmb = TipoAmbiente.Producao,
+                //    VerAplic = "PR-v3_1_26",
+                //    CStat = 101,
+                //    XMotivo = "Cancelamento de CT-e homologado",
+                //    CUF = UFBrasil.PR,
+                //    ProtCTe = new ProtCTe
+                //    {
+                //        Versao = "3.00",
+                //        InfProt = new Unimake.Business.DFe.Xml.CTe.InfProt
+                //        {
+                //            TpAmb = TipoAmbiente.Producao,
+                //            VerAplic = "PR-v3_1_26",
+                //            ChCTe = "41210180568835000181570010000007221820184779",
+                //            DhRecbtoField = "2021-01-20T16:38:30-03:00",
+                //            NProt = "141210008271578",
+                //            DigVal = "6iI9oC1Ti7f4Gj/IquVfDemGwtg=",
+                //            CStat = 100,
+                //            XMotivo = "Autorizado o uso do CT-e"
+                //        }
+                //    },
+                //    ProcEventoCTe = new List<Unimake.Business.DFe.Xml.XMLBase>
+                //    {
+                //        new ProcEventoCTe<InfEventoCanc>
+                //        {
+                //            Versao = "3.00",
+                //            EventoCTe = new EventoCTe<InfEventoCanc>
+                //            {
+                //                Versao = "3.00",
+                //                InfEvento = new InfEventoCanc
+                //                {
+                //                    COrgao = UFBrasil.PR,
+                //                    TpAmb = TipoAmbiente.Producao,
+                //                    CNPJ = "80568835000181",
+                //                    ChCTe = "41210180568835000181570010000007221820184779",
+                //                    DhEventoField = "2021-01-21T10:41:20-03:00",
+                //                    TpEvento = TipoEventoCTe.Cancelamento,
+                //                    NSeqEvento = 1,
+                //                    DetEvento = new Unimake.Business.DFe.Xml.CTe.DetEventoCanc
+                //                    {
+                //                        VersaoEvento = "3.00",
+                //                        EvCancCTe = new EvCancCTe
+                //                        {
+                //                            DescEvento = "Cancelamento",
+                //                            NProt = "141210008271578",
+                //                            XJust = "nao vai mais o pedido, foi cancelado"
+                //                        }
+                //                    }
+                //                }
+                //            }
+                //        }
+                //    }
+                //};
 
-                var doc = XMLUtility.Serializar<RetConsSitCTe>(xmlRetConsSitCTe);
+                //var doc = XMLUtility.Serializar<RetConsSitCTe>(xmlRetConsSitCTe);
 
-                //var doc = new XmlDocument();
-                //doc.LoadXml(File.ReadAllText(@"C:\testenfe\retorno\41210180568835000181570010000007221820184779-sit.xml", Encoding.UTF8));
+                var doc = new XmlDocument();
+                doc.LoadXml(File.ReadAllText(@"C:\Users\Wandrey\Downloads\Modelos XML\CTe Situação\41210180568835000181570010000007221820184779-sit.xml", Encoding.UTF8));
 
-                //var xmlTeste = new RetConsSitCTe();
-                //var qq = xmlTeste.LerXML<RetConsSitCTe>(doc);
+                var xmlTeste = new RetConsSitCTe();
+                var qq = xmlTeste.LerXML<RetConsSitCTe>(doc);
 
                 var xml = new ConsSitCTe
                 {
@@ -1117,7 +1118,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(consultaProtocolo.RetornoWSString);
                 MessageBox.Show(consultaProtocolo.Result.XMotivo);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -1146,7 +1147,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(statusServico.RetornoWSString);
                 MessageBox.Show(statusServico.Result.XMotivo);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -1184,7 +1185,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(inutilizacao.Result.InfInut.XMotivo);
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                switch(inutilizacao.Result.InfInut.CStat)
+                switch (inutilizacao.Result.InfInut.CStat)
                 {
                     case 102: //Inutilização homologada
                         inutilizacao.GravarXmlDistribuicao(@"c:\testenfe\");
@@ -1195,7 +1196,7 @@ namespace TesteDLL_Unimake.Business.DFe
                         break;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -1225,7 +1226,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(consultaCad.RetornoWSString);
                 MessageBox.Show(consultaCad.Result.InfCons.XMotivo);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -1288,9 +1289,9 @@ namespace TesteDLL_Unimake.Business.DFe
                 var qq = recepcaoEvento.ProcEventoNFeResult[0].GerarXML().OuterXml;
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                if(recepcaoEvento.Result.CStat == 128) //128 = Lote de evento processado com sucesso
+                if (recepcaoEvento.Result.CStat == 128) //128 = Lote de evento processado com sucesso
                 {
-                    switch(recepcaoEvento.Result.RetEvento[0].InfEvento.CStat)
+                    switch (recepcaoEvento.Result.RetEvento[0].InfEvento.CStat)
                     {
                         case 135: //Evento homologado com vinculação da respectiva NFe
                         case 136: //Evento homologado sem vinculação com a respectiva NFe (SEFAZ não encontrou a NFe na base dela)
@@ -1304,7 +1305,7 @@ namespace TesteDLL_Unimake.Business.DFe
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -1778,13 +1779,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 };
 
                 var autorizacao = new Autorizacao(xml, configuracao);
-
-                NFe nfe = XMLUtility.Deserializar<NFe>(autorizacao.ConteudoXMLAssinado);
-
-                XMLUtility.Serializar<NFe>(autorizacao.EnviNFe.NFe[0]).OuterXml;
-
                 autorizacao.Executar();
-
 
                 MessageBox.Show(autorizacao.RetornoWSString);
                 MessageBox.Show(autorizacao.Result.XMotivo);
@@ -1792,10 +1787,10 @@ namespace TesteDLL_Unimake.Business.DFe
                 //Gravar o arquivo do conteúdo retornado em uma pasta qualquer para ter em segurança. Pode-se também gravar na base de dados. Fica a critério de cada um.
                 File.WriteAllText(@"c:\testenfe\retorno\nomearquivoretorno.xml", autorizacao.RetornoWSString);
 
-                if(autorizacao.Result.ProtNFe != null)
+                if (autorizacao.Result.ProtNFe != null)
                 {
                     //Gravar o XML de distribuição se a nota foi autorizada ou denegada
-                    switch(autorizacao.Result.ProtNFe.InfProt.CStat)
+                    switch (autorizacao.Result.ProtNFe.InfProt.CStat)
                     {
                         case 100: //Autorizado o uso da NF-e
                         case 110: //Uso Denegado
@@ -1816,7 +1811,7 @@ namespace TesteDLL_Unimake.Business.DFe
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -1871,7 +1866,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(retAutorizacao.RetornoWSString);
                 MessageBox.Show(retAutorizacao.Result.XMotivo);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -1897,7 +1892,7 @@ namespace TesteDLL_Unimake.Business.DFe
             Application.DoEvents();
             pbConsultaDFe.Refresh();
 
-            while(true)
+            while (true)
             {
                 try
                 {
@@ -1918,7 +1913,7 @@ namespace TesteDLL_Unimake.Business.DFe
 
                     #region Atualizar ProgressBar
 
-                    if(pbConsultaDFe.Maximum != Convert.ToInt32(distribuicaoDFe.Result.MaxNSU))
+                    if (pbConsultaDFe.Maximum != Convert.ToInt32(distribuicaoDFe.Result.MaxNSU))
                     {
                         pbConsultaDFe.Maximum = Convert.ToInt32(distribuicaoDFe.Result.MaxNSU);
                     }
@@ -1929,11 +1924,11 @@ namespace TesteDLL_Unimake.Business.DFe
 
                     #endregion Atualizar ProgressBar
 
-                    if(distribuicaoDFe.Result.CStat.Equals(138)) //Documentos localizados
+                    if (distribuicaoDFe.Result.CStat.Equals(138)) //Documentos localizados
                     {
                         var folder = @"c:\testenfe\doczip";
 
-                        if(Environment.MachineName == "MARCELO-PC")
+                        if (Environment.MachineName == "MARCELO-PC")
                         {
                             folder = @"D:\temp\uninfe";
                         }
@@ -1944,12 +1939,12 @@ namespace TesteDLL_Unimake.Business.DFe
 
                     nsu = distribuicaoDFe.Result.UltNSU;
 
-                    if(Convert.ToInt64(distribuicaoDFe.Result.UltNSU) >= Convert.ToInt64(distribuicaoDFe.Result.MaxNSU))
+                    if (Convert.ToInt64(distribuicaoDFe.Result.UltNSU) >= Convert.ToInt64(distribuicaoDFe.Result.MaxNSU))
                     {
                         break;
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     CatchException(ex);
                 }
@@ -1969,7 +1964,7 @@ namespace TesteDLL_Unimake.Business.DFe
             {
                 message.AppendLine($"{ex.Message}\r\n");
                 ex = ex.InnerException;
-            } while(ex != null);
+            } while (ex != null);
 
             MessageBox.Show(message.ToString(), "ERRO!", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
@@ -1985,7 +1980,7 @@ namespace TesteDLL_Unimake.Business.DFe
         {
             var det = new List<Det>();
 
-            for(var i = 0; i < 1; i++)
+            for (var i = 0; i < 1; i++)
             {
                 det.Add(new Det
                 {
@@ -2032,7 +2027,7 @@ namespace TesteDLL_Unimake.Business.DFe
 
             var cst = "102";
 
-            switch(cst)
+            switch (cst)
             {
                 case "102":
                     icms.ICMSSN102 = new ICMSSN102
@@ -2104,7 +2099,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(retAutorizacao.RetornoWSString);
                 MessageBox.Show(retAutorizacao.Result.XMotivo);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -2118,9 +2113,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 doc.LoadXml(File.ReadAllText(@"C:\Users\Wandrey\Downloads\XMLs\CTe Eventos\teste.xml", Encoding.UTF8));
                 // doc.LoadXml(System.IO.File.ReadAllText(@"C:\Users\Wandrey\Downloads\Telegram Desktop\51201212576467000163550030000000021771093893_110111_01_proceventonfe.xml", Encoding.UTF8));
 
-                var xml = Unimake.Business.DFe.Utility.XMLUtility.Deserializar<EventoCTe<InfEventoCanc>>(doc);
-
-
+                var xml = Unimake.Business.DFe.Utility.XMLUtility.Deserializar<EventoCTe<Unimake.Business.DFe.Xml.CTe.DetEventoCanc>>(doc);
 
                 //var xml = new EventoCTe<InfEventoCanc>
                 //{
@@ -2153,7 +2146,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 };
 
 
-                var recepcaoEvento = new Unimake.Business.DFe.Servicos.CTe.RecepcaoEvento<InfEventoCanc>(xml, configuracao);
+                var recepcaoEvento = new Unimake.Business.DFe.Servicos.CTe.RecepcaoEvento<Unimake.Business.DFe.Xml.CTe.DetEventoCanc>(xml, configuracao);
 
                 //xml.LerXML<EventoCTe>(recepcaoEvento.ConteudoXMLAssinado);
 
@@ -2162,7 +2155,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(recepcaoEvento.Result.InfEvento.XMotivo);
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                switch(recepcaoEvento.Result.InfEvento.CStat)
+                switch (recepcaoEvento.Result.InfEvento.CStat)
                 {
                     case 134: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respectivo CT-e com situação diferente de Autorizada.
                     case 135: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respetivo CTe.
@@ -2175,7 +2168,7 @@ namespace TesteDLL_Unimake.Business.DFe
                         break;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -2203,7 +2196,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(retAutorizacao.RetornoWSString);
                 MessageBox.Show(retAutorizacao.Result.XMotivo);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -2250,7 +2243,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(recepcaoEvento.Result.InfEvento.XMotivo);
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                switch(recepcaoEvento.Result.InfEvento.CStat)
+                switch (recepcaoEvento.Result.InfEvento.CStat)
                 {
                     case 134: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respectivo CT-e com situação diferente de Autorizada.
                     case 135: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respetivo CTe.
@@ -2264,7 +2257,7 @@ namespace TesteDLL_Unimake.Business.DFe
                         break;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -2274,10 +2267,10 @@ namespace TesteDLL_Unimake.Business.DFe
         {
             try
             {
-                var xml = new EventoCTe<InfEventoCompEntrega>
+                var xml = new EventoCTe<DetEventoCompEntrega>
                 {
                     Versao = "3.00",
-                    InfEvento = new InfEventoCompEntrega
+                    InfEvento = new InfEvento<DetEventoCompEntrega>
                     {
                         COrgao = UFBrasil.PR,
                         ChCTe = "41190806117473000150550010000579131943463890",
@@ -2322,7 +2315,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 };
 
 
-                var recepcaoEvento = new Unimake.Business.DFe.Servicos.CTe.RecepcaoEvento<InfEventoCompEntrega>(xml, configuracao);
+                var recepcaoEvento = new Unimake.Business.DFe.Servicos.CTe.RecepcaoEvento<DetEventoCompEntrega>(xml, configuracao);
 
                 //xml.LerXML<EventoCTe>(recepcaoEvento.ConteudoXMLAssinado);
 
@@ -2331,7 +2324,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(recepcaoEvento.Result.InfEvento.XMotivo);
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                switch(recepcaoEvento.Result.InfEvento.CStat)
+                switch (recepcaoEvento.Result.InfEvento.CStat)
                 {
                     case 134: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respectivo CT-e com situação diferente de Autorizada.
                     case 135: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respetivo CTe.
@@ -2344,7 +2337,7 @@ namespace TesteDLL_Unimake.Business.DFe
                         break;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -2374,7 +2367,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(consNaoEnc.RetornoWSString);
                 MessageBox.Show(consNaoEnc.Result.XMotivo);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -2384,10 +2377,10 @@ namespace TesteDLL_Unimake.Business.DFe
         {
             try
             {
-                var xml = new EventoCTe<InfEventoCancCompEntrega>
+                var xml = new EventoCTe<DetEventoCancCompEntrega>
                 {
                     Versao = "3.00",
-                    InfEvento = new InfEventoCancCompEntrega
+                    InfEvento = new InfEvento<DetEventoCancCompEntrega>
                     {
                         COrgao = UFBrasil.PR,
                         ChCTe = "41190806117473000150550010000579131943463890",
@@ -2414,7 +2407,7 @@ namespace TesteDLL_Unimake.Business.DFe
                     CertificadoDigital = CertificadoSelecionado
                 };
 
-                var recepcaoEvento = new Unimake.Business.DFe.Servicos.CTe.RecepcaoEvento<InfEventoCancCompEntrega>(xml, configuracao);
+                var recepcaoEvento = new Unimake.Business.DFe.Servicos.CTe.RecepcaoEvento<DetEventoCancCompEntrega>(xml, configuracao);
                 //xml.LerXML<EventoCTe>(recepcaoEvento.ConteudoXMLAssinado);
 
                 recepcaoEvento.Executar();
@@ -2422,7 +2415,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(recepcaoEvento.Result.InfEvento.XMotivo);
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                switch(recepcaoEvento.Result.InfEvento.CStat)
+                switch (recepcaoEvento.Result.InfEvento.CStat)
                 {
                     case 134: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respectivo CT-e com situação diferente de Autorizada.
                     case 135: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respetivo CTe.
@@ -2435,7 +2428,7 @@ namespace TesteDLL_Unimake.Business.DFe
                         break;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -2653,11 +2646,11 @@ namespace TesteDLL_Unimake.Business.DFe
                 autorizacao.Executar();
                 MessageBox.Show(autorizacao.RetornoWSString);
 
-                if(autorizacao.Result != null)
+                if (autorizacao.Result != null)
                 {
                     MessageBox.Show(autorizacao.Result.XMotivo);
 
-                    if(autorizacao.Result.CStat == 103) //103 = Lote Recebido com Sucesso
+                    if (autorizacao.Result.CStat == 103) //103 = Lote Recebido com Sucesso
                     {
                         // Finalizar através da consulta do recibo.
                         var xmlRec = new ConsReciCTe
@@ -2703,7 +2696,7 @@ namespace TesteDLL_Unimake.Business.DFe
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -2713,10 +2706,10 @@ namespace TesteDLL_Unimake.Business.DFe
         {
             try
             {
-                var xml = new EventoCTe<InfEventoCCe>
+                var xml = new EventoCTe<DetEventoCCe>
                 {
                     Versao = "3.00",
-                    InfEvento = new InfEventoCCe
+                    InfEvento = new InfEvento<DetEventoCCe>
                     {
                         COrgao = UFBrasil.PR,
                         ChCTe = "41190806117473000150550010000579131943463890",
@@ -2759,7 +2752,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 };
 
 
-                var recepcaoEvento = new Unimake.Business.DFe.Servicos.CTe.RecepcaoEvento<InfEventoCCe>(xml, configuracao);
+                var recepcaoEvento = new Unimake.Business.DFe.Servicos.CTe.RecepcaoEvento<DetEventoCCe>(xml, configuracao);
 
                 //xml.LerXML<EventoCTe>(recepcaoEvento.ConteudoXMLAssinado);
 
@@ -2768,7 +2761,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(recepcaoEvento.Result.InfEvento.XMotivo);
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                switch(recepcaoEvento.Result.InfEvento.CStat)
+                switch (recepcaoEvento.Result.InfEvento.CStat)
                 {
                     case 134: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respectivo CT-e com situação diferente de Autorizada.
                     case 135: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respetivo CTe.
@@ -2781,7 +2774,7 @@ namespace TesteDLL_Unimake.Business.DFe
                         break;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -2803,10 +2796,10 @@ namespace TesteDLL_Unimake.Business.DFe
         {
             try
             {
-                var xml = new EventoCTe<InfEventoPrestDesacordo>
+                var xml = new EventoCTe<DetEventoPrestDesacordo>
                 {
                     Versao = "3.00",
-                    InfEvento = new InfEventoPrestDesacordo
+                    InfEvento = new InfEvento<DetEventoPrestDesacordo>
                     {
                         COrgao = UFBrasil.PR,
                         ChCTe = "41190806117473000150550010000579131943463890",
@@ -2834,7 +2827,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 };
 
 
-                var recepcaoEvento = new Unimake.Business.DFe.Servicos.CTe.RecepcaoEvento<InfEventoPrestDesacordo>(xml, configuracao);
+                var recepcaoEvento = new Unimake.Business.DFe.Servicos.CTe.RecepcaoEvento<DetEventoPrestDesacordo>(xml, configuracao);
 
                 //xml.LerXML<EventoCTe>(recepcaoEvento.ConteudoXMLAssinado);
 
@@ -2843,7 +2836,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(recepcaoEvento.Result.InfEvento.XMotivo);
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                switch(recepcaoEvento.Result.InfEvento.CStat)
+                switch (recepcaoEvento.Result.InfEvento.CStat)
                 {
                     case 134: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respectivo CT-e com situação diferente de Autorizada.
                     case 135: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respetivo CTe.
@@ -2856,7 +2849,7 @@ namespace TesteDLL_Unimake.Business.DFe
                         break;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -3258,11 +3251,11 @@ namespace TesteDLL_Unimake.Business.DFe
                 autorizacao.Executar();
                 MessageBox.Show(autorizacao.RetornoWSString);
 
-                if(autorizacao.Result != null)
+                if (autorizacao.Result != null)
                 {
                     MessageBox.Show(autorizacao.Result.XMotivo);
 
-                    if(autorizacao.Result.CStat == 103) //103 = Lote Recebido com Sucesso
+                    if (autorizacao.Result.CStat == 103) //103 = Lote Recebido com Sucesso
                     {
                         #region Finalizar através da consulta do recibo.
 
@@ -3299,7 +3292,7 @@ namespace TesteDLL_Unimake.Business.DFe
                             CertificadoDigital = CertificadoSelecionado
                         };
 
-                        foreach(var item in xml.CTe)
+                        foreach (var item in xml.CTe)
                         {
                             var xmlSit = new ConsSitCTe
                             {
@@ -3320,7 +3313,7 @@ namespace TesteDLL_Unimake.Business.DFe
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -3374,9 +3367,9 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(recepcaoEvento.Result.XMotivo);
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                if(recepcaoEvento.Result.CStat == 128) //128 = Lote de evento processado com sucesso
+                if (recepcaoEvento.Result.CStat == 128) //128 = Lote de evento processado com sucesso
                 {
-                    switch(recepcaoEvento.Result.RetEvento[0].InfEvento.CStat)
+                    switch (recepcaoEvento.Result.RetEvento[0].InfEvento.CStat)
                     {
                         case 135: //Evento homologado com vinculação da respectiva NFe
                         case 136: //Evento homologado sem vinculação com a respectiva NFe (SEFAZ não encontrou a NFe na base dela)
@@ -3390,7 +3383,7 @@ namespace TesteDLL_Unimake.Business.DFe
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -3446,7 +3439,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(recepcaoEvento.Result.InfEvento.XMotivo);
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                switch(recepcaoEvento.Result.InfEvento.CStat)
+                switch (recepcaoEvento.Result.InfEvento.CStat)
                 {
                     case 134: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respectivo CT-e com situação diferente de Autorizada.
                     case 135: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respetivo CTe.
@@ -3459,7 +3452,7 @@ namespace TesteDLL_Unimake.Business.DFe
                         break;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -3518,7 +3511,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(recepcaoEvento.Result.InfEvento.XMotivo);
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                switch(recepcaoEvento.Result.InfEvento.CStat)
+                switch (recepcaoEvento.Result.InfEvento.CStat)
                 {
                     case 134: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respectivo CT-e com situação diferente de Autorizada.
                     case 135: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respetivo CTe.
@@ -3531,7 +3524,7 @@ namespace TesteDLL_Unimake.Business.DFe
                         break;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -3758,13 +3751,14 @@ namespace TesteDLL_Unimake.Business.DFe
 
                 var autorizacao = new Unimake.Business.DFe.Servicos.MDFe.Autorizacao(xml, configuracao);
                 autorizacao.Executar();
+
                 MessageBox.Show(autorizacao.RetornoWSString);
 
-                if(autorizacao.Result != null)
+                if (autorizacao.Result != null)
                 {
                     MessageBox.Show(autorizacao.Result.XMotivo);
 
-                    if(autorizacao.Result.CStat == 103) //103 = Lote Recebido com Sucesso
+                    if (autorizacao.Result.CStat == 103) //103 = Lote Recebido com Sucesso
                     {
                         // Finalizar através da consulta do recibo.
                         var xmlRec = new ConsReciMDFe
@@ -3810,7 +3804,7 @@ namespace TesteDLL_Unimake.Business.DFe
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -4125,14 +4119,14 @@ namespace TesteDLL_Unimake.Business.DFe
                 var autorizacao = new Autorizacao(xml, configuracao);
                 autorizacao.Executar();
 
-                if(autorizacao.Result != null)
+                if (autorizacao.Result != null)
                 {
                     //Gravar o arquivo do conteúdo retornado em uma pasta qualquer para ter em segurança. Pode-se também gravar na base de dados. Fica a critério de cada um.
                     File.WriteAllText(@"c:\testenfe\retorno\nomearquivoretorno.xml", autorizacao.RetornoWSString);
 
                     MessageBox.Show(autorizacao.Result.XMotivo);
 
-                    if(autorizacao.Result.CStat == 103) //103 = Lote Recebido com Sucesso
+                    if (autorizacao.Result.CStat == 103) //103 = Lote Recebido com Sucesso
                     {
                         #region Finalizar através da consulta do recibo.
 
@@ -4169,7 +4163,7 @@ namespace TesteDLL_Unimake.Business.DFe
                             CertificadoDigital = CertificadoSelecionado
                         };
 
-                        foreach(var item in xml.NFe)
+                        foreach (var item in xml.NFe)
                         {
                             var xmlSit = new ConsSitNFe
                             {
@@ -4190,10 +4184,10 @@ namespace TesteDLL_Unimake.Business.DFe
                     }
                 }
 
-                if(autorizacao.Result.ProtNFe != null)
+                if (autorizacao.Result.ProtNFe != null)
                 {
                     //Gravar o XML de distribuição se a nota foi autorizada ou denegada
-                    switch(autorizacao.Result.ProtNFe.InfProt.CStat)
+                    switch (autorizacao.Result.ProtNFe.InfProt.CStat)
                     {
                         case 100: //Autorizado o uso da NF-e
                         case 110: //Uso Denegado
@@ -4214,7 +4208,7 @@ namespace TesteDLL_Unimake.Business.DFe
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -4262,7 +4256,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(recepcaoEvento.Result.InfEvento.XMotivo);
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                switch(recepcaoEvento.Result.InfEvento.CStat)
+                switch (recepcaoEvento.Result.InfEvento.CStat)
                 {
                     case 134: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respectivo CT-e com situação diferente de Autorizada.
                     case 135: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respetivo CTe.
@@ -4275,7 +4269,7 @@ namespace TesteDLL_Unimake.Business.DFe
                         break;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -4285,19 +4279,34 @@ namespace TesteDLL_Unimake.Business.DFe
         {
             #region Vou ler um XML para simplificar, mas neste ponto tem que montar o objeto do XML da NFe exatamente como ele foi enviado e autorizado para não dar diferença de assinatura
 
-            //var xml = CriarNFe();
+            var xml = CriarNFe();
 
             var xmlNFe = new NFe();
-            var xml = new EnviNFe
-            {
-                IdLote = "000001",
-                IndSinc = SimNao.Nao,
-                Versao = "4.00",
-                NFe = new List<NFe>
-                {
-                    xmlNFe.LoadFromFile(@"C:\Users\Wandrey\Downloads\31201037364506000190550010000000541000000568-NFe (1).xml")
-                }
-            };
+            //var xml = new EnviNFe
+            //{
+            //    IdLote = "000001",
+            //    IndSinc = SimNao.Nao,
+            //    Versao = "4.00",
+            //    NFe = new List<NFe>
+            //    {
+            //        xmlNFe.LoadFromFile(@"C:\Users\Wandrey\Downloads\31201037364506000190550010000000541000000568-NFe (1).xml")
+            //    }
+            //};
+
+            //var doc = new XmlDocument();
+            //doc.LoadXml(conteudoXML);
+
+            //var xmlNFe = new NFe();
+            //var xml = new EnviNFe
+            //{
+            //    IdLote = "000001",
+            //    IndSinc = SimNao.Nao,
+            //    Versao = "4.00",
+            //    NFe = new List<NFe>
+            //    {
+            //        Unimake.Business.DFe.Utility.XMLUtility.Deserializar<NFe>(doc)
+            //    }
+            //};
 
             #endregion 
 
@@ -4319,7 +4328,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 CertificadoDigital = CertificadoSelecionado
             };
 
-            foreach(var item in xml.NFe)
+            foreach (var item in xml.NFe)
             {
                 var xmlSit = new ConsSitNFe
                 {
@@ -4793,10 +4802,10 @@ namespace TesteDLL_Unimake.Business.DFe
                 autorizacao.Executar();
                 MessageBox.Show(autorizacao.RetornoWSString);
 
-                if(autorizacao.Result.ProtCTe != null)
+                if (autorizacao.Result.ProtCTe != null)
                 {
 
-                    if(autorizacao.Result.CStat == 103) //103 = Lote Recebido com Sucesso
+                    if (autorizacao.Result.CStat == 103) //103 = Lote Recebido com Sucesso
                     {
                         autorizacao.GravarXmlDistribuicao(@"c:\testenfe\");
                     }
@@ -4823,7 +4832,7 @@ namespace TesteDLL_Unimake.Business.DFe
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -4852,7 +4861,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(statusServico.RetornoWSString);
                 MessageBox.Show(statusServico.Result.XMotivo);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -4881,7 +4890,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(consultaProtocolo.RetornoWSString);
                 MessageBox.Show(consultaProtocolo.Result.XMotivo);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -4920,7 +4929,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(inutilizacao.Result.InfInut.XMotivo);
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                switch(inutilizacao.Result.InfInut.CStat)
+                switch (inutilizacao.Result.InfInut.CStat)
                 {
                     case 102: //Inutilização homologada
                         inutilizacao.GravarXmlDistribuicao(@"c:\testenfe\");
@@ -4931,7 +4940,7 @@ namespace TesteDLL_Unimake.Business.DFe
                         break;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -4962,7 +4971,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(consultaCad.RetornoWSString);
                 MessageBox.Show(consultaCad.Result.InfCons.XMotivo);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -4972,10 +4981,10 @@ namespace TesteDLL_Unimake.Business.DFe
         {
             try
             {
-                var xml = new EventoCTe<InfEventoCanc>
+                var xml = new EventoCTe<Unimake.Business.DFe.Xml.CTe.DetEventoCanc>
                 {
                     Versao = "3.00",
-                    InfEvento = new InfEventoCanc
+                    InfEvento = new InfEvento<Unimake.Business.DFe.Xml.CTe.DetEventoCanc>
                     {
                         COrgao = UFBrasil.AN,
                         ChCTe = "41190806117473000150550010000579131943463890",
@@ -5003,7 +5012,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 };
 
 
-                var recepcaoEvento = new Unimake.Business.DFe.Servicos.CTeOS.RecepcaoEvento<InfEventoCanc>(xml, configuracao);
+                var recepcaoEvento = new Unimake.Business.DFe.Servicos.CTeOS.RecepcaoEvento<Unimake.Business.DFe.Xml.CTe.DetEventoCanc>(xml, configuracao);
 
                 //xml.LerXML<EventoCTe>(recepcaoEvento.ConteudoXMLAssinado);
 
@@ -5012,7 +5021,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(recepcaoEvento.Result.InfEvento.XMotivo);
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                switch(recepcaoEvento.Result.InfEvento.CStat)
+                switch (recepcaoEvento.Result.InfEvento.CStat)
                 {
                     case 134: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respectivo CT-e com situação diferente de Autorizada.
                     case 135: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respetivo CTe.
@@ -5025,7 +5034,7 @@ namespace TesteDLL_Unimake.Business.DFe
                         break;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -5035,10 +5044,10 @@ namespace TesteDLL_Unimake.Business.DFe
         {
             try
             {
-                var xml = new EventoCTe<InfEventoCCe>
+                var xml = new EventoCTe<DetEventoCCe>
                 {
                     Versao = "3.00",
-                    InfEvento = new InfEventoCCe
+                    InfEvento = new InfEvento<DetEventoCCe>
                     {
                         COrgao = UFBrasil.AN,
                         ChCTe = "41190806117473000150550010000579131943463890",
@@ -5081,7 +5090,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 };
 
 
-                var recepcaoEvento = new Unimake.Business.DFe.Servicos.CTeOS.RecepcaoEvento<InfEventoCCe>(xml, configuracao);
+                var recepcaoEvento = new Unimake.Business.DFe.Servicos.CTeOS.RecepcaoEvento<DetEventoCCe>(xml, configuracao);
 
                 //xml.LerXML<EventoCTe>(recepcaoEvento.ConteudoXMLAssinado);
 
@@ -5090,7 +5099,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(recepcaoEvento.Result.InfEvento.XMotivo);
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                switch(recepcaoEvento.Result.InfEvento.CStat)
+                switch (recepcaoEvento.Result.InfEvento.CStat)
                 {
                     case 134: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respectivo CT-e com situação diferente de Autorizada.
                     case 135: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respetivo CTe.
@@ -5103,7 +5112,7 @@ namespace TesteDLL_Unimake.Business.DFe
                         break;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -5111,27 +5120,51 @@ namespace TesteDLL_Unimake.Business.DFe
 
         private void button44_Click(object sender, EventArgs e)
         {
-            var config = new Unimake.Unidanfe.Configurations.UnidanfeConfiguration
-            {
-                Arquivo = @"Caminho completo do -procnfe.xml",
-                Copias = 1,
-                Visualizar = true,
-                Imprimir = false
-            };
+            var conteudo = XMLUtility.ExtrairConteudoChaveDFe("41210212345678000112650110000000069123456787");
+            Console.WriteLine(conteudo.UFEmissor); //Output: PR
+            Console.WriteLine(conteudo.AnoEmissao); //Output: 21
+            Console.WriteLine(conteudo.MesEmissao); //Output: 02
+            Console.WriteLine(conteudo.CNPJEmissor); //Output: 12345678000112
+            Console.WriteLine(conteudo.Modelo); //Output: NFCe
+            Console.WriteLine(conteudo.Serie); //Output: 11
+            Console.WriteLine(conteudo.NumeroDoctoFiscal); //Output: 6
+            Console.WriteLine(conteudo.TipoEmissao); //Output: ContingenciaOffLine
+            Console.WriteLine(conteudo.CodigoNumerico); //Output: 12345678
+            Console.WriteLine(conteudo.DigitoVerificador); //Output: 7
+
+            MessageBox.Show(
+                0.1.ToString("F10", CultureInfo.InvariantCulture) + "\r\n" +
+                0.12.ToString("F10", CultureInfo.InvariantCulture) + "\r\n" +
+                0.123.ToString("F10", CultureInfo.InvariantCulture) + "\r\n" +
+                1.00.ToString("F10", CultureInfo.InvariantCulture) + "\r\n" +
+                0.1234567891.ToString("F10", CultureInfo.InvariantCulture) + "\r\n" +
+                1.1234567891.ToString("F10", CultureInfo.InvariantCulture) + "\r\n" +
+                2.1234567891.ToString("F10", CultureInfo.InvariantCulture) + "\r\n" +
+                22.1234567891.ToString("F10", CultureInfo.InvariantCulture) + "\r\n" +
+                222.1234567891.ToString("F10", CultureInfo.InvariantCulture) + "\r\n" +
+                2222.12345678917.ToString("F10", CultureInfo.InvariantCulture));
+
+            //var config = new Unimake.Unidanfe.Configurations.UnidanfeConfiguration
+            //{
+            //    Arquivo = @"Caminho completo do -procnfe.xml",
+            //    Copias = 1,
+            //    Visualizar = true,
+            //    Imprimir = false
+            //};
 
 
-            try
-            {
-                XMLUtility.ChecarChaveDFe("41201280568835000181570010000004841004185096");
-            }
-            catch(Exception ex)
-            {
-                //Se chave tiver algum erro, vai retornar uma exceção.
-                MessageBox.Show(ex.Message);
-            }
+            //try
+            //{
+            //    XMLUtility.ChecarChaveDFe("41201280568835000181570010000004841004185096");
+            //}
+            //catch(Exception ex)
+            //{
+            //    //Se chave tiver algum erro, vai retornar uma exceção.
+            //    MessageBox.Show(ex.Message);
+            //}
 
-            CertificadoDigital cert = new CertificadoDigital();
-            cert.CarregarCertificadoDigitalA1("teste","123");
+            //CertificadoDigital cert = new CertificadoDigital();
+            //cert.CarregarCertificadoDigitalA1("teste","123");
 
 
             //// ---------------------------------------------------------------------------------------------------------
@@ -5457,7 +5490,7 @@ namespace TesteDLL_Unimake.Business.DFe
 
             validarSchema.Validar(doc, schema, "http://www.portalfiscal.inf.br/nfe");
 
-            if(!validarSchema.Success)
+            if (!validarSchema.Success)
             {
                 MessageBox.Show("Code: " + validarSchema.ErrorCode + "\r\n\r\nMessage: " + validarSchema.ErrorMessage);
             }
@@ -5523,9 +5556,9 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(recepcaoEvento.Result.XMotivo);
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                if(recepcaoEvento.Result.CStat == 128) //128 = Lote de evento processado com sucesso
+                if (recepcaoEvento.Result.CStat == 128) //128 = Lote de evento processado com sucesso
                 {
-                    switch(recepcaoEvento.Result.RetEvento[0].InfEvento.CStat)
+                    switch (recepcaoEvento.Result.RetEvento[0].InfEvento.CStat)
                     {
                         case 135: //Evento homologado com vinculação da respectiva NFe
                         case 136: //Evento homologado sem vinculação com a respectiva NFe (SEFAZ não encontrou a NFe na base dela)
@@ -5539,7 +5572,7 @@ namespace TesteDLL_Unimake.Business.DFe
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -5551,10 +5584,10 @@ namespace TesteDLL_Unimake.Business.DFe
             {
                 //Deserializar o XML de evento com protocolo
                 var xmlProc = new XmlDocument();
-                xmlProc.LoadXml(File.ReadAllText(@"C:\Users\Wandrey\Downloads\XMLs\CTe Eventos\35170100000000000191570010000000011065100453_610110_01-procEventoCTe.xml", Encoding.UTF8));
-                var xmlProcObj = new ProcEventoCTe<InfEventoPrestDesacordo>().LerXML<ProcEventoCTe<InfEventoPrestDesacordo>>(xmlProc);
+                xmlProc.LoadXml(File.ReadAllText(@"C:\Users\Wandrey\Downloads\Modelos XML\CTe Eventos\35170100000000000191570010000000011065100453_610110_01-procEventoCTe.xml", Encoding.UTF8));
+                var xmlProcObj = new ProcEventoCTe<DetEventoPrestDesacordo>().LerXML<ProcEventoCTe<DetEventoPrestDesacordo>>(xmlProc);
 
-                //XMLUtility.Deserializar<ProcEventoCTe<InfEventoPrestDesacordo>>(xmlProc);
+                XMLUtility.Deserializar<ProcEventoCTe<DetEventoPrestDesacordo>>(xmlProc);
 
                 string testeXml = xmlProcObj.GerarXML().OuterXml;
 
@@ -5564,10 +5597,10 @@ namespace TesteDLL_Unimake.Business.DFe
                 //var xmlObj = Unimake.Business.DFe.Utility.XMLUtility.Deserializar<EventoCTe<InfEventoEPEC>>(xmlTeste);
 
                 //Montar o XML manualmente
-                var xml = new EventoCTe<InfEventoEPEC>
+                var xml = new EventoCTe<Unimake.Business.DFe.Xml.CTe.DetEventoEPEC>
                 {
                     Versao = "3.00",
-                    InfEvento = new InfEventoEPEC
+                    InfEvento = new InfEvento<Unimake.Business.DFe.Xml.CTe.DetEventoEPEC>
                     {
                         COrgao = UFBrasil.RS,
                         ChCTe = "41190806117473000150550010000579131943463890",
@@ -5608,12 +5641,12 @@ namespace TesteDLL_Unimake.Business.DFe
                     TipoDFe = TipoDFe.CTe
                 };
 
-                var recepcaoEvento = new Unimake.Business.DFe.Servicos.CTe.RecepcaoEvento<InfEventoEPEC>(xml, configuracao);
+                var recepcaoEvento = new Unimake.Business.DFe.Servicos.CTe.RecepcaoEvento<Unimake.Business.DFe.Xml.CTe.DetEventoEPEC>(xml, configuracao);
                 recepcaoEvento.Executar();
 
                 MessageBox.Show(recepcaoEvento.RetornoWSString);
 
-                switch(recepcaoEvento.Result.InfEvento.CStat)
+                switch (recepcaoEvento.Result.InfEvento.CStat)
                 {
                     case 134: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respectivo CT-e com situação diferente de Autorizada.
                     case 135: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respetivo CTe.
@@ -5625,7 +5658,7 @@ namespace TesteDLL_Unimake.Business.DFe
                         break;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
