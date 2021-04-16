@@ -1,23 +1,44 @@
 Attribute VB_Name = "ServicosNFe"
 Option Explicit
+Public Sub ValidarXML()
+On Error GoTo erro
+Dim validarSchema: Set validarSchema = CreateObject("Unimake.Business.DFe.ValidarSchema")
+Dim schema: schema = "NFe.nfe_v4.00.xsd"
+
+validarSchema.Validar "D:\Temp\DFe_ZIPFile_2021_03_02_11_58_41_-1133296159\41210206268208000172650020000031071794904016-procnfe.xml", _
+                        schema, _
+                        "http://www.portalfiscal.inf.br/nfe"
+
+If validarSchema.Success Then
+    MsgBox "XML validado com sucesso.", vbOKOnly + vbInformation
+Else
+    MsgBox "Code: " & validarSchema.errorCode & vbCrLf & "Message: " + validarSchema.ErrorMessage, vbOKOnly + vbCritical
+End If
+
+Exit Sub
+erro:
+Utility.TrapException
+End Sub
+
+
 Public Sub AutorizarPorArquivoNFe()
 On Error GoTo erro
-Dim EnviNFe
-Dim Autorizacao
+Dim EnviNFe:        Set EnviNFe = CreateObject("Unimake.Business.DFe.Xml.NFe.EnviNFe")
+Dim Autorizacao:    Set Autorizacao = CreateObject("Unimake.Business.DFe.Servicos.NFe.Autorizacao")
 
 Log.ClearLog
 
-Set EnviNFe = CreateObject("Unimake.Business.DFe.Xml.NFe.EnviNFe")
 EnviNFe.Versao = "4.00"
 EnviNFe.IdLote = "000000000000001"
 EnviNFe.IndSinc = 1
 EnviNFe.AddNFe (GetFromFileNFe())
 
-Set Autorizacao = CreateObject("Unimake.Business.DFe.Servicos.NFe.Autorizacao")
-Autorizacao.Executar (EnviNFe), (Config.InicializarConfiguracao(NFe))
+Autorizacao.Executar (EnviNFe), (Config.InicializarConfiguracao(TipoDFe.NFe))
 
 Log.EscreveLog Autorizacao.RetornoWSString, True
 Log.EscreveLog Autorizacao.result.XMotivo, False
+
+GravarXmlDistribuicao Autorizacao
 
 Exit Sub
 erro:
@@ -26,30 +47,47 @@ Utility.TrapException
 End Sub
 
 
-
 Public Sub AutorizarNFe()
 On Error GoTo erro
-Dim EnviNFe
-Dim Autorizacao
+Dim EnviNFe:        Set EnviNFe = CreateObject("Unimake.Business.DFe.Xml.NFe.EnviNFe")
+Dim Autorizacao:    Set Autorizacao = CreateObject("Unimake.Business.DFe.Servicos.NFe.Autorizacao")
 
 Log.ClearLog
 
-Set EnviNFe = CreateObject("Unimake.Business.DFe.Xml.NFe.EnviNFe")
 EnviNFe.Versao = "4.00"
 EnviNFe.IdLote = "000000000000001"
 EnviNFe.IndSinc = 1
 EnviNFe.AddNFe GetNFe()
 
-Set Autorizacao = CreateObject("Unimake.Business.DFe.Servicos.NFe.Autorizacao")
-Autorizacao.Executar (EnviNFe), (Config.InicializarConfiguracao(NFe))
+Autorizacao.Executar (EnviNFe), (Config.InicializarConfiguracao(TipoDFe.NFe))
 
 Log.EscreveLog Autorizacao.RetornoWSString, True
 Log.EscreveLog Autorizacao.result.XMotivo, False
+
+GravarXmlDistribuicao Autorizacao
 
 Exit Sub
 erro:
 Utility.TrapException
 
+End Sub
+
+Sub GravarXmlDistribuicao(Autorizacao)
+If Not Autorizacao.result.ProtNFe Is Nothing Then
+    'Gravar o XML de distribuição
+    Dim CStat: CStat = Autorizacao.result.ProtNFe.InfProt.CStat
+
+    If CStat = 100 Or _
+       CStat = 110 Or _
+       CStat = 150 Or _
+       CStat = 205 Or _
+       CStat = 301 Or _
+       CStat = 302 Or _
+       CStat = 303 Then
+            Autorizacao.GravarXmlDistribuicao "D:\Temp\Uninfe\"
+    End If
+
+End If
 End Sub
 
 
@@ -87,11 +125,11 @@ Function GetIde()
 Dim result
 Set result = CreateObject("Unimake.Business.DFe.Xml.NFe.Ide")
 With result
-    .CUF = CUF
+    .CUF = UFBrasil.PR
     .NatOp = "VENDA PRODUC.DO ESTABELEC"
     .Mod = 55
     .Serie = 1
-    .NNF = 57929
+    .NNF = 57966
     .DhEmi = Now
     .DhSaiEnt = Now
     .TpNF = 1
@@ -102,7 +140,8 @@ With result
     .TpAmb = TpAmb
     .FinNFe = 1
     .IndFinal = 1
-    .IndPres = 9
+    .IndPres = IndicadorPresenca.NaoSeAplica
+    .IndIntermed = IndicadorIntermediario.OperacaoSemIntermediador
     .ProcEmi = 0
     .VerProc = "TESTE 1.00"
 End With

@@ -24,6 +24,8 @@ using NFSe.Components;
 using System;
 using System.IO;
 using NFe.Components.WEBFISCO_TECNOLOGIA;
+using NFe.Components.Elotech;
+using NFe.Components.GeisWeb;
 #if _fw46
 using System.ServiceModel;
 using static NFe.Components.Security.SOAPSecurity;
@@ -70,6 +72,12 @@ namespace NFe.Service.NFSe
                 PadroesNFSe padraoNFSe = Functions.PadraoNFSe(oDadosPedSitNfse.cMunicipio);
                 WebServiceProxy wsProxy = null;
                 object pedLoteRps = null;
+
+                if (!String.IsNullOrEmpty(Empresas.Configuracoes[emp].CertificadoPIN))
+                {
+                    new Unimake.Business.DFe.Utility.Certificate().CarregarPINA3(Empresas.Configuracoes[emp].X509Certificado, Empresas.Configuracoes[emp].CertificadoPIN);
+                }
+
                 if (IsUtilizaCompilacaoWs(padraoNFSe, Servico, oDadosPedSitNfse.cMunicipio))
                 {
                     wsProxy = ConfiguracaoApp.DefinirWS(Servico, emp, oDadosPedSitNfse.cMunicipio, oDadosPedSitNfse.tpAmb, oDadosPedSitNfse.tpEmis, padraoNFSe, oDadosPedSitNfse.cMunicipio);
@@ -165,7 +173,7 @@ namespace NFe.Service.NFSe
                         break;
 
                     case PadroesNFSe.FINTEL:
-                        cabecMsg = "<cabecalho versao=\"2.02\" xmlns=\"http://iss.irati.pr.gov.br/Arquivos/nfseV202.xsd\"><versaoDados>2.02</versaoDados></cabecalho>";
+                        cabecMsg = "<cabecalho versao=\"2.02\" xmlns=\"http://www.abrasf.org.br/nfse.xsd\"><versaoDados>2.02</versaoDados></cabecalho>";
                         break;
 
                     case PadroesNFSe.SYSTEMPRO:
@@ -274,6 +282,11 @@ namespace NFe.Service.NFSe
 
                     case PadroesNFSe.EQUIPLANO:
                         cabecMsg = "1";
+                        break;
+
+                    case PadroesNFSe.RLZ_INFORMATICA_02:
+                        if (oDadosPedSitNfse.cMunicipio == 5107958)
+                            cabecMsg = "<cabecalho><versaoDados>2.02</versaoDados></cabecalho>";
                         break;
 
                     case PadroesNFSe.PORTALFACIL_ACTCON_202:
@@ -439,7 +452,10 @@ namespace NFe.Service.NFSe
 							oDadosPedSitNfse.cMunicipio == 3501301 ||
 							oDadosPedSitNfse.cMunicipio == 4300109 ||
                             oDadosPedSitNfse.cMunicipio == 4124053 ||
-                            oDadosPedSitNfse.cMunicipio == 4101408)
+                            oDadosPedSitNfse.cMunicipio == 4101408 ||
+                            oDadosPedSitNfse.cMunicipio == 3550407 ||
+                            oDadosPedSitNfse.cMunicipio == 4310207 ||
+                            oDadosPedSitNfse.cMunicipio == 1502400)
                         {
                             Pronin pronin = new Pronin((TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
                                 Empresas.Configuracoes[emp].PastaXmlRetorno,
@@ -490,6 +506,18 @@ namespace NFe.Service.NFSe
                         tinus.ConsultarNfse(NomeArquivoXML);
                         break;
 
+                    case PadroesNFSe.GEISWEB:
+                        var geisWeb = new GeisWeb((TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
+                            Empresas.Configuracoes[emp].PastaXmlRetorno,
+                            oDadosPedSitNfse.cMunicipio,
+                            ConfiguracaoApp.ProxyUsuario,
+                            ConfiguracaoApp.ProxySenha,
+                            ConfiguracaoApp.ProxyServidor,
+                            Empresas.Configuracoes[emp].X509Certificado);
+                 
+                        geisWeb.ConsultarNfse(NomeArquivoXML);
+                        break;
+
                     case PadroesNFSe.SH3:
                         cabecMsg = "<cabecalho xmlns=\"http://www.abrasf.org.br/nfse.xsd\" versao=\"1.00\"><versaoDados >1.00</versaoDados ></cabecalho>";
                         break;
@@ -515,6 +543,21 @@ namespace NFe.Service.NFSe
                         softplan.ConsultarNfse(NomeArquivoXML);
                         break;
 #endif
+                    #region CENTI
+                    
+                    case PadroesNFSe.CENTI:
+                        var centi = new Components.CENTI.CENTI((TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
+                                                      Empresas.Configuracoes[emp].PastaXmlRetorno,
+                                                      Empresas.Configuracoes[emp].UsuarioWS,
+                                                      Empresas.Configuracoes[emp].SenhaWS);
+
+                        if (ConfiguracaoApp.Proxy)
+                            centi.Proxy = Proxy.DefinirProxy(ConfiguracaoApp.ProxyServidor, ConfiguracaoApp.ProxyUsuario, ConfiguracaoApp.ProxySenha, ConfiguracaoApp.ProxyPorta);
+
+                        centi.ConsultarNfse(NomeArquivoXML);
+                        break;
+
+                    #endregion CENTI
 
                     case PadroesNFSe.MANAUS_AM:
                         cabecMsg = "<cabecalho versao=\"201001\"><versaoDados>V2010</versaoDados></cabecalho>";
@@ -597,6 +640,18 @@ namespace NFe.Service.NFSe
                                            Empresas.Configuracoes[emp].UsuarioWS,
                                            Empresas.Configuracoes[emp].SenhaWS);
                         webTecnologia.ConsultarNfse(NomeArquivoXML);
+                        break;
+
+                    case PadroesNFSe.ELOTECH:
+                        Elotech elotech = new Elotech((TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
+                                Empresas.Configuracoes[emp].PastaXmlRetorno,
+                                oDadosPedSitNfse.cMunicipio,
+                                ConfiguracaoApp.ProxyUsuario,
+                                ConfiguracaoApp.ProxySenha,
+                                ConfiguracaoApp.ProxyServidor,
+                                Empresas.Configuracoes[emp].X509Certificado);
+
+                        elotech.ConsultarNfse(NomeArquivoXML);
                         break;
                 }
 

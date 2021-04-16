@@ -47,9 +47,8 @@ namespace TesteDLL_Unimake.Business.DFe.UnitTest.CTe
     </detEvento>
   </infEvento>
 </eventoCTe>";
-            //TODO WANDREY: Resolver esta encrenca
-            //var eventoCTe = XMLUtility.Deserializar<EventoCTe>(xml);
-            //Debug.Assert((eventoCTe.InfEvento.DetEvento as DetEventoCCE)?.InfCorrecao?.Count == 3);
+            var eventoCTe = XMLUtility.Deserializar<EventoCTe>(xml);
+            Debug.Assert((eventoCTe.InfEvento.DetEvento as DetEventoCCE)?.InfCorrecao?.Count == 3);
         }
 
         #endregion Public Methods

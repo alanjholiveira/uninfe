@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Reflection;
 using System.Text;
 using System.Xml;
@@ -71,7 +72,7 @@ namespace Unimake.Business.DFe.Xml.NFe
                 xmlElement.SetAttribute("xmlns", attribute.Namespace);
             }
 
-            #endregion
+            #endregion Adicionar o atributo de namespace que falta nas tags "evento"
 
             return xmlDocument;
         }
@@ -192,6 +193,9 @@ namespace Unimake.Business.DFe.Xml.NFe
                         break;
 
                     case TipoEventoNFe.EPEC:
+                        _detEvento = new DetEventoEPEC();
+                        break;
+
                     case TipoEventoNFe.PedidoProrrogacao:
                     default:
                         throw new NotImplementedException($"O tipo de evento '{TpEvento}' não está implementado.");
@@ -266,18 +270,6 @@ namespace Unimake.Business.DFe.Xml.NFe
             "COrgaoAutor",
         };
 
-        private bool SetLocalValue(Type type)
-        {
-            var pi = GetPropertyInfo(type);
-            if(pi == null)
-            {
-                return false;
-            }
-
-            SetValue(pi);
-            return true;
-        }
-
         private static readonly BindingFlags bindingFlags = BindingFlags.Public |
             BindingFlags.Instance |
             BindingFlags.IgnoreCase;
@@ -293,36 +285,42 @@ namespace Unimake.Business.DFe.Xml.NFe
                 return;
             }
 
-            var pi = default(PropertyInfo);
             var type = GetType();
 
             if(XmlReader.HasAttributes)
             {
                 if(XmlReader.GetAttribute("versao") != "")
                 {
-                    pi = type.GetProperty("versao", BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase);
+                    var pi = type.GetProperty("versao", BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase);
                     pi?.SetValue(this, XmlReader.GetAttribute("versao"));
                 }
             }
 
             while(XmlReader.Read())
             {
-
                 if(XmlReader.NodeType != XmlNodeType.Element)
                 {
                     continue;
                 }
 
-                if(SetLocalValue(type) &&
-                   XmlReader.NodeType == XmlNodeType.Element)
-                {
-                    SetLocalValue(type);
-                }
+                SetValue(type);
             }
         }
 
+        internal virtual void SetValue(Type type)
+        {
+            var pi = GetPropertyInfo(type);
+
+            if(pi == null)
+            {
+                return;
+            }
+
+            SetValue(pi);
+        }
+
         internal virtual void SetValue(PropertyInfo pi) =>
-            pi?.SetValue(this, Converter.ToAny(pi.PropertyType, XmlReader.GetValue<object>(XmlReader.Name)));
+            pi?.SetValue(this, Converter.ToAny(XmlReader.GetValue<object>(XmlReader.Name), pi.PropertyType));
 
         protected internal PropertyInfo GetPropertyInfo(Type type)
         {
@@ -359,12 +357,6 @@ namespace Unimake.Business.DFe.Xml.NFe
     [XmlRoot(ElementName = "detEvento")]
     public class DetEventoCanc: EventoDetalhe
     {
-        #region Internal Methods
-
-        internal override void ProcessReader() => base.ProcessReader();
-
-        #endregion Internal Methods
-
         #region Public Properties
 
         [XmlElement("descEvento", Order = 0)]
@@ -397,12 +389,6 @@ namespace Unimake.Business.DFe.Xml.NFe
     [XmlRoot(ElementName = "detEvento")]
     public class DetEventoCancSubst: EventoDetalhe
     {
-        #region Internal Methods
-
-        internal override void ProcessReader() => base.ProcessReader();
-
-        #endregion Internal Methods
-
         #region Public Properties
 
         [XmlElement("descEvento", Order = 0)]
@@ -419,7 +405,7 @@ namespace Unimake.Business.DFe.Xml.NFe
         }
 
         [XmlElement("tpAutor", Order = 2)]
-        public TipoAutorCancelamentoSubstituicaoNFCe TpAutor { get; set; }
+        public TipoAutor TpAutor { get; set; }
 
         [XmlElement("verAplic", Order = 3)]
         public string VerAplic { get; set; }
@@ -457,12 +443,6 @@ namespace Unimake.Business.DFe.Xml.NFe
     [XmlRoot(ElementName = "detEvento")]
     public class DetEventoCCE: EventoDetalhe
     {
-        #region Internal Methods
-
-        internal override void ProcessReader() => base.ProcessReader();
-
-        #endregion Internal Methods
-
         #region Public Properties
 
         [XmlElement("descEvento", Order = 0)]
@@ -492,12 +472,6 @@ namespace Unimake.Business.DFe.Xml.NFe
     [XmlRoot(ElementName = "detEvento")]
     public class DetEventoManif: EventoDetalhe
     {
-        #region Internal Methods
-
-        internal override void ProcessReader() => base.ProcessReader();
-
-        #endregion Internal Methods
-
         #region Public Properties
 
         private string DescEventoField;
@@ -549,5 +523,167 @@ namespace Unimake.Business.DFe.Xml.NFe
         }
 
         #endregion Public Methods
+    }
+
+    [Serializable]
+    [XmlRoot(ElementName = "detEvento")]
+    public class DetEventoEPEC: EventoDetalhe
+    {
+        internal override void SetValue(PropertyInfo pi)
+        {
+            if(pi.Name == nameof(Dest))
+            {
+                XmlReader.Read();
+                Dest = new DetEventoEPECDest();
+                Dest.UF = XmlReader.GetValue<UFBrasil>(nameof(Dest.UF));
+                Dest.CNPJ = XmlReader.GetValue<string>(nameof(Dest.CNPJ));
+                Dest.CPF = XmlReader.GetValue<string>(nameof(Dest.CPF));
+                Dest.IdEstrangeiro = XmlReader.GetValue<string>(nameof(Dest.IdEstrangeiro));
+                Dest.IE = XmlReader.GetValue<string>(nameof(Dest.IE));
+                return;
+            }
+
+            base.SetValue(pi);
+        }
+
+        [XmlElement("descEvento", Order = 0)]
+        public override string DescEvento { get; set; } = "EPEC";
+
+        [XmlIgnore]
+        public UFBrasil COrgaoAutor { get; set; }
+
+        [XmlElement("cOrgaoAutor", Order = 1)]
+        public int COrgaoAutorField
+        {
+            get => (int)COrgaoAutor;
+            set => COrgaoAutor = (UFBrasil)Enum.Parse(typeof(UFBrasil), value.ToString());
+        }
+
+        [XmlElement("tpAutor", Order = 2)]
+        public TipoAutor TpAutor { get; set; }
+
+        [XmlElement("verAplic", Order = 3)]
+        public string VerAplic { get; set; }
+
+        [XmlIgnore]
+        public DateTime DhEmi { get; set; }
+
+        [XmlElement("dhEmi", Order = 4)]
+        public string DhEmiField
+        {
+            get => DhEmi.ToString("yyyy-MM-ddTHH:mm:sszzz");
+            set => DhEmi = DateTime.Parse(value);
+        }
+
+        [XmlElement("tpNF", Order = 5)]
+        public TipoOperacao TpNF { get; set; }
+
+        [XmlElement("IE", Order = 6)]
+        public string IE { get; set; }
+
+        [XmlElement("dest", Order = 7)]
+        public DetEventoEPECDest Dest { get; set; }
+
+        public override void WriteXml(XmlWriter writer)
+        {
+            base.WriteXml(writer);
+
+            var linha = $@"<descEvento>{DescEvento}</descEvento>
+                       <cOrgaoAutor>{COrgaoAutorField}</cOrgaoAutor>
+                       <tpAutor>{(int)TpAutor}</tpAutor>
+                       <verAplic>{VerAplic}</verAplic>
+                       <dhEmi>{DhEmiField}</dhEmi>
+                       <tpNF>{(int)TpNF}</tpNF>
+                       <IE>{IE}</IE>";
+
+            linha += $@"<dest>";
+
+            linha += $@"<UF>{Dest.UF}</UF>";
+            if(!string.IsNullOrWhiteSpace(Dest.CNPJ))
+            {
+                linha += $@"<CNPJ>{Dest.CNPJ}</CNPJ>";
+            }
+            if(!string.IsNullOrWhiteSpace(Dest.CPF))
+            {
+                linha += $@"<CPF>{Dest.CPF}</CPF>";
+            }
+            if(!string.IsNullOrWhiteSpace(Dest.IdEstrangeiro))
+            {
+                linha += $@"<idEstrangeiro>{Dest.IdEstrangeiro}</idEstrangeiro>";
+            }
+            if(!string.IsNullOrWhiteSpace(Dest.IE))
+            {
+                linha += $@"<IE>{Dest.IE}</IE>";
+            }
+            linha += $@"<vNF>{Dest.VNFField}</vNF>";
+            linha += $@"<vICMS>{Dest.VICMSField}</vICMS>";
+            linha += $@"<vST>{Dest.VSTField}</vST>";
+
+            linha += $@"</dest>";
+
+            writer.WriteRaw(linha);
+        }
+    }
+
+    [Serializable]
+    [XmlRoot(ElementName = "dest")]
+    public class DetEventoEPECDest
+    {
+        [XmlElement("UF", Order = 0)]
+        public UFBrasil UF { get; set; }
+
+        [XmlElement("CNPJ", Order = 1)]
+        public string CNPJ { get; set; }
+
+        [XmlElement("CPF", Order = 1)]
+        public string CPF { get; set; }
+
+        [XmlElement("idEstrangeiro", Order = 2)]
+        public string IdEstrangeiro { get; set; }
+
+        [XmlElement("IE", Order = 3)]
+        public string IE { get; set; }
+
+        [XmlIgnore]
+        public double VNF { get; set; }
+
+        [XmlElement("vNF", Order = 4)]
+        public string VNFField
+        {
+            get => VNF.ToString("F2", CultureInfo.InvariantCulture);
+            set => VNF = Converter.ToDouble(value);
+        }
+
+        [XmlIgnore]
+        public double VICMS { get; set; }
+
+        [XmlElement("vICMS", Order = 5)]
+        public string VICMSField
+        {
+            get => VICMS.ToString("F2", CultureInfo.InvariantCulture);
+            set => VICMS = Converter.ToDouble(value);
+        }
+
+        [XmlIgnore]
+        public double VST { get; set; }
+
+        [XmlElement("vST", Order = 6)]
+        public string VSTField
+        {
+            get => VST.ToString("F2", CultureInfo.InvariantCulture);
+            set => VST = Converter.ToDouble(value);
+        }
+
+        #region ShouldSerialize
+
+        public bool ShouldSerializeCNPJ() => !string.IsNullOrWhiteSpace(CNPJ);
+
+        public bool ShouldSerializeCPF() => !string.IsNullOrWhiteSpace(CPF);
+
+        public bool ShouldSerializeIdEstrangeiro() => !string.IsNullOrWhiteSpace(IdEstrangeiro);
+
+        public bool ShouldSerializeIE() => !string.IsNullOrWhiteSpace(IE);
+
+        #endregion ShouldSerialize
     }
 }

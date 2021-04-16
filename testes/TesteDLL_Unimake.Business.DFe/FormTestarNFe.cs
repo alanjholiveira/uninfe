@@ -729,7 +729,7 @@ namespace TesteDLL_Unimake.Business.DFe
                         case 205: //NF-e está denegada na base de dados da SEFAZ [nRec:999999999999999]
                         case 301: //Uso Denegado: Irregularidade fiscal do emitente
                         case 302: //Uso Denegado: Irregularidade fiscal do destinatário
-                        case 303: //Uso Denegado: Destinatário não habilitado a operar na UF                            
+                        case 303: //Uso Denegado: Destinatário não habilitado a operar na UF
                             MessageBox.Show(autorizacao.NfeProcResult.NomeArquivoDistribuicao);
 
                             autorizacao.GravarXmlDistribuicao(@"c:\testenfe\");
@@ -1236,13 +1236,6 @@ namespace TesteDLL_Unimake.Business.DFe
         {
             try
             {
-                ProcEventoNFe xmlProcEventoNFe;
-
-                var doc = new XmlDocument();
-                doc.LoadXml(System.IO.File.ReadAllText(@"C:\Users\Wandrey\Downloads\41201206117473000150550010000659251018756023_110111_01-procEventoNFe.xml", Encoding.UTF8));
-                // doc.LoadXml(System.IO.File.ReadAllText(@"C:\Users\Wandrey\Downloads\Telegram Desktop\51201212576467000163550030000000021771093893_110111_01_proceventonfe.xml", Encoding.UTF8));
-
-                xmlProcEventoNFe = Unimake.Business.DFe.Utility.XMLUtility.Deserializar<ProcEventoNFe>(doc);
 
                 var xml = new EnvEvento
                 {
@@ -1334,7 +1327,7 @@ namespace TesteDLL_Unimake.Business.DFe
                                         NatOp = "VENDA PRODUC.DO ESTABELEC",
                                         Mod = ModeloDFe.NFe,
                                         Serie = 1,
-                                        NNF = 57961,
+                                        NNF = 57962,
                                         DhEmi = DateTime.Now,
                                         DhSaiEnt = DateTime.Now,
                                         TpNF = TipoOperacao.Saida,
@@ -1345,7 +1338,8 @@ namespace TesteDLL_Unimake.Business.DFe
                                         TpAmb = TipoAmbiente.Homologacao,
                                         FinNFe = FinalidadeNFe.Normal,
                                         IndFinal = SimNao.Sim,
-                                        IndPres = IndicadorPresenca.OperacaoOutros,
+                                        IndPres = IndicadorPresenca.OperacaoPresencial,
+                                        IndIntermed = IndicadorIntermediario.OperacaoSemIntermediador,
                                         ProcEmi = ProcessoEmissao.AplicativoContribuinte,
                                         VerProc = "TESTE 1.00"
                                     },
@@ -1516,7 +1510,7 @@ namespace TesteDLL_Unimake.Business.DFe
                                              new DetPag
                                              {
                                                  IndPag = IndicadorPagamento.PagamentoVista,
-                                                 TPag = MeioPagamento.Outros,
+                                                 TPag = MeioPagamento.Dinheiro,
                                                  VPag = 84.90
                                              }
                                         }
@@ -1780,7 +1774,6 @@ namespace TesteDLL_Unimake.Business.DFe
 
                 var autorizacao = new Autorizacao(xml, configuracao);
                 autorizacao.Executar();
-
                 MessageBox.Show(autorizacao.RetornoWSString);
                 MessageBox.Show(autorizacao.Result.XMotivo);
 
@@ -1817,33 +1810,34 @@ namespace TesteDLL_Unimake.Business.DFe
             }
         }
 
-        private List<Comb> CriarComb()
-        {
-            var comb = new List<Comb>
-            {
+        //TODO:  Nunca usado, pode apagar?
+        //private List<Comb> CriarComb()
+        //{
+        //    var comb = new List<Comb>
+        //    {
 
-                //Primeiro Comb
-                new Comb
-                {
-                    CODIF = "",
-                    CProdANP = "",
-                    DescANP = ""
-                    //Demais tags..
+        //        //Primeiro Comb
+        //        new Comb
+        //        {
+        //            CODIF = "",
+        //            CProdANP = "",
+        //            DescANP = ""
+        //            //Demais tags..
 
-                },
+        //        },
 
-                //Segundo comb, etc...
-                new Comb
-                {
-                    CODIF = "",
-                    CProdANP = "",
-                    DescANP = ""
-                    //Demais tags..
-                }
-            };
+        //        //Segundo comb, etc...
+        //        new Comb
+        //        {
+        //            CODIF = "",
+        //            CProdANP = "",
+        //            DescANP = ""
+        //            //Demais tags..
+        //        }
+        //    };
 
-            return comb;
-        }
+        //    return comb;
+        //}
 
         private void Button7_Click(object sender, EventArgs e)
         {
@@ -2109,35 +2103,25 @@ namespace TesteDLL_Unimake.Business.DFe
         {
             try
             {
-                var doc = new XmlDocument();
-                doc.LoadXml(File.ReadAllText(@"C:\Users\Wandrey\Downloads\XMLs\CTe Eventos\teste.xml", Encoding.UTF8));
-                // doc.LoadXml(System.IO.File.ReadAllText(@"C:\Users\Wandrey\Downloads\Telegram Desktop\51201212576467000163550030000000021771093893_110111_01_proceventonfe.xml", Encoding.UTF8));
-
-                var xml = Unimake.Business.DFe.Utility.XMLUtility.Deserializar<EventoCTe<Unimake.Business.DFe.Xml.CTe.DetEventoCanc>>(doc);
-
-                //var xml = new EventoCTe<InfEventoCanc>
-                //{
-                //    Versao = "3.00",
-                //    InfEvento = new InfEventoCanc
-                //    {
-                //        COrgao = UFBrasil.PR,
-                //        ChCTe = "41190806117473000150550010000579131943463890",
-                //        CNPJ = "06117473000150",
-                //        DhEvento = DateTime.Now,
-                //        TpEvento = TipoEventoCTe.Cancelamento,
-                //        NSeqEvento = 1,
-                //        TpAmb = TipoAmbiente.Homologacao,
-                //        DetEvento = new Unimake.Business.DFe.Xml.CTe.DetEventoCanc
-                //        {
-                //            VersaoEvento = "3.00",
-                //            EvCancCTe = new EvCancCTe
-                //            {
-                //                NProt = "123456789012345",
-                //                XJust = "Teste de cancelamento do CTe"
-                //            }
-                //        }
-                //    }
-                //};
+                var xml = new EventoCTe
+                {
+                    Versao = "3.00",
+                    InfEvento = new Unimake.Business.DFe.Xml.CTe.InfEvento(new Unimake.Business.DFe.Xml.CTe.DetEventoCanc
+                    {
+                        NProt = "141200000007987",
+                        VersaoEvento = "3.00",
+                        XJust = "Justificativa para cancelamento da CTe de teste"
+                    })
+                    {
+                        COrgao = UFBrasil.PR,
+                        ChCTe = "41200210859283000185570010000005671227070615",
+                        CNPJ = "10859283000185",
+                        DhEvento = DateTime.Now,
+                        TpEvento = TipoEventoCTe.Cancelamento,
+                        NSeqEvento = 1,
+                        TpAmb = TipoAmbiente.Homologacao
+                    }
+                };
 
                 var configuracao = new Configuracao
                 {
@@ -2146,7 +2130,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 };
 
 
-                var recepcaoEvento = new Unimake.Business.DFe.Servicos.CTe.RecepcaoEvento<Unimake.Business.DFe.Xml.CTe.DetEventoCanc>(xml, configuracao);
+                var recepcaoEvento = new Unimake.Business.DFe.Servicos.CTe.RecepcaoEvento(xml, configuracao);
 
                 //xml.LerXML<EventoCTe>(recepcaoEvento.ConteudoXMLAssinado);
 
@@ -2267,44 +2251,39 @@ namespace TesteDLL_Unimake.Business.DFe
         {
             try
             {
-                var xml = new EventoCTe<DetEventoCompEntrega>
+                var xml = new EventoCTe
                 {
                     Versao = "3.00",
-                    InfEvento = new InfEvento<DetEventoCompEntrega>
+                    InfEvento = new Unimake.Business.DFe.Xml.CTe.InfEvento(new Unimake.Business.DFe.Xml.CTe.DetEventoCompEntrega
                     {
-                        COrgao = UFBrasil.PR,
-                        ChCTe = "41190806117473000150550010000579131943463890",
-                        CNPJ = "06117473000150",
-                        DhEvento = DateTime.Now,
-                        TpEvento = TipoEventoCTe.ComprovanteEntrega,
-                        NSeqEvento = 1,
-                        TpAmb = TipoAmbiente.Homologacao,
-                        DetEvento = new DetEventoCompEntrega
+                        VersaoEvento = "3.00",
+                        EventoCECTe = new EventoCECTe
                         {
-                            VersaoEvento = "3.00",
-                            EvCECTe = new EvCECTe
+                            NProt = "141200000007987",
+                            DhEntrega = DateTime.Now,
+                            NDoc = "91886127085",
+                            XNome = "Teste",
+                            Latitude = "00",
+                            Longitude = "000",
+                            HashEntrega = "1234564321321321321231231321",
+                            DhHashEntrega = DateTime.Now,
+                            InfEntrega = new List<InfEntrega>
                             {
-                                NProt = "141200000007987",
-                                DhEntrega = DateTime.Now,
-                                NDoc = "91886127085",
-                                XNome = "Teste",
-                                Latitude = "00",
-                                Longitude = "000",
-                                HashEntrega = "1234564321321321321231231321",
-                                DhHashEntrega = DateTime.Now,
-                                InfEntrega = new List<InfEntrega>
-                            {
-                                new InfEntrega
-                                {
-                                    ChNFe = "12345678901234567890123456789012345678901234"
-                                },
                                 new InfEntrega
                                 {
                                     ChNFe = "12345678901234567890123456789012345678901234"
                                 }
                             }
-                            }
                         }
+                    })
+                    {
+                        COrgao = UFBrasil.PR,
+                        ChCTe = "41200210859283000185570010000005671227070615",
+                        CNPJ = "10859283000185",
+                        DhEvento = DateTime.Now,
+                        TpEvento = TipoEventoCTe.ComprovanteEntrega,
+                        NSeqEvento = 1,
+                        TpAmb = TipoAmbiente.Homologacao
                     }
                 };
 
@@ -2315,7 +2294,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 };
 
 
-                var recepcaoEvento = new Unimake.Business.DFe.Servicos.CTe.RecepcaoEvento<DetEventoCompEntrega>(xml, configuracao);
+                var recepcaoEvento = new Unimake.Business.DFe.Servicos.CTe.RecepcaoEvento(xml, configuracao);
 
                 //xml.LerXML<EventoCTe>(recepcaoEvento.ConteudoXMLAssinado);
 
@@ -2377,27 +2356,23 @@ namespace TesteDLL_Unimake.Business.DFe
         {
             try
             {
-                var xml = new EventoCTe<DetEventoCancCompEntrega>
+                var xml = new EventoCTe
                 {
                     Versao = "3.00",
-                    InfEvento = new InfEvento<DetEventoCancCompEntrega>
+                    InfEvento = new Unimake.Business.DFe.Xml.CTe.InfEvento(new Unimake.Business.DFe.Xml.CTe.DetEventoCancCompEntrega
+                    {
+                        VersaoEvento = "3.00",
+                        NProt = "141200000007987",
+                        NProtCE = "141200000001111"
+                    })
                     {
                         COrgao = UFBrasil.PR,
-                        ChCTe = "41190806117473000150550010000579131943463890",
-                        CNPJ = "06117473000150",
+                        ChCTe = "41200210859283000185570010000005671227070615",
+                        CNPJ = "10859283000185",
                         DhEvento = DateTime.Now,
                         TpEvento = TipoEventoCTe.CancelamentoComprovanteEntrega,
                         NSeqEvento = 1,
-                        TpAmb = TipoAmbiente.Homologacao,
-                        DetEvento = new DetEventoCancCompEntrega
-                        {
-                            VersaoEvento = "3.00",
-                            EvCancCECTe = new EvCancCECTe
-                            {
-                                NProt = "141200000007987",
-                                NProtCE = "141200000001111"
-                            }
-                        }
+                        TpAmb = TipoAmbiente.Homologacao
                     }
                 };
 
@@ -2407,7 +2382,9 @@ namespace TesteDLL_Unimake.Business.DFe
                     CertificadoDigital = CertificadoSelecionado
                 };
 
-                var recepcaoEvento = new Unimake.Business.DFe.Servicos.CTe.RecepcaoEvento<DetEventoCancCompEntrega>(xml, configuracao);
+
+                var recepcaoEvento = new Unimake.Business.DFe.Servicos.CTe.RecepcaoEvento(xml, configuracao);
+
                 //xml.LerXML<EventoCTe>(recepcaoEvento.ConteudoXMLAssinado);
 
                 recepcaoEvento.Executar();
@@ -2706,32 +2683,16 @@ namespace TesteDLL_Unimake.Business.DFe
         {
             try
             {
-                var xml = new EventoCTe<DetEventoCCe>
+                var xml = new EventoCTe
                 {
                     Versao = "3.00",
-                    InfEvento = new InfEvento<DetEventoCCe>
+                    InfEvento = new Unimake.Business.DFe.Xml.CTe.InfEvento(new Unimake.Business.DFe.Xml.CTe.DetEventoCCE
                     {
-                        COrgao = UFBrasil.PR,
-                        ChCTe = "41190806117473000150550010000579131943463890",
-                        CNPJ = "06117473000150",
-                        DhEvento = DateTime.Now,
-                        TpEvento = TipoEventoCTe.CartaCorrecao,
-                        NSeqEvento = 1,
-                        TpAmb = TipoAmbiente.Homologacao,
-                        DetEvento = new DetEventoCCe
+                        VersaoEvento = "3.00",
+                        EventoCCeCTe = new EventoCCeCTe
                         {
-                            VersaoEvento = "3.00",
-                            EvCCeCTe = new EvCCeCTe
+                            InfCorrecao = new List<InfCorrecao>
                             {
-                                InfCorrecao = new List<InfCorrecao>
-                            {
-                                new InfCorrecao
-                                {
-                                    GrupoAlterado = "ide",
-                                    CampoAlterado = "cfop",
-                                    ValorAlterado = "6353",
-                                    NroItemAlterado = ""
-                                },
                                 new InfCorrecao
                                 {
                                     GrupoAlterado = "ide",
@@ -2739,9 +2700,17 @@ namespace TesteDLL_Unimake.Business.DFe
                                     ValorAlterado = "6353",
                                     NroItemAlterado = ""
                                 }
-                            },
                             }
                         }
+                    })
+                    {
+                        COrgao = UFBrasil.PR,
+                        ChCTe = "41200210859283000185570010000005671227070615",
+                        CNPJ = "10859283000185",
+                        DhEvento = DateTime.Now,
+                        TpEvento = TipoEventoCTe.CartaCorrecao,
+                        NSeqEvento = 1,
+                        TpAmb = TipoAmbiente.Homologacao
                     }
                 };
 
@@ -2752,7 +2721,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 };
 
 
-                var recepcaoEvento = new Unimake.Business.DFe.Servicos.CTe.RecepcaoEvento<DetEventoCCe>(xml, configuracao);
+                var recepcaoEvento = new Unimake.Business.DFe.Servicos.CTe.RecepcaoEvento(xml, configuracao);
 
                 //xml.LerXML<EventoCTe>(recepcaoEvento.ConteudoXMLAssinado);
 
@@ -2782,41 +2751,43 @@ namespace TesteDLL_Unimake.Business.DFe
 
         private void button36_Click(object sender, EventArgs e)
         {
-            var nfeProc = new NfeProc();
-            var xmlProc = nfeProc.LoadFromFile(@"C:\Users\Wandrey\Downloads\35201149211717000171550020001724381478617569.xml");
+            //TODO:  Nunca usado, pode apagar?
+            //Objeto com as propriedades da nota
+            //var nfeProc = new NfeProc();
+            //var xmlProc = nfeProc.LoadFromFile(@"C:\Users\Wandrey\Downloads\35201149211717000171550020001724381478617569.xml");
 
-            var configuracao = new Configuracao
-            {
-                TipoDFe = TipoDFe.NFe,
-                CertificadoDigital = CertificadoSelecionado
-            };
+            //XmlDocument doc = new XmlDocument();
+            //string xml = xmlProc.GerarXML().OuterXml; //Conteudo do XML em formato string
+
+            //var configuracao = new Configuracao
+            //{
+            //    TipoDFe = TipoDFe.NFe,
+            //    CertificadoDigital = CertificadoSelecionado
+            //};
         }
 
         private void button37_Click(object sender, EventArgs e)
         {
             try
             {
-                var xml = new EventoCTe<DetEventoPrestDesacordo>
+                var xml = new EventoCTe
                 {
                     Versao = "3.00",
-                    InfEvento = new InfEvento<DetEventoPrestDesacordo>
+                    InfEvento = new Unimake.Business.DFe.Xml.CTe.InfEvento(new Unimake.Business.DFe.Xml.CTe.DetEventoPrestDesacordo
+                    {
+                        VersaoEvento = "3.00",
+                        DescEvento = "Prestacao do Servico em Desacordo",
+                        IndDesacordoOper = "1",
+                        XObs = "Teste de manifestacao de servico em desacordo, ambiente de homolocacao"
+                    })
                     {
                         COrgao = UFBrasil.PR,
-                        ChCTe = "41190806117473000150550010000579131943463890",
-                        CNPJ = "06117473000150",
+                        ChCTe = "41200210859283000185570010000005691527070631",
+                        CNPJ = "10859283000185",
                         DhEvento = DateTime.Now,
                         TpEvento = TipoEventoCTe.PrestDesacordo,
                         NSeqEvento = 1,
-                        TpAmb = TipoAmbiente.Homologacao,
-                        DetEvento = new DetEventoPrestDesacordo
-                        {
-                            VersaoEvento = "3.00",
-                            EvPrestDesacordo = new EvPrestDesacordo
-                            {
-                                IndDesacordoOper = "1",
-                                XObs = "Teste de manifestacao de servico em desacordo, ambiente de homolocacao"
-                            }
-                        }
+                        TpAmb = TipoAmbiente.Homologacao
                     }
                 };
 
@@ -2827,7 +2798,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 };
 
 
-                var recepcaoEvento = new Unimake.Business.DFe.Servicos.CTe.RecepcaoEvento<DetEventoPrestDesacordo>(xml, configuracao);
+                var recepcaoEvento = new Unimake.Business.DFe.Servicos.CTe.RecepcaoEvento(xml, configuracao);
 
                 //xml.LerXML<EventoCTe>(recepcaoEvento.ConteudoXMLAssinado);
 
@@ -4281,7 +4252,8 @@ namespace TesteDLL_Unimake.Business.DFe
 
             var xml = CriarNFe();
 
-            var xmlNFe = new NFe();
+            //TODO:  Nunca usado, pode apagar?
+            //var xmlNFe = new NFe();
             //var xml = new EnviNFe
             //{
             //    IdLote = "000001",
@@ -4981,27 +4953,23 @@ namespace TesteDLL_Unimake.Business.DFe
         {
             try
             {
-                var xml = new EventoCTe<Unimake.Business.DFe.Xml.CTe.DetEventoCanc>
+                var xml = new EventoCTe
                 {
                     Versao = "3.00",
-                    InfEvento = new InfEvento<Unimake.Business.DFe.Xml.CTe.DetEventoCanc>
+                    InfEvento = new Unimake.Business.DFe.Xml.CTe.InfEvento(new Unimake.Business.DFe.Xml.CTe.DetEventoCanc
                     {
-                        COrgao = UFBrasil.AN,
-                        ChCTe = "41190806117473000150550010000579131943463890",
-                        CNPJ = "06117473000150",
+                        NProt = "141200000007987",
+                        VersaoEvento = "3.00",
+                        XJust = "Justificativa para cancelamento da CTe de teste"
+                    })
+                    {
+                        COrgao = UFBrasil.PR,
+                        ChCTe = "41200210859283000185570010000005671227070615",
+                        CNPJ = "10859283000185",
                         DhEvento = DateTime.Now,
                         TpEvento = TipoEventoCTe.Cancelamento,
                         NSeqEvento = 1,
-                        TpAmb = TipoAmbiente.Homologacao,
-                        DetEvento = new Unimake.Business.DFe.Xml.CTe.DetEventoCanc
-                        {
-                            VersaoEvento = "3.00",
-                            EvCancCTe = new EvCancCTe
-                            {
-                                NProt = "123456789012345",
-                                XJust = "Teste de cancelamento do CTe"
-                            }
-                        }
+                        TpAmb = TipoAmbiente.Homologacao
                     }
                 };
 
@@ -5012,7 +4980,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 };
 
 
-                var recepcaoEvento = new Unimake.Business.DFe.Servicos.CTeOS.RecepcaoEvento<Unimake.Business.DFe.Xml.CTe.DetEventoCanc>(xml, configuracao);
+                var recepcaoEvento = new Unimake.Business.DFe.Servicos.CTeOS.RecepcaoEvento(xml, configuracao);
 
                 //xml.LerXML<EventoCTe>(recepcaoEvento.ConteudoXMLAssinado);
 
@@ -5044,32 +5012,16 @@ namespace TesteDLL_Unimake.Business.DFe
         {
             try
             {
-                var xml = new EventoCTe<DetEventoCCe>
+                var xml = new EventoCTe
                 {
                     Versao = "3.00",
-                    InfEvento = new InfEvento<DetEventoCCe>
+                    InfEvento = new Unimake.Business.DFe.Xml.CTe.InfEvento(new Unimake.Business.DFe.Xml.CTe.DetEventoCCE
                     {
-                        COrgao = UFBrasil.AN,
-                        ChCTe = "41190806117473000150550010000579131943463890",
-                        CNPJ = "06117473000150",
-                        DhEvento = DateTime.Now,
-                        TpEvento = TipoEventoCTe.CartaCorrecao,
-                        NSeqEvento = 1,
-                        TpAmb = TipoAmbiente.Homologacao,
-                        DetEvento = new DetEventoCCe
+                        VersaoEvento = "3.00",
+                        EventoCCeCTe = new EventoCCeCTe
                         {
-                            VersaoEvento = "3.00",
-                            EvCCeCTe = new EvCCeCTe
+                            InfCorrecao = new List<InfCorrecao>
                             {
-                                InfCorrecao = new List<InfCorrecao>
-                            {
-                                new InfCorrecao
-                                {
-                                    GrupoAlterado = "ide",
-                                    CampoAlterado = "cfop",
-                                    ValorAlterado = "6353",
-                                    NroItemAlterado = ""
-                                },
                                 new InfCorrecao
                                 {
                                     GrupoAlterado = "ide",
@@ -5077,9 +5029,17 @@ namespace TesteDLL_Unimake.Business.DFe
                                     ValorAlterado = "6353",
                                     NroItemAlterado = ""
                                 }
-                            },
                             }
                         }
+                    })
+                    {
+                        COrgao = UFBrasil.PR,
+                        ChCTe = "41200210859283000185570010000005671227070615",
+                        CNPJ = "10859283000185",
+                        DhEvento = DateTime.Now,
+                        TpEvento = TipoEventoCTe.CartaCorrecao,
+                        NSeqEvento = 1,
+                        TpAmb = TipoAmbiente.Homologacao
                     }
                 };
 
@@ -5090,7 +5050,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 };
 
 
-                var recepcaoEvento = new Unimake.Business.DFe.Servicos.CTeOS.RecepcaoEvento<DetEventoCCe>(xml, configuracao);
+                var recepcaoEvento = new Unimake.Business.DFe.Servicos.CTeOS.RecepcaoEvento(xml, configuracao);
 
                 //xml.LerXML<EventoCTe>(recepcaoEvento.ConteudoXMLAssinado);
 
@@ -5166,7 +5126,6 @@ namespace TesteDLL_Unimake.Business.DFe
             //CertificadoDigital cert = new CertificadoDigital();
             //cert.CarregarCertificadoDigitalA1("teste","123");
 
-
             //// ---------------------------------------------------------------------------------------------------------
             //// Convertendo certificado digital A1 para Bytes para arquivar em base de dados
             //// ---------------------------------------------------------------------------------------------------------
@@ -5224,260 +5183,262 @@ namespace TesteDLL_Unimake.Business.DFe
             //#endregion
         }
 
-        private EnviNFe CriarNotaX()
-        {
-            var xml = new EnviNFe
-            {
-                Versao = "4.00",
-                IdLote = "000000000000001",
-                IndSinc = SimNao.Nao,
-                NFe = new List<Unimake.Business.DFe.Xml.NFe.NFe> {
-                        new Unimake.Business.DFe.Xml.NFe.NFe
-                        {
-                            InfNFe = new List<Unimake.Business.DFe.Xml.NFe.InfNFe> {
-                                new Unimake.Business.DFe.Xml.NFe.InfNFe
-                                {
-                                    Versao = "4.00",
+        //TODO:  Nunca usado, pode apagar?
+        //private EnviNFe CriarNotaX()
+        //{
+        //    var xml = new EnviNFe
+        //    {
+        //        Versao = "4.00",
+        //        IdLote = "000000000000001",
+        //        IndSinc = SimNao.Nao,
+        //        NFe = new List<Unimake.Business.DFe.Xml.NFe.NFe> {
+        //                new Unimake.Business.DFe.Xml.NFe.NFe
+        //                {
+        //                    InfNFe = new List<Unimake.Business.DFe.Xml.NFe.InfNFe> {
+        //                        new Unimake.Business.DFe.Xml.NFe.InfNFe
+        //                        {
+        //                            Versao = "4.00",
 
-                                    Ide = new Unimake.Business.DFe.Xml.NFe.Ide
-                                    {
-                                        CUF = UFBrasil.MT,
-                                        CNF = "53355458",
-                                        NatOp = "Venda de Mercadoria",
-                                        Mod = ModeloDFe.NFe,
-                                        Serie = 1,
-                                        NNF = 36,
-                                        DhEmi = Convert.ToDateTime("2020-07-04T10:33:56-04:00"), // DateTime.Now,
-                                        DhSaiEnt = Convert.ToDateTime("2020-07-04T10:33:56-04:00"), //DateTime.Now,
-                                        TpNF = TipoOperacao.Saida,
-                                        IdDest = DestinoOperacao.OperacaoInterna,
-                                        CMunFG = 5107909,
-                                        TpImp = FormatoImpressaoDANFE.NormalRetrato,
-                                        TpEmis = TipoEmissao.Normal,
-                                        TpAmb = TipoAmbiente.Producao,
-                                        FinNFe = FinalidadeNFe.Normal,
-                                        IndFinal = SimNao.Sim,
-                                        IndPres = IndicadorPresenca.OperacaoPresencial,
-                                        ProcEmi = ProcessoEmissao.AplicativoContribuinte,
-                                        VerProc = "1.00"
-                                    },
+        //                            Ide = new Unimake.Business.DFe.Xml.NFe.Ide
+        //                            {
+        //                                CUF = UFBrasil.MT,
+        //                                CNF = "53355458",
+        //                                NatOp = "Venda de Mercadoria",
+        //                                Mod = ModeloDFe.NFe,
+        //                                Serie = 1,
+        //                                NNF = 36,
+        //                                DhEmi = Convert.ToDateTime("2020-07-04T10:33:56-04:00"), // DateTime.Now,
+        //                                DhSaiEnt = Convert.ToDateTime("2020-07-04T10:33:56-04:00"), //DateTime.Now,
+        //                                TpNF = TipoOperacao.Saida,
+        //                                IdDest = DestinoOperacao.OperacaoInterna,
+        //                                CMunFG = 5107909,
+        //                                TpImp = FormatoImpressaoDANFE.NormalRetrato,
+        //                                TpEmis = TipoEmissao.Normal,
+        //                                TpAmb = TipoAmbiente.Producao,
+        //                                FinNFe = FinalidadeNFe.Normal,
+        //                                IndFinal = SimNao.Sim,
+        //                                IndPres = IndicadorPresenca.OperacaoPresencial,
+        //                                ProcEmi = ProcessoEmissao.AplicativoContribuinte,
+        //                                VerProc = "1.00"
+        //                            },
 
-                                    #region B - Identificação da Nota Fiscal eletrônica
-                                    Emit = gerarEmit(),
-                                    #endregion
+        //                            #region B - Identificação da Nota Fiscal eletrônica
+        //                            Emit = gerarEmit(),
+        //                            #endregion
 
-                                    Dest = new Unimake.Business.DFe.Xml.NFe.Dest
-                                    {
-                                        CPF = "04747008101",
-                                        XNome = "ALANA NERVES ARANA",
-                                        EnderDest = new Unimake.Business.DFe.Xml.NFe.EnderDest
-                                        {
-                                            XLgr = "RUA DOS CEDROS",
-                                            Nro = "00",
-                                            XBairro = "CENTRO",
-                                            CMun = 5107909,
-                                            XMun = "SINOP",
-                                            UF = UFBrasil.MT,
-                                            CEP = "78550000",
-                                            CPais = 1058,
-                                            XPais = "BRASIL",
-                                            Fone = "66996888727"
-                                        },
-                                        IndIEDest = IndicadorIEDestinatario.NaoContribuinte
-                                        //IE = "ISENTO"
-                                        //Email = "janelaorp@janelaorp.com.br"
-                                    },
-                                    Det = new List<Det> {
-                                        new Det
-                                        {
-                                            NItem = 1,
-                                            Prod = new Prod
-                                            {
-                                                CProd = "786",
-                                                CEAN = "7909446119051",
-                                                XProd = "BULGET BG3231 09A -",
-                                                NCM = "90041000",
-                                                CFOP = "5102",
-                                                UCom = "PC",
-                                                QCom = 1.00,
-                                                VUnCom = 300.0000000000,
-                                                VProd = 300.00,
-                                                CEANTrib = "7909446119051",
-                                                UTrib = "PC",
-                                                QTrib = 1.00,
-                                                VUnTrib = 300.0000000000,
-                                                IndTot = SimNao.Sim
-                                                //XPed = "300474",
-                                                //NItemPed = 1
-                                            },
-                                            Imposto = new Imposto
-                                            {
-                                                VTotTrib = 116.31,
-                                                ICMS = new List<Unimake.Business.DFe.Xml.NFe.ICMS> {
-                                                    new Unimake.Business.DFe.Xml.NFe.ICMS
-                                                    {
-                                                        ICMSSN102 = new ICMSSN102
-                                                        {
-                                                            Orig = OrigemMercadoria.Nacional,
-                                                            CSOSN = "102"
-                                                        }
-                                                    }
-                                                },
-                                                IPI = new IPI
-                                                {
-                                                    CEnq = "999",
-                                                    IPITrib = new IPITrib
-                                                    {
-                                                        CST = "99",
-                                                        VBC = 0.00,
-                                                        PIPI = 0.00,
-                                                        VIPI = 0.00
-                                                    }
-                                                },
-                                                PIS = new PIS
-                                                {
-                                                    PISOutr = new PISOutr
-                                                    {
-                                                        CST = "49",
-                                                        VBC = 300.00,
-                                                        PPIS = 0.0000,
-                                                        VPIS = 0.00
-                                                    }
-                                                },
-                                                COFINS = new COFINS
-                                                {
-                                                    COFINSOutr = new COFINSOutr
-                                                    {
-                                                        CST = "49",
-                                                        VBC = 300.00,
-                                                        PCOFINS = 0.0000,
-                                                        VCOFINS = 0.00
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    },
-                                    Total = new Total
-                                    {
-                                        ICMSTot = new ICMSTot
-                                        {
-                                            VBC = 0,
-                                            VICMS = 0,
-                                            VICMSDeson = 0,
-                                            VFCP = 0,
-                                            VBCST = 0,
-                                            VST = 0,
-                                            VFCPST = 0,
-                                            VFCPSTRet = 0,
-                                            VProd = 300.00,
-                                            VFrete = 0,
-                                            VSeg = 0,
-                                            VDesc = 0,
-                                            VII = 0,
-                                            VIPI = 0,
-                                            VIPIDevol = 0,
-                                            VPIS = 0,
-                                            VCOFINS = 0,
-                                            VOutro = 0,
-                                            VNF = 300.00,
-                                            VTotTrib = 116.31
-                                        }
-                                    },
-                                    Transp = new Transp
-                                    {
-                                        ModFrete = ModalidadeFrete.SemOcorrenciaTransporte,
-                                        Vol = new List<Vol>
-                                        {
-                                            new Vol
-                                            {
-                                                QVol = 1,
-                                                NVol = "1"
-                                                //Esp = "LU",
-                                                //Marca = "UNIMAKE",
-                                                //PesoL = 0.000,
-                                                //PesoB = 0.000
-                                            }
-                                        }
-                                    },
-                                    //Cobr = new Cobr()
+        //                            Dest = new Unimake.Business.DFe.Xml.NFe.Dest
+        //                            {
+        //                                CPF = "04747008101",
+        //                                XNome = "ALANA NERVES ARANA",
+        //                                EnderDest = new Unimake.Business.DFe.Xml.NFe.EnderDest
+        //                                {
+        //                                    XLgr = "RUA DOS CEDROS",
+        //                                    Nro = "00",
+        //                                    XBairro = "CENTRO",
+        //                                    CMun = 5107909,
+        //                                    XMun = "SINOP",
+        //                                    UF = UFBrasil.MT,
+        //                                    CEP = "78550000",
+        //                                    CPais = 1058,
+        //                                    XPais = "BRASIL",
+        //                                    Fone = "66996888727"
+        //                                },
+        //                                IndIEDest = IndicadorIEDestinatario.NaoContribuinte
+        //                                //IE = "ISENTO"
+        //                                //Email = "janelaorp@janelaorp.com.br"
+        //                            },
+        //                            Det = new List<Det> {
+        //                                new Det
+        //                                {
+        //                                    NItem = 1,
+        //                                    Prod = new Prod
+        //                                    {
+        //                                        CProd = "786",
+        //                                        CEAN = "7909446119051",
+        //                                        XProd = "BULGET BG3231 09A -",
+        //                                        NCM = "90041000",
+        //                                        CFOP = "5102",
+        //                                        UCom = "PC",
+        //                                        QCom = 1.00,
+        //                                        VUnCom = 300.0000000000,
+        //                                        VProd = 300.00,
+        //                                        CEANTrib = "7909446119051",
+        //                                        UTrib = "PC",
+        //                                        QTrib = 1.00,
+        //                                        VUnTrib = 300.0000000000,
+        //                                        IndTot = SimNao.Sim
+        //                                        //XPed = "300474",
+        //                                        //NItemPed = 1
+        //                                    },
+        //                                    Imposto = new Imposto
+        //                                    {
+        //                                        VTotTrib = 116.31,
+        //                                        ICMS = new List<Unimake.Business.DFe.Xml.NFe.ICMS> {
+        //                                            new Unimake.Business.DFe.Xml.NFe.ICMS
+        //                                            {
+        //                                                ICMSSN102 = new ICMSSN102
+        //                                                {
+        //                                                    Orig = OrigemMercadoria.Nacional,
+        //                                                    CSOSN = "102"
+        //                                                }
+        //                                            }
+        //                                        },
+        //                                        IPI = new IPI
+        //                                        {
+        //                                            CEnq = "999",
+        //                                            IPITrib = new IPITrib
+        //                                            {
+        //                                                CST = "99",
+        //                                                VBC = 0.00,
+        //                                                PIPI = 0.00,
+        //                                                VIPI = 0.00
+        //                                            }
+        //                                        },
+        //                                        PIS = new PIS
+        //                                        {
+        //                                            PISOutr = new PISOutr
+        //                                            {
+        //                                                CST = "49",
+        //                                                VBC = 300.00,
+        //                                                PPIS = 0.0000,
+        //                                                VPIS = 0.00
+        //                                            }
+        //                                        },
+        //                                        COFINS = new COFINS
+        //                                        {
+        //                                            COFINSOutr = new COFINSOutr
+        //                                            {
+        //                                                CST = "49",
+        //                                                VBC = 300.00,
+        //                                                PCOFINS = 0.0000,
+        //                                                VCOFINS = 0.00
+        //                                            }
+        //                                        }
+        //                                    }
+        //                                }
+        //                            },
+        //                            Total = new Total
                                     //{
-                                    //    Fat = new Fat
+        //                                ICMSTot = new ICMSTot
                                     //    {
-                                    //        NFat = "057910",
-                                    //        VOrig = 84.90,
+        //                                    VBC = 0,
+        //                                    VICMS = 0,
+        //                                    VICMSDeson = 0,
+        //                                    VFCP = 0,
+        //                                    VBCST = 0,
+        //                                    VST = 0,
+        //                                    VFCPST = 0,
+        //                                    VFCPSTRet = 0,
+        //                                    VProd = 300.00,
+        //                                    VFrete = 0,
+        //                                    VSeg = 0,
                                     //        VDesc = 0,
-                                    //        VLiq = 84.90
+        //                                    VII = 0,
+        //                                    VIPI = 0,
+        //                                    VIPIDevol = 0,
+        //                                    VPIS = 0,
+        //                                    VCOFINS = 0,
+        //                                    VOutro = 0,
+        //                                    VNF = 300.00,
+        //                                    VTotTrib = 116.31
+        //                                }
+        //                            },
+        //                            Transp = new Transp
+        //                            {
+        //                                ModFrete = ModalidadeFrete.SemOcorrenciaTransporte,
+        //                                Vol = new List<Vol>
+        //                                {
+        //                                    new Vol
+        //                                    {
+        //                                        QVol = 1,
+        //                                        NVol = "1"
+        //                                        //Esp = "LU",
+        //                                        //Marca = "UNIMAKE",
+        //                                        //PesoL = 0.000,
+        //                                        //PesoB = 0.000
+        //                                    }
+        //                                }
                                     //    },
-                                    //    Dup = new List<Dup>
+        //                            //Cobr = new Cobr()
+        //                            //{
+        //                            //    Fat = new Fat
+        //                            //    {
+        //                            //        NFat = "057910",
+        //                            //        VOrig = 84.90,
+        //                            //        VDesc = 0,
+        //                            //        VLiq = 84.90
+        //                            //    },
+        //                            //    Dup = new List<Dup>
+        //                            //    {
+        //                            //        new Dup
+        //                            //        {
+        //                            //            NDup = "001",
+        //                            //            DVenc = DateTime.Now,
+        //                            //            VDup = 84.90
+        //                            //        }
+        //                            //    }
+        //                            //},
+        //                            Pag = new Pag
                                     //    {
-                                    //        new Dup
+        //                                DetPag = new List<DetPag>
+        //                                {
+        //                                     new DetPag
                                     //        {
-                                    //            NDup = "001",
-                                    //            DVenc = DateTime.Now,
-                                    //            VDup = 84.90
+        //                                         IndPag = IndicadorPagamento.PagamentoVista,
+        //                                         TPag = MeioPagamento.Dinheiro,
+        //                                         VPag = 300.00
                                     //        }
                                     //    }
                                     //},
-                                    Pag = new Pag
-                                    {
-                                        DetPag = new List<DetPag>
-                                        {
-                                             new DetPag
-                                             {
-                                                 IndPag = IndicadorPagamento.PagamentoVista,
-                                                 TPag = MeioPagamento.Dinheiro,
-                                                 VPag = 300.00
-                                             }
-                                        }
-                                    },
-                                    InfAdic = new Unimake.Business.DFe.Xml.NFe.InfAdic
-                                    {
-                                        InfCpl = "Valor Aprox de Tributos R$ 116.31 (38.77%) Fonte IBPT PROCON/MT AV. HISTORIADOR RUBENS DE MENDONCA N. 917 - B. ARAES, EDIFICIO EXECUTIVE CENTER CEP:78008-000 CUIABA-MT FONE:(66)3531-1512;EMPRESA OPTANTE DO SIMPLES NACIONAL NAO GERA CREDITO ICMS",
-                                    }
-                                    //InfRespTec = new InfRespTec
+        //                            InfAdic = new Unimake.Business.DFe.Xml.NFe.InfAdic
+        //                            {
+        //                                InfCpl = "Valor Aprox de Tributos R$ 116.31 (38.77%) Fonte IBPT PROCON/MT AV. HISTORIADOR RUBENS DE MENDONCA N. 917 - B. ARAES, EDIFICIO EXECUTIVE CENTER CEP:78008-000 CUIABA-MT FONE:(66)3531-1512;EMPRESA OPTANTE DO SIMPLES NACIONAL NAO GERA CREDITO ICMS",
+        //                            }
+        //                            //InfRespTec = new InfRespTec
+        //                            //{
+        //                            //    CNPJ = "06117473000150",
+        //                            //    XContato = "Wandrey Mundin Ferreira",
+        //                            //    Email = "wandrey@unimake.com.br",
+        //                            //    Fone = "04431414900"
+        //                            //}
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //    };
+
+        //    return xml;
+        //}
+
+        //TODO:  Nunca usado, pode apagar?
+        //private Unimake.Business.DFe.Xml.NFe.Emit gerarEmit()
+        //{
+        //    var emit = new Unimake.Business.DFe.Xml.NFe.Emit
+        //    {
+        //        CNPJ = "35795490000144",
+        //        XNome = "OTICAS BELO LTDA",
+        //        XFant = "OTICAS BELO",
+        //        EnderEmit = new Unimake.Business.DFe.Xml.NFe.EnderEmit
                                     //{
-                                    //    CNPJ = "06117473000150",
-                                    //    XContato = "Wandrey Mundin Ferreira",
-                                    //    Email = "wandrey@unimake.com.br",
-                                    //    Fone = "04431414900"
+        //            XLgr = "AV. GOVERNADOR JULIO CAMPOS",
+        //            Nro = "417",
+        //            XBairro = "SETOR COMERCIAL",
+        //            CMun = 5107909,
+        //            XMun = "SINOP",
+        //            UF = UFBrasil.MT,
+        //            CEP = "78550242",
+        //            CPais = 1058,
+        //            XPais = "Brasil",
+        //            Fone = "6635310180"
+        //        },
+        //        IE = "137960557",
+        //        //IM = "",
+        //        //CNAE = "6202300",
+        //        CRT = CRT.SimplesNacional
+        //    };
+
+        //    return emit;
                                     //}
-                                }
-                            }
-                        }
-                    }
-            };
-
-            return xml;
-        }
-
-        private Unimake.Business.DFe.Xml.NFe.Emit gerarEmit()
-        {
-            var emit = new Unimake.Business.DFe.Xml.NFe.Emit
-            {
-                CNPJ = "35795490000144",
-                XNome = "OTICAS BELO LTDA",
-                XFant = "OTICAS BELO",
-                EnderEmit = new Unimake.Business.DFe.Xml.NFe.EnderEmit
-                {
-                    XLgr = "AV. GOVERNADOR JULIO CAMPOS",
-                    Nro = "417",
-                    XBairro = "SETOR COMERCIAL",
-                    CMun = 5107909,
-                    XMun = "SINOP",
-                    UF = UFBrasil.MT,
-                    CEP = "78550242",
-                    CPais = 1058,
-                    XPais = "Brasil",
-                    Fone = "6635310180"
-                },
-                IE = "137960557",
-                //IM = "",
-                //CNAE = "6202300",
-                CRT = CRT.SimplesNacional
-            };
-
-            return emit;
-        }
 
         private void button48_Click(object sender, EventArgs e)
         {
@@ -5582,56 +5543,37 @@ namespace TesteDLL_Unimake.Business.DFe
         {
             try
             {
-                //Deserializar o XML de evento com protocolo
-                var xmlProc = new XmlDocument();
-                xmlProc.LoadXml(File.ReadAllText(@"C:\Users\Wandrey\Downloads\Modelos XML\CTe Eventos\35170100000000000191570010000000011065100453_610110_01-procEventoCTe.xml", Encoding.UTF8));
-                var xmlProcObj = new ProcEventoCTe<DetEventoPrestDesacordo>().LerXML<ProcEventoCTe<DetEventoPrestDesacordo>>(xmlProc);
-
-                XMLUtility.Deserializar<ProcEventoCTe<DetEventoPrestDesacordo>>(xmlProc);
-
-                string testeXml = xmlProcObj.GerarXML().OuterXml;
-
-                //Montar o XML a partir de um arquivo já existe
-                //var xmlTeste = new XmlDocument();
-                //xmlTeste.LoadXml(System.IO.File.ReadAllText(@"C:\Users\Wandrey\Downloads\teste.xml", Encoding.UTF8));
-                //var xmlObj = Unimake.Business.DFe.Utility.XMLUtility.Deserializar<EventoCTe<InfEventoEPEC>>(xmlTeste);
-
-                //Montar o XML manualmente
-                var xml = new EventoCTe<Unimake.Business.DFe.Xml.CTe.DetEventoEPEC>
+                var xml = new EventoCTe
                 {
                     Versao = "3.00",
-                    InfEvento = new InfEvento<Unimake.Business.DFe.Xml.CTe.DetEventoEPEC>
+                    InfEvento = new Unimake.Business.DFe.Xml.CTe.InfEvento(new Unimake.Business.DFe.Xml.CTe.DetEventoEPEC
+                    {
+                        VersaoEvento = "3.00",
+                        XJust = "Teste de EPEC do CTE para ver se tudo está funcionando",
+                        VICMS = 100,
+                        VICMSST = 100,
+                        VTPrest = 1000,
+                        VCarga = 1000,
+                        Toma4 = new EvEPECCTeToma4
+                        {
+                            UF = UFBrasil.PR,
+                            CNPJ = "06117473000150",
+                            IE = "1234567890"
+                        },
+                        Modal = ModalidadeTransporteCTe.Rodoviario,
+                        UFIni = UFBrasil.PR,
+                        UFFim = UFBrasil.PR,
+                        TpCTe = TipoCTe.Normal,
+                        DhEmi = DateTime.Now
+                    })
                     {
                         COrgao = UFBrasil.RS,
-                        ChCTe = "41190806117473000150550010000579131943463890",
-                        CNPJ = "06117473000150",
+                        ChCTe = "41200210859283000185570010000005671227070615",
+                        CNPJ = "10859283000185",
                         DhEvento = DateTime.Now,
                         TpEvento = TipoEventoCTe.EPEC,
                         NSeqEvento = 1,
-                        TpAmb = TipoAmbiente.Homologacao,
-                        DetEvento = new Unimake.Business.DFe.Xml.CTe.DetEventoEPEC
-                        {
-                            VersaoEvento = "3.00",
-                            EvEPECCTe = new EvEPECCTe
-                            {
-                                XJust = "Teste de EPEC do CTE para ver se tudo está funcionando",
-                                VICMS = 100,
-                                VICMSST = 100,
-                                VTPrest = 1000,
-                                VCarga = 1000,
-                                Toma4 = new EvEPECCTeToma4
-                                {
-                                    UF = UFBrasil.PR,
-                                    CNPJ = "06117473000150",
-                                    IE = "1234567890"
-                                },
-                                Modal = ModalidadeTransporteCTe.Rodoviario,
-                                UFIni = UFBrasil.PR,
-                                UFFim = UFBrasil.PR,
-                                TpCTe = TipoCTe.Normal,
-                                DhEmi = DateTime.Now
-                            }
-                        }
+                        TpAmb = TipoAmbiente.Homologacao
                     }
                 };
 
@@ -5641,7 +5583,7 @@ namespace TesteDLL_Unimake.Business.DFe
                     TipoDFe = TipoDFe.CTe
                 };
 
-                var recepcaoEvento = new Unimake.Business.DFe.Servicos.CTe.RecepcaoEvento<Unimake.Business.DFe.Xml.CTe.DetEventoEPEC>(xml, configuracao);
+                var recepcaoEvento = new Unimake.Business.DFe.Servicos.CTe.RecepcaoEvento(xml, configuracao);
                 recepcaoEvento.Executar();
 
                 MessageBox.Show(recepcaoEvento.RetornoWSString);
@@ -5669,3 +5611,4 @@ namespace TesteDLL_Unimake.Business.DFe
         }
     }
 }
+

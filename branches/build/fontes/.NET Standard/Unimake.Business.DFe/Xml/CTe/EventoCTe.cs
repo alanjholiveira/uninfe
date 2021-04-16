@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Reflection;
 using System.Text;
 using System.Xml;
@@ -213,6 +214,312 @@ namespace Unimake.Business.DFe.Xml.CTe
 
     [XmlInclude(typeof(EventoDetalhe))]
     [XmlRoot(ElementName = "detEvento")]
+    public class DetEventoEPEC: EventoDetalhe
+    {
+        private EvEPECCTe _evEPECCTe;
+
+        internal override void SetValue(PropertyInfo pi)
+        {
+            if(pi.Name == nameof(InfEntrega))
+            {
+                XmlReader.Read();
+
+                Toma4 = new EvEPECCTeToma4();
+                Toma4.UF = XmlReader.GetValue<UFBrasil>(nameof(Toma4.UF));
+                Toma4.CNPJ = XmlReader.GetValue<string>(nameof(Toma4.CNPJ));
+                Toma4.CPF = XmlReader.GetValue<string>(nameof(Toma4.CPF));
+                Toma4.IE = XmlReader.GetValue<string>(nameof(Toma4.IE));
+
+                return;
+            }
+
+            base.SetValue(pi);
+        }
+
+        [XmlElement(ElementName = "evEPECCTe", Order = 0)]
+        public EvEPECCTe EvEPECCTe
+        {
+            get => _evEPECCTe ?? (_evEPECCTe = new EvEPECCTe());
+            set => _evEPECCTe = value;
+        }
+
+        [XmlIgnore]
+        public override string DescEvento
+        {
+            get => EvEPECCTe.DescEvento;
+            set => EvEPECCTe.DescEvento = value;
+        }
+
+        [XmlIgnore]
+        public string XJust
+        {
+            get => EvEPECCTe.XJust;
+            set => EvEPECCTe.XJust = value;
+        }
+
+        [XmlIgnore]
+        public double VICMS
+        {
+            get => EvEPECCTe.VICMS;
+            set => EvEPECCTe.VICMS = value;
+        }
+
+        [XmlIgnore]
+        public string VICMSField
+        {
+            get => EvEPECCTe.VICMSField;
+            set => EvEPECCTe.VICMSField = value;
+        }
+
+        [XmlIgnore]
+        public double VICMSST
+        {
+            get => EvEPECCTe.VICMSST;
+            set => EvEPECCTe.VICMSST = value;
+        }
+
+        [XmlIgnore]
+        public string VICMSSTField
+        {
+            get => EvEPECCTe.VICMSSTField;
+            set => EvEPECCTe.VICMSSTField = value;
+        }
+
+        [XmlIgnore]
+        public double VTPrest
+        {
+            get => EvEPECCTe.VTPrest;
+            set => EvEPECCTe.VTPrest = value;
+        }
+
+        [XmlIgnore]
+        public string VTPrestField
+        {
+            get => EvEPECCTe.VTPrestField;
+            set => EvEPECCTe.VTPrestField = value;
+        }
+
+        [XmlIgnore]
+        public double VCarga
+        {
+            get => EvEPECCTe.VCarga;
+            set => EvEPECCTe.VCarga = value;
+        }
+
+        [XmlIgnore]
+        public string VCargaField
+        {
+            get => EvEPECCTe.VCargaField;
+            set => EvEPECCTe.VCargaField = value;
+        }
+
+        [XmlIgnore]
+        public EvEPECCTeToma4 Toma4 { get; set; }
+
+        [XmlIgnore]
+        public ModalidadeTransporteCTe Modal
+        {
+            get => EvEPECCTe.Modal;
+            set => EvEPECCTe.Modal = value;
+        }
+
+        [XmlIgnore]
+        public UFBrasil UFIni
+        {
+            get => EvEPECCTe.UFIni;
+            set => EvEPECCTe.UFIni = value;
+        }
+
+        [XmlIgnore]
+        public UFBrasil UFFim
+        {
+            get => EvEPECCTe.UFFim;
+            set => EvEPECCTe.UFFim = value;
+        }
+
+        [XmlIgnore]
+        public TipoCTe TpCTe
+        {
+            get => EvEPECCTe.TpCTe;
+            set => EvEPECCTe.TpCTe = value;
+        }
+
+        [XmlIgnore]
+        public DateTime DhEmi
+        {
+            get => EvEPECCTe.DhEmi;
+            set => EvEPECCTe.DhEmi = value;
+        }
+
+        [XmlIgnore]
+        public string DhEmiField
+        {
+            get => EvEPECCTe.DhEmiField;
+            set => EvEPECCTe.DhEmiField = value;
+        }
+
+        public override void WriteXml(XmlWriter writer)
+        {
+            base.WriteXml(writer);
+
+            var writeRaw = $@"<evEPECCTe>
+                <descEvento>{DescEvento}</descEvento>
+                <xJust>{XJust}</xJust>
+                <vICMS>{VICMSField}</vICMS>";
+
+            if(VICMS > 0)
+            {
+                writeRaw += $@"<vICMSST>{VICMSSTField}</vICMSST>";
+            }
+
+            writeRaw += $@"<vTPrest>{VTPrestField}</vTPrest>
+                <vCarga>{VCargaField}</vCarga>";
+
+            writeRaw += $@"<Toma4>
+                <UF>{Toma4.UF}</UF>";
+
+            if(string.IsNullOrWhiteSpace(Toma4.CNPJ))
+            {
+                writeRaw += $@"<CNPJ>{Toma4.CNPJ}</CNPJ>";
+            }
+
+            if(string.IsNullOrWhiteSpace(Toma4.CPF))
+            {
+                writeRaw += $@"<CPF>{Toma4.CPF}</CPF>";
+            }
+
+            if(string.IsNullOrWhiteSpace(Toma4.IE))
+            {
+                writeRaw += $@"<IE>{Toma4.IE}</IE>";
+            }
+
+            writeRaw += $@"</Toma4>
+                <Modal>{Modal}</Modal>
+                <UFIni>{UFIni}</UFIni>
+                <UFFim>{UFFim}</UFFim>
+                <tpCTe>{TpCTe}</tpCTe>
+                <dhEmi>{DhEmiField}</dhEmi>";
+
+            writeRaw += $@"</evEPECCTe>";
+
+            writer.WriteRaw(writeRaw);
+        }
+    }
+
+    [XmlRoot(ElementName = "evEPECCTe")]
+    [XmlInclude(typeof(EventoDetalhe))]
+    public class EvEPECCTe
+    {
+        [XmlElement("descEvento", Order = 0)]
+        public string DescEvento { get; set; } = "EPEC";
+
+        [XmlElement("xJust", Order = 1)]
+        public string XJust { get; set; }
+
+        [XmlIgnore]
+        public double VICMS { get; set; }
+
+        [XmlElement("vICMS", Order = 2)]
+        public string VICMSField
+        {
+            get => VICMS.ToString("F2", CultureInfo.InvariantCulture);
+            set => VICMS = Converter.ToDouble(value);
+        }
+
+        [XmlIgnore]
+        public double VICMSST { get; set; }
+
+        [XmlElement("vICMSST", Order = 3)]
+        public string VICMSSTField
+        {
+            get => VICMSST.ToString("F2", CultureInfo.InvariantCulture);
+            set => VICMSST = Converter.ToDouble(value);
+        }
+
+        [XmlIgnore]
+        public double VTPrest { get; set; }
+
+        [XmlElement("vTPrest", Order = 4)]
+        public string VTPrestField
+        {
+            get => VTPrest.ToString("F2", CultureInfo.InvariantCulture);
+            set => VTPrest = Converter.ToDouble(value);
+        }
+
+        [XmlIgnore]
+        public double VCarga { get; set; }
+
+        [XmlElement("vCarga", Order = 5)]
+        public string VCargaField
+        {
+            get => VCarga.ToString("F2", CultureInfo.InvariantCulture);
+            set => VCarga = Converter.ToDouble(value);
+        }
+
+        [XmlElement("toma4", Order = 6)]
+        public EvEPECCTeToma4 Toma4 { get; set; }
+
+        [XmlElement("modal", Order = 7)]
+        public ModalidadeTransporteCTe Modal { get; set; }
+
+        [XmlElement("UFIni", Order = 8)]
+        public UFBrasil UFIni { get; set; }
+
+        [XmlElement("UFFim", Order = 9)]
+        public UFBrasil UFFim { get; set; }
+
+        [XmlElement("tpCTe", Order = 10)]
+        public TipoCTe TpCTe { get; set; }
+
+        [XmlIgnore]
+        public DateTime DhEmi { get; set; }
+
+        [XmlElement("dhEmi", Order = 11)]
+        public string DhEmiField
+        {
+            get => DhEmi.ToString("yyyy-MM-ddTHH:mm:sszzz");
+            set => DhEmi = DateTime.Parse(value);
+        }
+    }
+
+    [Serializable()]
+    [XmlType(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/cte")]
+    public class EvEPECCTeToma4
+    {
+        private TomadorServicoCTe TomaField;
+
+        [XmlElement("toma", Order = 0)]
+        public TomadorServicoCTe Toma
+        {
+            get => TomadorServicoCTe.Outros;
+            set => TomaField = value;
+        }
+
+        [XmlElement("UF", Order = 1)]
+        public UFBrasil UF { get; set; }
+
+        [XmlElement("CNPJ", Order = 2)]
+        public string CNPJ { get; set; }
+
+        [XmlElement("CPF", Order = 3)]
+        public string CPF { get; set; }
+
+        [XmlElement("IE", Order = 4)]
+        public string IE { get; set; }
+
+        #region ShouldSerialize
+
+        public bool ShouldSerializeCNPJ() => !string.IsNullOrWhiteSpace(CNPJ);
+
+        public bool ShouldSerializeCPF() => !string.IsNullOrWhiteSpace(CPF);
+
+        public bool ShouldSerializeIE() => !string.IsNullOrWhiteSpace(IE);
+
+        #endregion
+    }
+
+    [XmlInclude(typeof(EventoDetalhe))]
+    [XmlRoot(ElementName = "detEvento")]
     public class DetEventoCompEntrega: EventoDetalhe
     {
         #region Private Fields
@@ -414,7 +721,7 @@ namespace Unimake.Business.DFe.Xml.CTe
         #region Public Properties
 
         [XmlElement("descEvento", Order = 0)]
-        public override string DescEvento { get; set; } = "Comprovante de Entrega";
+        public override string DescEvento { get; set; } = "Comprovante de Entrega do CT-e";
 
         [XmlIgnore]
         public DateTime DhEntrega { get; set; }
@@ -576,7 +883,16 @@ namespace Unimake.Business.DFe.Xml.CTe
         private static readonly List<string> hasField = new List<string>
         {
             "DhEntrega",
-            "DhHashEntrega"
+            "DhHashEntrega",
+            "VICMS",
+            "VICMSST",
+            "VTPrest",
+            "VCarga",
+            "Modal",
+            "UFIni",
+            "UFFim",
+            "TpCTe",
+            "DhEmi"
         };
 
         #endregion Private Fields
@@ -822,6 +1138,10 @@ namespace Unimake.Business.DFe.Xml.CTe
 
                     case TipoEventoCTe.PrestDesacordo:
                         _detEvento = new DetEventoPrestDesacordo();
+                        break;
+
+                    case TipoEventoCTe.EPEC:
+                        _detEvento = new DetEventoEPEC();
                         break;
 
                     default:

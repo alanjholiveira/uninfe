@@ -10,7 +10,7 @@ using Unimake.Business.DFe.Xml;
 namespace Unimake.Business.DFe.Servicos
 {
     /// <summary>
-    /// Classe base abastrata para elaboração dos serviços dos documentos fiscais eletrônicos (NFe, NFCe, MDFe, NFSe, CTe, GNRE, etc...)
+    /// Classe base abstrata para elaboração dos serviços dos documentos fiscais eletrônicos (NFe, NFCe, MDFe, NFSe, CTe, GNRE, etc...)
     /// </summary>
     [ComVisible(true)]
     public abstract class ServicoBase
@@ -408,6 +408,11 @@ namespace Unimake.Business.DFe.Servicos
             Configuracoes.WebSoapString = Configuracoes.WebSoapString.Replace("{versaoDados}", Configuracoes.SchemaVersao);
         }
 
+        /// <summary>
+        /// Forçar carregar o PIN do certificado A3 em casos de XML que não tem assinatura
+        /// </summary>
+        private void CarregarPINA3() => new Certificate().CarregarPINA3(Configuracoes.CertificadoDigital, Configuracoes.CertificadoA3PIN);
+
         #endregion Private Methods
 
         #region Protected Properties
@@ -472,12 +477,7 @@ namespace Unimake.Business.DFe.Servicos
         /// <param name="configuracao">Configurações que serão utilizadas para conexão e envio do XML para o webservice</param>
         protected void PrepararServico(XmlDocument conteudoXML, Configuracao configuracao)
         {
-            if(configuracao == null)
-            {
-                throw new ArgumentNullException(nameof(configuracao));
-            }
-
-            Configuracoes = configuracao;
+            Configuracoes = configuracao ?? throw new ArgumentNullException(nameof(configuracao));
             ConteudoXML = conteudoXML ?? throw new ArgumentNullException(nameof(conteudoXML));
             Inicializar();
             System.Diagnostics.Trace.WriteLine(ConteudoXML?.InnerXml, "Unimake.DFe");
@@ -506,8 +506,10 @@ namespace Unimake.Business.DFe.Servicos
             if(!Configuracoes.Definida)
             {
                 DefinirConfiguracao();
-                LerXmlConfigGeral();
             }
+
+            //Esta linha tem que ficar fora do if acima, pois tem que carregar esta parte, independente, pois o que é carregado sempre é automático. Mudar isso, vai gerar falha no UNINFE, principalmente no envio dos eventos, onde eu defino as configurações manualmente. Wandrey 07/12/2020
+            LerXmlConfigGeral();
         }
 
         /// <summary>
@@ -600,12 +602,17 @@ namespace Unimake.Business.DFe.Servicos
         [ComVisible(false)]
         public virtual void Executar()
         {
-            if(!string.IsNullOrWhiteSpace(Configuracoes.TagAssinatura) &&
-               !AssinaturaDigital.EstaAssinado(ConteudoXML, Configuracoes.TagAssinatura))
+            if(!string.IsNullOrWhiteSpace(Configuracoes.TagAssinatura))
             {
-                AssinaturaDigital.Assinar(ConteudoXML, Configuracoes.TagAssinatura, Configuracoes.TagAtributoID, Configuracoes.CertificadoDigital, AlgorithmType.Sha1, true, Configuracoes.CertificadoA3PIN, "Id");
-
-                AjustarXMLAposAssinado();
+                if(!AssinaturaDigital.EstaAssinado(ConteudoXML, Configuracoes.TagAssinatura))
+                {
+                    AssinaturaDigital.Assinar(ConteudoXML, Configuracoes.TagAssinatura, Configuracoes.TagAtributoID, Configuracoes.CertificadoDigital, AlgorithmType.Sha1, true, Configuracoes.CertificadoA3PIN, "Id");
+                    AjustarXMLAposAssinado();
+                }
+            }
+            else if(!string.IsNullOrWhiteSpace(Configuracoes.CertificadoA3PIN))
+            {
+                CarregarPINA3();
             }
 
             var soap = new WSSoap
@@ -615,7 +622,10 @@ namespace Unimake.Business.DFe.Servicos
                 TagRetorno = Configuracoes.WebTagRetorno,
                 VersaoSoap = Configuracoes.WebSoapVersion,
                 SoapString = Configuracoes.WebSoapString,
-                ContentType = Configuracoes.WebContentType
+                ContentType = Configuracoes.WebContentType,
+                Proxy = (Configuracoes.HasProxy ? Proxy.DefinirServidor(Configuracoes.ProxyAutoDetect,
+                                                                        Configuracoes.ProxyUser,
+                                                                        Configuracoes.ProxyPassword) : null)
             };
 
             var consumirWS = new ConsumirWS();
@@ -631,6 +641,7 @@ namespace Unimake.Business.DFe.Servicos
         /// <param name="pasta">Pasta onde deve ser gravado o XML no HD</param>
         /// <param name="nomeArquivo">Nome do arquivo a ser gravado no HD</param>
         /// <param name="conteudoXML">String contendo o conteúdo do XML a ser gravado no HD</param>
+        [ComVisible(false)]
         public abstract void GravarXmlDistribuicao(string pasta, string nomeArquivo, string conteudoXML);
 
         #endregion Public Methods

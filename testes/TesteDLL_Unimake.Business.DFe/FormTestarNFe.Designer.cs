@@ -679,7 +679,7 @@
             // 
             // button45
             // 
-            this.button45.BackColor = System.Drawing.SystemColors.Control;
+            this.button45.BackColor = System.Drawing.SystemColors.ControlDark;
             this.button45.Location = new System.Drawing.Point(4, 396);
             this.button45.Margin = new System.Windows.Forms.Padding(2);
             this.button45.Name = "button45";
@@ -703,7 +703,7 @@
             // 
             // button41
             // 
-            this.button41.BackColor = System.Drawing.SystemColors.Control;
+            this.button41.BackColor = System.Drawing.SystemColors.ControlDark;
             this.button41.Location = new System.Drawing.Point(5, 360);
             this.button41.Margin = new System.Windows.Forms.Padding(2);
             this.button41.Name = "button41";

@@ -118,6 +118,9 @@ namespace NFe.Service
                     case "2050":
                         result = "ConsultaReciboEvento2050";
                         break;
+                    case "2055":
+                        result = "ConsultaReciboEvento2055";
+                        break;
                     case "2060":
                         result = "ConsultaReciboEvento2060";
                         break;
@@ -129,6 +132,27 @@ namespace NFe.Service
                         break;
                     case "3010":
                         result = "ConsultaReciboEvento3010";
+                        break;
+                    case "4004":
+                        result = "ConsultaReciboEvento4004";
+                        break;
+                    case "4010":
+                        result = "ConsultaReciboEvento4010";
+                        break;
+                    case "4020":
+                        result = "ConsultaReciboEvento4020";
+                        break;
+                    case "4040":
+                        result = "ConsultaReciboEvento4040";
+                        break;
+                    case "4080":
+                        result = "ConsultaReciboEvento4080";
+                        break;
+                    case "4098":
+                        result = "ConsultaReciboEvento4098";
+                        break;
+                    case "4099":
+                        result = "ConsultaReciboEvento4099";
                         break;
                 }
             }

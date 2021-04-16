@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Xml;
 using System.Xml.Schema;
@@ -139,6 +140,17 @@ namespace Unimake.Business.DFe.Xml.MDFe
 
         #endregion Public Properties
 
+        #region Public Methods
+
+#if INTEROP
+
+        public void AddCondutor(CondutorMDFe item) =>
+            (Condutor ?? (Condutor = new List<CondutorMDFe>())).Add(item ?? throw new ArgumentNullException(nameof(item)));
+
+#endif
+
+        #endregion
+
     }
 
     [Serializable()]
@@ -264,7 +276,7 @@ namespace Unimake.Business.DFe.Xml.MDFe
         #region Public Properties
 
         [XmlElement("descEvento", Order = 0)]
-        public override string DescEvento { get; set; } = "“Inclusao DF-e";
+        public override string DescEvento { get; set; } = "Inclusao DF-e";
 
         [XmlElement("nProt", Order = 1)]
         public string NProt { get; set; }
@@ -279,6 +291,25 @@ namespace Unimake.Business.DFe.Xml.MDFe
         public List<InfDoc> InfDoc { get; set; } = new List<InfDoc>();
 
         #endregion Public Properties
+
+        #region Public Methods
+
+#if INTEROP
+
+        [ComVisible(true)]
+        public void AddInfDoc(InfDoc item)
+        {
+            if(InfDoc == null)
+            {
+                InfDoc = new List<InfDoc>();
+            }
+
+            InfDoc.Add(item);
+        }
+
+#endif
+
+        #endregion Public Methods
     }
 
     [Serializable]
@@ -293,19 +324,6 @@ namespace Unimake.Business.DFe.Xml.MDFe
 
         [XmlElement("chNFe", Order = 2)]
         public string ChNFe { get; set; }
-    }
-
-
-    [Serializable]
-    [XmlRoot(ElementName = "detEvento")]
-    public class DetEventoCCE: EventoDetalhe
-    {
-    }
-
-    [Serializable]
-    [XmlRoot(ElementName = "detEvento")]
-    public class DetEventoManif: EventoDetalhe
-    {
     }
 
     [Serializable]
@@ -449,7 +467,6 @@ namespace Unimake.Business.DFe.Xml.MDFe
     }
 
     [XmlInclude(typeof(DetEventoCanc))]
-    [XmlInclude(typeof(DetEventoCCE))]
     [XmlInclude(typeof(DetEventoIncCondutor))]
     [XmlInclude(typeof(DetEventoIncDFeMDFe))]
     public class EventoDetalhe: IXmlSerializable
@@ -614,19 +631,19 @@ namespace Unimake.Business.DFe.Xml.MDFe
                     //    break;
 
                     case TipoEventoMDFe.Cancelamento:
-                        _detEvento = new DetEventoCanc();
+                        _detEvento = value is DetEventoCanc ? value : new DetEventoCanc();
                         break;
 
                     case TipoEventoMDFe.InclusaoCondutor:
-                        _detEvento = new DetEventoIncCondutor();
+                        _detEvento = value is DetEventoIncCondutor ? value : new DetEventoIncCondutor();
                         break;
 
                     case TipoEventoMDFe.Encerramento:
-                        _detEvento = new DetEventoEncMDFe();
+                        _detEvento = value is DetEventoEncMDFe ? value : new DetEventoEncMDFe();
                         break;
 
                     case TipoEventoMDFe.InclusaoDFe:
-                        _detEvento = new DetEventoIncDFeMDFe();
+                        _detEvento = value is DetEventoIncDFeMDFe ? value : new DetEventoIncDFeMDFe();
                         break;
 
                     //case TipoEventoNFe.ManifestacaoConfirmacaoOperacao:
