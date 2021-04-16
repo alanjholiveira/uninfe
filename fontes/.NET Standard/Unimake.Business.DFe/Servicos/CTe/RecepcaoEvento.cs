@@ -93,50 +93,16 @@ namespace Unimake.Business.DFe.Servicos.CTe
 
             #region Validar a parte específica de cada evento
 
-            var listEvento = ConteudoXML.GetElementsByTagName("eventoCTe");
-            for(var i = 0; i < listEvento.Count; i++)
+            if(ConteudoXML.GetElementsByTagName("detEvento")[0] != null)
             {
-                var elementEvento = (XmlElement)listEvento[i];
+                var xmlEspecifico = new XmlDocument();
+                xmlEspecifico.LoadXml(ConteudoXML.GetElementsByTagName(ConteudoXML.GetElementsByTagName("detEvento")[0].FirstChild.Name)[0].OuterXml);
 
-                if(elementEvento.GetElementsByTagName("infEvento")[0] != null)
-                {
-                    var elementInfEvento = (XmlElement)elementEvento.GetElementsByTagName("infEvento")[0];
-                    if(elementInfEvento.GetElementsByTagName("tpEvento")[0] != null)
-                    {
-                        var tpEvento = elementInfEvento.GetElementsByTagName("tpEvento")[0].InnerText;
-
-                        var tipoEventoCTe = (TipoEventoCTe)Enum.Parse(typeof(TipoEventoCTe), tpEvento);
-
-                        var xmlEspecifico = new XmlDocument();
-                        switch(tipoEventoCTe)
-                        {
-                            case TipoEventoCTe.Cancelamento:
-                                xmlEspecifico.LoadXml(XMLUtility.Serializar<DetEventoCanc>((DetEventoCanc)xml.InfEvento.DetEvento).OuterXml);
-                                break;
-
-                            case TipoEventoCTe.ComprovanteEntrega:
-                                xmlEspecifico.LoadXml(XMLUtility.Serializar<DetEventoCompEntrega>((DetEventoCompEntrega)xml.InfEvento.DetEvento).OuterXml);
-                                break;
-
-                            case TipoEventoCTe.CancelamentoComprovanteEntrega:
-                                xmlEspecifico.LoadXml(XMLUtility.Serializar<DetEventoCancCompEntrega>((DetEventoCancCompEntrega)xml.InfEvento.DetEvento).OuterXml);
-                                break;
-
-                            case TipoEventoCTe.CartaCorrecao:
-                                xmlEspecifico.LoadXml(XMLUtility.Serializar<DetEventoCCE>((DetEventoCCE)xml.InfEvento.DetEvento).OuterXml);
-                                break;
-
-                            case TipoEventoCTe.PrestDesacordo:
-                                xmlEspecifico.LoadXml(XMLUtility.Serializar<DetEventoPrestDesacordo>((DetEventoPrestDesacordo)xml.InfEvento.DetEvento).OuterXml);
-                                break;
-
-                            default:
-                                throw new Exception("Não foi possível identificar o tipo de evento.");
-                        }
-
-                        ValidarXMLEvento(xmlEspecifico, schemaArquivoEspecifico, Configuracoes.TargetNS);
-                    }
-                }
+                ValidarXMLEvento(xmlEspecifico, schemaArquivoEspecifico, Configuracoes.TargetNS);
+            }
+            else
+            {
+                throw new Exception("Não foi possível localizar o detalhamento do evento. Tag (detEvento).");
             }
 
             #endregion Validar a parte específica de cada evento
@@ -209,6 +175,8 @@ namespace Unimake.Business.DFe.Servicos.CTe
         [ComVisible(false)]
         public override void Executar() => base.Executar();
 
+#if INTEROP
+
         /// <summary>
         /// Executa o serviço: Assina o XML, valida e envia para o webservice
         /// </summary>
@@ -217,7 +185,7 @@ namespace Unimake.Business.DFe.Servicos.CTe
         [ComVisible(true)]
         public void Executar(EventoCTe envEvento, Configuracao configuracao)
         {
-            if(envEvento == null)
+            if (envEvento == null)
             {
                 throw new ArgumentNullException(nameof(envEvento));
             }
@@ -225,7 +193,9 @@ namespace Unimake.Business.DFe.Servicos.CTe
             PrepararServico(envEvento.GerarXML(), configuracao);
 
             Executar();
-        }
+        } 
+
+#endif
 
         /// <summary>
         /// Gravar o XML de distribuição em uma pasta no HD

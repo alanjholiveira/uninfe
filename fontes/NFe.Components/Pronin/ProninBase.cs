@@ -97,6 +97,13 @@ namespace NFe.Components.Pronin
                                 proninService = new AgudoRS.h.ProninH(tpAmb, PastaRetorno, UsuarioProxy, SenhaProxy, DomainProxy, Certificado);
                                 break;
 
+                            case 3550407: //São Pedro - SP
+                                proninService = new SaoPedro.h.ProninH(tpAmb, PastaRetorno, UsuarioProxy, SenhaProxy, DomainProxy, Certificado);
+                                break;
+
+                            case 4310207: //Ijuís-RS
+                                proninService = new IjuiRS.h.ProninH(tpAmb, PastaRetorno, UsuarioProxy, SenhaProxy, DomainProxy, Certificado);
+                                break;
                             default:
                                 throw new Exceptions.ServicoInexistenteException();
                         }
@@ -199,6 +206,18 @@ namespace NFe.Components.Pronin
                                 proninService = new ApucaranaPR.p.ProninP(tpAmb, PastaRetorno, UsuarioProxy, SenhaProxy, DomainProxy, Certificado);
                                 break;
 
+                            case 3550407://São Pedro - SP
+                                proninService = new SaoPedro.p.ProninP(tpAmb, PastaRetorno, UsuarioProxy, SenhaProxy, DomainProxy, Certificado);
+                                break;
+
+                            case 4310207: //Ijuís-RS
+                                proninService = new IjuiRS.p.ProninP(tpAmb, PastaRetorno, UsuarioProxy, SenhaProxy, DomainProxy, Certificado);
+                                break;
+
+                            case 1502400://Castanhal - PA
+                                proninService = new CastanhalPA.p.ProninP(tpAmb, PastaRetorno, UsuarioProxy, SenhaProxy, DomainProxy, Certificado);
+                                break;
+
                             default:
                                 throw new Exceptions.ServicoInexistenteException();
                         }
@@ -253,6 +272,11 @@ namespace NFe.Components.Pronin
         public override void ConsultarNfsePorRps(string file)
         {
             ProninService.ConsultarNfsePorRps(file);
+        }
+
+        public override void SubstituirNfse(string file)
+        {
+            ProninService.SubstituirNfse(file);
         }
 
         #endregion Métodos

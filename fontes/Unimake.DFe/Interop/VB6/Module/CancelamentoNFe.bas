@@ -3,7 +3,7 @@ Option Explicit
 
 Public Sub CancelarNFe()
 On Error GoTo erro
-Dim EnvEvento, RecepcaoEvento, Evento, InfEvento, DetEventoCanc, CStat
+Dim EnvEvento, RecepcaoEvento, Evento, InfEvento, DetEventoCanc, CStat, xmlDistrib
 
 Log.ClearLog
 
@@ -21,7 +21,7 @@ End With
               
 With InfEvento
     Set .DetEvento = DetEventoCanc
-    .COrgao = CUF
+    .COrgao = UFBrasil.PR
     .ChNFe = "41190806117473000150550010000579131943463890"
     .CNPJ = "06117473000150"
     .DhEvento = DateTime.Now
@@ -38,7 +38,10 @@ EnvEvento.AddEvento (Evento)
 EnvEvento.Versao = "1.00"
 EnvEvento.IdLote = "000000000000001"
 
-RecepcaoEvento.Executar (EnvEvento), (Config.InicializarConfiguracao(NFe))
+RecepcaoEvento.Executar (EnvEvento), (Config.InicializarConfiguracao(TipoDFe.NFe))
+
+xmlDistrib = RecepcaoEvento.GetProcEventoNFeResultXMLByIndex(0)
+Debug.Print xmlDistrib
 
 ''Gravar o XML de distribuição se a inutilização foi homologada
 If (RecepcaoEvento.result.CStat = 128) Then ''128 = Lote de evento processado com sucesso

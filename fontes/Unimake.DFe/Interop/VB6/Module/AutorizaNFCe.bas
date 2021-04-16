@@ -14,7 +14,7 @@ EnviNFe.IndSinc = 1
 EnviNFe.AddNFe GetNFCe()
 
 Set Autorizacao = CreateObject("Unimake.Business.DFe.Servicos.NFCe.Autorizacao")
-Set localConfig = Config.InicializarConfiguracao(NFCe)
+Set localConfig = Config.InicializarConfiguracao(TipoDFe.NFCe)
 localConfig.CSC = "HCJBIRTWGCQ3HVQN7DCA0ZY0P2NYT6FVLPJG"
 localConfig.CSCIDToken = 2
 
@@ -58,7 +58,7 @@ Function GetIde()
 Dim result
 Set result = CreateObject("Unimake.Business.DFe.Xml.NFe.Ide")
 With result
-    .CUF = CUF
+    .CUF = UFBrasil.PR
     .NatOp = "VENDA PRODUC.DO ESTABELEC"
     .Mod = 65
     .Serie = 1
@@ -72,7 +72,8 @@ With result
     .TpAmb = TpAmb
     .FinNFe = 1
     .IndFinal = 1
-    .IndPres = 1
+    .IndPres = IndicadorPresenca.OperacaoPresencial
+    .IndIntermed = IndicadorIntermediario.OperacaoSemIntermediador
     .ProcEmi = 0
     .VerProc = "TESTE 1.00"
 End With

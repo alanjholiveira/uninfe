@@ -25,6 +25,7 @@ using NFSe.Components;
 using System;
 using System.IO;
 using NFe.Components.WEBFISCO_TECNOLOGIA;
+using NFe.Components.GeisWeb;
 #if _fw46
 using System.ServiceModel;
 using static NFe.Components.Security.SOAPSecurity;
@@ -97,6 +98,11 @@ namespace NFe.Service.NFSe
                 PadroesNFSe padraoNFSe = Functions.PadraoNFSe(oDadosPedCanNfse.cMunicipio);
                 WebServiceProxy wsProxy = null;
                 object pedCanNfse = null;
+
+                if (!String.IsNullOrEmpty(Empresas.Configuracoes[emp].CertificadoPIN))
+                {
+                    new Unimake.Business.DFe.Utility.Certificate().CarregarPINA3(Empresas.Configuracoes[emp].X509Certificado, Empresas.Configuracoes[emp].CertificadoPIN);
+                }
 
                 //Criar objetos das classes dos serviços dos webservices do SEFAZ
                 if (IsUtilizaCompilacaoWs(padraoNFSe))
@@ -216,7 +222,7 @@ namespace NFe.Service.NFSe
                         break;
 
                     case PadroesNFSe.FINTEL:
-                        cabecMsg = "<cabecalho versao=\"2.02\" xmlns=\"http://iss.irati.pr.gov.br/Arquivos/nfseV202.xsd\"><versaoDados>2.02</versaoDados></cabecalho>";
+                        cabecMsg = "<cabecalho versao=\"2.02\" xmlns=\"http://www.abrasf.org.br/nfse.xsd\"><versaoDados>2.02</versaoDados></cabecalho>";
                         break;
 
                     case PadroesNFSe.SYSTEMPRO:
@@ -400,6 +406,10 @@ namespace NFe.Service.NFSe
                                 case 5211909:
                                     pedCanNfse = new Components.PJataiGO.nfseWS();
                                     break;
+
+                                case 5220603:
+                                    pedCanNfse = new Components.PSilvaniaGO.nfseWS();
+                                    break;
                             }
                         }
                         else
@@ -408,6 +418,11 @@ namespace NFe.Service.NFSe
 
                     case PadroesNFSe.EQUIPLANO:
                         cabecMsg = "1";
+                        break;
+
+                    case PadroesNFSe.RLZ_INFORMATICA_02:
+                        if (oDadosPedCanNfse.cMunicipio == 5107958)
+                            cabecMsg = "<cabecalho><versaoDados>2.02</versaoDados></cabecalho>";
                         break;
 
                     case PadroesNFSe.PORTALFACIL_ACTCON_202:
@@ -511,7 +526,10 @@ namespace NFe.Service.NFSe
                             oDadosPedCanNfse.cMunicipio == 3501301 ||
                             oDadosPedCanNfse.cMunicipio == 4300109 ||
                             oDadosPedCanNfse.cMunicipio == 4124053 ||
-                            oDadosPedCanNfse.cMunicipio == 4101408)
+                            oDadosPedCanNfse.cMunicipio == 4101408 ||
+                            oDadosPedCanNfse.cMunicipio == 3550407 ||
+                            oDadosPedCanNfse.cMunicipio == 4310207 ||
+                            oDadosPedCanNfse.cMunicipio == 1502400)
                         {
                             Pronin pronin = new Pronin((TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
                                 Empresas.Configuracoes[emp].PastaXmlRetorno,
@@ -583,6 +601,18 @@ namespace NFe.Service.NFSe
 
                     #endregion Tinus
 
+                    case PadroesNFSe.GEISWEB:
+                        var geisWeb = new GeisWeb((TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
+                            Empresas.Configuracoes[emp].PastaXmlRetorno,
+                            oDadosPedCanNfse.cMunicipio,
+                            ConfiguracaoApp.ProxyUsuario,
+                            ConfiguracaoApp.ProxySenha,
+                            ConfiguracaoApp.ProxyServidor,
+                            Empresas.Configuracoes[emp].X509Certificado);
+
+                        geisWeb.CancelarNfse(NomeArquivoXML);
+                        break;
+
                     #region SH3
 
                     case PadroesNFSe.SH3:
@@ -636,6 +666,34 @@ namespace NFe.Service.NFSe
                         break;
 
                     #endregion SOFTPLAN
+
+                    #region CENTI
+
+                    case PadroesNFSe.CENTI:
+                        var centi = new Components.CENTI.CENTI((TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
+                                                        Empresas.Configuracoes[emp].PastaXmlRetorno,
+                                                        Empresas.Configuracoes[emp].UsuarioWS,
+                                                        Empresas.Configuracoes[emp].SenhaWS);
+
+                        var centiAssinatura = new AssinaturaDigital();
+                        centiAssinatura.Assinar(NomeArquivoXML, emp, oDadosPedCanNfse.cMunicipio);
+
+                        // Validar o Arquivo XML
+                        var centiValidar = new ValidarXML(NomeArquivoXML, Empresas.Configuracoes[emp].UnidadeFederativaCodigo, false);
+                        var validacaoCenti = centiValidar.ValidarArqXML(NomeArquivoXML);
+                        if (validacaoCenti != "")
+                        {
+                            throw new Exception(validacaoCenti);
+                        }
+
+                        if (ConfiguracaoApp.Proxy)
+                        {
+                            centi.Proxy = Proxy.DefinirProxy(ConfiguracaoApp.ProxyServidor, ConfiguracaoApp.ProxyUsuario, ConfiguracaoApp.ProxySenha, ConfiguracaoApp.ProxyPorta);
+                        }
+                        centi.CancelarNfse(NomeArquivoXML);
+                        break;
+
+                    #endregion
 
                     #region AGILI
                     case PadroesNFSe.AGILI:
