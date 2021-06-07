@@ -15,6 +15,8 @@ namespace uninfe
         [STAThread]
         private static void Main(string[] args)
         {
+            AppDomain.CurrentDomain.AssemblyResolve += Unimake.Utility.Basic.AssemblyResolver.AssemblyResolve;
+
             Application.ThreadException += new System.Threading.ThreadExceptionEventHandler((sender, e) =>
             {
                 Auxiliar.WriteLog(e.Exception.Message + "\r\n" + e.Exception.StackTrace, false);
