@@ -56,7 +56,7 @@
 	  <PackageReference Include="Microsoft.VisualBasic" Version="10.3.0" />
 	  <PackageReference Include="Microsoft_VisualStudio_QualityTools_UnitTestFramework.STW" Version="12.0.21005.1" />
 	  <PackageReference Include="NETStandard.Library" Version="2.0.3" />
-	  <PackageReference Include="Unimake.Unidanfe" Version="20201130.1653.35" />
+	  <PackageReference Include="Unimake.Unidanfe" Version="20210604.1735.36" />
 	</ItemGroup>
 
 	<ItemGroup>

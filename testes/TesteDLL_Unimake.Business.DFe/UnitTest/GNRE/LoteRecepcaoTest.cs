@@ -36,16 +36,15 @@ namespace TesteDLL_Unimake.Business.DFe.UnitTest.GNRE
                             {
                                 Identificacao = new Identificacao
                                 {
-                                    CPF = "68630452064",
-                                    CNPJ = "79358552000126",
-                                    IE = "054494562414"
+                                    CNPJ = "07638784000127",
+                                    IE = "9035408506"
                                 },
-                                RazaoSocial = "Unimake Software",
-                                Endereco = "Rua teste",
-                                Municipio = "18402",
+                                RazaoSocial = "OESTE PHARMA DISTRIBUIDORA DE MEDICAMENTOS EIRELI",
+                                Endereco = "RUA SALGADO FILHO",
+                                Municipio = "04808",
                                 UF = UFBrasil.PR,
-                                CEP= "87704030",
-                                Telefone = "31414900"
+                                CEP= "85811100",
+                                Telefone = "04532233033"
                             },
 
                             ItensGNRE = new ItensGNRE
@@ -54,60 +53,35 @@ namespace TesteDLL_Unimake.Business.DFe.UnitTest.GNRE
                                 {
                                     new Item
                                     {
-                                        Receita = "123456",
-                                        DetalhamentoReceita = "teste detalhamento receita",
+                                        Receita = "100099",
                                         DocumentoOrigem = new DocumentoOrigem
                                         {
-                                            Tipo = "01",
-                                            Value = "1234"
+                                            Tipo = "10",
+                                            Value = "000535770"
                                         },
-                                        Produto = "Produto teste",
-                                        Referencia = new Referencia
-                                        {
-                                            Periodo = 1,
-                                            Mes = Meses.Novembro,
-                                            Ano = "2020",
-                                            Parcela = "1"
-                                        },
-
                                         DataVencimento = DateTime.Now,
-
                                         Valor = new List<Valor>
                                         {
                                             new Valor
                                             {
                                                 Tipo = Valor.ItemValorTipo.Item11,
-                                                ValorOriginal = 10.00
+                                                ValorOriginal = 122.97
                                             }
                                         },
-                                        Convenio = "teste convenio",
                                         ContribuinteDestinatario = new ContribuinteDestinatario
                                         {
                                             Identificacao = new Identificacao
                                             {
-                                                CPF = "68630452064",
-                                                CNPJ = "79358552000126",
-                                                IE = "054494562414"
+                                                CNPJ = "24415230000694",
                                             },
-                                            RazaoSocial = "Unimake Software",
-                                            Municipio = "18402",
-                                        },
-
-                                        CamposExtras = new List<CamposExtras>
-                                        {
-                                            new CamposExtras
-                                            {
-                                                CampoExtra = new CampoExtra
-                                                {
-                                                    Codigo = 123,
-                                                    Valor = "1500",
-                                                }
-                                            }
+                                            RazaoSocial = "NAVARRO DISTRIBUIDORA DE MEDICAMENTOS S/A",
+                                            Municipio = "25506",
                                         },
                                     }
                                 }
                             },
-                         ValorGNRE = 150.33 
+                         ValorGNRE = 122.97,
+                         DataPagamento = DateTime.Now
                         }
                     }
                 }
@@ -125,7 +99,7 @@ namespace TesteDLL_Unimake.Business.DFe.UnitTest.GNRE
             };
 
             var loteRecepcao = new LoteRecepcao(xml, configuracao);
-            
+
             loteRecepcao.Executar();
 
             Debug.Assert(loteRecepcao.Result != null);

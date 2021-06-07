@@ -21,8 +21,9 @@ namespace TesteDLL_Unimake.Business.DFe.UnitTest.GNRE
 
             var xml = new TConsLoteGNRE
             {
-                Ambiente = TipoAmbiente.Producao,
-                NumeroRecibo = "1234567891",
+                Ambiente = TipoAmbiente.Homologacao,
+                NumeroRecibo = "2100250239",
+                IncluirPDFGuias = SimNaoLetra.Sim
             };
 
             var configuracao = new Configuracao
@@ -30,11 +31,21 @@ namespace TesteDLL_Unimake.Business.DFe.UnitTest.GNRE
                 TipoDFe = TipoDFe.GNRE,
                 TipoEmissao = TipoEmissao.Normal,
                 CertificadoDigital = CertificadoSelecionado,
+                TipoAmbiente = TipoAmbiente.Homologacao,
                 CodigoUF = 41 //Paraná
             };
 
             var consultaResultadoLote = new ConsultaResultadoLote(xml, configuracao);
             consultaResultadoLote.Executar();
+
+            try
+            {
+                consultaResultadoLote.GravarXmlRetorno(@"d:\testenfe", xml.NumeroRecibo + "-ret-gnre.xml");
+                consultaResultadoLote.GravarPDFGuia(@"d:\testenfe", "GuiaGNRE.pdf");
+            }
+            catch
+            {
+            }
 
             Debug.Assert(consultaResultadoLote.Result != null);
             Debug.Assert(!string.IsNullOrWhiteSpace(consultaResultadoLote.Result.SituacaoProcess.Codigo));

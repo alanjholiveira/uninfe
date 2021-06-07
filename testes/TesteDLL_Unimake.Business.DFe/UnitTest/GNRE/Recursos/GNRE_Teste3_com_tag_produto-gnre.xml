@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TLote_GNRE versao="2.00" xmlns="http://www.gnre.pe.gov.br">
+  <guias>
+    <TDadosGNRE versao="2.00">
+      <ufFavorecida>MA</ufFavorecida>
+      <tipoGnre>0</tipoGnre>
+      <contribuinteEmitente>
+        <identificacao>
+          <CNPJ>21069246000190</CNPJ>
+        </identificacao>
+        <razaoSocial>MUNDO WINE COMERCIO DE ARTIGOS E PRESENTES LTDA.</razaoSocial>
+        <endereco>R. PEDRO ALVARES CABRAL</endereco>
+        <municipio>07005</municipio>
+        <uf>RS</uf>
+        <cep>99700248</cep>
+        <telefone>5421065457</telefone>
+      </contribuinteEmitente>
+      <itensGNRE>
+        <item>
+          <receita>100102</receita>
+          <documentoOrigem tipo="10">40</documentoOrigem>
+          <produto>70</produto>
+          <referencia>
+            <mes>05</mes>
+            <ano>2021</ano>
+          </referencia>
+          <dataVencimento>2021-05-06</dataVencimento>
+          <valor tipo="11">1.00</valor>
+          <contribuinteDestinatario>
+            <identificacao>
+              <CPF>08444907928</CPF>
+            </identificacao>
+            <razaoSocial>Mychelle  Pereira Mesquita</razaoSocial>
+            <municipio>00303</municipio>
+          </contribuinteDestinatario>
+          <camposExtras>
+            <campoExtra>
+              <codigo>113</codigo>
+              <valor>43210521069246000190550020000000401623255830</valor>
+            </campoExtra>
+          </camposExtras>
+        </item>
+      </itensGNRE>
+      <valorGNRE>1.00</valorGNRE>
+      <dataPagamento>2021-05-06</dataPagamento>
+    </TDadosGNRE>
+  </guias>
+</TLote_GNRE>
