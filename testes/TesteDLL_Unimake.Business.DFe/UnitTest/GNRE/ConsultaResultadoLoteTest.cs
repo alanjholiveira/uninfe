@@ -16,13 +16,13 @@ namespace TesteDLL_Unimake.Business.DFe.UnitTest.GNRE
         [TestMethod]
         public void ConsultaResultadoLote()
         {
-            string path = @"D:\testenfe\certificadoGNRE2_12345678.pfx";
-            X509Certificate2 CertificadoSelecionado = new CertificadoDigital().CarregarCertificadoDigitalA1(path, "12345678");
+            string path = @"D:\testenfe\OestePharma_1234.pfx";
+            X509Certificate2 CertificadoSelecionado = new CertificadoDigital().CarregarCertificadoDigitalA1(path, "1234");
 
             var xml = new TConsLoteGNRE
             {
                 Ambiente = TipoAmbiente.Homologacao,
-                NumeroRecibo = "2100250239",
+                NumeroRecibo = "2100254560",
                 IncluirPDFGuias = SimNaoLetra.Sim
             };
 

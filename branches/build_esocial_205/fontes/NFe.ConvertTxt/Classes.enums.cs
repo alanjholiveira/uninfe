@@ -112,7 +112,8 @@ namespace NFe.ConvertTxt
         ProgramaFidelidade = 19,
         [Description("90=Sem pagamento")]
         fpSemPagamento = 90,
-        [Description("99 =Outros")]        fpOutro = 99
+        [Description("99 =Outros")]
+        fpOutro = 99
     }
     public enum TpcnBandeiraCartao
     {
@@ -245,10 +246,9 @@ namespace NFe.ConvertTxt
 
     public enum TpcnIndicadorPagamento
     {
-        ipNone = -1,
+        ipNone = 100,
         ipVista = 0,
-        ipPrazo = 1,
-        ipOutras = 2
+        ipPrazo = 1
     }
     public enum TpcnTipoNFe
     {
@@ -328,7 +328,11 @@ namespace NFe.ConvertTxt
         [Description("Fisco Resposta ao Cancelamento de Prorrogação 2º prazo")]
         tpEvFiscoRespCancPedProrrogacao_ICMS_2 = 411503,
         [Description("Pagamento Operação MDF-e")]
-        tpEvPagamentoOperacaoMDFe = 110116
+        tpEvPagamentoOperacaoMDFe = 110116,
+        [Description("Comprovante de entrega da NF-e")]
+        tpEvComprovanteEntregaNFe = 110130,
+        [Description("Cancelamento do comprovante de entrega da NF-e")]
+        tpEvCancelamentoComprovanteEntregaNFe = 110131
     }
 
     public enum TpcnTipoAutor

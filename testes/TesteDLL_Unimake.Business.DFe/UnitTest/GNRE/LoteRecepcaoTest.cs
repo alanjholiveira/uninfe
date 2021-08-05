@@ -18,8 +18,8 @@ namespace TesteDLL_Unimake.Business.DFe.UnitTest.GNRE
         [TestMethod]
         public void LoteRecepcao()
         {
-            string path = @"D:\testenfe\certificadoGNRE2_12345678.pfx";
-            X509Certificate2 CertificadoSelecionado = new CertificadoDigital().CarregarCertificadoDigitalA1(path, "12345678");
+            string path = @"D:\testenfe\OestePharma_1234.pfx";
+            X509Certificate2 CertificadoSelecionado = new CertificadoDigital().CarregarCertificadoDigitalA1(path, "1234");
 
             var xml = new TLoteGNRE
             {
@@ -30,7 +30,7 @@ namespace TesteDLL_Unimake.Business.DFe.UnitTest.GNRE
                         new TDadosGNRE
                         {
                             Versao = "2.00",
-                            UfFavorecida = UFBrasil.PR,
+                            UfFavorecida = UFBrasil.DF,
                             TipoGNRE = TipoGuiaGNRE.Simples,
                             ContribuinteEmitente = new ContribuinteEmitente
                             {
@@ -53,11 +53,16 @@ namespace TesteDLL_Unimake.Business.DFe.UnitTest.GNRE
                                 {
                                     new Item
                                     {
-                                        Receita = "100099",
+                                        Receita = "100102",
                                         DocumentoOrigem = new DocumentoOrigem
                                         {
                                             Tipo = "10",
-                                            Value = "000535770"
+                                            Value = "283040"
+                                        },
+                                        Referencia = new Referencia
+                                        {
+                                           Mes = Meses.Junho,
+                                           Ano = "2021"
                                         },
                                         DataVencimento = DateTime.Now,
                                         Valor = new List<Valor>
@@ -65,22 +70,23 @@ namespace TesteDLL_Unimake.Business.DFe.UnitTest.GNRE
                                             new Valor
                                             {
                                                 Tipo = Valor.ItemValorTipo.Item11,
-                                                ValorOriginal = 122.97
+                                                ValorOriginal = 104.26
                                             }
                                         },
+                                        Convenio = "93/2015",
                                         ContribuinteDestinatario = new ContribuinteDestinatario
                                         {
                                             Identificacao = new Identificacao
                                             {
-                                                CNPJ = "24415230000694",
+                                                CPF = "21726353087",
                                             },
-                                            RazaoSocial = "NAVARRO DISTRIBUIDORA DE MEDICAMENTOS S/A",
-                                            Municipio = "25506",
+                                            RazaoSocial = "JUSSARA GRUBER",
+                                            Municipio = "00108",
                                         },
                                     }
                                 }
                             },
-                         ValorGNRE = 122.97,
+                         ValorGNRE = 104.26,
                          DataPagamento = DateTime.Now
                         }
                     }

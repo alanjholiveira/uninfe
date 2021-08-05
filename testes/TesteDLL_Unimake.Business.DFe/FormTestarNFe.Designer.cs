@@ -42,6 +42,8 @@
             this.pbConsultaDFe = new System.Windows.Forms.ProgressBar();
             this.button10 = new System.Windows.Forms.Button();
             this.groupBoxNFe = new System.Windows.Forms.GroupBox();
+            this.button55 = new System.Windows.Forms.Button();
+            this.button53 = new System.Windows.Forms.Button();
             this.button49 = new System.Windows.Forms.Button();
             this.button44 = new System.Windows.Forms.Button();
             this.button46 = new System.Windows.Forms.Button();
@@ -93,6 +95,7 @@
             this.button59 = new System.Windows.Forms.Button();
             this.button60 = new System.Windows.Forms.Button();
             this.button48 = new System.Windows.Forms.Button();
+            this.button56 = new System.Windows.Forms.Button();
             this.groupBoxNFe.SuspendLayout();
             this.groupBoxNFCe.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -103,7 +106,7 @@
             // button1
             // 
             this.button1.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.button1.Location = new System.Drawing.Point(15, 36);
+            this.button1.Location = new System.Drawing.Point(15, 18);
             this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(247, 32);
@@ -115,7 +118,7 @@
             // button2
             // 
             this.button2.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.button2.Location = new System.Drawing.Point(15, 72);
+            this.button2.Location = new System.Drawing.Point(15, 54);
             this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(247, 32);
@@ -127,7 +130,7 @@
             // button3
             // 
             this.button3.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.button3.Location = new System.Drawing.Point(15, 109);
+            this.button3.Location = new System.Drawing.Point(15, 91);
             this.button3.Margin = new System.Windows.Forms.Padding(2);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(247, 32);
@@ -139,7 +142,7 @@
             // button4
             // 
             this.button4.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.button4.Location = new System.Drawing.Point(15, 145);
+            this.button4.Location = new System.Drawing.Point(15, 127);
             this.button4.Margin = new System.Windows.Forms.Padding(2);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(247, 32);
@@ -151,7 +154,7 @@
             // button5
             // 
             this.button5.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.button5.Location = new System.Drawing.Point(15, 181);
+            this.button5.Location = new System.Drawing.Point(15, 163);
             this.button5.Margin = new System.Windows.Forms.Padding(2);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(247, 32);
@@ -163,7 +166,7 @@
             // button6
             // 
             this.button6.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.button6.Location = new System.Drawing.Point(16, 253);
+            this.button6.Location = new System.Drawing.Point(16, 235);
             this.button6.Margin = new System.Windows.Forms.Padding(2);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(247, 32);
@@ -175,7 +178,7 @@
             // button7
             // 
             this.button7.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.button7.Location = new System.Drawing.Point(16, 342);
+            this.button7.Location = new System.Drawing.Point(16, 324);
             this.button7.Margin = new System.Windows.Forms.Padding(2);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(246, 32);
@@ -210,7 +213,7 @@
             // button11
             // 
             this.button11.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.button11.Location = new System.Drawing.Point(16, 217);
+            this.button11.Location = new System.Drawing.Point(16, 199);
             this.button11.Margin = new System.Windows.Forms.Padding(2);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(247, 32);
@@ -222,7 +225,7 @@
             // button9
             // 
             this.button9.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.button9.Location = new System.Drawing.Point(16, 378);
+            this.button9.Location = new System.Drawing.Point(16, 360);
             this.button9.Margin = new System.Windows.Forms.Padding(2);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(247, 32);
@@ -233,7 +236,7 @@
             // 
             // pbConsultaDFe
             // 
-            this.pbConsultaDFe.Location = new System.Drawing.Point(16, 414);
+            this.pbConsultaDFe.Location = new System.Drawing.Point(16, 396);
             this.pbConsultaDFe.Margin = new System.Windows.Forms.Padding(2);
             this.pbConsultaDFe.Name = "pbConsultaDFe";
             this.pbConsultaDFe.Size = new System.Drawing.Size(246, 18);
@@ -243,7 +246,7 @@
             // button10
             // 
             this.button10.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.button10.Location = new System.Drawing.Point(16, 436);
+            this.button10.Location = new System.Drawing.Point(16, 418);
             this.button10.Margin = new System.Windows.Forms.Padding(2);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(247, 32);
@@ -254,6 +257,8 @@
             // 
             // groupBoxNFe
             // 
+            this.groupBoxNFe.Controls.Add(this.button55);
+            this.groupBoxNFe.Controls.Add(this.button53);
             this.groupBoxNFe.Controls.Add(this.button49);
             this.groupBoxNFe.Controls.Add(this.button44);
             this.groupBoxNFe.Controls.Add(this.button46);
@@ -272,15 +277,37 @@
             this.groupBoxNFe.Controls.Add(this.button7);
             this.groupBoxNFe.Location = new System.Drawing.Point(12, 12);
             this.groupBoxNFe.Name = "groupBoxNFe";
-            this.groupBoxNFe.Size = new System.Drawing.Size(275, 692);
+            this.groupBoxNFe.Size = new System.Drawing.Size(275, 716);
             this.groupBoxNFe.TabIndex = 15;
             this.groupBoxNFe.TabStop = false;
             this.groupBoxNFe.Text = "Serviços NFe";
             // 
+            // button55
+            // 
+            this.button55.BackColor = System.Drawing.SystemColors.Control;
+            this.button55.Location = new System.Drawing.Point(16, 635);
+            this.button55.Name = "button55";
+            this.button55.Size = new System.Drawing.Size(246, 32);
+            this.button55.TabIndex = 25;
+            this.button55.Text = "Evento de Cancelamento do Comp Entrega NFe";
+            this.button55.UseVisualStyleBackColor = false;
+            this.button55.Click += new System.EventHandler(this.button55_Click);
+            // 
+            // button53
+            // 
+            this.button53.BackColor = System.Drawing.SystemColors.Control;
+            this.button53.Location = new System.Drawing.Point(15, 597);
+            this.button53.Name = "button53";
+            this.button53.Size = new System.Drawing.Size(246, 32);
+            this.button53.TabIndex = 24;
+            this.button53.Text = "Evento de Comrovante Entrega NFe";
+            this.button53.UseVisualStyleBackColor = false;
+            this.button53.Click += new System.EventHandler(this.button53_Click);
+            // 
             // button49
             // 
             this.button49.BackColor = System.Drawing.SystemColors.Control;
-            this.button49.Location = new System.Drawing.Point(15, 582);
+            this.button49.Location = new System.Drawing.Point(15, 559);
             this.button49.Name = "button49";
             this.button49.Size = new System.Drawing.Size(246, 32);
             this.button49.TabIndex = 23;
@@ -291,9 +318,9 @@
             // button44
             // 
             this.button44.BackColor = System.Drawing.SystemColors.Control;
-            this.button44.Location = new System.Drawing.Point(15, 640);
+            this.button44.Location = new System.Drawing.Point(15, 673);
             this.button44.Name = "button44";
-            this.button44.Size = new System.Drawing.Size(246, 46);
+            this.button44.Size = new System.Drawing.Size(246, 30);
             this.button44.TabIndex = 22;
             this.button44.Text = "Testes gerais";
             this.button44.UseVisualStyleBackColor = false;
@@ -302,7 +329,7 @@
             // button46
             // 
             this.button46.BackColor = System.Drawing.SystemColors.Control;
-            this.button46.Location = new System.Drawing.Point(17, 525);
+            this.button46.Location = new System.Drawing.Point(17, 507);
             this.button46.Name = "button46";
             this.button46.Size = new System.Drawing.Size(246, 46);
             this.button46.TabIndex = 21;
@@ -313,7 +340,7 @@
             // button43
             // 
             this.button43.BackColor = System.Drawing.SystemColors.Control;
-            this.button43.Location = new System.Drawing.Point(16, 289);
+            this.button43.Location = new System.Drawing.Point(16, 271);
             this.button43.Margin = new System.Windows.Forms.Padding(2);
             this.button43.Name = "button43";
             this.button43.Size = new System.Drawing.Size(247, 49);
@@ -325,11 +352,11 @@
             // button36
             // 
             this.button36.BackColor = System.Drawing.SystemColors.Control;
-            this.button36.Location = new System.Drawing.Point(17, 473);
+            this.button36.Location = new System.Drawing.Point(17, 455);
             this.button36.Name = "button36";
             this.button36.Size = new System.Drawing.Size(246, 46);
             this.button36.TabIndex = 19;
-            this.button36.Text = "Enviar NFe com leitura do XML direto de um arquivo";
+            this.button36.Text = "Gerando o XML de distribuição através da consulta situação da NFe";
             this.button36.UseVisualStyleBackColor = false;
             this.button36.Click += new System.EventHandler(this.button36_Click);
             // 
@@ -661,6 +688,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.button56);
             this.groupBox2.Controls.Add(this.button45);
             this.groupBox2.Controls.Add(this.button42);
             this.groupBox2.Controls.Add(this.button41);
@@ -672,7 +700,7 @@
             this.groupBox2.Controls.Add(this.button25);
             this.groupBox2.Location = new System.Drawing.Point(827, 13);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(261, 442);
+            this.groupBox2.Size = new System.Drawing.Size(261, 472);
             this.groupBox2.TabIndex = 18;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Serviços MDFe";
@@ -909,11 +937,23 @@
             this.button48.UseVisualStyleBackColor = false;
             this.button48.Click += new System.EventHandler(this.button48_Click);
             // 
+            // button56
+            // 
+            this.button56.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.button56.Location = new System.Drawing.Point(4, 432);
+            this.button56.Margin = new System.Windows.Forms.Padding(2);
+            this.button56.Name = "button56";
+            this.button56.Size = new System.Drawing.Size(247, 32);
+            this.button56.TabIndex = 26;
+            this.button56.Text = "Evento Pagamento da Operação MDFe";
+            this.button56.UseVisualStyleBackColor = false;
+            this.button56.Click += new System.EventHandler(this.button56_Click);
+            // 
             // FormTestarNFe
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1375, 716);
+            this.ClientSize = new System.Drawing.Size(1375, 740);
             this.Controls.Add(this.button48);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -1001,6 +1041,9 @@
         private System.Windows.Forms.Button button49;
         private System.Windows.Forms.Button button51;
         private System.Windows.Forms.Button button52;
+        private System.Windows.Forms.Button button53;
+        private System.Windows.Forms.Button button55;
+        private System.Windows.Forms.Button button56;
     }
 }
 

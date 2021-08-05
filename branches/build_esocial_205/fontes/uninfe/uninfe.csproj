@@ -172,16 +172,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="Unimake.Business.DFe, Version=2021.4.1.1700, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unimake.DFe.20210520.1510.12\lib\netstandard2.0\Unimake.Business.DFe.dll</HintPath>
-    </Reference>
-    <Reference Include="Unimake.Extensions, Version=1.0.7801.6407, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unimake.Extensions.1.0.819\lib\netstandard2.0\Unimake.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="Unimake.Globalization, Version=1.0.7801.6407, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unimake.Globalization.1.0.819\lib\netstandard2.0\Unimake.Globalization.dll</HintPath>
-    </Reference>
-    <Reference Include="Unimake.Utility, Version=1.0.7801.6408, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unimake.Utility.1.0.819\lib\netstandard2.0\Unimake.Utility.dll</HintPath>
+      <HintPath>..\packages\Unimake.DFe.20210729.1611.32\lib\netstandard2.0\Unimake.Business.DFe.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>

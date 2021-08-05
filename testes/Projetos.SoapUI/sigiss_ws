@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="cd967c3c-e3c6-4ebd-ae81-ff079e537c16" activeEnvironment="Default" name="sigiss_ws" resourceRoot="" soapui-version="5.5.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="0a1c395e-6141-4da9-b87e-6f9f8a6045c8" wsaVersion="NONE" name="WebService SigISSBinding" type="wsdl" bindingName="{urn:sigiss_ws}WebService SigISSBinding" soapVersion="1_1" anonymous="optional" definition="https://cianorte.sigiss.com.br:443/cianorte/ws/sigiss_ws.php?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="https://cianorte.sigiss.com.br:443/cianorte/ws/sigiss_ws.php?wsdl"><con:part><con:url>https://cianorte.sigiss.com.br:443/cianorte/ws/sigiss_ws.php?wsdl</con:url><con:content><![CDATA[<definitions targetNamespace="urn:sigiss_ws" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="urn:sigiss_ws" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema targetNamespace="urn:sigiss_ws">
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+      <xsd:import namespace="http://schemas.xmlsoap.org/wsdl/"/>
+      <xsd:complexType name="tcDescricaoRps">
+        <xsd:all>
+          <xsd:element name="ccm" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="cnpj" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="senha" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="crc" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="crc_estado" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="aliquota_simples" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="id_sis_legado" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="servico" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="situacao" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="valor" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="base" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="desconto_incondicionado" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+          <xsd:element name="descricaoNF" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="tomador_tipo" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="tomador_cnpj" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="tomador_email" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="tomador_ie" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="tomador_im" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="tomador_razao" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="tomador_fantasia" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="tomador_endereco" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="tomador_numero" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="tomador_complemento" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="tomador_bairro" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="tomador_CEP" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="tomador_cod_cidade" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="tomador_fone" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="tomador_ramal" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="tomador_fax" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="rps_num" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="rps_serie" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="rps_dia" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="rps_mes" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="rps_ano" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="outro_municipio" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="cod_outro_municipio" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="retencao_iss" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="pis" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="cofins" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="inss" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="irrf" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="csll" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="municipal" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="federal" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="dia_prest_servico" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="mes_prest_servico" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="ano_prest_servico" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="substituir_nota" type="xsd:int" minOccurs="0" maxOccurs="1"/>
+          <xsd:element name="substituir_motivo" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="tcLoteRps">
+        <xsd:complexContent>
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:tcDescricaoRps[]" xmlns:wsdl1="http://schemas.xmlsoap.org/wsdl/"/>
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="tcRetornoNota">
+        <xsd:all>
+          <xsd:element name="Resultado" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="Nota" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="LinkImpressao" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="autenticidade" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="tcEstruturaDescricaoErros">
+        <xsd:all>
+          <xsd:element name="id" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="DescricaoProcesso" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="DescricaoErro" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="tcDescricaoErros">
+        <xsd:complexContent>
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:tcEstruturaDescricaoErros[]" xmlns:wsdl1="http://schemas.xmlsoap.org/wsdl/"/>
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="tcDadosPrestador">
+        <xsd:all>
+          <xsd:element name="ccm" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="cnpj" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="senha" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="crc" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="crc_estado" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="aliquota_simples" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="tcDadosCancelaNota">
+        <xsd:all>
+          <xsd:element name="ccm" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="cnpj" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="senha" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="nota" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="motivo" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="email" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="tcNotas">
+        <xsd:complexContent>
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="xsd:int[]" xmlns:wsdl1="http://schemas.xmlsoap.org/wsdl/"/>
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="tcDadosNota">
+        <xsd:all>
+          <xsd:element name="nota" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="id_sis_legado" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="autenticidade" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="dt_conversao" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="num_rps" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="serie_rps" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="emissao_rps" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="prestador_razao" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="prestador_endereco" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="prestador_numero" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="prestador_complemento" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="prestador_bairro" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="prestador_cidade" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="prestador_estado" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="prestador_cep" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="prestador_email" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="valor" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="base" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="servico" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="aliquota_atividade" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="iss" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="cnpj_tomador" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="razao_tomador" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="endereco_tomador" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="numero_tomador" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="complemento_tomador" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="bairro_tomador" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="cidade_tomador" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="estado_tomador" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="cep_tomador" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="email_tomador" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="descricao" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="ISSRetido" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="StatusNFe" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="situacao" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="OpcaoSimples" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="LinkImpressao" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="tcConsultaFaixaNota">
+        <xsd:all>
+          <xsd:element name="mesI" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="mesF" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="anoI" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="anoF" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="tcDadosConsultaNota">
+        <xsd:all>
+          <xsd:element name="nota" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="serie" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="valor" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="prestador_ccm" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="prestador_cnpj" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+          <xsd:element name="autenticidade" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="tcListaDadosNota">
+        <xsd:complexContent>
+          <xsd:restriction base="SOAP-ENC:Array">
+            <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:tcDadosNota[]" xmlns:wsdl1="http://schemas.xmlsoap.org/wsdl/"/>
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+    </xsd:schema>
+  </types>
+  <message name="GerarNotaRequest">
+    <part name="DescricaoRps" type="tns:tcDescricaoRps"/>
+  </message>
+  <message name="GerarNotaResponse">
+    <part name="RetornoNota" type="tns:tcRetornoNota"/>
+    <part name="DescricaoErros" type="tns:tcDescricaoErros"/>
+  </message>
+  <message name="CancelarNotaRequest">
+    <part name="DadosCancelaNota" type="tns:tcDadosCancelaNota"/>
+  </message>
+  <message name="CancelarNotaResponse">
+    <part name="RetornoNota" type="tns:tcRetornoNota"/>
+    <part name="DescricaoErros" type="tns:tcDescricaoErros"/>
+  </message>
+  <message name="ConsultarNotaValidaRequest">
+    <part name="DadosConsultaNota" type="tns:tcDadosConsultaNota"/>
+  </message>
+  <message name="ConsultarNotaValidaResponse">
+    <part name="RetornoNota" type="tns:tcRetornoNota"/>
+    <part name="DescricaoErros" type="tns:tcDescricaoErros"/>
+  </message>
+  <message name="ConsultarNotaPrestadorRequest">
+    <part name="DadosPrestador" type="tns:tcDadosPrestador"/>
+    <part name="Nota" type="xsd:int"/>
+    <part name="id_sis_legado" type="xsd:string"/>
+  </message>
+  <message name="ConsultarNotaPrestadorResponse">
+    <part name="DadosNota" type="tns:tcDadosNota"/>
+    <part name="DescricaoErros" type="tns:tcDescricaoErros"/>
+  </message>
+  <message name="geratesteRequest">
+    <part name="dado" type="xsd:int"/>
+  </message>
+  <message name="geratesteResponse">
+    <part name="retorno" type="xsd:string"/>
+  </message>
+  <portType name="WebService SigISSPortType">
+    <operation name="GerarNota">
+      <input message="tns:GerarNotaRequest"/>
+      <output message="tns:GerarNotaResponse"/>
+    </operation>
+    <operation name="CancelarNota">
+      <input message="tns:CancelarNotaRequest"/>
+      <output message="tns:CancelarNotaResponse"/>
+    </operation>
+    <operation name="ConsultarNotaValida">
+      <input message="tns:ConsultarNotaValidaRequest"/>
+      <output message="tns:ConsultarNotaValidaResponse"/>
+    </operation>
+    <operation name="ConsultarNotaPrestador">
+      <input message="tns:ConsultarNotaPrestadorRequest"/>
+      <output message="tns:ConsultarNotaPrestadorResponse"/>
+    </operation>
+    <operation name="gerateste">
+      <documentation>1 - retorna Hello World</documentation>
+      <input message="tns:geratesteRequest"/>
+      <output message="tns:geratesteResponse"/>
+    </operation>
+  </portType>
+  <binding name="WebService SigISSBinding" type="tns:WebService SigISSPortType">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="GerarNota">
+      <soap:operation soapAction="urn:sigiss_ws#GerarNota" style="rpc"/>
+      <input>
+        <soap:body use="encoded" namespace="urn:sigiss_ws" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:sigiss_ws" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+      </output>
+    </operation>
+    <operation name="CancelarNota">
+      <soap:operation soapAction="urn:sigiss_ws#CancelarNota" style="rpc"/>
+      <input>
+        <soap:body use="encoded" namespace="urn:sigiss_ws" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:sigiss_ws" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+      </output>
+    </operation>
+    <operation name="ConsultarNotaValida">
+      <soap:operation soapAction="urn:sigiss_ws#ConsultarNotaValida" style="rpc"/>
+      <input>
+        <soap:body use="encoded" namespace="urn:sigiss_ws" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:sigiss_ws" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+      </output>
+    </operation>
+    <operation name="ConsultarNotaPrestador">
+      <soap:operation soapAction="urn:sigiss_ws#ConsultarNotaPrestador" style="rpc"/>
+      <input>
+        <soap:body use="encoded" namespace="urn:sigiss_ws" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:sigiss_ws" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+      </output>
+    </operation>
+    <operation name="gerateste">
+      <soap:operation soapAction="urn:sigiss_ws#gerateste" style="rpc"/>
+      <input>
+        <soap:body use="encoded" namespace="urn:sigiss_ws" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:sigiss_ws" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="WebService SigISS">
+    <port name="WebService SigISSPort" binding="tns:WebService SigISSBinding">
+      <soap:address location="https://cianorte.sigiss.com.br:443/cianorte/ws/sigiss_ws.php"/>
+    </port>
+  </service>
+</definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>https://cianorte.sigiss.com.br:443/cianorte/ws/sigiss_ws.php</con:endpoint></con:endpoints><con:operation id="795fb1d7-0c97-45df-849e-5ccc31eedf42" isOneWay="false" action="urn:sigiss_ws#CancelarNota" name="CancelarNota" bindingOperationName="CancelarNota" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="321e58c8-49ac-401e-98e2-2ba8085d009d" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://cianorte.sigiss.com.br:443/cianorte/ws/sigiss_ws.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:sigiss_ws">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <urn:CancelarNota soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">\r
+         <DadosCancelaNota xsi:type="urn:tcDadosCancelaNota">\r
+            <!--You may enter the following 6 items in any order-->\r
+            <ccm xsi:type="xsd:int">?</ccm>\r
+            <cnpj xsi:type="xsd:string">?</cnpj>\r
+            <senha xsi:type="xsd:string">?</senha>\r
+            <nota xsi:type="xsd:int">?</nota>\r
+            <motivo xsi:type="xsd:string">?</motivo>\r
+            <email xsi:type="xsd:string">?</email>\r
+         </DadosCancelaNota>\r
+      </urn:CancelarNota>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:sigiss_ws#CancelarNota"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="ab4a2a14-9a4b-4e53-9575-6719c66d96bb" isOneWay="false" action="urn:sigiss_ws#ConsultarNotaPrestador" name="ConsultarNotaPrestador" bindingOperationName="ConsultarNotaPrestador" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="e26e8e64-6f9c-48fd-8ea6-158332f056de" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://cianorte.sigiss.com.br:443/cianorte/ws/sigiss_ws.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:sigiss_ws">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+<ConsultarNotaPrestador>
+  <DadosPrestador>
+    <ccm>1</ccm>
+    <cnpj>1</cnpj>
+    <senha>1</senha>
+    <crc>1</crc>
+    <crc_estado>1</crc_estado>
+    <aliquota_simples>1</aliquota_simples>
+  </DadosPrestador>
+  <Nota>1</Nota>
+</ConsultarNotaPrestador>
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:sigiss_ws#ConsultarNotaPrestador"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="6f55194e-bb83-4e20-8ca4-fa40e65f059d" isOneWay="false" action="urn:sigiss_ws#ConsultarNotaValida" name="ConsultarNotaValida" bindingOperationName="ConsultarNotaValida" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="811ebca9-cd6a-41bd-a881-eb1e6c942d87" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://cianorte.sigiss.com.br:443/cianorte/ws/sigiss_ws.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:sigiss_ws">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+<ConsultarNotaValida>
+  <DadosConsultaNota>
+    <nota xsi:type="xsd:int">?</nota>
+    <serie xsi:type="xsd:string">?</serie>
+    <valor xsi:type="xsd:string">?</valor>
+    <prestador_ccm xsi:type="xsd:int">?</prestador_ccm>
+    <prestador_cnpj xsi:type="xsd:string">?</prestador_cnpj>
+    <autenticidade xsi:type="xsd:string">?</autenticidade>
+  </DadosConsultaNota>
+</ConsultarNotaValida>      
+   </soapenv:Body>\r
+</soapenv:Envelope>
+]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:sigiss_ws#ConsultarNotaValida"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="abd93083-25f9-4f96-bc0b-ef55cecb3f25" isOneWay="false" action="urn:sigiss_ws#GerarNota" name="GerarNota" bindingOperationName="GerarNota" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="b22e66d9-8f03-49a9-b589-1509d2e82a66" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://cianorte.sigiss.com.br:443/cianorte/ws/sigiss_ws.php</con:endpoint><con:request><![CDATA[
+
+<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:sigiss_ws">
+   <soapenv:Header/>
+   <soapenv:Body>
+<GerarNota>
+  <DescricaoRps>
+    <ccm>531800</ccm>
+    <cnpj>82007279000108</cnpj>
+    <senha>0721tsuv</senha>
+    <aliquota_simples>5,00</aliquota_simples>
+    <id_sis_legado>58464</id_sis_legado>
+    <servico>1401</servico>
+    <situacao>tp</situacao>
+    <valor>1,0000</valor>
+    <base>1,0000</base>
+    <descricaoNF>SERVIÇO DE TIRAR VAZAMENTO DE AR Qtd:1,00 Unt:R$ 1,00 SubTot:R$ 1,00 Desc:R$ 0,00 Tot:R$ 1,00
+VOLVO NH PLACA DQS 5705 KM 463761</descricaoNF>
+    <tomador_tipo>4</tomador_tipo>
+    <tomador_cnpj>73.718.884/0001-98</tomador_cnpj>
+    <tomador_email>borel.transsportes@gmail.com</tomador_email>
+    <tomador_im />
+    <tomador_ie>9089220936</tomador_ie>
+    <tomador_razao>BOREL TRANSPORTES LTDA</tomador_razao>
+    <tomador_fantasia>BOREL TRANSPORTES</tomador_fantasia>
+    <tomador_endereco>AV PARANA</tomador_endereco>
+    <tomador_numero>2162</tomador_numero>
+    <tomador_complemento />
+    <tomador_bairro>BOA VISTA</tomador_bairro>
+    <tomador_CEP>82510-000</tomador_CEP>
+    <tomador_cod_cidade>410690205</tomador_cod_cidade>
+    <tomador_fone>(0041) 3257-6987</tomador_fone>
+    <tomador_ramal />
+    <tomador_fax />
+    <outro_municipio>0</outro_municipio>
+    <cod_outro_municipio>0</cod_outro_municipio>
+    <retencao_iss />
+    <pis>0,00</pis>
+    <cofins>0,00</cofins>
+    <inss>0,00</inss>
+    <irrf>0,00</irrf>
+    <csll>0,00</csll>
+    <dia_prest_servico>25</dia_prest_servico>
+    <mes_prest_servico>5</mes_prest_servico>
+    <ano_prest_servico>2021</ano_prest_servico>
+  </DescricaoRps>
+</GerarNota>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:sigiss_ws#GerarNota"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="c3bca85a-4f96-4ef8-afbe-a4e3a59ef9ec" isOneWay="false" action="urn:sigiss_ws#gerateste" name="gerateste" bindingOperationName="gerateste" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="dd2ecfb2-65c2-40b8-bb61-dca13eb37e37" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>https://cianorte.sigiss.com.br:443/cianorte/ws/sigiss_ws.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:sigiss_ws">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <urn:gerateste soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">\r
+         <dado xsi:type="xsd:int">?</dado>\r
+      </urn:gerateste>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:sigiss_ws#gerateste"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>

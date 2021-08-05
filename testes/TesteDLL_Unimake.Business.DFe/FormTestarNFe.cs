@@ -2,7 +2,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -1338,7 +1337,6 @@ namespace TesteDLL_Unimake.Business.DFe
                                         FinNFe = FinalidadeNFe.Normal,
                                         IndFinal = SimNao.Sim,
                                         IndPres = IndicadorPresenca.OperacaoPresencial,
-                                        IndIntermed = IndicadorIntermediario.OperacaoSemIntermediador,
                                         ProcEmi = ProcessoEmissao.AplicativoContribuinte,
                                         VerProc = "TESTE 1.00"
                                     },
@@ -2756,19 +2754,66 @@ namespace TesteDLL_Unimake.Business.DFe
 
         private void button36_Click(object sender, EventArgs e)
         {
-            //TODO:  Nunca usado, pode apagar?
-            //Objeto com as propriedades da nota
-            //var nfeProc = new NfeProc();
-            //var xmlProc = nfeProc.LoadFromFile(@"C:\Users\Wandrey\Downloads\35201149211717000171550020001724381478617569.xml");
+            #region Montar o objeto com o XML da NFe que está guardando no banco de dados 
 
-            //XmlDocument doc = new XmlDocument();
-            //string xml = xmlProc.GerarXML().OuterXml; //Conteudo do XML em formato string
+            var xmlNFe = "<?xml version=\"1.0\" encoding=\"UTF - 8\"?><NFe xmlns=\"http://www.portalfiscal.inf.br/nfe\"><infNFe Id=\"NFe41210606117473000150550010000681511001751990\" versao=\"4.00\"><ide><cUF>41</cUF><cNF>00175199</cNF><natOp>VENDA PRODUC.DO ESTABELEC</natOp><mod>55</mod><serie>1</serie><nNF>68151</nNF><dhEmi>2021-06-01T10:02:55-03:00</dhEmi><dhSaiEnt>2021-06-01T10:02:55-03:00</dhSaiEnt><tpNF>1</tpNF><idDest>2</idDest><cMunFG>4118402</cMunFG><tpImp>1</tpImp><tpEmis>1</tpEmis><cDV>0</cDV><tpAmb>1</tpAmb><finNFe>1</finNFe><indFinal>0</indFinal><indPres>1</indPres><procEmi>0</procEmi><verProc>UNICO V8.0</verProc></ide><emit><CNPJ>06117473000150</CNPJ><xNome>UNIMAKE SOLUCOES CORPORATIVAS LTDA</xNome><xFant>UNIMAKE - PARANAVAI</xFant><enderEmit><xLgr>RUA PAULO ANTONIO DA COSTA</xLgr><nro>575</nro><xBairro>JARDIM SIMARA</xBairro><cMun>4118402</cMun><xMun>PARANAVAI</xMun><UF>PR</UF><CEP>87707210</CEP><cPais>1058</cPais><xPais>BRASIL</xPais><fone>04431414900</fone></enderEmit><IE>9032000301</IE><IM>14018</IM><CNAE>6202300</CNAE><CRT>1</CRT></emit><dest><CNPJ>05095657000101</CNPJ><xNome>KAMAR EMBALAGENS E DESCARTAVEIS LTDA - ME</xNome><enderDest><xLgr>RUA BARAO DO RIO BRANCO</xLgr><nro>1368</nro><xBairro>VILA GERMANO</xBairro><cMun>3506508</cMun><xMun>BIRIGUI</xMun><UF>SP</UF><CEP>16200308</CEP><cPais>1058</cPais><xPais>BRASIL</xPais><fone>01841412616</fone></enderDest><indIEDest>1</indIEDest><IE>214139959110</IE><email>elisangela@intis.com.br</email></dest><autXML><CPF>45813841920</CPF></autXML><det nItem=\"1\"><prod><cProd>01042</cProd><cEAN>SEM GTIN</cEAN><xProd>UNIDANFE V.3 PLUS</xProd><NCM>84714900</NCM><CFOP>6101</CFOP><uCom>LU</uCom><qCom>1</qCom><vUnCom>87.9000000000</vUnCom><vProd>87.90</vProd><cEANTrib>SEM GTIN</cEANTrib><uTrib>LU</uTrib><qTrib>1</qTrib><vUnTrib>87.9000000000</vUnTrib><indTot>1</indTot><xPed>344813</xPed><nItemPed>1</nItemPed></prod><imposto><ICMS><ICMSSN101><orig>0</orig><CSOSN>101</CSOSN><pCredSN>3.0703</pCredSN><vCredICMSSN>2.70</vCredICMSSN></ICMSSN101></ICMS><PIS><PISOutr><CST>99</CST><vBC>0.00</vBC><pPIS>0.0000</pPIS><vPIS>0.00</vPIS></PISOutr></PIS><COFINS><COFINSOutr><CST>99</CST><vBC>0.00</vBC><pCOFINS>0.0000</pCOFINS><vCOFINS>0.00</vCOFINS></COFINSOutr></COFINS></imposto></det><total><ICMSTot><vBC>0.00</vBC><vICMS>0.00</vICMS><vICMSDeson>0.00</vICMSDeson><vFCP>0.00</vFCP><vBCST>0.00</vBCST><vST>0.00</vST><vFCPST>0.00</vFCPST><vFCPSTRet>0.00</vFCPSTRet><vProd>87.90</vProd><vFrete>0.00</vFrete><vSeg>0.00</vSeg><vDesc>0.00</vDesc><vII>0.00</vII><vIPI>0.00</vIPI><vIPIDevol>0.00</vIPIDevol><vPIS>0.00</vPIS><vCOFINS>0.00</vCOFINS><vOutro>0.00</vOutro><vNF>87.90</vNF></ICMSTot></total><transp><modFrete>0</modFrete><transporta></transporta><vol><qVol>1</qVol><esp>LU</esp><marca>UNIMAKE</marca><pesoL>0.000</pesoL><pesoB>0.000</pesoB></vol></transp><cobr><fat><nFat>068151</nFat><vOrig>87.90</vOrig><vDesc>0.00</vDesc><vLiq>87.90</vLiq></fat><dup><nDup>001</nDup><dVenc>2021-06-01</dVenc><vDup>87.90</vDup></dup></cobr><pag><detPag><indPag>0</indPag><tPag>99</tPag><vPag>87.90</vPag></detPag></pag><infAdic><infCpl>;CONTROLE: 0000283199;PEDIDO(S) ATENDIDO(S): 0011344813;Empresa optante pelo simples nacional, conforme lei compl. 128 de 19/12/2008;Permite o aproveitamento do credito de ICMS no valor de R$ 2,70, correspondente ao percentual de 3,07% . Nos termos do Art. 23 - LC 123/2006 (Resolucoes CGSN n. 10/2007 e 53/2008);</infCpl></infAdic><infRespTec><CNPJ>06117473000150</CNPJ><xContato>Wandrey Mundin Ferreira</xContato><email>wandrey@unimake.com.br</email><fone>04431414900</fone></infRespTec></infNFe><Signature xmlns=\"http://www.w3.org/2000/09/xmldsig#\"><SignedInfo><CanonicalizationMethod Algorithm=\"http://www.w3.org/TR/2001/REC-xml-c14n-20010315\" /><SignatureMethod Algorithm=\"http://www.w3.org/2000/09/xmldsig#rsa-sha1\" /><Reference URI=\"#NFe41210606117473000150550010000681511001751990\"><Transforms><Transform Algorithm=\"http://www.w3.org/2000/09/xmldsig#enveloped-signature\" /><Transform Algorithm=\"http://www.w3.org/TR/2001/REC-xml-c14n-20010315\" /></Transforms><DigestMethod Algorithm=\"http://www.w3.org/2000/09/xmldsig#sha1\" /><DigestValue>++BfF3FDQ4e/jJLex2MMTCzM5qQ=</DigestValue></Reference></SignedInfo><SignatureValue>AqKoNs0+0UMC9iqSOZv3RYSWwoPso9UBG4VV2TPOKPGyg1534ZUkuacoeAydwFxX4UMv/rdeCsve2ca7k4rteD1cj42L+5Cupd7zLWfXi7bIi5k6BEnervPihOAe0Tdi0qWrBDRPXPhhJWQgmxfR0m6+9v1WCh6j3DBFHmGclP3CLNBlmZjmoUm1OEbKNnYKDnKj3vxvIqLo/VfRDwDHCTkYNGNW0cz3FZhTDFIBG6gllVBHWr4CwVwLiSRqsWdExqk/OiPv8w/ixf8/S7CWuEoU/fUQPY7extRf73c7ox7SkbbUZGrm9KAM9WlBnZOSkuIvnzF3wLWjYdjdGanjxQ==</SignatureValue><KeyInfo><X509Data><X509Certificate>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</X509Certificate></X509Data></KeyInfo></Signature></NFe>";
 
-            //var configuracao = new Configuracao
-            //{
-            //    TipoDFe = TipoDFe.NFe,
-            //    CertificadoDigital = CertificadoSelecionado
-            //};
+            var docXmlNFe = new XmlDocument();
+            docXmlNFe.LoadXml(xmlNFe);
+
+            var xml = new EnviNFe
+            {
+                Versao = "4.00",
+                IdLote = "000000000000001",
+                IndSinc = SimNao.Sim,
+                NFe = new List<NFe>
+                {
+                    XMLUtility.Deserializar<NFe>(docXmlNFe)
+                }
+            };
+
+            #endregion
+
+            #region Criar as configurações para montagem do XML de distribução.
+
+            var configuracao = new Configuracao
+            {
+                TipoDFe = TipoDFe.NFe,
+                CertificadoDigital = CertificadoSelecionado
+            };
+
+            var autorizacao = new Autorizacao(xml, configuracao);
+
+            #endregion
+
+            #region Simulação da finalização do NFe através da consulta situação
+
+            autorizacao.RetConsReciNFe = null; //Zerar pois é um novo envio de NFe
+
+            var configSit = new Configuracao
+            {
+                TipoDFe = TipoDFe.NFe,
+                CertificadoDigital = CertificadoSelecionado
+            };
+
+            foreach(var item in xml.NFe)
+            {
+                var xmlSit = new ConsSitNFe
+                {
+                    Versao = "4.00",
+                    TpAmb = item.InfNFe[0].Ide.TpAmb,
+                    ChNFe = item.InfNFe[0].Chave
+                };
+
+                var consultaProtocolo = new Unimake.Business.DFe.Servicos.NFe.ConsultaProtocolo(xmlSit, configSit);
+                consultaProtocolo.Executar();
+
+                autorizacao.RetConsSitNFes.Add(consultaProtocolo.Result);
+            }
+
+            autorizacao.GravarXmlDistribuicao(@"c:\testenfe\");
+
+            #endregion
         }
 
         private void button37_Click(object sender, EventArgs e)
@@ -3406,7 +3451,6 @@ namespace TesteDLL_Unimake.Business.DFe
                     TipoDFe = TipoDFe.MDFe,
                     CertificadoDigital = CertificadoSelecionado
                 };
-
 
                 var recepcaoEvento = new Unimake.Business.DFe.Servicos.MDFe.RecepcaoEvento(xml, configuracao);
 
@@ -5136,107 +5180,104 @@ namespace TesteDLL_Unimake.Business.DFe
 
         private void button44_Click(object sender, EventArgs e)
         {
-            var conteudo = XMLUtility.ExtrairConteudoChaveDFe("41210212345678000112650110000000069123456787");
-            Console.WriteLine(conteudo.UFEmissor); //Output: PR
-            Console.WriteLine(conteudo.AnoEmissao); //Output: 21
-            Console.WriteLine(conteudo.MesEmissao); //Output: 02
-            Console.WriteLine(conteudo.CNPJEmissor); //Output: 12345678000112
-            Console.WriteLine(conteudo.Modelo); //Output: NFCe
-            Console.WriteLine(conteudo.Serie); //Output: 11
-            Console.WriteLine(conteudo.NumeroDoctoFiscal); //Output: 6
-            Console.WriteLine(conteudo.TipoEmissao); //Output: ContingenciaOffLine
-            Console.WriteLine(conteudo.CodigoNumerico); //Output: 12345678
-            Console.WriteLine(conteudo.DigitoVerificador); //Output: 7
 
-            MessageBox.Show(
-                0.1.ToString("F10", CultureInfo.InvariantCulture) + "\r\n" +
-                0.12.ToString("F10", CultureInfo.InvariantCulture) + "\r\n" +
-                0.123.ToString("F10", CultureInfo.InvariantCulture) + "\r\n" +
-                1.00.ToString("F10", CultureInfo.InvariantCulture) + "\r\n" +
-                0.1234567891.ToString("F10", CultureInfo.InvariantCulture) + "\r\n" +
-                1.1234567891.ToString("F10", CultureInfo.InvariantCulture) + "\r\n" +
-                2.1234567891.ToString("F10", CultureInfo.InvariantCulture) + "\r\n" +
-                22.1234567891.ToString("F10", CultureInfo.InvariantCulture) + "\r\n" +
-                222.1234567891.ToString("F10", CultureInfo.InvariantCulture) + "\r\n" +
-                2222.12345678917.ToString("F10", CultureInfo.InvariantCulture));
-
-            //var config = new Unimake.Unidanfe.Configurations.UnidanfeConfiguration
-            //{
-            //    Arquivo = @"Caminho completo do -procnfe.xml",
-            //    Copias = 1,
-            //    Visualizar = true,
-            //    Imprimir = false
-            //};
+            var cert = new CertificadoDigital();
+            X509Certificate2 certSel1 = null;
+            X509Certificate2 certSel2 = null;
 
 
-            //try
-            //{
-            //    XMLUtility.ChecarChaveDFe("41201280568835000181570010000004841004185096");
-            //}
-            //catch(Exception ex)
-            //{
-            //    //Se chave tiver algum erro, vai retornar uma exceção.
-            //    MessageBox.Show(ex.Message);
-            //}
+            var sair = false;
+            while(!sair)
+            {
+                if(MessageBox.Show("Sim = Testar certificado digital da SafeWeb\r\nNão = Testar certificado digital da Certsign", "Teste", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    try
+                    {
+                        if(certSel1 == null)
+                        {
+                            certSel1 = cert.BuscarCertificadoDigital("58219FD2EADA297B"); //Certificado SafeWeb
+                        }
+                    }
+                    catch { }
 
-            //CertificadoDigital cert = new CertificadoDigital();
-            //cert.CarregarCertificadoDigitalA1("teste","123");
+                    TesteCertificadoA3(certSel1);
+                }
+                else
+                {
 
-            //// ---------------------------------------------------------------------------------------------------------
-            //// Convertendo certificado digital A1 para Bytes para arquivar em base de dados
-            //// ---------------------------------------------------------------------------------------------------------
-            //var certificadoDigital = new CertificadoDigital();
-            ////var bytes = certificadoDigital.ToByteArray(path);
 
-            //// ---------------------------------------------------------------------------------------------------------
-            //// Convertendo certificado digital de Bytes para X509Certificate2 para fazer uso do mesmo
-            //// ---------------------------------------------------------------------------------------------------------
-            //X509Certificate2 CertificadoSelecionado = certificadoDigital.Selecionar();
+                    try
+                    {
+                        if(certSel2 == null)
+                        {
+                            certSel2 = cert.BuscarCertificadoDigital("1B820C60F4CE57E513AA8D5DEEF26C7D");
+                        }
+                    }
+                    catch { }
 
-            //string thumbPrint = "";
+                    TesteCertificadoA3(certSel2);
+                }
 
-            //X509Certificate2 CertificadoSelecionado2 = certificadoDigital.BuscarCertificadoDigital(thumbPrint);
+                //CertificadoSelecionado.Reset();
+                //CertificadoSelecionado.Dispose();
+                //CertificadoSelecionado = null;
+            }
+        }
 
-            //var configuracao = new Configuracao
-            //{
-            //    CertificadoDigital = CertificadoSelecionado,
-            //    CertificadoA3PIN = "123456",
-            //    TipoDFe = TipoDFe.NFe,
-            //};
+        private bool CertSetPin1 = false;
+        private bool CertSetPin2 = false;
 
-            //var xml = CriarNotaX();
+        private void TesteCertificadoA3(X509Certificate2 certificado)
+        {
+            try
+            {
+                if(certificado.IsA3())
+                {
+                    if(certificado.SerialNumber == "58219FD2EADA297B")
+                    {
+                        if(!CertSetPin1)
+                        {
+                            certificado.SetPinPrivateKey("@123456x");
+                            CertSetPin1 = true;
+                        }
+                    }
+                    else
+                    {
+                        if(!CertSetPin2)
+                        {
+                            certificado.SetPinPrivateKey("1234");
+                            CertSetPin2 = true;
+                        }
+                    }
+                }
 
-            //var autorizacao = new Unimake.Business.DFe.Servicos.NFe.Autorizacao(xml, configuracao);
+                var xml = new ConsStatServ
+                {
+                    Versao = "4.00",
+                    CUF = UFBrasil.SE,
+                    TpAmb = TipoAmbiente.Homologacao
+                };
 
-            //#region finalização do NFe através da consulta situação
+                var configuracao = new Configuracao
+                {
+                    TipoDFe = TipoDFe.NFe,
+                    TipoEmissao = TipoEmissao.Normal,
+                    CertificadoDigital = certificado,
+                    HasProxy = false,
+                    ProxyAutoDetect = false,
+                    ProxyUser = "",
+                    ProxyPassword = ""
+                };
 
-            //autorizacao.RetConsReciNFe = null; //Zerar pois é um novo envio de NFe
+                var statusServico = new StatusServico(xml, configuracao);
+                statusServico.Executar();
 
-            //foreach(var item in xml.NFe)
-            //{
-            //    var xmlSit = new ConsSitNFe
-            //    {
-            //        Versao = "4.00",
-            //        TpAmb = TipoAmbiente.Producao,
-            //        ChNFe = item.InfNFe[0].Chave
-            //    };
-
-            //    var configSit = new Configuracao
-            //    {
-            //        CertificadoDigital = CertificadoSelecionado,
-            //        TipoDFe = TipoDFe.NFe
-            //    };
-
-            //    var consultaProtocolo = new Unimake.Business.DFe.Servicos.NFe.ConsultaProtocolo(xmlSit, configSit);
-            //    consultaProtocolo.Executar();
-
-            //    autorizacao.RetConsSitNFes.Add(consultaProtocolo.Result);
-            //}
-
-            ////Gravar o XML -procnfe.xml (distribuição do XML com o protocolo)
-            //autorizacao.GravarXmlDistribuicao(@"C:\TesteNFe\");
-
-            //#endregion
+                var qq = statusServico.RetornoWSString;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         //TODO:  Nunca usado, pode apagar?
@@ -5664,6 +5705,280 @@ namespace TesteDLL_Unimake.Business.DFe
 
         private void button52_Click(object sender, EventArgs e)
         {
+        }
+
+        private void button53_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var xml = new EnvEvento
+                {
+                    Versao = "1.00",
+                    IdLote = "000000000000001",
+                    Evento = new List<Evento> {
+                        new Evento
+                        {
+                            Versao = "1.00",
+                            InfEvento = new Unimake.Business.DFe.Xml.NFe.InfEvento(new Unimake.Business.DFe.Xml.NFe.DetEventoCompEntregaNFe
+                            {
+                                Versao = "1.00",
+                                COrgaoAutor = UFBrasil.PR,
+                                TpAutor = TipoAutor.EmpresaEmitente,
+                                VerAplic = "uninfe teste 1.0",
+                                DhEntrega = DateTime.Now,
+                                NDoc = "00000000000",
+                                XNome = "Jose silva joao",
+                                LatGPS = "53.339688",
+                                LongGPS = "-6.236688",
+                                HashComprovante = "noauBnfaoS02PYxVm8ufox7OKww=",
+                                DhHashComprovante = DateTime.Now
+                            })
+                            {
+                                COrgao = UFBrasil.AN,
+                                ChNFe = "41190806117473000150550010000579131943463890",
+                                CNPJ = "06117473000150",
+                                DhEvento = DateTime.Now,
+                                TpEvento = TipoEventoNFe.ComprovanteEntregaNFe,
+                                NSeqEvento = 1,
+                                VerEvento = "1.00",
+                                TpAmb = TipoAmbiente.Homologacao
+                            }
+                        }
+                    }
+                };
+
+                var configuracao = new Configuracao
+                {
+                    CertificadoDigital = CertificadoSelecionado
+                };
+
+                var recepcaoEvento = new RecepcaoEvento(xml, configuracao);
+                recepcaoEvento.Executar();
+
+                var xmlDistrib = new XmlDocument();
+                xmlDistrib = recepcaoEvento.ProcEventoNFeResult[0].GerarXML();
+
+                MessageBox.Show(recepcaoEvento.RetornoWSString);
+                MessageBox.Show(recepcaoEvento.Result.XMotivo);
+
+                var qq = recepcaoEvento.ProcEventoNFeResult[0].GerarXML().OuterXml;
+
+                //Gravar o XML de distribuição se a inutilização foi homologada
+                if(recepcaoEvento.Result.CStat == 128) //128 = Lote de evento processado com sucesso
+                {
+                    switch(recepcaoEvento.Result.RetEvento[0].InfEvento.CStat)
+                    {
+                        case 135: //Evento homologado com vinculação da respectiva NFe
+                        case 136: //Evento homologado sem vinculação com a respectiva NFe (SEFAZ não encontrou a NFe na base dela)
+                        case 155: //Evento de Cancelamento homologado fora do prazo permitido para cancelamento
+                            recepcaoEvento.GravarXmlDistribuicao(@"c:\testenfe\");
+                            break;
+
+                        default: //Evento rejeitado
+                            recepcaoEvento.GravarXmlDistribuicao(@"c:\testenfe\");
+                            break;
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                CatchException(ex);
+            }
+        }
+
+        private void button55_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var xml = new EnvEvento
+                {
+                    Versao = "1.00",
+                    IdLote = "000000000000001",
+                    Evento = new List<Evento> {
+                        new Evento
+                        {
+                            Versao = "1.00",
+                            InfEvento = new Unimake.Business.DFe.Xml.NFe.InfEvento(new Unimake.Business.DFe.Xml.NFe.DetEventoCancCompEntregaNFe
+                            {
+                                Versao = "1.00",
+                                COrgaoAutor = UFBrasil.PR,
+                                TpAutor = TipoAutor.EmpresaEmitente,
+                                VerAplic = "uninfe teste 1.0",
+                                NProtEvento = "123456789012345"
+                            })
+                            {
+                                COrgao = UFBrasil.AN,
+                                ChNFe = "41190806117473000150550010000579131943463890",
+                                CNPJ = "06117473000150",
+                                DhEvento = DateTime.Now,
+                                TpEvento = TipoEventoNFe.CancelamentoComprovanteEntregaNFe,
+                                NSeqEvento = 1,
+                                VerEvento = "1.00",
+                                TpAmb = TipoAmbiente.Homologacao
+                            }
+                        }
+                    }
+                };
+
+                var configuracao = new Configuracao
+                {
+                    CertificadoDigital = CertificadoSelecionado
+                };
+
+                var recepcaoEvento = new RecepcaoEvento(xml, configuracao);
+                recepcaoEvento.Executar();
+
+                var xmlDistrib = new XmlDocument();
+                xmlDistrib = recepcaoEvento.ProcEventoNFeResult[0].GerarXML();
+
+                MessageBox.Show(recepcaoEvento.RetornoWSString);
+                MessageBox.Show(recepcaoEvento.Result.XMotivo);
+
+                var qq = recepcaoEvento.ProcEventoNFeResult[0].GerarXML().OuterXml;
+
+                //Gravar o XML de distribuição se a inutilização foi homologada
+                if(recepcaoEvento.Result.CStat == 128) //128 = Lote de evento processado com sucesso
+                {
+                    switch(recepcaoEvento.Result.RetEvento[0].InfEvento.CStat)
+                    {
+                        case 135: //Evento homologado com vinculação da respectiva NFe
+                        case 136: //Evento homologado sem vinculação com a respectiva NFe (SEFAZ não encontrou a NFe na base dela)
+                        case 155: //Evento de Cancelamento homologado fora do prazo permitido para cancelamento
+                            recepcaoEvento.GravarXmlDistribuicao(@"c:\testenfe\");
+                            break;
+
+                        default: //Evento rejeitado
+                            recepcaoEvento.GravarXmlDistribuicao(@"c:\testenfe\");
+                            break;
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                CatchException(ex);
+            }
+        }
+
+        private void button56_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var doc = new XmlDocument();
+                doc.Load(@"D:\projetos\uninfe\exemplos\MDFe 3.00\PagamentoOperacaoMDFe_1101164120039999999999999958001000000999999999999901-ped-eve.xml");
+
+                var xml = new EventoMDFe();
+                xml = Unimake.Business.DFe.Utility.XMLUtility.Deserializar<EventoMDFe>(doc);
+
+                /*
+                var xml = new EventoMDFe
+                {
+                    Versao = "3.00",
+                    InfEvento = new Unimake.Business.DFe.Xml.MDFe.InfEvento(new Unimake.Business.DFe.Xml.MDFe.DetEventoPagtoOperMDFe
+                    {
+                        VersaoEvento = "3.00",
+                        EventoPagtoOperMDFe = new EventoPagtoOperMDFe
+                        {
+                            DescEvento = "Pagamento Operacao MDF-e",
+                            NProt = "941190000014312",
+                            InfViagens = new InfViagens
+                            {
+                                NroViagem = 7184,
+                                QtdViagens = 1
+                            },
+                            InfPag = new List<PagtoOperMDFeInfPag>
+                            {
+                                new PagtoOperMDFeInfPag
+                                {
+                                    XNome = "TESTE TRANSPORTE E OPERACOES LTDA",
+                                    CNPJ = "00000000000000",
+                                    Comp = new List<Unimake.Business.DFe.Xml.MDFe.Comp>
+                                    {
+                                        new Unimake.Business.DFe.Xml.MDFe.Comp
+                                        {
+                                            TpComp = TipoComponenteMDFe.Outros,
+                                            VComp = 2000.00,
+                                            XComp = "PAGAMENTO DE FRETE"
+                                        },
+                                        new Unimake.Business.DFe.Xml.MDFe.Comp
+                                        {
+                                            TpComp = TipoComponenteMDFe.ValePedagio,
+                                            VComp = 500.00
+                                        },
+                                        new Unimake.Business.DFe.Xml.MDFe.Comp
+                                        {
+                                            TpComp = TipoComponenteMDFe.Outros,
+                                            VComp = 500.00,
+                                            XComp = "COMPRA DE PNEUS"
+                                        }
+                                    },
+                                    VContrato = 3000.00,
+                                    IndPag = IndicadorPagamento.PagamentoPrazo,
+                                    VAdiant = 500.00,
+                                    InfPrazo = new List<InfPrazo>
+                                    {
+                                        new InfPrazo
+                                        {
+                                            NParcela = "001",
+                                            DVenc = DateTime.Now.AddDays(20),
+                                            VParcela = 2000.00
+                                        },
+                                        new InfPrazo
+                                        {
+                                            NParcela = "002",
+                                            DVenc = DateTime.Now.AddDays(40),
+                                            VParcela = 500.00
+                                        }
+                                    },
+                                    InfBanc = new InfBanc
+                                    {
+                                        PIX = "+5544993333223"
+                                    }
+                                }
+                            }
+                        }
+                    })
+                    {
+                        COrgao = UFBrasil.PR,
+                        ChMDFe = "41200380568835000181580010000007171930099252",
+                        CNPJ = "80568835000181",
+                        DhEvento = DateTime.Now,
+                        TpEvento = TipoEventoMDFe.PagamentoOperacao,
+                        NSeqEvento = 1,
+                        TpAmb = TipoAmbiente.Homologacao
+                    }
+                };
+                */
+
+                var configuracao = new Configuracao
+                {
+                    TipoDFe = TipoDFe.MDFe,
+                    CertificadoDigital = CertificadoSelecionado
+                };
+
+                var recepcaoEvento = new Unimake.Business.DFe.Servicos.MDFe.RecepcaoEvento(xml, configuracao);
+
+                recepcaoEvento.Executar();
+                MessageBox.Show(recepcaoEvento.RetornoWSString);
+                MessageBox.Show(recepcaoEvento.Result.InfEvento.XMotivo);
+
+                //Gravar o XML de distribuição se a inutilização foi homologada
+                switch(recepcaoEvento.Result.InfEvento.CStat)
+                {
+                    case 134: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respectivo CT-e com situação diferente de Autorizada.
+                    case 135: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respetivo CTe.
+                    case 136: //Recebido pelo Sistema de Registro de Eventos – vinculação do evento ao respectivo CT-e prejudicado.
+                        recepcaoEvento.GravarXmlDistribuicao(@"c:\testecte\");
+                        break;
+
+                    default:
+                        //Quando o evento é rejeitado pela Sefaz.
+                        break;
+                }
+            }
+            catch(Exception ex)
+            {
+                CatchException(ex);
+            }
         }
     }
 }
