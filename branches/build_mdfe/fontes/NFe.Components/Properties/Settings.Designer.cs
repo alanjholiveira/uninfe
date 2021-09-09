@@ -12,7 +12,7 @@ namespace NFe.Components.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.10.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.8.1.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -1155,16 +1155,6 @@ namespace NFe.Components.Properties {
         public string NFe_Components_PGuarantaNorteMT_nfse_web_service {
             get {
                 return ((string)(this["NFe_Components_PGuarantaNorteMT_nfse_web_service"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://acesso.viamao.rs.gov.br:8085/NFSe.Portal.Integracao/Services.svc")]
-        public string NFe_Components_PViamaoRS_NFSeIntegracao {
-            get {
-                return ((string)(this["NFe_Components_PViamaoRS_NFSeIntegracao"]));
             }
         }
         
@@ -3554,6 +3544,16 @@ namespace NFe.Components.Properties {
         public string NFe_Components_PAguaBoaMT_nfse_web_service {
             get {
                 return ((string)(this["NFe_Components_PAguaBoaMT_nfse_web_service"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://viamao-portais.govcloud.com.br:8085/NFSe.Portal.Integracao/Services.svc")]
+        public string NFe_Components_PViamaoRS_NFSeIntegracao {
+            get {
+                return ((string)(this["NFe_Components_PViamaoRS_NFSeIntegracao"]));
             }
         }
     }

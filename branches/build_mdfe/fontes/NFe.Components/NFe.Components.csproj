@@ -1721,6 +1721,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
+    <Compile Include="Web References\PViamaoRS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
     <Compile Include="Web References\WSLoandaPR\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -2278,11 +2283,6 @@
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
     <Compile Include="Web References\PVeraCruzRS\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.map</DependentUpon>
-    </Compile>
-    <Compile Include="Web References\PViamaoRS\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
@@ -5832,6 +5832,17 @@
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Web References\PViamaoRS\NFSeIntegracao.wsdl" />
+    <None Include="Web References\PViamaoRS\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\PViamaoRS\Services.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\PViamaoRS\Services0.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Web References\WSLoandaPR\CancelarNfseResposta1.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
@@ -7383,17 +7394,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Web References\PVeraCruzRS\Services0.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Web References\PViamaoRS\NFSeIntegracao.wsdl" />
-    <None Include="Web References\PViamaoRS\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Web References\PViamaoRS\Services.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Web References\PViamaoRS\Services0.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Web References\PVianaES\cnae.datasource">
@@ -9814,6 +9814,17 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>NFe_Components_PVargemGrandePaulistaSP_NfseServiceImplVgpService</CachedSettingsPropName>
     </WebReferenceUrl>
+    <WebReferenceUrl Include="D:\Projetos\UniNFe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Producao\PViamaoRS-PRONIN.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\PViamaoRS\</RelPath>
+      <UpdateFromURL>D:\Projetos\UniNFe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Producao\PViamaoRS-PRONIN.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>NFe_Components_PViamaoRS_NFSeIntegracao</CachedSettingsPropName>
+    </WebReferenceUrl>
     <WebReferenceUrl Include="D:\Projetos\UniNFe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Producao\PWebfiscoTecnologia-Cancelar.wsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\PWebfiscoTecnologia_Cancelar\</RelPath>
@@ -10055,17 +10066,6 @@
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>NFe_Components_HViamaoRS_NFSeIntegracao</CachedSettingsPropName>
-    </WebReferenceUrl>
-    <WebReferenceUrl Include="http://acesso.viamao.rs.gov.br:8085/NFSe.portal.integracao/services.svc%3fwsdl">
-      <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\PViamaoRS\</RelPath>
-      <UpdateFromURL>http://acesso.viamao.rs.gov.br:8085/NFSe.portal.integracao/services.svc%3fwsdl</UpdateFromURL>
-      <ServiceLocationURL>
-      </ServiceLocationURL>
-      <CachedDynamicPropName>
-      </CachedDynamicPropName>
-      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>NFe_Components_PViamaoRS_NFSeIntegracao</CachedSettingsPropName>
     </WebReferenceUrl>
     <WebReferenceUrl Include="http://ceiss.rlz.com.br/amfphp/services/RLZ/webservice/server.php%3fwsdl">
       <UrlBehavior>Dynamic</UrlBehavior>

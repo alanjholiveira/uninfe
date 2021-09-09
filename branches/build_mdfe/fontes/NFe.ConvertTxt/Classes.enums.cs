@@ -248,8 +248,7 @@ namespace NFe.ConvertTxt
     {
         ipNone = 100,
         ipVista = 0,
-        ipPrazo = 1,
-        ipOutras = 2
+        ipPrazo = 1
     }
     public enum TpcnTipoNFe
     {

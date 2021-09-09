@@ -171,8 +171,8 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="Unimake.Business.DFe, Version=2021.4.1.1700, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unimake.DFe.20210803.1438.23\lib\netstandard2.0\Unimake.Business.DFe.dll</HintPath>
+    <Reference Include="Unimake.Business.DFe, Version=2021.8.10.1028, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unimake.DFe.20210810.1028.13\lib\netstandard2.0\Unimake.Business.DFe.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>

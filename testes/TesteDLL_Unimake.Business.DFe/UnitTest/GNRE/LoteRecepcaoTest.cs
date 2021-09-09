@@ -18,8 +18,8 @@ namespace TesteDLL_Unimake.Business.DFe.UnitTest.GNRE
         [TestMethod]
         public void LoteRecepcao()
         {
-            string path = @"D:\testenfe\OestePharma_1234.pfx";
-            X509Certificate2 CertificadoSelecionado = new CertificadoDigital().CarregarCertificadoDigitalA1(path, "1234");
+            string path = @"D:\testenfe\OestePharmaSenha-123456.pfx";
+            X509Certificate2 CertificadoSelecionado = new CertificadoDigital().CarregarCertificadoDigitalA1(path, "123456");
 
             var xml = new TLoteGNRE
             {
@@ -30,7 +30,7 @@ namespace TesteDLL_Unimake.Business.DFe.UnitTest.GNRE
                         new TDadosGNRE
                         {
                             Versao = "2.00",
-                            UfFavorecida = UFBrasil.DF,
+                            UfFavorecida = UFBrasil.PR,
                             TipoGNRE = TipoGuiaGNRE.Simples,
                             ContribuinteEmitente = new ContribuinteEmitente
                             {
@@ -53,16 +53,11 @@ namespace TesteDLL_Unimake.Business.DFe.UnitTest.GNRE
                                 {
                                     new Item
                                     {
-                                        Receita = "100102",
+                                        Receita = "100099",
                                         DocumentoOrigem = new DocumentoOrigem
                                         {
                                             Tipo = "10",
-                                            Value = "283040"
-                                        },
-                                        Referencia = new Referencia
-                                        {
-                                           Mes = Meses.Junho,
-                                           Ano = "2021"
+                                            Value = "41210807638784000127550010005423431102427212"
                                         },
                                         DataVencimento = DateTime.Now,
                                         Valor = new List<Valor>
@@ -70,23 +65,20 @@ namespace TesteDLL_Unimake.Business.DFe.UnitTest.GNRE
                                             new Valor
                                             {
                                                 Tipo = Valor.ItemValorTipo.Item11,
-                                                ValorOriginal = 104.26
+                                                ValorOriginal = 116.24
                                             }
                                         },
-                                        Convenio = "93/2015",
                                         ContribuinteDestinatario = new ContribuinteDestinatario
                                         {
                                             Identificacao = new Identificacao
                                             {
-                                                CPF = "21726353087",
+                                                IE = "9060732938"
                                             },
-                                            RazaoSocial = "JUSSARA GRUBER",
-                                            Municipio = "00108",
                                         },
                                     }
                                 }
                             },
-                         ValorGNRE = 104.26,
+                         ValorGNRE = 30.00,
                          DataPagamento = DateTime.Now
                         }
                     }
@@ -110,6 +102,35 @@ namespace TesteDLL_Unimake.Business.DFe.UnitTest.GNRE
 
             Debug.Assert(loteRecepcao.Result != null);
             Debug.Assert(!string.IsNullOrWhiteSpace(loteRecepcao.Result.SituacaoRecepcao.Codigo));
+
+            var xmlCons = new TConsLoteGNRE
+            {
+                Ambiente = TipoAmbiente.Homologacao,
+                NumeroRecibo = loteRecepcao.RetornoWSXML.GetElementsByTagName("ns1:numero")[0].InnerText,
+                IncluirPDFGuias = SimNaoLetra.Sim,
+                IncluirArquivoPagamento = SimNaoLetra.Nao
+            };
+
+            var configCons = new Configuracao
+            {
+                TipoDFe = TipoDFe.GNRE,
+                TipoEmissao = TipoEmissao.Normal,
+                CertificadoDigital = CertificadoSelecionado,
+                TipoAmbiente = TipoAmbiente.Homologacao,
+                CodigoUF = 41 //Paraná
+            };
+
+            var consultaResultadoLote = new ConsultaResultadoLote(xmlCons, configCons);
+            consultaResultadoLote.Executar();
+
+            try
+            {
+                consultaResultadoLote.GravarXmlRetorno(@"d:\testenfe", xmlCons.NumeroRecibo + "-ret-gnre.xml");
+                consultaResultadoLote.GravarPDFGuia(@"d:\testenfe", "GuiaGNRE.pdf");
+            }
+            catch
+            {
+            }
         }
 
         #endregion Public Methods

@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics;
-using System.Security.Cryptography.X509Certificates;
 using Unimake.Business.DFe.Servicos;
 using Unimake.Business.DFe.Servicos.GNRE;
 using Unimake.Business.DFe.Xml.GNRE;
@@ -16,14 +15,15 @@ namespace TesteDLL_Unimake.Business.DFe.UnitTest.GNRE
         [TestMethod]
         public void ConsultaResultadoLote()
         {
-            string path = @"D:\testenfe\OestePharma_1234.pfx";
-            X509Certificate2 CertificadoSelecionado = new CertificadoDigital().CarregarCertificadoDigitalA1(path, "1234");
+            var path = @"D:\testenfe\OestePharmaSenha-123456.pfx";
+            var CertificadoSelecionado = new CertificadoDigital().CarregarCertificadoDigitalA1(path, "123456");
 
             var xml = new TConsLoteGNRE
             {
                 Ambiente = TipoAmbiente.Homologacao,
-                NumeroRecibo = "2100254560",
-                IncluirPDFGuias = SimNaoLetra.Sim
+                NumeroRecibo = "2100261340",
+                IncluirPDFGuias = SimNaoLetra.Sim,
+                IncluirArquivoPagamento = SimNaoLetra.Nao
             };
 
             var configuracao = new Configuracao
@@ -42,6 +42,12 @@ namespace TesteDLL_Unimake.Business.DFe.UnitTest.GNRE
             {
                 consultaResultadoLote.GravarXmlRetorno(@"d:\testenfe", xml.NumeroRecibo + "-ret-gnre.xml");
                 consultaResultadoLote.GravarPDFGuia(@"d:\testenfe", "GuiaGNRE.pdf");
+
+                if(consultaResultadoLote.Result.SituacaoProcess.Codigo == "402") //GNRE autorizada
+                {
+                    //Gravar XML de distruibuição que é o mesmo retornado
+                    consultaResultadoLote.GravarXmlDistribuicao(@"d:\testenfe", xml.NumeroRecibo + "-procgnre.xml");
+                }
             }
             catch
             {

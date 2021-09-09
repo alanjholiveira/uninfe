@@ -37,5 +37,8 @@ namespace Unimake.Business.DFe.Xml.GNRE
 
         [XmlElement("incluirPDFGuias")]
         public SimNaoLetra IncluirPDFGuias { get; set; }
+
+        [XmlElement("incluirArquivoPagamento")]
+        public SimNaoLetra IncluirArquivoPagamento { get; set; }
     }
 }

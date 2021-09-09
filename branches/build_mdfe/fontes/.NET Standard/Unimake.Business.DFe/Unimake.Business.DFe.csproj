@@ -3,8 +3,8 @@
 	<PropertyGroup>
 		<TargetFrameworks>netstandard2.0</TargetFrameworks>
 		<LangVersion>7.3</LangVersion>
-		<AssemblyVersion>2021.04.01.1700</AssemblyVersion>
-		<FileVersion>2021.04.01.1700</FileVersion>
+		<AssemblyVersion>2021.08.10.1028</AssemblyVersion>
+		<FileVersion>2021.08.10.1028</FileVersion>
 		<RunPostBuildEvent>Always</RunPostBuildEvent>
 		<Configurations>Debug;Release;INTEROP_Release</Configurations>
 		<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -226,8 +226,10 @@
 		<None Remove="Servicos\Config\NFSe\Betha.xml" />
 		<None Remove="Servicos\Config\NFSe\CianortePR.xml" />
 		<None Remove="Servicos\Config\NFSe\Config.xml" />
+		<None Remove="Servicos\Config\NFSe\NilopolisRJ.xml" />
 		<None Remove="Servicos\Config\NFSe\ParanavaiPR.xml" />
 		<None Remove="Servicos\Config\NFSe\Template.xml" />
+		<None Remove="Servicos\Config\NFSe\TimoteoMG.xml" />
 		<None Remove="Xml\Schemas\CTe\GTVe_v3.00.xsd" />
 		<None Remove="Xml\Schemas\CTe\procGTVe_v3.00.xsd" />
 		<None Remove="Xml\Schemas\CTe\retGTVe_v3.00.xsd" />
@@ -236,8 +238,10 @@
 		<None Remove="Xml\Schemas\GNRE\consulta_config_uf_v1.00.xsd" />
 		<None Remove="Xml\Schemas\GNRE\dados_gnre_v1.00.xsd" />
 		<None Remove="Xml\Schemas\GNRE\dados_gnre_v2.00.xsd" />
+		<None Remove="Xml\Schemas\GNRE\lote_consulta_guia_v2.00.xsd" />
 		<None Remove="Xml\Schemas\GNRE\lote_gnre_consulta_v1.00.xsd" />
 		<None Remove="Xml\Schemas\GNRE\lote_gnre_recibo_v1.00.xsd" />
+		<None Remove="Xml\Schemas\GNRE\lote_gnre_result_consulta_v2.00.xsd" />
 		<None Remove="Xml\Schemas\GNRE\lote_gnre_result_v1.00.xsd" />
 		<None Remove="Xml\Schemas\GNRE\lote_gnre_result_v2.00.xsd" />
 		<None Remove="Xml\Schemas\GNRE\lote_gnre_v1.00.xsd" />
@@ -786,6 +790,12 @@
 			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</EmbeddedResource>
 		<EmbeddedResource Include="Servicos\Config\NFe\TO.xml" />
+		<EmbeddedResource Include="Servicos\Config\NFSe\NilopolisRJ.xml">
+		  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Include="Servicos\Config\NFSe\TimoteoMG.xml">
+		  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</EmbeddedResource>
 		<EmbeddedResource Include="Servicos\Config\NFSe\Template.xml">
 		  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</EmbeddedResource>
@@ -807,8 +817,10 @@
 		<EmbeddedResource Include="Xml\Schemas\GNRE\consulta_config_uf_v1.00.xsd" />
 		<EmbeddedResource Include="Xml\Schemas\GNRE\dados_gnre_v1.00.xsd" />
 		<EmbeddedResource Include="Xml\Schemas\GNRE\dados_gnre_v2.00.xsd" />
+		<EmbeddedResource Include="Xml\Schemas\GNRE\lote_consulta_guia_v2.00.xsd" />
 		<EmbeddedResource Include="Xml\Schemas\GNRE\lote_gnre_consulta_v1.00.xsd" />
 		<EmbeddedResource Include="Xml\Schemas\GNRE\lote_gnre_recibo_v1.00.xsd" />
+		<EmbeddedResource Include="Xml\Schemas\GNRE\lote_gnre_result_consulta_v2.00.xsd" />
 		<EmbeddedResource Include="Xml\Schemas\GNRE\lote_gnre_result_v1.00.xsd" />
 		<EmbeddedResource Include="Xml\Schemas\GNRE\lote_gnre_result_v2.00.xsd" />
 		<EmbeddedResource Include="Xml\Schemas\GNRE\lote_gnre_v1.00.xsd" />

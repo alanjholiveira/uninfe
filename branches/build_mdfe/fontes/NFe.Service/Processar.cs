@@ -3,23 +3,19 @@ using NFe.Components;
 using NFe.Components.Info;
 using NFe.ConvertTxt;
 using NFe.Exceptions;
+using NFe.SAT;
+using NFe.Service.GNRE;
 using NFe.Settings;
 using NFe.Validate;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
-using System.Net;
-using NFe.Service.GNRE;
-
-#if _fw46
-
-using NFe.SAT;
-
-#endif
+using Unimake.Business.DFe.Security;
 
 namespace NFe.Service
 {
@@ -34,6 +30,16 @@ namespace NFe.Service
                 Servicos servico = Servicos.Nulo;
                 try
                 {
+                    #region Carregar PIN A3 se ainda não carregou
+
+                    //Não pode carregar o PIN se o arquivo processado foi colocado na pasta GERAL, ou gera erro e para alguns serviços de funcionar, por exemplo a consulta informações do uninfe via pasta geral. 14/08/2021
+                    if(Path.GetDirectoryName(arquivo).ToLower() != Propriedade.PastaGeralTemporaria.ToLower())
+                    {
+                        CarregarPINA3(emp);
+                    }
+
+                    #endregion
+
                     if(emp == -1)
                     {
                         ValidarExtensao(arquivo);
@@ -560,6 +566,31 @@ namespace NFe.Service
                 }
             }
             catch { }
+        }
+
+
+        /// <summary>
+        /// Carrega o PIN do A3 se ainda não carregou
+        /// </summary>
+        /// <param name="emp">PIN de qual empresa?</param>
+        private void CarregarPINA3(int emp)
+        {
+            if(!string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].CertificadoPIN) && !Empresas.Configuracoes[emp].CertificadoPINCarregado)
+            {
+                try
+                {
+                    if(Empresas.Configuracoes[emp].X509Certificado == null)
+                    {
+                        Empresas.Configuracoes[emp].X509Certificado = Empresas.Configuracoes[emp].BuscaConfiguracaoCertificado();
+                    }
+
+                    Empresas.Configuracoes[emp].X509Certificado.SetPinPrivateKey(Empresas.Configuracoes[emp].CertificadoPIN);
+                    Empresas.Configuracoes[emp].CertificadoPINCarregado = true;
+                }
+                catch
+                {
+                }
+            }
         }
 
         #endregion ProcessaArquivo()

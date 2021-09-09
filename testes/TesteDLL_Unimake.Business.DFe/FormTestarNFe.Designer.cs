@@ -76,6 +76,7 @@
             this.button26 = new System.Windows.Forms.Button();
             this.button27 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.button56 = new System.Windows.Forms.Button();
             this.button45 = new System.Windows.Forms.Button();
             this.button42 = new System.Windows.Forms.Button();
             this.button41 = new System.Windows.Forms.Button();
@@ -95,12 +96,15 @@
             this.button59 = new System.Windows.Forms.Button();
             this.button60 = new System.Windows.Forms.Button();
             this.button48 = new System.Windows.Forms.Button();
-            this.button56 = new System.Windows.Forms.Button();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.button61 = new System.Windows.Forms.Button();
+            this.button62 = new System.Windows.Forms.Button();
             this.groupBoxNFe.SuspendLayout();
             this.groupBoxNFCe.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -373,7 +377,7 @@
             this.groupBoxNFCe.Controls.Add(this.button12);
             this.groupBoxNFCe.Location = new System.Drawing.Point(293, 12);
             this.groupBoxNFCe.Name = "groupBoxNFCe";
-            this.groupBoxNFCe.Size = new System.Drawing.Size(261, 443);
+            this.groupBoxNFCe.Size = new System.Drawing.Size(261, 392);
             this.groupBoxNFCe.TabIndex = 16;
             this.groupBoxNFCe.TabStop = false;
             this.groupBoxNFCe.Text = "Serviços NFCe";
@@ -705,6 +709,18 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Serviços MDFe";
             // 
+            // button56
+            // 
+            this.button56.BackColor = System.Drawing.SystemColors.Control;
+            this.button56.Location = new System.Drawing.Point(4, 432);
+            this.button56.Margin = new System.Windows.Forms.Padding(2);
+            this.button56.Name = "button56";
+            this.button56.Size = new System.Drawing.Size(247, 32);
+            this.button56.TabIndex = 26;
+            this.button56.Text = "Evento Pagamento da Operação MDFe";
+            this.button56.UseVisualStyleBackColor = false;
+            this.button56.Click += new System.EventHandler(this.button56_Click);
+            // 
             // button45
             // 
             this.button45.BackColor = System.Drawing.SystemColors.ControlDark;
@@ -937,23 +953,45 @@
             this.button48.UseVisualStyleBackColor = false;
             this.button48.Click += new System.EventHandler(this.button48_Click);
             // 
-            // button56
+            // groupBox4
             // 
-            this.button56.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.button56.Location = new System.Drawing.Point(4, 432);
-            this.button56.Margin = new System.Windows.Forms.Padding(2);
-            this.button56.Name = "button56";
-            this.button56.Size = new System.Drawing.Size(247, 32);
-            this.button56.TabIndex = 26;
-            this.button56.Text = "Evento Pagamento da Operação MDFe";
-            this.button56.UseVisualStyleBackColor = false;
-            this.button56.Click += new System.EventHandler(this.button56_Click);
+            this.groupBox4.Controls.Add(this.button62);
+            this.groupBox4.Controls.Add(this.button61);
+            this.groupBox4.Location = new System.Drawing.Point(294, 419);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(259, 308);
+            this.groupBox4.TabIndex = 27;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Serviços NFe (Continuação)";
+            // 
+            // button61
+            // 
+            this.button61.BackColor = System.Drawing.SystemColors.Control;
+            this.button61.Location = new System.Drawing.Point(7, 19);
+            this.button61.Name = "button61";
+            this.button61.Size = new System.Drawing.Size(246, 32);
+            this.button61.TabIndex = 26;
+            this.button61.Text = "Evento Prorrogação ICMS";
+            this.button61.UseVisualStyleBackColor = false;
+            this.button61.Click += new System.EventHandler(this.button61_Click);
+            // 
+            // button62
+            // 
+            this.button62.BackColor = System.Drawing.SystemColors.Control;
+            this.button62.Location = new System.Drawing.Point(7, 57);
+            this.button62.Name = "button62";
+            this.button62.Size = new System.Drawing.Size(246, 32);
+            this.button62.TabIndex = 27;
+            this.button62.Text = "Cancelamento Evento Prorrogação ICMS";
+            this.button62.UseVisualStyleBackColor = false;
+            this.button62.Click += new System.EventHandler(this.button62_Click);
             // 
             // FormTestarNFe
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1375, 740);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.button48);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -971,6 +1009,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1044,6 +1083,9 @@
         private System.Windows.Forms.Button button53;
         private System.Windows.Forms.Button button55;
         private System.Windows.Forms.Button button56;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Button button61;
+        private System.Windows.Forms.Button button62;
     }
 }
 

@@ -22,7 +22,7 @@ namespace TesteDLL_Unimake.Business.DFe.UnitTest.NFSe
             string path = @"D:\testenfe\Unimake PV.pfx";
             X509Certificate2 CertificadoSelecionado = new CertificadoDigital().CarregarCertificadoDigitalA1(path, "12345678");
 
-            string xml = @"D:\projetos\uninfe\testes\TesteDLL_Unimake.Business.DFe\UnitTest\NFSe\SIGCORP\Recursos\ConsultarNotaValida-ped-loterps.xml";
+            string xml = @"C:\projetos\uninfe\exemplos\NFSe\SIGCORP-SIGISS\Cianorte - PR\ConsultarNotaValida-ped-loterps.xml";
 
             var conteudoXML = new XmlDocument();
             conteudoXML.Load(xml);
@@ -32,7 +32,7 @@ namespace TesteDLL_Unimake.Business.DFe.UnitTest.NFSe
                 TipoDFe = TipoDFe.NFSe,
                 CertificadoDigital = CertificadoSelecionado,
                 TipoAmbiente = TipoAmbiente.Producao,
-                CodigoMunicipio = 4105508,
+                CodigoMunicipio = 4105508, //3303203,
                 Servico = Servico.NFSeConsultarNotaValida,
                 SchemaVersao = "0.00"
             };
