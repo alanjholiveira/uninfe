@@ -1,9 +1,5 @@
 ﻿using NFe.Components;
-
-#if _fw46
 using NFe.Components.SOFTPLAN;
-#endif
-
 using NFe.Settings;
 using System;
 using System.Collections;
@@ -14,7 +10,7 @@ using System.Windows.Forms;
 namespace NFe.UI.Formularios
 {
     [ToolboxItem(false)]
-    public partial class userConfiguracao_diversos : MetroFramework.Controls.MetroUserControl
+    public partial class userConfiguracao_diversos: MetroFramework.Controls.MetroUserControl
     {
         private ArrayList arrServico = new ArrayList();
         private Empresa empresa;
@@ -33,7 +29,7 @@ namespace NFe.UI.Formularios
 
             loading = true;
 
-            if (!DesignMode)
+            if(!DesignMode)
             {
                 cbServico.SelectedIndexChanged -= cbServico_SelectedIndexChanged;
                 servicoCurrent = TipoAplicativo.Nulo;
@@ -45,7 +41,7 @@ namespace NFe.UI.Formularios
                     arrUF = Functions.CarregaEstados();
                     arrMunicipios = Functions.CarregaMunicipios();
                 }
-                catch (Exception ex)
+                catch(Exception ex)
                 {
                     MetroFramework.MetroMessageBox.Show(uninfeDummy.mainForm, ex.Message, "");
                 }
@@ -88,7 +84,7 @@ namespace NFe.UI.Formularios
 
                 Configurar(empresa, novaempresa);
 
-                if (empresa.Servico == TipoAplicativo.Nfse)
+                if(empresa.Servico == TipoAplicativo.Nfse)
                 {
                     comboBox_UF.DataSource = arrMunicipios;
                 }
@@ -103,17 +99,17 @@ namespace NFe.UI.Formularios
                 cnpjCurrent = edtCNPJ.Text = empresa.CNPJ;
                 edtNome.Text = empresa.Nome;
 
-                if (!string.IsNullOrEmpty(empresa.Documento))
+                if(!string.IsNullOrEmpty(empresa.Documento))
                 {
-                    if (empresa.Documento.Equals("CPF"))
+                    if(empresa.Documento.Equals("CPF"))
                     {
                         edtCNPJ.Text = ((CPF)edtCNPJ.Text).ToString();
                     }
-                    else if (empresa.Documento.Equals("CEI"))
+                    else if(empresa.Documento.Equals("CEI"))
                     {
                         edtCNPJ.Text = ((CEI)edtCNPJ.Text).ToString();
                     }
-                    else if (empresa.Documento.Equals("CAEPF"))
+                    else if(empresa.Documento.Equals("CAEPF"))
                     {
                         edtCNPJ.Text = Convert.ToInt64(edtCNPJ.Text).ToString(@"000\.000\.000\/000\-00");
                     }
@@ -124,11 +120,11 @@ namespace NFe.UI.Formularios
                 }
                 else
                 {
-                    if (empresa?.CNPJ?.Length == 11)
+                    if(empresa?.CNPJ?.Length == 11)
                     {
                         edtCNPJ.Text = ((CPF)edtCNPJ.Text).ToString();
                     }
-                    else if (empresa?.CNPJ?.Length == 12)
+                    else if(empresa?.CNPJ?.Length == 12)
                     {
                         edtCNPJ.Text = ((CEI)edtCNPJ.Text).ToString();
                     }
@@ -143,7 +139,7 @@ namespace NFe.UI.Formularios
                 comboBox_UF.SelectedValue = this.empresa.UnidadeFederativaCodigo;
                 cbServico.SelectedValue = (int)this.empresa.Servico;
 
-                if (empresa.Servico == TipoAplicativo.Nfse && this.empresa.UnidadeFederativaCodigo == 0)
+                if(empresa.Servico == TipoAplicativo.Nfse && this.empresa.UnidadeFederativaCodigo == 0)
                 {
                     comboBox_UF.SelectedIndex = 0;
                 }
@@ -163,7 +159,17 @@ namespace NFe.UI.Formularios
                 //else
                 //{
                 cbIndSinc.Enabled = true;
-                cbIndSinc.Checked = this.empresa.IndSinc;
+                cbIndSincNFCe.Enabled = true;
+                if(novaempresa)
+                {
+                    cbIndSinc.Checked = true;
+                    cbIndSincNFCe.Checked = true;
+                }
+                else
+                {
+                    cbIndSinc.Checked = empresa.IndSinc;
+                    cbIndSincNFCe.Checked = empresa.IndSincNFCe;
+                }
                 //}
 
                 edtIdentificadorCSC.Text = this.empresa.IdentificadorCSC;
@@ -176,10 +182,9 @@ namespace NFe.UI.Formularios
                 txtSenhaWS.Text = this.empresa.SenhaWS;
                 txtUsuarioWS.Text = this.empresa.UsuarioWS;
 
-#if _fw46
-                if (empresa.UnidadeFederativaCodigo.Equals(4205407))
+                if(empresa.UnidadeFederativaCodigo.Equals(4205407))
                 {
-                    Empresa result = empresa.RecuperarConfiguracaoNFSeSoftplan(empresa.CNPJ);
+                    var result = empresa.RecuperarConfiguracaoNFSeSoftplan(empresa.CNPJ);
 
                     txtClienteID.Text = result.ClientID;
                     txtClientSecret.Text = result.ClientSecret;
@@ -189,9 +194,9 @@ namespace NFe.UI.Formularios
                     empresa.TokenNFSeExpire = result.TokenNFSeExpire;
                 }
 
-                if (empresa.UnidadeFederativaCodigo.Equals(5107925))
+                if(empresa.UnidadeFederativaCodigo.Equals(5107925))
                 {
-                    Empresa result = empresa.RecuperarConfiguracaoNFSeSoftplan(empresa.CNPJ);
+                    var result = empresa.RecuperarConfiguracaoNFSeSoftplan(empresa.CNPJ);
 
                     txtClienteID.Text = result.ClientID;
                     txtClientSecret.Text = result.ClientSecret;
@@ -200,8 +205,6 @@ namespace NFe.UI.Formularios
                     empresa.TokenNFse = result.TokenNFse;
                     empresa.TokenNFSeExpire = result.TokenNFSeExpire;
                 }
-
-#endif
 
                 HabilitaUsuarioSenhaWS(this.empresa.UnidadeFederativaCodigo);
                 servicoCurrent = this.empresa.Servico;
@@ -211,12 +214,12 @@ namespace NFe.UI.Formularios
                 edtCNPJ.ReadOnly = !string.IsNullOrEmpty(empresa.CNPJ);
                 cbServico.Enabled = !edtCNPJ.ReadOnly;
 
-                if (this.empresa.Servico != TipoAplicativo.Nfse && !novaempresa)
+                if(this.empresa.Servico != TipoAplicativo.Nfse && !novaempresa)
                 {
                     cbServico.Enabled = true;
                 }
 
-                if (this.empresa.Servico.Equals(TipoAplicativo.Nfe) ||
+                if(this.empresa.Servico.Equals(TipoAplicativo.Nfe) ||
                     this.empresa.Servico.Equals(TipoAplicativo.NFCe) ||
                     this.empresa.Servico.Equals(TipoAplicativo.MDFe) ||
                     this.empresa.Servico.Equals(TipoAplicativo.Cte) ||
@@ -235,58 +238,58 @@ namespace NFe.UI.Formularios
 
         public bool Validar(bool exibeerro, bool novaempresa)
         {
-            string cnpj = (string)Functions.OnlyNumbers(edtCNPJ.Text, ".-/");
+            var cnpj = (string)Functions.OnlyNumbers(edtCNPJ.Text, ".-/");
 
-            if (Convert.ToInt32("0" + udTempoConsulta.Text) < 2 || Convert.ToInt32("0" + udTempoConsulta.Text) > 15)
+            if(Convert.ToInt32("0" + udTempoConsulta.Text) < 2 || Convert.ToInt32("0" + udTempoConsulta.Text) > 15)
             {
                 throw new Exception(lbl_udTempoConsulta.Text + " inválido");
             }
 
-            if (comboBox_UF.SelectedValue == null)
+            if(comboBox_UF.SelectedValue == null)
             {
                 throw new Exception(labelUF.Text + " deve ser informado");
             }
 
             ValidadeCNPJ(true);
 
-            if (string.IsNullOrEmpty(edtNome.Text))
+            if(string.IsNullOrEmpty(edtNome.Text))
             {
                 throw new Exception("Nome da empresa deve ser informado");
             }
 
-            if (servicoCurrent != (TipoAplicativo)cbServico.SelectedValue && !novaempresa && exibeerro)
+            if(servicoCurrent != (TipoAplicativo)cbServico.SelectedValue && !novaempresa && exibeerro)
             {
-                if ((TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.Nfse)
+                if((TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.Nfse)
                 {
                     throw new Exception("Não pode mudar para esse tipo de serviço (NFSe)");
                 }
 
-                if ((TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.SAT)
+                if((TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.SAT)
                 {
                     throw new Exception("Não pode mudar para esse tipo de serviço (SAT)");
                 }
 
-                Empresa e = Empresas.FindConfEmpresa(cnpj, (TipoAplicativo)cbServico.SelectedValue);
-                if (e != null)
+                var e = Empresas.FindConfEmpresa(cnpj, (TipoAplicativo)cbServico.SelectedValue);
+                if(e != null)
                 {
                     throw new Exception("A empresa '" + e.Nome + "' já está monitorando esse tipo de serviço");
                 }
 
-                if (MetroFramework.MetroMessageBox.Show(uninfeDummy.mainForm, "Confirma a alteração do tipo de serviço?", "",
+                if(MetroFramework.MetroMessageBox.Show(uninfeDummy.mainForm, "Confirma a alteração do tipo de serviço?", "",
                                                         MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
                 {
                     return false;
                 }
             }
 
-            switch ((TipoAplicativo)cbServico.SelectedValue)
+            switch((TipoAplicativo)cbServico.SelectedValue)
             {
                 case TipoAplicativo.NFCe:
-                    if (!string.IsNullOrEmpty(edtIdentificadorCSC.Text) && string.IsNullOrEmpty(edtTokenCSC.Text))
+                    if(!string.IsNullOrEmpty(edtIdentificadorCSC.Text) && string.IsNullOrEmpty(edtTokenCSC.Text))
                     {
                         throw new Exception("É obrigatório informar o IDToken quando informado o CSC.");
                     }
-                    else if (string.IsNullOrEmpty(edtIdentificadorCSC.Text) && !string.IsNullOrEmpty(edtTokenCSC.Text))
+                    else if(string.IsNullOrEmpty(edtIdentificadorCSC.Text) && !string.IsNullOrEmpty(edtTokenCSC.Text))
                     {
                         throw new Exception("É obrigatório informar o CSC quando informado o IDToken.");
                     }
@@ -305,6 +308,7 @@ namespace NFe.UI.Formularios
             empresa.GravarEventosCancelamentoNaPastaEnviadosNFe = checkBoxGravarEventosCancelamentoNaPastaEnviadosNFe.Checked;
             empresa.Nome = edtNome.Text;
             empresa.IndSinc = cbIndSinc.Checked;
+            empresa.IndSincNFCe = cbIndSincNFCe.Checked;
             empresa.TempoConsulta = Math.Abs(Convert.ToInt32("0" + udTempoConsulta.Text));
             empresa.tpEmis = (int)comboBox_tpEmis.SelectedValue;
             empresa.UnidadeFederativaCodigo = (int)comboBox_UF.SelectedValue;
@@ -316,10 +320,9 @@ namespace NFe.UI.Formularios
             empresa.CompararDigestValueDFeRetornadoSEFAZ = checkBoxValidarDigestValue.Checked;
 
             //Configurações para o município de Florianópolis-SC
-#if _fw46
-            if (edtCodMun.Text.Equals("4205407"))
+            if(edtCodMun.Text.Equals("4205407"))
             {
-                if (string.IsNullOrEmpty(txtUsuarioWS.Text) ||
+                if(string.IsNullOrEmpty(txtUsuarioWS.Text) ||
                 string.IsNullOrEmpty(txtSenhaWS.Text) ||
                 string.IsNullOrEmpty(txtClienteID.Text) ||
                 string.IsNullOrEmpty(txtClientSecret.Text))
@@ -329,9 +332,9 @@ namespace NFe.UI.Formularios
 
                 IWebProxy proxy = null;
 
-                if (ConfiguracaoApp.Proxy)
+                if(ConfiguracaoApp.Proxy)
                 {
-                    if (ConfiguracaoApp.Proxy)
+                    if(ConfiguracaoApp.Proxy)
                     {
                         proxy = Proxy.DefinirProxy(ConfiguracaoApp.ProxyServidor,
                             ConfiguracaoApp.ProxyUsuario,
@@ -341,9 +344,9 @@ namespace NFe.UI.Formularios
                     }
                 }
 
-                string url = "";
+                var url = "";
 
-                if ((TipoAmbiente)comboBox_Ambiente.SelectedValue == TipoAmbiente.taHomologacao)
+                if((TipoAmbiente)comboBox_Ambiente.SelectedValue == TipoAmbiente.taHomologacao)
                 {
                     url = @"https://nfps-e-hml.pmf.sc.gov.br/api/v1/";
                 }
@@ -352,14 +355,14 @@ namespace NFe.UI.Formularios
                     url = @"https://nfps-e.pmf.sc.gov.br/api/v1/";
                 }
 
-                Token token = Token.GerarToken(proxy,
+                var token = Token.GerarToken(proxy,
                                              txtUsuarioWS.Text,
                                              txtSenhaWS.Text,
                                              txtClienteID.Text,
                                              txtClientSecret.Text,
                                              url);
 
-                DateTime tokenNFSeExpire = DateTime.Now.AddSeconds(token.ExpiresIn);
+                var tokenNFSeExpire = DateTime.Now.AddSeconds(token.ExpiresIn);
 
                 empresa.SalvarConfiguracoesNFSeSoftplan(txtUsuarioWS.Text,
                                                         txtSenhaWS.Text,
@@ -369,9 +372,9 @@ namespace NFe.UI.Formularios
                                                         tokenNFSeExpire,
                                                         edtCNPJ.Text);
             }
-            if (edtCodMun.Text.Equals("5107925"))
+            if(edtCodMun.Text.Equals("5107925"))
             {
-                if (string.IsNullOrEmpty(txtUsuarioWS.Text) ||
+                if(string.IsNullOrEmpty(txtUsuarioWS.Text) ||
                 string.IsNullOrEmpty(txtSenhaWS.Text) ||
                 string.IsNullOrEmpty(txtClienteID.Text) ||
                 string.IsNullOrEmpty(txtClientSecret.Text))
@@ -381,9 +384,9 @@ namespace NFe.UI.Formularios
 
                 IWebProxy proxy = null;
 
-                if (ConfiguracaoApp.Proxy)
+                if(ConfiguracaoApp.Proxy)
                 {
-                    if (ConfiguracaoApp.Proxy)
+                    if(ConfiguracaoApp.Proxy)
                     {
                         proxy = Proxy.DefinirProxy(ConfiguracaoApp.ProxyServidor,
                             ConfiguracaoApp.ProxyUsuario,
@@ -393,18 +396,18 @@ namespace NFe.UI.Formularios
                     }
                 }
 
-                string url = "";
+                var url = "";
 
                 url = @"http://agiliblue.agilicloud.com.br/api/";
 
-                Token token = Token.GerarToken(proxy,
+                var token = Token.GerarToken(proxy,
                                              txtUsuarioWS.Text,
                                              txtSenhaWS.Text,
                                              txtClienteID.Text,
                                              txtClientSecret.Text,
                                              url);
 
-                DateTime tokenNFSeExpire = DateTime.Now.AddSeconds(token.ExpiresIn);
+                var tokenNFSeExpire = DateTime.Now.AddSeconds(token.ExpiresIn);
 
                 empresa.SalvarConfiguracoesNFSeSoftplan(txtUsuarioWS.Text,
                                                         txtSenhaWS.Text,
@@ -414,27 +417,23 @@ namespace NFe.UI.Formularios
                                                         tokenNFSeExpire,
                                                         edtCNPJ.Text);
             }
-#endif
 
             return true;
         }
 
         private void HabilitaOpcaoCompactar(bool ativar)
         {
-            if (empresa.Servico == TipoAplicativo.Nfse)
+            if(empresa.Servico == TipoAplicativo.Nfse)
             {
                 ativar = false;
             }
         }
 
-        private void udDiasLimpeza_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            e.Handled = !char.IsNumber(e.KeyChar);
-        }
+        private void udDiasLimpeza_KeyPress(object sender, KeyPressEventArgs e) => e.Handled = !char.IsNumber(e.KeyChar);
 
         private void cbServico_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (loading)
+            if(loading)
             {
                 return;
             }
@@ -449,7 +448,7 @@ namespace NFe.UI.Formularios
                                      (TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.MDFe ||
                                      (TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.Todos;
 
-            if ((TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.Nfe ||
+            if((TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.Nfe ||
                 (TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.NFCe ||
                 (TipoAplicativo)cbServico.SelectedValue == TipoAplicativo.Todos)
             {
@@ -459,7 +458,7 @@ namespace NFe.UI.Formularios
             {
                 HabilitaOpcaoCompactar(false);
             }
-            if (changeEvent != null)
+            if(changeEvent != null)
             {
                 changeEvent(sender, e);
             }
@@ -467,7 +466,7 @@ namespace NFe.UI.Formularios
 
         private void HabilitaUsuarioSenhaWS(int ufCod)
         {
-            bool visible = ufCod == 3502804 /*Araçatuba*/||
+            var visible = ufCod == 3502804 /*Araçatuba*/||
                            ufCod == 4104303 /*Campo Mourão*/||
                            ufCod == 4104204 /*Campo Largo*/||
                            ufCod == 3537305 /*Penapolis*/||
@@ -560,7 +559,14 @@ namespace NFe.UI.Formularios
                            ufCod == 4213203 /*Pomerode-SC*/||
                            ufCod == 4213500 /*Porto Belo-SC*/||
                            ufCod == 4215000 /*Rio Negrinho-SC*/||
-                           ufCod == 3205200 /*Vila Velha-ES*/;
+                           ufCod == 3205200 /*Vila Velha-ES*/||
+                           ufCod == 3303401 /*Nova Friburgo-RJ*/||
+                           ufCod == 4109401 /*Guarapuava-PR*/||
+                           ufCod == 4218202 /*Timbó-SC*/||
+                           ufCod == 3306305 /*Volta Redonda-RJ*/||
+                           ufCod == 3506003 /*Bauru-SP*/||
+                           ufCod == 3203205 /*Linhares-ES*/;
+
 
 
 
@@ -569,7 +575,7 @@ namespace NFe.UI.Formularios
 
         private void comboBox_UF_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (loading)
+            if(loading)
             {
                 return;
             }
@@ -577,7 +583,7 @@ namespace NFe.UI.Formularios
             // danasa 1-2012
             try
             {
-                object xuf = comboBox_UF.SelectedValue;
+                var xuf = comboBox_UF.SelectedValue;
 
                 edtCodMun.Text = xuf.ToString();
 
@@ -587,7 +593,7 @@ namespace NFe.UI.Formularios
                 HabilitaUsuarioSenhaWS(Convert.ToInt32(edtCodMun.Text));
 
                 //Se o município for Florianópolis, temos que demonstrar os campos: ClientID e Client Secret
-                if (edtCodMun.Text.Equals("4205407"))
+                if(edtCodMun.Text.Equals("4205407"))
                 {
                     lblClienteID.Visible = true;
                     lblClientSecret.Visible = true;
@@ -595,7 +601,7 @@ namespace NFe.UI.Formularios
                     txtClientSecret.Visible = true;
                 }
                 //Se o município for Sorriso, temos que demonstrar os campos: ClientID e Client Secret
-               else if (edtCodMun.Text.Equals("5107925"))
+                else if(edtCodMun.Text.Equals("5107925"))
                 {
                     lblClienteID.Visible = true;
                     lblClientSecret.Visible = true;
@@ -609,18 +615,13 @@ namespace NFe.UI.Formularios
                     txtClienteID.Visible = false;
                     txtClientSecret.Visible = false;
                 }
-
-#if _fw35
-                if (edtCodMun.Text.Equals("2901007"))
-                    MetroFramework.MetroMessageBox.Show(uninfeDummy.mainForm, @"Este município não funciona com a versão do UniNFe com .NET Framework 3.5. Dessa forma, instale a versão do UniNFe com .NET Framework 4.6.2 que consta no site da Unimake.", "Atenção");
-#endif
             }
             catch
             {
                 HabilitaUsuarioSenhaWS(-1);
                 edtCodMun.Text = edtPadrao.Text = "Indefinido";
             }
-            if (changeEvent != null)
+            if(changeEvent != null)
             {
                 changeEvent(sender, e);
             }
@@ -628,21 +629,15 @@ namespace NFe.UI.Formularios
 
         private void comboBox_Ambiente_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (changeEvent != null)
+            if(changeEvent != null)
             {
                 changeEvent(sender, e);
             }
         }
 
-        public bool ValidadeCNPJ(bool istrow = false)
-        {
-            return true;
-        }
+        public bool ValidadeCNPJ(bool istrow = false) => true;
 
-        private void edtCNPJ_Leave(object sender, EventArgs e)
-        {
-            ValidadeCNPJ();
-        }
+        private void edtCNPJ_Leave(object sender, EventArgs e) => ValidadeCNPJ();
 
         private void edtCNPJ_Enter(object sender, EventArgs e)
         {
@@ -650,7 +645,7 @@ namespace NFe.UI.Formularios
 
         private void comboBox_UF_DropDownClosed(object sender, EventArgs e)
         {
-            if (empresa.Servico == TipoAplicativo.Nfse)
+            if(empresa.Servico == TipoAplicativo.Nfse)
             {
                 comboBox_UF.DropDownWidth = comboBox_UF.Width;
             }
@@ -658,7 +653,7 @@ namespace NFe.UI.Formularios
 
         private void comboBox_UF_DropDown(object sender, EventArgs e)
         {
-            if (empresa.Servico == TipoAplicativo.Nfse)
+            if(empresa.Servico == TipoAplicativo.Nfse)
             {
                 comboBox_UF.DropDownWidth = 300;
             }
@@ -666,7 +661,7 @@ namespace NFe.UI.Formularios
 
         private void txtUsuarioWS_TextChanged(object sender, EventArgs e)
         {
-            if (changeEvent != null)
+            if(changeEvent != null)
             {
                 changeEvent(sender, e);
             }
@@ -674,7 +669,7 @@ namespace NFe.UI.Formularios
 
         private void txtSenhaWS_TextChanged(object sender, EventArgs e)
         {
-            if (changeEvent != null)
+            if(changeEvent != null)
             {
                 changeEvent(sender, e);
             }
@@ -682,7 +677,7 @@ namespace NFe.UI.Formularios
 
         private void txtClienteID_TextChanged(object sender, EventArgs e)
         {
-            if (changeEvent != null)
+            if(changeEvent != null)
             {
                 changeEvent(sender, e);
             }
@@ -690,7 +685,7 @@ namespace NFe.UI.Formularios
 
         private void txtClientSecret_TextChanged(object sender, EventArgs e)
         {
-            if (changeEvent != null)
+            if(changeEvent != null)
             {
                 changeEvent(sender, e);
             }
@@ -698,7 +693,7 @@ namespace NFe.UI.Formularios
 
         private void Configurar(Empresa empresa, bool novaempresa)
         {
-            switch (empresa.Servico)
+            switch(empresa.Servico)
             {
                 case TipoAplicativo.Nfse:
                     labelUF.Visible = true;
@@ -718,6 +713,7 @@ namespace NFe.UI.Formularios
                     checkBoxGravarEventosCancelamentoNaPastaEnviadosNFe.Visible = false;
                     udTempoConsulta.Visible = lbl_udTempoConsulta.Visible = false;
                     cbIndSinc.Visible = false;
+                    cbIndSincNFCe.Visible = false;
                     comboBox_Ambiente.Visible = true;
                     checkBoxArqNSU.Visible = false;
                     checkBoxValidarDigestValue.Visible = false;
@@ -739,6 +735,7 @@ namespace NFe.UI.Formularios
                     checkBoxGravarEventosCancelamentoNaPastaEnviadosNFe.Visible = false;
                     udTempoConsulta.Visible = lbl_udTempoConsulta.Visible = false;
                     cbIndSinc.Visible = false;
+                    cbIndSincNFCe.Visible = false;
                     metroLabel10.Visible = false;
                     comboBox_Ambiente.Visible = false;
                     lbl_CodMun.Visible = false;
@@ -766,6 +763,7 @@ namespace NFe.UI.Formularios
                     checkBoxGravarEventosNaPastaEnviadosNFe.Visible = false;
                     checkBoxRetornoNFETxt.Visible = false;
                     cbIndSinc.Visible = false;
+                    cbIndSincNFCe.Visible = false;
                     grpQRCode.Visible = false;
                     metroLabel11.Visible = false;
                     lbl_udTempoConsulta.Visible = false;
@@ -798,6 +796,7 @@ namespace NFe.UI.Formularios
                     checkBoxGravarEventosNaPastaEnviadosNFe.Visible = false;
                     checkBoxRetornoNFETxt.Visible = false;
                     cbIndSinc.Visible = false;
+                    cbIndSincNFCe.Visible = false;
                     grpQRCode.Visible = false;
                     metroLabel11.Visible = false;
                     lbl_udTempoConsulta.Visible = false;
@@ -830,6 +829,7 @@ namespace NFe.UI.Formularios
                     checkBoxGravarEventosCancelamentoNaPastaEnviadosNFe.Visible = true;
                     udTempoConsulta.Visible = lbl_udTempoConsulta.Visible = true;
                     cbIndSinc.Visible = true;
+                    cbIndSincNFCe.Visible = true;
                     metroLabel10.Visible = true;
                     comboBox_Ambiente.Visible = true;
                     lbl_CodMun.Visible = false;

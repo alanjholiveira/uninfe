@@ -15,7 +15,7 @@ namespace uninfe
         [STAThread]
         private static void Main(string[] args)
         {
-            AppDomain.CurrentDomain.AssemblyResolve += Unimake.Utility.Basic.AssemblyResolver.AssemblyResolve;
+            AppDomain.CurrentDomain.AssemblyResolve += Unimake.Business.DFe.Xml.AssemblyResolver.AssemblyResolve;
 
             Application.ThreadException += new System.Threading.ThreadExceptionEventHandler((sender, e) =>
             {

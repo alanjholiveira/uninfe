@@ -53,7 +53,7 @@ namespace NFe.Components.HJiParanaRO {
         
         /// <remarks/>
         public IssWebWS() {
-            this.Url = global::NFe.Components.Properties.Settings.Default.NFe_Components_HJiParanaRO_IssWebWS;
+            this.Url = global::NFe.Components.Properties.Settings.Default.NFe_Components_br_com_fiorilli_mirassolandiasp_h_IssWebWS;
             if ((this.IsLocalFileSystemWebService(this.Url) == true)) {
                 this.UseDefaultCredentials = true;
                 this.useDefaultCredentialsSetExplicitly = false;
@@ -4024,6 +4024,7 @@ namespace NFe.Components.HJiParanaRO {
         }
         
         /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://www.w3.org/2000/09/xmldsig#")]
         public SignatureType Signature {
             get {
                 return this.signatureField;
@@ -4518,6 +4519,7 @@ namespace NFe.Components.HJiParanaRO {
         }
         
         /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://www.w3.org/2000/09/xmldsig#")]
         public SignatureType Signature {
             get {
                 return this.signatureField;
@@ -4846,6 +4848,7 @@ namespace NFe.Components.HJiParanaRO {
         }
         
         /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace = "http://www.w3.org/2000/09/xmldsig#")]
         public SignatureType Signature {
             get {
                 return this.signatureField;

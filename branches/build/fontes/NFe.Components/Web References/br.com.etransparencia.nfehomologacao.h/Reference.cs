@@ -23,7 +23,7 @@ namespace NFe.Components.br.com.etransparencia.nfehomologacao.h {
     
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Web.Services.WebServiceBindingAttribute(Name="ws_nfeSoapBinding", Namespace="NFe")]
@@ -33,11 +33,15 @@ namespace NFe.Components.br.com.etransparencia.nfehomologacao.h {
         
         private System.Threading.SendOrPostCallback CONSULTANOTASPROTOCOLOOperationCompleted;
         
+        private System.Threading.SendOrPostCallback CONSNFSERECEBIDASOperationCompleted;
+        
         private System.Threading.SendOrPostCallback CONSULTAPROTOCOLOOperationCompleted;
         
         private System.Threading.SendOrPostCallback VERFICARPSOperationCompleted;
         
         private System.Threading.SendOrPostCallback CANCELANOTAELETRONICAOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback IMPRESSAOLINKNFSEOperationCompleted;
         
         private bool useDefaultCredentialsSetExplicitly;
         
@@ -84,6 +88,9 @@ namespace NFe.Components.br.com.etransparencia.nfehomologacao.h {
         public event CONSULTANOTASPROTOCOLOCompletedEventHandler CONSULTANOTASPROTOCOLOCompleted;
         
         /// <remarks/>
+        public event CONSNFSERECEBIDASCompletedEventHandler CONSNFSERECEBIDASCompleted;
+        
+        /// <remarks/>
         public event CONSULTAPROTOCOLOCompletedEventHandler CONSULTAPROTOCOLOCompleted;
         
         /// <remarks/>
@@ -91,6 +98,9 @@ namespace NFe.Components.br.com.etransparencia.nfehomologacao.h {
         
         /// <remarks/>
         public event CANCELANOTAELETRONICACompletedEventHandler CANCELANOTAELETRONICACompleted;
+        
+        /// <remarks/>
+        public event IMPRESSAOLINKNFSECompletedEventHandler IMPRESSAOLINKNFSECompleted;
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("NFeaction/AWS_NFE.PROCESSARPS", RequestElementName="ws_nfe.PROCESSARPS", RequestNamespace="NFe", ResponseElementName="ws_nfe.PROCESSARPSResponse", ResponseNamespace="NFe", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -149,6 +159,36 @@ namespace NFe.Components.br.com.etransparencia.nfehomologacao.h {
             if ((this.CONSULTANOTASPROTOCOLOCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.CONSULTANOTASPROTOCOLOCompleted(this, new CONSULTANOTASPROTOCOLOCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("NFeaction/AWS_NFE.CONSNFSERECEBIDAS", RequestElementName="ws_nfe.CONSNFSERECEBIDAS", RequestNamespace="NFe", ResponseElementName="ws_nfe.CONSNFSERECEBIDASResponse", ResponseNamespace="NFe", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute("Consnfserecebida_out")]
+        public SDT_ConsultaNotasProtocoloOut CONSNFSERECEBIDAS(NFSERecebida_IN Consnfserecebida_in) {
+            object[] results = this.Invoke("CONSNFSERECEBIDAS", new object[] {
+                        Consnfserecebida_in});
+            return ((SDT_ConsultaNotasProtocoloOut)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void CONSNFSERECEBIDASAsync(NFSERecebida_IN Consnfserecebida_in) {
+            this.CONSNFSERECEBIDASAsync(Consnfserecebida_in, null);
+        }
+        
+        /// <remarks/>
+        public void CONSNFSERECEBIDASAsync(NFSERecebida_IN Consnfserecebida_in, object userState) {
+            if ((this.CONSNFSERECEBIDASOperationCompleted == null)) {
+                this.CONSNFSERECEBIDASOperationCompleted = new System.Threading.SendOrPostCallback(this.OnCONSNFSERECEBIDASOperationCompleted);
+            }
+            this.InvokeAsync("CONSNFSERECEBIDAS", new object[] {
+                        Consnfserecebida_in}, this.CONSNFSERECEBIDASOperationCompleted, userState);
+        }
+        
+        private void OnCONSNFSERECEBIDASOperationCompleted(object arg) {
+            if ((this.CONSNFSERECEBIDASCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.CONSNFSERECEBIDASCompleted(this, new CONSNFSERECEBIDASCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -243,6 +283,36 @@ namespace NFe.Components.br.com.etransparencia.nfehomologacao.h {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("NFeaction/AWS_NFE.IMPRESSAOLINKNFSE", RequestElementName="ws_nfe.IMPRESSAOLINKNFSE", RequestNamespace="NFe", ResponseElementName="ws_nfe.IMPRESSAOLINKNFSEResponse", ResponseNamespace="NFe", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute("Xml_saida")]
+        public string IMPRESSAOLINKNFSE(string Xml_entrada) {
+            object[] results = this.Invoke("IMPRESSAOLINKNFSE", new object[] {
+                        Xml_entrada});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void IMPRESSAOLINKNFSEAsync(string Xml_entrada) {
+            this.IMPRESSAOLINKNFSEAsync(Xml_entrada, null);
+        }
+        
+        /// <remarks/>
+        public void IMPRESSAOLINKNFSEAsync(string Xml_entrada, object userState) {
+            if ((this.IMPRESSAOLINKNFSEOperationCompleted == null)) {
+                this.IMPRESSAOLINKNFSEOperationCompleted = new System.Threading.SendOrPostCallback(this.OnIMPRESSAOLINKNFSEOperationCompleted);
+            }
+            this.InvokeAsync("IMPRESSAOLINKNFSE", new object[] {
+                        Xml_entrada}, this.IMPRESSAOLINKNFSEOperationCompleted, userState);
+        }
+        
+        private void OnIMPRESSAOLINKNFSEOperationCompleted(object arg) {
+            if ((this.IMPRESSAOLINKNFSECompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.IMPRESSAOLINKNFSECompleted(this, new IMPRESSAOLINKNFSECompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         public new void CancelAsync(object userState) {
             base.CancelAsync(userState);
         }
@@ -262,7 +332,7 @@ namespace NFe.Components.br.com.etransparencia.nfehomologacao.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -295,7 +365,7 @@ namespace NFe.Components.br.com.etransparencia.nfehomologacao.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -328,7 +398,7 @@ namespace NFe.Components.br.com.etransparencia.nfehomologacao.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -361,7 +431,7 @@ namespace NFe.Components.br.com.etransparencia.nfehomologacao.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -395,7 +465,7 @@ namespace NFe.Components.br.com.etransparencia.nfehomologacao.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -488,7 +558,7 @@ namespace NFe.Components.br.com.etransparencia.nfehomologacao.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -521,7 +591,7 @@ namespace NFe.Components.br.com.etransparencia.nfehomologacao.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -554,7 +624,7 @@ namespace NFe.Components.br.com.etransparencia.nfehomologacao.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -611,7 +681,7 @@ namespace NFe.Components.br.com.etransparencia.nfehomologacao.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -743,7 +813,154 @@ namespace NFe.Components.br.com.etransparencia.nfehomologacao.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName="SDT_ConsNFSERecebida_In.Filtro", Namespace="NFe")]
+    public partial class SDT_ConsNFSERecebida_InFiltro {
+        
+        private string cpfCnpjPrestadorField;
+        
+        private string dtEmissaoDeField;
+        
+        private string dtEmissaoAteField;
+        
+        private string numeroNotaDeField;
+        
+        private string numeroNotaAteField;
+        
+        /// <remarks/>
+        public string CpfCnpjPrestador {
+            get {
+                return this.cpfCnpjPrestadorField;
+            }
+            set {
+                this.cpfCnpjPrestadorField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string DtEmissaoDe {
+            get {
+                return this.dtEmissaoDeField;
+            }
+            set {
+                this.dtEmissaoDeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string DtEmissaoAte {
+            get {
+                return this.dtEmissaoAteField;
+            }
+            set {
+                this.dtEmissaoAteField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string NumeroNotaDe {
+            get {
+                return this.numeroNotaDeField;
+            }
+            set {
+                this.numeroNotaDeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string NumeroNotaAte {
+            get {
+                return this.numeroNotaAteField;
+            }
+            set {
+                this.numeroNotaAteField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName="SDT_ConsNFSERecebida_In.Login", Namespace="NFe")]
+    public partial class SDT_ConsNFSERecebida_InLogin {
+        
+        private string codigoUsuarioField;
+        
+        private string codigoContribuinteField;
+        
+        /// <remarks/>
+        public string CodigoUsuario {
+            get {
+                return this.codigoUsuarioField;
+            }
+            set {
+                this.codigoUsuarioField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string CodigoContribuinte {
+            get {
+                return this.codigoContribuinteField;
+            }
+            set {
+                this.codigoContribuinteField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="NFe")]
+    public partial class NFSERecebida_IN {
+        
+        private SDT_ConsNFSERecebida_InLogin loginField;
+        
+        private string paginaField;
+        
+        private SDT_ConsNFSERecebida_InFiltro filtroField;
+        
+        /// <remarks/>
+        public SDT_ConsNFSERecebida_InLogin Login {
+            get {
+                return this.loginField;
+            }
+            set {
+                this.loginField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Pagina {
+            get {
+                return this.paginaField;
+            }
+            set {
+                this.paginaField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public SDT_ConsNFSERecebida_InFiltro Filtro {
+            get {
+                return this.filtroField;
+            }
+            set {
+                this.filtroField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -836,7 +1053,7 @@ namespace NFe.Components.br.com.etransparencia.nfehomologacao.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -881,7 +1098,7 @@ namespace NFe.Components.br.com.etransparencia.nfehomologacao.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1539,7 +1756,7 @@ namespace NFe.Components.br.com.etransparencia.nfehomologacao.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1635,7 +1852,7 @@ namespace NFe.Components.br.com.etransparencia.nfehomologacao.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1692,7 +1909,7 @@ namespace NFe.Components.br.com.etransparencia.nfehomologacao.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1738,7 +1955,7 @@ namespace NFe.Components.br.com.etransparencia.nfehomologacao.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1771,7 +1988,7 @@ namespace NFe.Components.br.com.etransparencia.nfehomologacao.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1804,7 +2021,7 @@ namespace NFe.Components.br.com.etransparencia.nfehomologacao.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1861,7 +2078,7 @@ namespace NFe.Components.br.com.etransparencia.nfehomologacao.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1907,7 +2124,7 @@ namespace NFe.Components.br.com.etransparencia.nfehomologacao.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -2000,7 +2217,7 @@ namespace NFe.Components.br.com.etransparencia.nfehomologacao.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -2045,7 +2262,7 @@ namespace NFe.Components.br.com.etransparencia.nfehomologacao.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -2511,7 +2728,7 @@ namespace NFe.Components.br.com.etransparencia.nfehomologacao.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -2653,11 +2870,11 @@ namespace NFe.Components.br.com.etransparencia.nfehomologacao.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void PROCESSARPSCompletedEventHandler(object sender, PROCESSARPSCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class PROCESSARPSCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2679,11 +2896,11 @@ namespace NFe.Components.br.com.etransparencia.nfehomologacao.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void CONSULTANOTASPROTOCOLOCompletedEventHandler(object sender, CONSULTANOTASPROTOCOLOCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class CONSULTANOTASPROTOCOLOCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2705,11 +2922,37 @@ namespace NFe.Components.br.com.etransparencia.nfehomologacao.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void CONSNFSERECEBIDASCompletedEventHandler(object sender, CONSNFSERECEBIDASCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class CONSNFSERECEBIDASCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal CONSNFSERECEBIDASCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public SDT_ConsultaNotasProtocoloOut Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((SDT_ConsultaNotasProtocoloOut)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void CONSULTAPROTOCOLOCompletedEventHandler(object sender, CONSULTAPROTOCOLOCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class CONSULTAPROTOCOLOCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2731,11 +2974,11 @@ namespace NFe.Components.br.com.etransparencia.nfehomologacao.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void VERFICARPSCompletedEventHandler(object sender, VERFICARPSCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class VERFICARPSCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2757,11 +3000,11 @@ namespace NFe.Components.br.com.etransparencia.nfehomologacao.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void CANCELANOTAELETRONICACompletedEventHandler(object sender, CANCELANOTAELETRONICACompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class CANCELANOTAELETRONICACompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2778,6 +3021,32 @@ namespace NFe.Components.br.com.etransparencia.nfehomologacao.h {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((Sdt_RetornoCancelaNFE)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void IMPRESSAOLINKNFSECompletedEventHandler(object sender, IMPRESSAOLINKNFSECompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class IMPRESSAOLINKNFSECompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal IMPRESSAOLINKNFSECompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
             }
         }
     }

@@ -91,6 +91,11 @@ namespace NFe.Components.Conam
         {
             ConamService.ConsultarNfsePorRps(file);
         }
+
+        public override void ConsultarURLNfse(string file)
+        {
+            ConamService.ConsultarURLNfse(file);
+        }
         #endregion
     }
 }

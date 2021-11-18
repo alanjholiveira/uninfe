@@ -356,6 +356,8 @@ namespace NFe.Service
                 {
                     case PadroesNFSe.SMARAPD:
                         break;
+                    case PadroesNFSe.SMARAPD_203:
+                        break;
 
                     default:
                         throw new Exception(cResultadoValidacao);
@@ -373,10 +375,6 @@ namespace NFe.Service
             {
                 switch (padraoNFSe)
                 {
-                    case PadroesNFSe.BETHA:
-                        wsProxy.Betha.Proxy = Proxy.DefinirProxy(ConfiguracaoApp.ProxyServidor, ConfiguracaoApp.ProxyUsuario, ConfiguracaoApp.ProxySenha, ConfiguracaoApp.ProxyPorta, ConfiguracaoApp.DetectarConfiguracaoProxyAuto);
-                        break;
-
                     default:
                         wsProxy.SetProp(servicoWS, "Proxy", Proxy.DefinirProxy(ConfiguracaoApp.ProxyServidor, ConfiguracaoApp.ProxyUsuario, ConfiguracaoApp.ProxySenha, ConfiguracaoApp.ProxyPorta, ConfiguracaoApp.DetectarConfiguracaoProxyAuto));
                         break;
@@ -393,7 +391,6 @@ namespace NFe.Service
                 switch (padraoNFSe)
                 {
                     case PadroesNFSe.NOTAINTELIGENTE:
-                    case PadroesNFSe.BETHA:
                         break;
 
                     default:
@@ -405,39 +402,6 @@ namespace NFe.Service
             //Invocar o membro
             switch (padraoNFSe)
             {
-                #region Padrão BETHA
-
-                case PadroesNFSe.BETHA:
-                    switch (metodo)
-                    {
-                        case "ConsultarSituacaoLoteRps":
-                            strRetorno = wsProxy.Betha.ConsultarSituacaoLoteRps(docXML, Empresas.Configuracoes[emp].AmbienteCodigo);
-                            break;
-
-                        case "ConsultarLoteRps":
-                            strRetorno = wsProxy.Betha.ConsultarLoteRps(docXML, Empresas.Configuracoes[emp].AmbienteCodigo);
-                            break;
-
-                        case "CancelarNfse":
-                            strRetorno = wsProxy.Betha.CancelarNfse(docXML, Empresas.Configuracoes[emp].AmbienteCodigo);
-                            break;
-
-                        case "ConsultarNfse":
-                            strRetorno = wsProxy.Betha.ConsultarNfse(docXML, Empresas.Configuracoes[emp].AmbienteCodigo);
-                            break;
-
-                        case "ConsultarNfsePorRps":
-                            strRetorno = wsProxy.Betha.ConsultarNfsePorRps(docXML, Empresas.Configuracoes[emp].AmbienteCodigo);
-                            break;
-
-                        case "RecepcionarLoteRps":
-                            strRetorno = wsProxy.Betha.RecepcionarLoteRps(docXML, Empresas.Configuracoes[emp].AmbienteCodigo);
-                            break;
-                    }
-                    break;
-
-                #endregion Padrão BETHA
-
                 #region NOTAINTELIGENTE
 
                 case PadroesNFSe.NOTAINTELIGENTE:
@@ -529,6 +493,16 @@ namespace NFe.Service
                     break;
 
                 #endregion SMARAPD
+
+                #region SMARAPD_203
+
+                case PadroesNFSe.SMARAPD_203:
+
+                    strRetorno = wsProxy.InvokeStr(servicoWS, metodo, new object[] { docXML.OuterXml });
+
+                    break;
+
+                #endregion SMARAPD_203
 
                 #region ISSWEB
 
@@ -833,31 +807,6 @@ namespace NFe.Service
 
                 #endregion Padrão Joinville_SC
 
-                #region AVMB_ASTEN
-                case PadroesNFSe.AVMB_ASTEN:
-                    if (Empresas.Configuracoes[emp].AmbienteCodigo == (int)TipoAmbiente.taHomologacao)
-                    {
-                        Components.HPelotasRS.output pelotasOutput = new Components.HPelotasRS.output();
-                        Components.HPelotasRS.input pelotasInput = new Components.HPelotasRS.input();
-                        pelotasInput.nfseCabecMsg = cabecMsg;
-                        pelotasInput.nfseDadosMsg = docXML.OuterXml;
-
-                        pelotasOutput = (Components.HPelotasRS.output)wsProxy.Invoke(servicoWS, metodo, new object[] { pelotasInput });
-                        strRetorno = pelotasOutput.outputXML;
-                    }
-                    else
-                    {
-                        Components.PPelotasRS.output pelotasOutput = new Components.PPelotasRS.output();
-                        Components.PPelotasRS.input pelotasInput = new Components.PPelotasRS.input();
-                        pelotasInput.nfseCabecMsg = cabecMsg;
-                        pelotasInput.nfseDadosMsg = docXML.OuterXml;
-
-                        pelotasOutput = (Components.PPelotasRS.output)wsProxy.Invoke(servicoWS, metodo, new object[] { pelotasInput });
-                        strRetorno = pelotasOutput.outputXML;
-                    }
-                    break;
-                #endregion
-
                 case PadroesNFSe.PUBLIC_SOFT:
                     strRetorno = wsProxy.InvokeStr(servicoWS, metodo, new object[] { docXML.OuterXml, cabecMsg.ToString() });
                     break;
@@ -871,7 +820,6 @@ namespace NFe.Service
                     break;
 
                 case PadroesNFSe.SMARAPD_204:
-#if _fw46
                     dynamic smarapdOutput = Activator.CreateInstance(servicoWS.GetType().GetMethod(metodo).ReturnType);
                     dynamic smarapdInput = Activator.CreateInstance(servicoWS.GetType().GetMethod(metodo).GetParameters()[0].ParameterType);
                     smarapdInput.nfseCabecMsg = cabecMsg;
@@ -879,7 +827,6 @@ namespace NFe.Service
 
                     smarapdOutput = wsProxy.Invoke(servicoWS, metodo, new object[] { smarapdInput });
                     strRetorno = smarapdOutput.outputXML;
-#endif
                     break;
 
                 case PadroesNFSe.GEISWEB:

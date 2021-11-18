@@ -139,6 +139,21 @@ namespace NFe.Components.Conam.VarginhaMG.h
                                             Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSe).RetornoXML);
         }
 
+        public override void ConsultarURLNfse(string file)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load(file);
+
+            string result = service.IMPRESSAOLINKNFSE(doc.OuterXml);
+
+            result = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" + result;
+
+            doc.LoadXml(result);
+           
+            GerarRetorno(file, doc.OuterXml, Propriedade.Extensao(Propriedade.TipoEnvio.PedURLNFSe).EnvioXML,
+                Propriedade.Extensao(Propriedade.TipoEnvio.PedURLNFSe).RetornoXML, Encoding.UTF8);
+        }
+
         public override void ConsultarNfsePorRps(string file)
         {
             throw new Exceptions.ServicoInexistenteException();
