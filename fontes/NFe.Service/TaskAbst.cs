@@ -1937,9 +1937,8 @@ namespace NFe.Service
 
                 #endregion JOINVILLE_SC
 
-                #region AVMB_ASTEN e EMBRAS
+                #region EMBRAS
 
-                case PadroesNFSe.AVMB_ASTEN:
                 case PadroesNFSe.EMBRAS:
                     switch(servico)
                     {
@@ -1977,7 +1976,7 @@ namespace NFe.Service
                     }
                     break;
 
-                #endregion AVMB_ASTEN e EMBRAS
+                #endregion EMBRAS
 
                 #region DESENVOLVECIDADE
 
@@ -2676,7 +2675,7 @@ namespace NFe.Service
                 conteudoXML.LoadXml(File.ReadAllText(NomeArquivoXML, System.Text.Encoding.UTF8));
             }
 
-            AssinarValidarXMLNFe(conteudoXML);
+            ValidarXMLDFe(conteudoXML);
 
             var sw = File.CreateText(NomeArquivoXML);
             sw.Write(conteudoXML.OuterXml);
@@ -2696,7 +2695,7 @@ namespace NFe.Service
         /// Autor: Wandrey Mundin Ferreira
         /// Data: 03/04/2009
         /// </remarks>
-        public void AssinarValidarXMLNFe(XmlDocument conteudoXML)
+        public void ValidarXMLDFe(XmlDocument conteudoXML)
         {
             var emp = Empresas.FindEmpresaByThread();
 
@@ -2739,65 +2738,6 @@ namespace NFe.Service
                 {
                     //Deletar o arquivo XML da pasta de temporários de XML´s com erros se o mesmo existir
                     Functions.DeletarArquivo(Empresas.Configuracoes[emp].PastaXmlErro + "\\" + Path.GetFileName(NomeArquivoXML));
-                }
-
-                switch(conteudoXML.DocumentElement.Name)
-                {
-                    case "MDFe": //MDFe já realiza os processos de assinatura e validação na DLL do UniNFe, e não pode ser diferente, ou gera erro de assinatura.
-                    case "CTe": //CTe já realiza os processos de assinatura e validação na DLL do UniNFe, e não pode ser diferente, ou gera erro de assinatura.
-                        break;
-
-                    default:
-                        //Assinar o arquivo XML
-                        var assDig = new AssinaturaDigital();
-                        assDig.AssinarNew(conteudoXML, emp, Convert.ToInt32(dadosNFe.cUF));
-
-                        #region Adicionar a tag do QrCode no NFCe
-                        if(!string.IsNullOrEmpty(Empresas.Configuracoes[emp].IdentificadorCSC) && dadosNFe.mod == "65")
-                        {
-                            if(Empresas.Configuracoes[emp].URLConsultaDFe == null)
-                            {
-                                if(!File.Exists(Path.Combine(Application.StartupPath, "sefaz.inc")))
-                                {
-                                    throw new Exception("Não foi possível localizar o arquivo SEFAZ.INC na pasta de execução do UniNFe, por favor, reinstale o aplicativo.");
-                                }
-                                else
-                                {
-                                    throw new Exception("Não foi possível localizar o link do QRCode no arquivo SEFAZ.INC.");
-                                }
-                            }
-
-                            var qrCode = new QRCodeNFCe(conteudoXML);
-
-                            string url;
-
-                            if(dadosNFe.versao == "4.00")
-                            {
-                                url = Empresas.Configuracoes[emp].AmbienteCodigo == (int)TipoAmbiente.taHomologacao ? Empresas.Configuracoes[emp].URLConsultaDFe.UrlNFCeH_400 : Empresas.Configuracoes[emp].URLConsultaDFe.UrlNFCe_400;
-                            }
-                            else
-                            {
-                                url = Empresas.Configuracoes[emp].AmbienteCodigo == (int)TipoAmbiente.taHomologacao ? Empresas.Configuracoes[emp].URLConsultaDFe.UrlNFCeH : Empresas.Configuracoes[emp].URLConsultaDFe.UrlNFCe;
-                            }
-
-                            var linkUFManual = Empresas.Configuracoes[emp].AmbienteCodigo == (int)TipoAmbiente.taHomologacao ? Empresas.Configuracoes[emp].URLConsultaDFe.UrlNFCeMH : Empresas.Configuracoes[emp].URLConsultaDFe.UrlNFCeM;
-
-                            qrCode.GerarLinkConsulta(url, Empresas.Configuracoes[emp].IdentificadorCSC, Empresas.Configuracoes[emp].TokenCSC, linkUFManual);
-                        }
-                        #endregion Adicionar a tag do QrCode no NFCe
-
-                        if(Empresas.Configuracoes[emp].AmbienteCodigo == 2)
-                        {
-                            var validar = new ValidarXML(conteudoXML, Convert.ToInt32(dadosNFe.cUF), false);
-                            var cResultadoValidacao = validar.ValidarArqXML(conteudoXML, NomeArquivoXML);
-                            if(cResultadoValidacao != "")
-                            {
-                                //Registrar o erro da validação do schema para o sistema ERP
-                                throw new Exception(cResultadoValidacao);
-                            }
-                        }
-
-                        break;
                 }
 
                 //Validações gerais
@@ -3361,7 +3301,6 @@ namespace NFe.Service
                 case PadroesNFSe.BAURU_SP:
                 case PadroesNFSe.SOFTPLAN:
                 case PadroesNFSe.JOINVILLE_SC:
-                case PadroesNFSe.AVMB_ASTEN:
                 case PadroesNFSe.ADM_SISTEMAS:
                 case PadroesNFSe.SIMPLE:
                 case PadroesNFSe.WEBFISCO_TECNOLOGIA:
@@ -3410,7 +3349,6 @@ namespace NFe.Service
                 case PadroesNFSe.NA_INFORMATICA:
                 case PadroesNFSe.BSITBR:
                 case PadroesNFSe.JOINVILLE_SC:
-                case PadroesNFSe.AVMB_ASTEN:
                 case PadroesNFSe.ADM_SISTEMAS:
                 case PadroesNFSe.IIBRASIL:
                     invocar = true;
@@ -3452,7 +3390,6 @@ namespace NFe.Service
 
             switch(padrao)
             {
-                case PadroesNFSe.AVMB_ASTEN:
                 case PadroesNFSe.WEBISS_202:
                 case PadroesNFSe.EMBRAS:
                 case PadroesNFSe.DESENVOLVECIDADE:
@@ -3472,6 +3409,7 @@ namespace NFe.Service
                 case PadroesNFSe.SYSMAR:
                 case PadroesNFSe.PUBLICA:
                 case PadroesNFSe.RLZ_INFORMATICA_02:
+                case PadroesNFSe.ABACO_204:
                     if(servico == Servicos.NFSeRecepcionarLoteRps)
                     {
                         switch(doc.DocumentElement.Name)

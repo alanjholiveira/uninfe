@@ -1,6 +1,5 @@
 ﻿using NFe.Certificado;
 using NFe.Components;
-using NFe.Components.BAURU_SP;
 using NFe.Components.Conam;
 using NFe.Components.Coplan;
 using NFe.Components.EGoverne;
@@ -55,6 +54,8 @@ namespace NFe.Service.NFSe
                 {
                     case PadroesNFSe.PRODATA:
                     case PadroesNFSe.BETHA:
+                    case PadroesNFSe.NOTAINTELIGENTE:
+                    case PadroesNFSe.AVMB_ASTEN:
                         ExecuteDLL(emp, ler.oDadosPedSitNfseRps.cMunicipio, padraoNFSe);
                         break;
 
@@ -62,14 +63,13 @@ namespace NFe.Service.NFSe
 
                         switch(ler.oDadosPedSitNfseRps.cMunicipio)
                         {
-                            #region Municípios do padrão SIGCORP
                             case 4105508: //Cianorte-PR
                             case 3303203: //Nilópolis-RJ
                             case 3305109: //São João de Meriti-RJ
                             case 3505500: //Barretos-SP
+                            case 2802908: //Itabaiana-SE
                                 ExecuteDLL(emp, ler.oDadosPedSitNfseRps.cMunicipio, padraoNFSe);
                                 break;
-                            #endregion
 
                             default:
                                 WebServiceProxy wsProxy = null;
@@ -431,13 +431,6 @@ namespace NFe.Service.NFSe
                                         }
                                         break;
 
-                                    case PadroesNFSe.BAURU_SP:
-                                        var bauru_SP = new Bauru_SP((TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
-                                                                        Empresas.Configuracoes[emp].PastaXmlRetorno,
-                                                                        Convert.ToInt32(ler.oDadosPedSitNfseRps.cMunicipio));
-                                        bauru_SP.ConsultarLoteRps(NomeArquivoXML);
-                                        break;
-
                                     case PadroesNFSe.COPLAN:
                                         var coplan = new Coplan((TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
                                             Empresas.Configuracoes[emp].PastaXmlRetorno,
@@ -500,21 +493,6 @@ namespace NFe.Service.NFSe
                                         else
                                         {
                                             pedLoteRps = new Components.PJoinvilleSC.Servicos();
-                                        }
-
-                                        break;
-
-                                    case PadroesNFSe.AVMB_ASTEN:
-                                        cabecMsg = "<cabecalho versao=\"2.02\" xmlns=\"http://www.abrasf.org.br/nfse.xsd\"><versaoDados>2.02</versaoDados></cabecalho>";
-                                        wsProxy = new WebServiceProxy(Empresas.Configuracoes[emp].X509Certificado);
-
-                                        if(ler.oDadosPedSitNfseRps.tpAmb == 2)
-                                        {
-                                            pedLoteRps = new Components.HPelotasRS.INfseservice();
-                                        }
-                                        else
-                                        {
-                                            pedLoteRps = new Components.PPelotasRS.INfseservice();
                                         }
 
                                         break;
@@ -749,6 +727,13 @@ namespace NFe.Service.NFSe
 
                 case PadroesNFSe.SIGCORP_SIGISS:
                     versaoXML = "0.00";
+                    break;
+
+
+                case PadroesNFSe.NOTAINTELIGENTE:
+                case PadroesNFSe.AVMB_ASTEN:
+                case PadroesNFSe.WEBISS:
+                    versaoXML = "2.02";
                     break;
             }
 

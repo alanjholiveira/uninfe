@@ -16,10 +16,12 @@ namespace NFSe.Components
     /// </summary>
     public class POSTRequest : RequestBase, IPostRequest
     {
+        #region Public Methods
+
         public string Post(string usuario, string senha, string URLAPIBase, string file)
         {
-            HttpResponseMessage result = new HttpResponseMessage();
-            HttpClient cliente = new HttpClient();
+            var result = new HttpResponseMessage();
+            var cliente = new HttpClient();
 
             var body = new
             {
@@ -40,26 +42,32 @@ namespace NFSe.Components
         /// </summary>
         /// <param name="url">url base para utilizar dentro do post</param>
         /// <param name="postData">dados a serem enviados junto com o post</param>
+        /// <param name="authorization">Informar a string de autorização. Será informada como header na requisição</param>
         /// <returns></returns>
-        public string PostForm(string url, IDictionary<string, string> postData)
+        public string PostForm(string url, IDictionary<string, string> postData, string authorization)
         {
-            string boundary = "----------------------------" + DateTime.Now.Ticks.ToString("x");
-            string file = postData["f1"];
+            var boundary = "----------------------------" + DateTime.Now.Ticks.ToString("x");
+            var file = postData["f1"];
 
             #region Preparar a requisição
 
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            var request = (HttpWebRequest)WebRequest.Create(url);
             request.ContentType = "multipart/form-data; boundary=" + boundary;
             request.Method = "POST";
             request.KeepAlive = true;
-            request.Credentials = System.Net.CredentialCache.DefaultCredentials;
+            request.Credentials = CredentialCache.DefaultCredentials;
+
+            if (!string.IsNullOrWhiteSpace(authorization))
+            {
+                request.Headers.Add(authorization);
+            }
 
             //ajustar para permitir o cabeçalho HTTP/1.0
             SetAllowUnsafeHeaderParsing20();
 
             //evitar o erro "The remote server returned an error: (417) Expectation Failed."
             //para caeçalhos HTTP/1.0
-            System.Net.ServicePointManager.Expect100Continue = false;
+            ServicePointManager.Expect100Continue = false;
 
             if (Proxy != null)
             {
@@ -73,34 +81,34 @@ namespace NFSe.Components
 
             #region Crar o stream da solicitação
 
-            Stream memStream = new System.IO.MemoryStream();
+            Stream memStream = new MemoryStream();
 
-            byte[] boundarybytes = System.Text.Encoding.ASCII.GetBytes("\r\n--" + boundary + "\r\n");
+            var boundarybytes = Encoding.ASCII.GetBytes("\r\n--" + boundary + "\r\n");
 
-            string formdataTemplate = "\r\n--" + boundary + "\r\nContent-Disposition: form-data; name=\"{0}\";\r\n\r\n{1}";
+            var formdataTemplate = "\r\n--" + boundary + "\r\nContent-Disposition: form-data; name=\"{0}\";\r\n\r\n{1}";
 
-            foreach (KeyValuePair<string, string> keyValue in postData)
+            foreach (var keyValue in postData)
             {
-                string formitem = string.Format(formdataTemplate, keyValue.Key, keyValue.Value);
-                byte[] formitembytes = System.Text.Encoding.UTF8.GetBytes(formitem);
+                var formitem = string.Format(formdataTemplate, keyValue.Key, keyValue.Value);
+                var formitembytes = Encoding.UTF8.GetBytes(formitem);
                 memStream.Write(formitembytes, 0, formitembytes.Length);
             }
 
             memStream.Write(boundarybytes, 0, boundarybytes.Length);
 
-            string headerTemplate = "Content-Disposition: form-data; name=\"{0}\"; filename=\"{1}\"\r\n Content-Type: application/octet-stream\r\n\r\n";
+            var headerTemplate = "Content-Disposition: form-data; name=\"{0}\"; filename=\"{1}\"\r\n Content-Type: application/octet-stream\r\n\r\n";
 
-            string header = string.Format(headerTemplate, "f1", file);
+            var header = string.Format(headerTemplate, "f1", file);
 
-            byte[] headerbytes = System.Text.Encoding.UTF8.GetBytes(header);
+            var headerbytes = Encoding.UTF8.GetBytes(header);
 
             memStream.Write(headerbytes, 0, headerbytes.Length);
 
-            FileStream fileStream = new FileStream(file, FileMode.Open,
+            var fileStream = new FileStream(file, FileMode.Open,
             FileAccess.Read);
-            byte[] buffer = new byte[1024];
+            var buffer = new byte[1024];
 
-            int bytesRead = 0;
+            var bytesRead = 0;
 
             while ((bytesRead = fileStream.Read(buffer, 0, buffer.Length)) != 0)
             {
@@ -116,10 +124,10 @@ namespace NFSe.Components
 
             #region Escrever na requisição
 
-            Stream requestStream = request.GetRequestStream();
+            var requestStream = request.GetRequestStream();
 
             memStream.Position = 0;
-            byte[] tempBuffer = new byte[memStream.Length];
+            var tempBuffer = new byte[memStream.Length];
             memStream.Read(tempBuffer, 0, tempBuffer.Length);
             memStream.Close();
             requestStream.Write(tempBuffer, 0, tempBuffer.Length);
@@ -129,14 +137,14 @@ namespace NFSe.Components
 
             #region Resposta do servidor
 
-            WebResponse response = request.GetResponse();
+            var response = request.GetResponse();
 
-            Stream stream = response.GetResponseStream();
-            StreamReader reader = response.ContentType.IndexOf("charset=") == -1 ?
+            var stream = response.GetResponseStream();
+            var reader = response.ContentType.IndexOf("charset=") == -1 ?
                 new StreamReader(stream, Encoding.UTF8) :
                 new StreamReader(stream, Encoding.GetEncoding(response.ContentType.Substring(response.ContentType.IndexOf("charset=") + 8)));
 
-            string result = reader.ReadToEnd();
+            var result = reader.ReadToEnd();
             stream.Dispose();
             reader.Dispose();
             return result;
@@ -150,14 +158,27 @@ namespace NFSe.Components
         /// <param name="url">url base para utilizar dentro do post</param>
         /// <param name="postData">dados a serem enviados junto com o post</param>
         /// <returns></returns>
+        public string PostForm(string url, IDictionary<string, string> postData)
+        {
+            return PostForm(url, postData, (string)null);
+        }
+
+        /// <summary>
+        /// Faz o post e retorna uma string  com o resultado
+        /// </summary>
+        /// <param name="url">url base para utilizar dentro do post</param>
+        /// <param name="postData">dados a serem enviados junto com o post</param>
+        /// <returns></returns>
         public string PostForm(string url, IDictionary<string, string> postData = null, IList<string> headers = null)
         {
-            string result = string.Empty;
-            string postParameter = string.Empty;
-            string xmlFile = "";
+            var result = string.Empty;
+            var postParameter = string.Empty;
+            var xmlFile = "";
 
-            foreach (KeyValuePair<string, string> keyValue in postData.Where(w => w.Key != "f1"))
+            foreach (var keyValue in postData.Where(w => w.Key != "f1"))
+            {
                 postParameter += $"&{keyValue.Key}={keyValue.Value}";
+            }
 
             if (postParameter.Length > 1)
             {
@@ -165,19 +186,19 @@ namespace NFSe.Components
                 url += $"?{postParameter}";
             }
             string accept = null;
-            string contentType = accept;
+            var contentType = accept;
 
             if (postData.Keys.Contains("f1"))
             {
                 xmlFile = postData["f1"];
-                XmlDocument doc = new XmlDocument();
+                var doc = new XmlDocument();
                 doc.Load(xmlFile);
                 xmlFile = doc.InnerXml;
                 contentType = "application/xml";
                 accept = "application/xml";
             }
 
-            byte[] encode = Encoding.UTF8.GetBytes(xmlFile);
+            var encode = Encoding.UTF8.GetBytes(xmlFile);
             var request = WebRequest.CreateHttp(url);
             request.Method = "POST";
             request.ContentType = contentType;
@@ -186,8 +207,10 @@ namespace NFSe.Components
             request.Credentials = CredentialCache.DefaultCredentials;
             request.Accept = accept;
 
-            foreach (string header in headers)
+            foreach (var header in headers)
+            {
                 request.Headers.Add(header);
+            }
 
             if (Proxy != null)
             {
@@ -211,8 +234,8 @@ namespace NFSe.Components
                 stream.Close();
             }
 
-            WebResponse response = default(WebResponse);
-            bool success = true;
+            var response = default(WebResponse);
+            var success = true;
 
             try
             {
@@ -225,7 +248,7 @@ namespace NFSe.Components
             }
 
             var streamDados = response.GetResponseStream();
-            StreamReader reader = new StreamReader(streamDados);
+            var reader = new StreamReader(streamDados);
             result = reader.ReadToEnd();
             streamDados.Close();
             response.Close();
@@ -233,9 +256,13 @@ namespace NFSe.Components
 
             if (!success &&
                 result.StartsWith("\n"))
+            {
                 result = result.Substring(1);
+            }
 
             return result;
         }
+
+        #endregion Public Methods
     }
 }

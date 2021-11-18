@@ -554,6 +554,11 @@ namespace NFe.Components
         /// </summary>
         LoteRecepcaoGNRE,
 
+        /// <summary>
+        /// Envio da consulta das configurações UF da GNRE
+        /// </summary>
+        ConsultaConfigUfGNRE,
+
         #endregion
 
         /// <summary>

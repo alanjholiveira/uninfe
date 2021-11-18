@@ -1097,6 +1097,7 @@ namespace NFe.Components
             RecepcionarLoteRps =
             ConsultaSequenciaLoteNotaRPS =
             ConsultarStatusNFse =
+            GerarNFSe =
 
             ///
             /// CFS-e
@@ -1271,6 +1272,11 @@ namespace NFe.Components
         /// Consultar as NFS-e tomados
         /// </summary>
         public string ConsultaNFSeTomados { get; set; }
+
+        /// <summary>
+        /// Gerar NFSe
+        /// </summary>
+        public string GerarNFSe { get; set; }
 
         #endregion NFS-e
 

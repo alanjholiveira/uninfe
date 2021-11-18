@@ -407,7 +407,8 @@ namespace NFe.Components
             ///
             /// GNRE
             ///
-            GNRE
+            GNRE,
+            GNRE_consconfiguf
         }
 
         private static Dictionary<TipoEnvio, ExtensaoClass> ListaExtensoes = new Dictionary<TipoEnvio, ExtensaoClass>();
@@ -921,6 +922,12 @@ namespace NFe.Components
                 "-ret-gnre.xml", "",
                 "-ret-gnre.err",
                 "Envio do lote de GNRE"));
+
+            ListaExtensoes.Add(TipoEnvio.GNRE_consconfiguf, new ExtensaoClass(
+               "-consconfiguf.xml", "",
+               "-ret-consconfiguf.xml", "",
+               "-ret-consconfiguf.err",
+               "Envio da consulta configuração da UF da GNRE"));
 
             #endregion
 

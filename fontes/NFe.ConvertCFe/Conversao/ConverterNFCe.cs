@@ -85,7 +85,7 @@ namespace NFe.SAT.Conversao
         /// <returns>Lote da CFe</returns>
         private envCFeCFe GerarLoteCFe()
         {
-            return new envCFeCFe
+            var retorna = new envCFeCFe
             {
                 infCFe = new envCFeCFeInfCFe
                 {
@@ -134,6 +134,21 @@ namespace NFe.SAT.Conversao
                     }
                 }
             };
+
+            var vOutro = GetValueXML("ICMSTot", "vOutro");
+
+            if(Convert.ToDecimal(vOutro) > 0)
+            {
+                retorna.infCFe.total.DescAcrEntr = new envCFeCFeInfCFeTotalDescAcrEntr();
+
+                if(Convert.ToDecimal(vOutro) > 0)
+                {
+                    retorna.infCFe.total.DescAcrEntr.ItemElementName = ItemChoiceType1.vAcresSubtot;
+                    retorna.infCFe.total.DescAcrEntr.Item = vOutro;
+                }
+            }
+
+            return retorna;
         }
 
         /// <summary>
