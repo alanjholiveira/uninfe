@@ -64,6 +64,10 @@ namespace NFe.Components.EL
                                 elService = new NovaFriburgoRJ.p.ELP(tpAmb, PastaRetorno, UsuarioWs, SenhaWs, UsuarioProxy, SenhaProxy, DomainProxy);
                                 break;
 
+                            case 3203205: //Linhares-ES
+                                elService = new PLinharesES.p.ELP(tpAmb, PastaRetorno, UsuarioWs, SenhaWs, UsuarioProxy, SenhaProxy, DomainProxy);
+                                break;
+
                             default:
                                 throw new Exceptions.ServicoInexistenteException();
                         }

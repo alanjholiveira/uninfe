@@ -561,7 +561,12 @@ namespace NFe.UI.Formularios
                            ufCod == 4215000 /*Rio Negrinho-SC*/||
                            ufCod == 3205200 /*Vila Velha-ES*/||
                            ufCod == 3303401 /*Nova Friburgo-RJ*/||
-                           ufCod == 4109401 /*Guarapuava-PR*/;
+                           ufCod == 4109401 /*Guarapuava-PR*/||
+                           ufCod == 4218202 /*Timbó-SC*/||
+                           ufCod == 3306305 /*Volta Redonda-RJ*/||
+                           ufCod == 3506003 /*Bauru-SP*/||
+                           ufCod == 3203205 /*Linhares-ES*/;
+
 
 
 

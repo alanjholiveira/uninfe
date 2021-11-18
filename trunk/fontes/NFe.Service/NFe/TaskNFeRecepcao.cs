@@ -2,8 +2,11 @@
 using NFe.Exceptions;
 using NFe.Settings;
 using System;
+using System.IO;
 using System.Threading;
 using System.Xml;
+using Unimake.Business.DFe.Servicos;
+using Unimake.Business.DFe.Xml.NFe;
 
 namespace NFe.Service
 {
@@ -43,73 +46,73 @@ namespace NFe.Service
             var emp = Empresas.FindEmpresaByThread();
 
             var oFluxoNfe = new FluxoNfe();
-            var oLer = new LerXML();
+            var ler = new LerXML();
 
             try
             {
                 dadosRec = new DadosRecClass();
 
                 //Ler o XML de Lote para pegar o número do lote que está sendo enviado
-                oLer.Nfe(ConteudoXML);
+                ler.Nfe(ConteudoXML);
 
-                var idLote = oLer.oDadosNfe.idLote;
+                var idLote = ler.oDadosNfe.idLote;
 
-                //Definir o objeto do WebService
-                var wsProxy = ConfiguracaoApp.DefinirWS(Servico, emp,
-                    Convert.ToInt32(oLer.oDadosNfe.cUF),
-                    Convert.ToInt32(oLer.oDadosNfe.tpAmb),
-                    Convert.ToInt32(oLer.oDadosNfe.tpEmis),
-                    oLer.oDadosNfe.versao,
-                    oLer.oDadosNfe.mod,
-                    0);
+                var xmlNFe = new EnviNFe();
+                xmlNFe = Unimake.Business.DFe.Utility.XMLUtility.Deserializar<EnviNFe>(ConteudoXML);
 
-                var securityProtocolType = WebServiceProxy.DefinirProtocoloSeguranca(Convert.ToInt32(oLer.oDadosNfe.cUF), Convert.ToInt32(oLer.oDadosNfe.tpAmb), Convert.ToInt32(oLer.oDadosNfe.tpEmis), Servico);
-
-                //Criar objetos das classes dos serviços dos webservices do SEFAZ
-                var oRecepcao = wsProxy.CriarObjeto(wsProxy.NomeClasseWS);
-
-                object oCabecMsg = null;
-                if(oLer.oDadosNfe.versao != "4.00")
+                var configuracao = new Configuracao
                 {
-                    oCabecMsg = wsProxy.CriarObjeto(NomeClasseCabecWS(Convert.ToInt32(oLer.oDadosNfe.cUF), Servico));
-                    wsProxy.SetProp(oCabecMsg, TpcnResources.cUF.ToString(), oLer.oDadosNfe.cUF);
-                    wsProxy.SetProp(oCabecMsg, TpcnResources.versaoDados.ToString(), oLer.oDadosNfe.versao);
+                    TipoDFe = (ler.oDadosNfe.mod == "65" ? TipoDFe.NFCe : TipoDFe.NFe),
+                    TipoEmissao = (Unimake.Business.DFe.Servicos.TipoEmissao)(Convert.ToInt32(ler.oDadosNfe.tpEmis)),
+                    CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado
+                };
+
+                if(ConfiguracaoApp.Proxy)
+                {
+                    configuracao.HasProxy = true;
+                    configuracao.ProxyAutoDetect = ConfiguracaoApp.DetectarConfiguracaoProxyAuto;
+                    configuracao.ProxyUser = ConfiguracaoApp.ProxyUsuario;
+                    configuracao.ProxyPassword = ConfiguracaoApp.ProxySenha;
                 }
 
-                //Invocar o método que envia o XML para o SEFAZ
-                if(((oLer.oDadosNfe.mod == "55" && Empresas.Configuracoes[emp].IndSinc) || (oLer.oDadosNfe.mod == "65" && Empresas.Configuracoes[emp].IndSincNFCe)) && oLer.oDadosNfe.indSinc)
+                if(ler.oDadosNfe.mod == "65")
                 {
-                    //Não posso gerar o arquivo na pasta de retorno através do método Invocar, por isso não estou colocando os dois ultimos parâmetros com a definição dos prefixos dos arquivos. O arquivo de retorno no processo síncrono deve acontecer somente depois de finalizado o processo da nota, ou gera problemas. Wandrey 11/06/2015
-                    oInvocarObj.Invocar(wsProxy,
-                                        oRecepcao,
-                                        wsProxy.NomeMetodoWS[0],
-                                        oCabecMsg,
-                                        this,
-                                        Propriedade.Extensao(Propriedade.TipoEnvio.EnvLot).EnvioXML,
-                                        Propriedade.Extensao(Propriedade.TipoEnvio.PedRec).RetornoXML,
-                                        false,
-                                        securityProtocolType);
+                    configuracao.CSC = Empresas.Configuracoes[emp].IdentificadorCSC;
+                    configuracao.CSCIDToken = Convert.ToInt32(Empresas.Configuracoes[emp].TokenCSC);
 
+                    var autorizacao = new Unimake.Business.DFe.Servicos.NFCe.Autorizacao(xmlNFe, configuracao);
+                    autorizacao.Executar();
+
+                    ConteudoXML = autorizacao.ConteudoXMLAssinado;
+
+                    vStrXmlRetorno = autorizacao.RetornoWSString;
+                }
+                else
+                {
+                    var autorizacao = new Unimake.Business.DFe.Servicos.NFe.Autorizacao(xmlNFe, configuracao);
+                    autorizacao.Executar();
+
+                    ConteudoXML = autorizacao.ConteudoXMLAssinado;
+
+                    vStrXmlRetorno = autorizacao.RetornoWSString;
+                }
+
+                SalvarArquivoEmProcessamento(emp);
+
+                if(ler.oDadosNfe.indSinc)
+                {
                     Protocolo(vStrXmlRetorno);
                 }
                 else
                 {
-                    oInvocarObj.Invocar(wsProxy,
-                                        oRecepcao,
-                                        wsProxy.NomeMetodoWS[0],
-                                        oCabecMsg,
-                                        this,
-                                        Propriedade.Extensao(Propriedade.TipoEnvio.EnvLot).EnvioXML,
-                                        Propriedade.ExtRetorno.Rec,
-                                        true,
-                                        securityProtocolType);
-
                     Recibo(vStrXmlRetorno, emp);
                 }
 
+                #region Parte que trata o retorno do lote, ou seja, o número do recibo ou protocolo
+
                 if(dadosRec.cStat == "104") //Lote processado - Processo da NFe Síncrono - Wandrey 13/03/2014
                 {
-                    FinalizarNFeSincrono(vStrXmlRetorno, emp, oLer.oDadosNfe.chavenfe);
+                    FinalizarNFeSincrono(vStrXmlRetorno, emp, ler.oDadosNfe.chavenfe);
 
                     oGerarXML.XmlRetorno(Propriedade.Extensao(Propriedade.TipoEnvio.EnvLot).EnvioXML, Propriedade.Extensao(Propriedade.TipoEnvio.PedRec).RetornoXML, vStrXmlRetorno);
                 }
@@ -120,48 +123,69 @@ namespace NFe.Service
                         Thread.Sleep(dadosRec.tMed * 1000);
                     }
 
-                    //Atualizar o número do recibo no XML de controle do fluxo de notas enviadas
-                    oFluxoNfe.AtualizarTag(oLer.oDadosNfe.chavenfe, FluxoNfe.ElementoEditavel.tMed, dadosRec.tMed.ToString());
-                    oFluxoNfe.AtualizarTagRec(idLote, dadosRec.nRec);
-
-                    var xmlPedRec = oGerarXML.XmlPedRecNFe(dadosRec.nRec, oLer.oDadosNfe.versao, oLer.oDadosNfe.mod, emp);
-                    var nfeRetRecepcao = new TaskNFeRetRecepcao(xmlPedRec)
+                    try
                     {
-                        chNFe = oLer.oDadosNfe.chavenfe
-                    };
-                    nfeRetRecepcao.Execute();
+                        var xmlPedRec = oGerarXML.XmlPedRecNFe(dadosRec.nRec, ler.oDadosNfe.versao, ler.oDadosNfe.mod, emp);
+                        var nfeRetRecepcao = new TaskNFeRetRecepcao(xmlPedRec)
+                        {
+                            chNFe = ler.oDadosNfe.chavenfe
+                        };
+
+                        nfeRetRecepcao.Execute();
+                    }
+                    catch(ExceptionEnvioXML)
+                    {
+                        throw;
+                    }
+                    catch(ExceptionSemInternet)
+                    {
+                        throw;
+                    }
+                    catch(Exception)
+                    {
+                        throw;
+                    }
+                    finally
+                    {
+                        //Atualizar o número do recibo no XML de controle do fluxo de notas enviadas
+                        oFluxoNfe.AtualizarTag(ler.oDadosNfe.chavenfe, FluxoNfe.ElementoEditavel.tMed, dadosRec.tMed.ToString());
+                        oFluxoNfe.AtualizarTagRec(idLote, dadosRec.nRec);
+                    }
                 }
                 else if(Convert.ToInt32(dadosRec.cStat) > 200 ||
                     Convert.ToInt32(dadosRec.cStat) == 108 || //Verifica se o servidor de processamento está paralisado momentaneamente. Wandrey 13/04/2012
                     Convert.ToInt32(dadosRec.cStat) == 109) //Verifica se o servidor de processamento está paralisado sem previsão. Wandrey 13/04/2012
                 {
-                    if(((oLer.oDadosNfe.mod == "55" && Empresas.Configuracoes[emp].IndSinc) || (oLer.oDadosNfe.mod == "65" && Empresas.Configuracoes[emp].IndSincNFCe)) && oLer.oDadosNfe.indSinc)
+                    if(ler.oDadosNfe.indSinc)
                     {
                         // OPS!!! Processo sincrono rejeição da SEFAZ, temos que gravar o XML para o ERP, pois no processo síncrono isso não pode ser feito dentro do método Invocar
                         oGerarXML.XmlRetorno(Propriedade.Extensao(Propriedade.TipoEnvio.EnvLot).EnvioXML, Propriedade.Extensao(Propriedade.TipoEnvio.PedRec).RetornoXML, vStrXmlRetorno);
                     }
+
                     //Se o status do retorno do lote for maior que 200 ou for igual a 108 ou 109,
                     //vamos ter que excluir a nota do fluxo, porque ela foi rejeitada pelo SEFAZ
                     //Primeiro vamos mover o xml da nota da pasta EmProcessamento para pasta de XML´s com erro e depois a tira do fluxo
                     //Wandrey 30/04/2009
-                    oAux.MoveArqErro(Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" + PastaEnviados.EmProcessamento.ToString() + "\\" + oFluxoNfe.LerTag(oLer.oDadosNfe.chavenfe, FluxoNfe.ElementoFixo.ArqNFe));
-                    oFluxoNfe.ExcluirNfeFluxo(oLer.oDadosNfe.chavenfe);
+                    oAux.MoveArqErro(Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" + PastaEnviados.EmProcessamento.ToString() + "\\" + oFluxoNfe.LerTag(ler.oDadosNfe.chavenfe, FluxoNfe.ElementoFixo.ArqNFe));
+                    oFluxoNfe.ExcluirNfeFluxo(ler.oDadosNfe.chavenfe);
                 }
+
+                #endregion
 
                 //Deleta o arquivo de lote
                 Functions.DeletarArquivo(NomeArquivoXML);
             }
             catch(ExceptionEnvioXML ex)
             {
-                TrataException(emp, ex, oLer.oDadosNfe);
+                TrataException(emp, ex, ler.oDadosNfe);
             }
             catch(ExceptionSemInternet ex)
             {
-                TrataException(emp, ex, oLer.oDadosNfe);
+                TrataException(emp, ex, ler.oDadosNfe);
             }
             catch(Exception ex)
             {
-                TrataException(emp, ex, oLer.oDadosNfe);
+                TrataException(emp, ex, ler.oDadosNfe);
             }
         }
 
@@ -307,5 +331,36 @@ namespace NFe.Service
         }
 
         #endregion FinalizarNFeSincrono()
+
+        /// <summary>
+        /// Salvar o arquivo do NFe assinado na pasta EmProcessamento
+        /// </summary>
+        /// <param name="emp">Codigo da empresa</param>
+        private void SalvarArquivoEmProcessamento(int emp)
+        {
+            Empresas.Configuracoes[emp].CriarSubPastaEnviado();
+
+            var nodeListNFe = ConteudoXML.GetElementsByTagName("NFe");
+
+            foreach(var nodeNFe in nodeListNFe)
+            {
+                var xmlElementNFe = (XmlElement)nodeNFe;
+                var chaveNFe = ((XmlElement)xmlElementNFe.GetElementsByTagName("infNFe")[0]).GetAttribute("Id");
+
+                var fluxoNFe = new FluxoNfe();
+                var nomeArqNFe = fluxoNFe.LerTag(chaveNFe, FluxoNfe.ElementoFixo.ArqNFe);
+                var arqEmProcessamento = Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" + PastaEnviados.EmProcessamento.ToString() + "\\" + nomeArqNFe;
+
+                var sw = File.CreateText(arqEmProcessamento);
+                sw.Write("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + xmlElementNFe.OuterXml);
+                sw.Close();
+
+                if(File.Exists(arqEmProcessamento))
+                {
+                    File.Delete(Empresas.Configuracoes[emp].PastaXmlEnvio + "\\temp\\" + nomeArqNFe);
+                    File.Delete(Empresas.Configuracoes[emp].PastaXmlEmLote + "\\temp\\" + nomeArqNFe);
+                }
+            }
+        }
     }
 }

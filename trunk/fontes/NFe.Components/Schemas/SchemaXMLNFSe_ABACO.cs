@@ -192,6 +192,19 @@ namespace NFSe.Components
             });
             #endregion
 
+            #region XML de Consulta de Lote RPS
+            SchemaXML.InfSchemas.Add("NFSE-ABACO_204-3144805-ConsultarNfseFaixaEnvio", new InfSchema()
+            {
+                Tag = "ConsultarNfseFaixaEnvio",
+                ID = SchemaXML.InfSchemas.Count + 1,
+                ArquivoXSD = "NFSe\\ABACO\\V2\\nfse_v2010.xsd",
+                Descricao = "XML de Consulta da NFSe por faixa",
+                TagAssinatura = "",
+                TagAtributoId = "",
+                TargetNameSpace = "http://www.abrasf.org.br/ABRASF/arquivos/nfse.xsd"
+            });
+            #endregion
+
             #region XML de Cancelamento de NFS-e
             SchemaXML.InfSchemas.Add("NFSE-ABACO_204-3144805-CancelarNfseEnvio", new InfSchema()
             {

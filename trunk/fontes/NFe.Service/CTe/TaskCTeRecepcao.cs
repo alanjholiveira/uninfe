@@ -77,7 +77,7 @@ namespace NFe.Service
 
                 ConteudoXML = autorizacao.ConteudoXMLAssinado;
 
-                SalvarArquivoEmProcessamento(emp, lerXml.oDadosNfe.chavenfe);
+                SalvarArquivoEmProcessamento(emp);
 
                 vStrXmlRetorno = autorizacao.RetornoWSString;
 
@@ -168,22 +168,30 @@ namespace NFe.Service
         /// Salvar o arquivo do CTe assinado na pasta EmProcessamento
         /// </summary>
         /// <param name="emp">Codigo da empresa</param>
-        /// <param name="chaveCTe">Chave do CTe</param>
-        private void SalvarArquivoEmProcessamento(int emp, string chaveCTe)
+        private void SalvarArquivoEmProcessamento(int emp)
         {
             Empresas.Configuracoes[emp].CriarSubPastaEnviado();
 
-            var fluxoNFe = new FluxoNfe();
-            var nomeArqCTe = fluxoNFe.LerTag(chaveCTe, FluxoNfe.ElementoFixo.ArqNFe);
+            var nodeListCTe = ConteudoXML.GetElementsByTagName("CTe");
 
-            var arqEmProcessamento = Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" + PastaEnviados.EmProcessamento.ToString() + "\\" + nomeArqCTe;
-            var sw = File.CreateText(arqEmProcessamento);
-            sw.Write("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + ConteudoXML.GetElementsByTagName("CTe")[0].OuterXml);
-            sw.Close();
-
-            if(File.Exists(arqEmProcessamento))
+            foreach(var nodeCTe in nodeListCTe)
             {
-                File.Delete(Empresas.Configuracoes[emp].PastaXmlEnvio + "\\temp\\" + nomeArqCTe);
+                var xmlElementCTe = (XmlElement)nodeCTe;
+                var chaveCTe = ((XmlElement)xmlElementCTe.GetElementsByTagName("infCte")[0]).GetAttribute("Id");
+
+                var fluxoNFe = new FluxoNfe();
+                var nomeArqCTe = fluxoNFe.LerTag(chaveCTe, FluxoNfe.ElementoFixo.ArqNFe);
+                var arqEmProcessamento = Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" + PastaEnviados.EmProcessamento.ToString() + "\\" + nomeArqCTe;
+
+                var sw = File.CreateText(arqEmProcessamento);
+                sw.Write("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + xmlElementCTe.OuterXml);
+                sw.Close();
+
+                if(File.Exists(arqEmProcessamento))
+                {
+                    File.Delete(Empresas.Configuracoes[emp].PastaXmlEnvio + "\\temp\\" + nomeArqCTe);
+                    File.Delete(Empresas.Configuracoes[emp].PastaXmlEmLote + "\\temp\\" + nomeArqCTe);
+                }
             }
         }
 

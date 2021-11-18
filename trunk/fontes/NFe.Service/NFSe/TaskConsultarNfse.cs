@@ -1,6 +1,5 @@
 ﻿using NFe.Certificado;
 using NFe.Components;
-using NFe.Components.BAURU_SP;
 using NFe.Components.Conam;
 using NFe.Components.Consist;
 using NFe.Components.Coplan;
@@ -69,20 +68,20 @@ namespace NFe.Service.NFSe
                 {
                     case PadroesNFSe.PRODATA:
                     case PadroesNFSe.BETHA:
+                    case PadroesNFSe.AVMB_ASTEN:
                         ExecuteDLL(emp, oDadosPedSitNfse.cMunicipio, padraoNFSe);
                         break;
 
                     default:
                         switch(oDadosPedSitNfse.cMunicipio)
                         {
-                            #region Municípios do Padrão SIGCORP
                             case 4105508: //Cianorte-PR
                             case 3303203: //Nilópolis-RJ
                             case 3305109: //São João de Meriti-RJ
                             case 3505500: //Barretos-SP
+                            case 2802908: //Itabaiana-SE
                                 ExecuteDLL(emp, oDadosPedSitNfse.cMunicipio, padraoNFSe);
                                 break;
-                            #endregion
 
                             default:
                                 WebServiceProxy wsProxy = null;
@@ -135,6 +134,10 @@ namespace NFe.Service.NFSe
                                     case PadroesNFSe.ABACO:
                                     case PadroesNFSe.CANOAS_RS:
                                         cabecMsg = "<cabecalho versao=\"201001\"><versaoDados>V2010</versaoDados></cabecalho>";
+                                        break;
+
+                                    case PadroesNFSe.ABACO_204:
+                                        cabecMsg = "<cabecalho xmlns=\"http://www.abrasf.org.br/nfse.xsd\" versao=\"201001\"><versaoDados>2.04</versaoDados></cabecalho>";
                                         break;
 
                                     case PadroesNFSe.BHISS:
@@ -462,13 +465,6 @@ namespace NFe.Service.NFSe
                                         }
                                         break;
 
-                                    case PadroesNFSe.BAURU_SP:
-                                        var bauru_SP = new Bauru_SP((TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
-                                            Empresas.Configuracoes[emp].PastaXmlRetorno,
-                                            oDadosPedSitNfse.cMunicipio);
-                                        bauru_SP.ConsultarNfse(NomeArquivoXML);
-                                        break;
-
                                     case PadroesNFSe.COPLAN:
                                         var coplan = new Coplan((TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
                                             Empresas.Configuracoes[emp].PastaXmlRetorno,
@@ -554,21 +550,6 @@ namespace NFe.Service.NFSe
 
                                     case PadroesNFSe.MANAUS_AM:
                                         cabecMsg = "<cabecalho versao=\"201001\"><versaoDados>V2010</versaoDados></cabecalho>";
-                                        break;
-
-                                    case PadroesNFSe.AVMB_ASTEN:
-                                        cabecMsg = "<cabecalho versao=\"2.02\" xmlns=\"http://www.abrasf.org.br/nfse.xsd\"><versaoDados>2.02</versaoDados></cabecalho>";
-                                        wsProxy = new WebServiceProxy(Empresas.Configuracoes[emp].X509Certificado);
-
-                                        if(oDadosPedSitNfse.tpAmb == 2)
-                                        {
-                                            pedLoteRps = new Components.HPelotasRS.INfseservice();
-                                        }
-                                        else
-                                        {
-                                            pedLoteRps = new Components.PPelotasRS.INfseservice();
-                                        }
-
                                         break;
 
                                     case PadroesNFSe.EMBRAS:
@@ -773,6 +754,13 @@ namespace NFe.Service.NFSe
 
                     vStrXmlRetorno = consultarNotaPrestador.RetornoWSString;
                     break;
+
+                case Unimake.Business.DFe.Servicos.Servico.NFSeConsultarNfseServicoPrestado:
+                    var consultarNfseServicoPrestado = new Unimake.Business.DFe.Servicos.NFSe.ConsultarNfseServicoPrestado(conteudoXML, configuracao);
+                    consultarNfseServicoPrestado.Executar();
+
+                    vStrXmlRetorno = consultarNfseServicoPrestado.RetornoWSString;
+                    break;
             }
 
 
@@ -806,7 +794,12 @@ namespace NFe.Service.NFSe
                     result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarNotaPrestador;
                     break;
 
+                case PadroesNFSe.WEBISS:
+                    result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarNfseServicoPrestado;
+                    break;
+
                 case PadroesNFSe.PRODATA:
+                case PadroesNFSe.AVMB_ASTEN:
                     result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarNfseFaixa;
                     break;
 
@@ -854,6 +847,11 @@ namespace NFe.Service.NFSe
 
                 case PadroesNFSe.SIGCORP_SIGISS:
                     versaoXML = "0.00";
+                    break;
+
+                case PadroesNFSe.AVMB_ASTEN:
+                case PadroesNFSe.WEBISS:
+                    versaoXML = "2.02";
                     break;
             }
 

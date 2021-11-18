@@ -214,20 +214,6 @@ namespace NFe.Service
 
                 Empresas.Configuracoes[EmpIndex].CriarSubPastaEnviado();
 
-                if(oDadosNfe.mod != "58" && oDadosNfe.mod != "57")
-                {
-                    //Salvar o XML assinado na pasta EmProcessamento
-                    var arqEmProcessamento = Empresas.Configuracoes[EmpIndex].PastaXmlEnviado + "\\" + PastaEnviados.EmProcessamento.ToString() + "\\" + Path.GetFileName(arquivosXMLDFe[i].NomeArquivoXML);
-                    var sw = File.CreateText(arqEmProcessamento);
-                    sw.Write(arquivosXMLDFe[i].ConteudoXML.OuterXml);
-                    sw.Close();
-
-                    if(File.Exists(arqEmProcessamento))
-                    {
-                        File.Delete(arquivosXMLDFe[i].NomeArquivoXML);
-                    }
-                }
-
                 //Atualiza o arquivo de controle de fluxo
                 oFluxoNfe.AtualizarTag(oDadosNfe.chavenfe, FluxoNfe.ElementoEditavel.idLote, numeroLote.ToString("000000000000000"));
 
@@ -909,6 +895,9 @@ namespace NFe.Service
                     break;
 
                 case TipoAplicativo.NFCe:
+                    StatusServicoNFCe(arquivoSaida, amb, tpEmis, cUF, versao);
+                    break;
+
                 case TipoAplicativo.Nfe:
                     StatusServicoNFe(arquivoSaida, amb, tpEmis, cUF, versao);
                     break;
@@ -922,6 +911,37 @@ namespace NFe.Service
         }
 
         #region StatusServicoNFe()
+
+        /// <summary>
+        /// Gera o XML de consulta status do serviço da NFe
+        /// </summary>
+        /// <param name="pArquivo">Caminho e nome do arquivo que é para ser gerado</param>
+        /// <param name="tpAmb">Ambiente da consulta</param>
+        /// <param name="tpEmis">Tipo de emissão da consulta</param>
+        /// <param name="cUF">Estado para a consulta</param>
+        /// <param name="versao">Versão do schema do XML</param>
+        public void StatusServicoNFCe(string pArquivo, int tpAmb, int tpEmis, int cUF, string versao)
+        {
+            var xml = new ConsStatServ
+            {                
+                CUF = (Unimake.Business.DFe.Servicos.UFBrasil)cUF,
+                TpAmb = (Unimake.Business.DFe.Servicos.TipoAmbiente)tpAmb,
+                Versao = versao
+            };
+
+            var doc = xml.GerarXML();
+
+            var xmlNode = doc.GetElementsByTagName("consStatServ")[0];
+            if(tpEmis != 1 && pArquivo.ToLower().IndexOf(Empresas.Configuracoes[EmpIndex].PastaValidar.ToLower()) == -1)
+            {
+                xmlNode.AppendChild(CriaElemento(doc, TpcnResources.tpEmis.ToString(), tpEmis.ToString(), NFeStrConstants.NAME_SPACE_NFE));
+            }
+
+            xmlNode.AppendChild(CriaElemento(doc, TpcnResources.mod.ToString(), ((int)Unimake.Business.DFe.Servicos.ModeloDFe.NFCe).ToString(), NFeStrConstants.NAME_SPACE_NFE));
+            doc.AppendChild(xmlNode);
+
+            GravarArquivoParaEnvio(pArquivo, doc.OuterXml);
+        }
 
         /// <summary>
         /// Gera o XML de consulta status do serviço da NFe

@@ -1,5 +1,6 @@
 ﻿using NFe.Certificado;
 using NFe.Components;
+using NFe.Components.Conam;
 using NFe.Settings;
 using System;
 using System.IO;
@@ -33,42 +34,58 @@ namespace NFe.Service.NFSe
                 Functions.DeletarArquivo(Empresas.Configuracoes[emp].PastaXmlErro + "\\" + NomeArquivoXML);
 
                 oDadosPedURLNfse = new DadosPedSitNfse(emp);
-
-                //Ler o XML para pegar parâmetros de envio
-                PedURLNfse(NomeArquivoXML);
-
-                //Criar objetos das classes dos serviços dos webservices do SEFAZ
                 var padraoNFSe = Functions.PadraoNFSe(oDadosPedURLNfse.cMunicipio);
-                var wsProxy = ConfiguracaoApp.DefinirWS(Servico, emp, oDadosPedURLNfse.cMunicipio, oDadosPedURLNfse.tpAmb, oDadosPedURLNfse.tpEmis, padraoNFSe, oDadosPedURLNfse.cMunicipio);
-                var pedURLNfse = wsProxy.CriarObjeto(wsProxy.NomeClasseWS);
                 var cabecMsg = "";
+                WebServiceProxy wsProxy = null;
+                object pedURLNfse = null;
+
+                if (IsUtilizaCompilacaoWs(padraoNFSe, Servico, oDadosPedURLNfse.cMunicipio))
+                {
+
+                    wsProxy = ConfiguracaoApp.DefinirWS(Servico, emp, oDadosPedURLNfse.cMunicipio, oDadosPedURLNfse.tpAmb, oDadosPedURLNfse.tpEmis, padraoNFSe, oDadosPedURLNfse.cMunicipio);
+                    pedURLNfse = wsProxy.CriarObjeto(wsProxy.NomeClasseWS);
+                }
 
                 switch(padraoNFSe)
                 {
                     case PadroesNFSe.PUBLIC_SOFT:
                         break;
+
+                    case PadroesNFSe.CONAM:
+                        var conam = new Conam((TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
+                        Empresas.Configuracoes[emp].PastaXmlRetorno,
+                        oDadosPedURLNfse.cMunicipio,
+                        Empresas.Configuracoes[emp].UsuarioWS,
+                        Empresas.Configuracoes[emp].SenhaWS);
+
+                        conam.ConsultarURLNfse(NomeArquivoXML);
+                        break;
                 }
 
-                var securityProtocolType = WebServiceProxy.DefinirProtocoloSeguranca(oDadosPedURLNfse.cMunicipio, oDadosPedURLNfse.tpAmb, oDadosPedURLNfse.tpEmis, padraoNFSe, Servico);
-
-                //Assinar o XML
-                var ad = new AssinaturaDigital();
-                ad.Assinar(NomeArquivoXML, emp, oDadosPedURLNfse.cMunicipio);
-
-                //Invocar o método que envia o XML para o SEFAZ
-                oInvocarObj.InvocarNFSe(wsProxy, pedURLNfse, NomeMetodoWS(Servico, oDadosPedURLNfse.cMunicipio), cabecMsg, this,
-                                        Propriedade.Extensao(Propriedade.TipoEnvio.PedURLNFSe).EnvioXML,    //"-ped-urlnfse",
-                                        Propriedade.Extensao(Propriedade.TipoEnvio.PedURLNFSe).RetornoXML,  //"-urlnfse",
-                                        padraoNFSe, Servico, securityProtocolType);
-
-                ///
-                /// grava o arquivo no FTP
-                var filenameFTP = Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno,
-                                                Functions.ExtrairNomeArq(NomeArquivoXML, Propriedade.Extensao(Propriedade.TipoEnvio.PedURLNFSe).EnvioXML) +
-                                                Propriedade.Extensao(Propriedade.TipoEnvio.PedURLNFSe).RetornoXML);
-                if(File.Exists(filenameFTP))
+                if (IsInvocar(padraoNFSe, Servico, oDadosPedURLNfse.cMunicipio))
                 {
-                    new GerarXML(emp).XmlParaFTP(emp, filenameFTP);
+
+                    var securityProtocolType = WebServiceProxy.DefinirProtocoloSeguranca(oDadosPedURLNfse.cMunicipio, oDadosPedURLNfse.tpAmb, oDadosPedURLNfse.tpEmis, padraoNFSe, Servico);
+
+                    //Assinar o XML
+                    var ad = new AssinaturaDigital();
+                    ad.Assinar(NomeArquivoXML, emp, oDadosPedURLNfse.cMunicipio);
+
+                    //Invocar o método que envia o XML para o SEFAZ
+                    oInvocarObj.InvocarNFSe(wsProxy, pedURLNfse, NomeMetodoWS(Servico, oDadosPedURLNfse.cMunicipio), cabecMsg, this,
+                                            Propriedade.Extensao(Propriedade.TipoEnvio.PedURLNFSe).EnvioXML,    //"-ped-urlnfse",
+                                            Propriedade.Extensao(Propriedade.TipoEnvio.PedURLNFSe).RetornoXML,  //"-urlnfse",
+                                            padraoNFSe, Servico, securityProtocolType);
+
+                    ///
+                    /// grava o arquivo no FTP
+                    var filenameFTP = Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno,
+                                                    Functions.ExtrairNomeArq(NomeArquivoXML, Propriedade.Extensao(Propriedade.TipoEnvio.PedURLNFSe).EnvioXML) +
+                                                    Propriedade.Extensao(Propriedade.TipoEnvio.PedURLNFSe).RetornoXML);
+                    if (File.Exists(filenameFTP))
+                    {
+                        new GerarXML(emp).XmlParaFTP(emp, filenameFTP);
+                    }
                 }
             }
             catch(Exception ex)
@@ -102,18 +119,5 @@ namespace NFe.Service.NFSe
         }
 
         #endregion Execute
-
-        #region PedURLNfse()
-
-        /// <summary>
-        /// Fazer a leitura do conteúdo do XML de consulta nfse por numero e disponibiliza conteúdo em um objeto para analise
-        /// </summary>
-        /// <param name="arquivoXML">Arquivo XML que é para efetuar a leitura</param>
-        private void PedURLNfse(string arquivoXML)
-        {
-            //int emp = Empresas.FindEmpresaByThread();
-        }
-
-        #endregion PedURLNfse()
     }
 }
