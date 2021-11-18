@@ -19,19 +19,18 @@ namespace TesteDLL_Unimake.Business.DFe.UnitTest.GNRE
         [TestMethod]
         public void ConsultaConfigUF()
         {
-            string path = @"D:\testenfe\certificadoGNRE2_12345678.pfx";
-            X509Certificate2 CertificadoSelecionado = new CertificadoDigital().CarregarCertificadoDigitalA1(path, "12345678");
+            var path = @"D:\testenfe\OestePharmaSenha-123456.pfx";
+            var CertificadoSelecionado = new CertificadoDigital().CarregarCertificadoDigitalA1(path, "123456");
 
             var xml = new TConsultaConfigUf
             {
                 Ambiente = TipoAmbiente.Homologacao,
-                UF = UFBrasil.PR,
+                UF = UFBrasil.RS,
                 Receita = new Receita
                 {
                     Courier = SimNaoLetra.Nao,
-                    Value = 123456
-                },
-                Versao = "1.00"
+                    Value = 100064
+                }
             };
 
             var configuracao = new Configuracao

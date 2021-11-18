@@ -19,10 +19,10 @@ namespace TesteDLL_Unimake.Business.DFe.UnitTest.NFSe
         [TestMethod]
         public void Cancelar()
         {
-            string path = @"S:\Contabil\Certificado Digital\Unimake PV.pfx";
+            var path = @"D:\testenfe\Unimake PV.pfx";
             X509Certificate2 CertificadoSelecionado = new CertificadoDigital().CarregarCertificadoDigitalA1(path, "12345678");
 
-            string xml = @"D:\projetos\uninfe\exemplos\NFSe\SIGCORP-SIGISS\CancelarNota-ped-cannfse.xml";
+            string xml = @"C:\projetos\uninfe\exemplos\NFSe\AVMB_ASTEN\CancelarNfseEnvio-ped-cannfse.xml";
 
             var conteudoXML = new XmlDocument();
             conteudoXML.Load(xml);
@@ -32,9 +32,9 @@ namespace TesteDLL_Unimake.Business.DFe.UnitTest.NFSe
                 TipoDFe = TipoDFe.NFSe,
                 CertificadoDigital = CertificadoSelecionado,
                 TipoAmbiente = TipoAmbiente.Producao,
-                CodigoMunicipio = 3505500,
+                CodigoMunicipio = 4314407,
                 Servico = Servico.NFSeCancelarNfse,
-                SchemaVersao = "0.00"
+                SchemaVersao = "2.02"
             };
 
             var cancelarNfse = new CancelarNfse(conteudoXML, configuracao);

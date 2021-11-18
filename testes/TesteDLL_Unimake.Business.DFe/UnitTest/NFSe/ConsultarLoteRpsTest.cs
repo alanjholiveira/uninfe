@@ -16,7 +16,7 @@ namespace TesteDLL_Unimake.Business.DFe.UnitTest.NFSe
             var path = @"D:\testenfe\Unimake PV.pfx";
             var CertificadoSelecionado = new CertificadoDigital().CarregarCertificadoDigitalA1(path, "12345678");
 
-            var xml = @"D:\projetos\uninfe\exemplos\NFSe\PRODATA\ConsultarLoteRpsEnvio-ped-loterps.xml";
+            var xml = @"C:\projetos\uninfe\exemplos\NFSe\AVMB_ASTEN\ConsultarLoteRpsEnvio-ped-loterps.xml";
 
             var conteudoXML = new XmlDocument();
             conteudoXML.Load(xml);
@@ -26,9 +26,9 @@ namespace TesteDLL_Unimake.Business.DFe.UnitTest.NFSe
                 TipoDFe = TipoDFe.NFSe,
                 CertificadoDigital = CertificadoSelecionado,
                 TipoAmbiente = TipoAmbiente.Producao,
-                CodigoMunicipio = 3513504,
+                CodigoMunicipio = 4314407,
                 Servico = Servico.NFSeConsultarLoteRps,
-                SchemaVersao = "2.01"
+                SchemaVersao = "2.02"
             };
 
             var consultarLoteRps = new ConsultarLoteRps(conteudoXML, configuracao);

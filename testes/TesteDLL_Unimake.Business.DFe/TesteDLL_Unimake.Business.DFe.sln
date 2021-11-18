@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31624.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TesteDLL_Unimake.Business.DFe", "TesteDLL_Unimake.Business.DFe.csproj", "{77407A79-3264-4701-95AB-4B46F91A479B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unimake.Security.Platform", "..\..\..\github\Unimake.DFe\source\.NET Framework\Unimake.Security.Platform\Unimake.Security.Platform.csproj", "{9C916CF7-BC2D-410D-B683-95F19FF8C9CD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unimake.Business.DFe", "..\..\..\github\Unimake.DFe\source\.NET Standard\Unimake.Business.DFe\Unimake.Business.DFe.csproj", "{DF9E53D8-EC14-40DD-93DA-17877DBDD9EF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		INTEROP_Release|Any CPU = INTEROP_Release|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{77407A79-3264-4701-95AB-4B46F91A479B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77407A79-3264-4701-95AB-4B46F91A479B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77407A79-3264-4701-95AB-4B46F91A479B}.INTEROP_Release|Any CPU.ActiveCfg = INTEROP_Release|Any CPU
+		{77407A79-3264-4701-95AB-4B46F91A479B}.INTEROP_Release|Any CPU.Build.0 = INTEROP_Release|Any CPU
+		{77407A79-3264-4701-95AB-4B46F91A479B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77407A79-3264-4701-95AB-4B46F91A479B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C916CF7-BC2D-410D-B683-95F19FF8C9CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C916CF7-BC2D-410D-B683-95F19FF8C9CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C916CF7-BC2D-410D-B683-95F19FF8C9CD}.INTEROP_Release|Any CPU.ActiveCfg = INTEROP_Release|Any CPU
+		{9C916CF7-BC2D-410D-B683-95F19FF8C9CD}.INTEROP_Release|Any CPU.Build.0 = INTEROP_Release|Any CPU
+		{9C916CF7-BC2D-410D-B683-95F19FF8C9CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C916CF7-BC2D-410D-B683-95F19FF8C9CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF9E53D8-EC14-40DD-93DA-17877DBDD9EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF9E53D8-EC14-40DD-93DA-17877DBDD9EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF9E53D8-EC14-40DD-93DA-17877DBDD9EF}.INTEROP_Release|Any CPU.ActiveCfg = INTEROP_Release|Any CPU
+		{DF9E53D8-EC14-40DD-93DA-17877DBDD9EF}.INTEROP_Release|Any CPU.Build.0 = INTEROP_Release|Any CPU
+		{DF9E53D8-EC14-40DD-93DA-17877DBDD9EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF9E53D8-EC14-40DD-93DA-17877DBDD9EF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A8196CD6-6DDB-4D01-9985-6624D89A11B5}
+	EndGlobalSection
+EndGlobal

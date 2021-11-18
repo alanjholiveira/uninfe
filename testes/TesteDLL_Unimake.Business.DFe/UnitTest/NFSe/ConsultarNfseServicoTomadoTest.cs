@@ -16,7 +16,7 @@ namespace TesteDLL_Unimake.Business.DFe.UnitTest.NFSe
             var path = @"D:\testenfe\Unimake PV.pfx";
             var CertificadoSelecionado = new CertificadoDigital().CarregarCertificadoDigitalA1(path, "12345678");
 
-            var xml = @"C:\projetos\uninfe\exemplos\NFSe\BETHA\2.02\ConsultarNfseServicoTomadoEnvio.xml";
+            var xml = @"C:\projetos\uninfe\exemplos\NFSe\AVMB_ASTEN\ConsultarNfseServicoTomadoEnvio-ped-sitnfsetom.xml";
 
             var conteudoXML = new XmlDocument();
             conteudoXML.Load(xml);
@@ -25,8 +25,8 @@ namespace TesteDLL_Unimake.Business.DFe.UnitTest.NFSe
             {
                 TipoDFe = TipoDFe.NFSe,
                 CertificadoDigital = CertificadoSelecionado,
-                TipoAmbiente = TipoAmbiente.Homologacao,
-                CodigoMunicipio = 4118402,
+                TipoAmbiente = TipoAmbiente.Producao,
+                CodigoMunicipio = 4314407,
                 Servico = Servico.NFSeConsultarNfseServicoPrestado,
                 SchemaVersao = "2.02"
             };

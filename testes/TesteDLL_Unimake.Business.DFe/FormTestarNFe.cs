@@ -557,7 +557,7 @@ namespace TesteDLL_Unimake.Business.DFe
 
                                     Ide = new Unimake.Business.DFe.Xml.NFe.Ide
                                     {
-                                        CUF = UFBrasil.MS,
+                                        CUF = UFBrasil.MG,
                                         NatOp = "VENDA PRODUC.DO ESTABELEC",
                                         Mod = ModeloDFe.NFCe,
                                         Serie = 1,
@@ -587,7 +587,7 @@ namespace TesteDLL_Unimake.Business.DFe
                                             XBairro = "CENTRO",
                                             CMun = 4118402,
                                             XMun = "PARANAVAI",
-                                            UF = UFBrasil.MS,
+                                            UF = UFBrasil.MG,
                                             CEP = "87704030",
                                             Fone = "04431414900"
                                         },
@@ -5180,48 +5180,64 @@ namespace TesteDLL_Unimake.Business.DFe
 
         private void button44_Click(object sender, EventArgs e)
         {
+            var doc = new XmlDocument();
+            doc.Load(@"C:\Users\Wandrey\Downloads\Telegram Desktop\41211129451730000190580000000002071008111464-mdfe.xml");
 
-            var cert = new CertificadoDigital();
-            X509Certificate2 certSel1 = null;
-            X509Certificate2 certSel2 = null;
+            var xml = new EnviMDFe();
+            xml.IdLote = "00000000000001";
+            xml.Versao = "3.00";
+            xml.MDFe = xml.LerXML<MDFe>(doc);
 
-
-            var sair = false;
-            while(!sair)
+            var config = new Configuracao
             {
-                if(MessageBox.Show("Sim = Testar certificado digital da SafeWeb\r\nNão = Testar certificado digital da Certsign", "Teste", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    try
-                    {
-                        if(certSel1 == null)
-                        {
-                            certSel1 = cert.BuscarCertificadoDigital("58219FD2EADA297B"); //Certificado SafeWeb
-                        }
-                    }
-                    catch { }
+                TipoDFe = TipoDFe.MDFe,
+                CertificadoDigital = CertificadoSelecionado
+            };
 
-                    TesteCertificadoA3(certSel1);
-                }
-                else
-                {
+            Unimake.Business.DFe.Servicos.MDFe.Autorizacao autorizacao = new Unimake.Business.DFe.Servicos.MDFe.Autorizacao(xml, config);
+
+            XmlDocument doc2 = xml.GerarXML();
+
+            //var cert = new CertificadoDigital();
+            //X509Certificate2 certSel1 = null;
+            //X509Certificate2 certSel2 = null;
+
+            //var sair = false;
+            //while(!sair)
+            //{
+            //    if(MessageBox.Show("Sim = Testar certificado digital da SafeWeb\r\nNão = Testar certificado digital da Certsign", "Teste", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            //    {
+            //        try
+            //        {
+            //            if(certSel1 == null)
+            //            {
+            //                certSel1 = cert.BuscarCertificadoDigital("58219FD2EADA297B"); //Certificado SafeWeb
+            //            }
+            //        }
+            //        catch { }
+
+            //        TesteCertificadoA3(certSel1);
+            //    }
+            //    else
+            //    {
 
 
-                    try
-                    {
-                        if(certSel2 == null)
-                        {
-                            certSel2 = cert.BuscarCertificadoDigital("1B820C60F4CE57E513AA8D5DEEF26C7D");
-                        }
-                    }
-                    catch { }
+            //        try
+            //        {
+            //            if(certSel2 == null)
+            //            {
+            //                certSel2 = cert.BuscarCertificadoDigital("1B820C60F4CE57E513AA8D5DEEF26C7D");
+            //            }
+            //        }
+            //        catch { }
 
-                    TesteCertificadoA3(certSel2);
-                }
+            //        TesteCertificadoA3(certSel2);
+            //    }
 
-                //CertificadoSelecionado.Reset();
-                //CertificadoSelecionado.Dispose();
-                //CertificadoSelecionado = null;
-            }
+            //    //CertificadoSelecionado.Reset();
+            //    //CertificadoSelecionado.Dispose();
+            //    //CertificadoSelecionado = null;
+            //}
         }
 
         private bool CertSetPin1 = false;
@@ -5705,6 +5721,25 @@ namespace TesteDLL_Unimake.Business.DFe
 
         private void button52_Click(object sender, EventArgs e)
         {
+            try
+            {
+                var doc = new XmlDocument();
+                doc.Load(@"C:\Users\Wandrey\Downloads\cte\CTeOS_ModalRodoOS.xml");
+                var xml = new CTeOS();
+                xml = xml.LerXML<CTeOS>(doc);
+
+                var configuracao = new Configuracao
+                {
+                    TipoDFe = TipoDFe.CTeOS,
+                    CertificadoDigital = CertificadoSelecionado
+                };
+
+                var autorizacao = new Unimake.Business.DFe.Servicos.CTeOS.Autorizacao(xml, configuracao);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void button53_Click(object sender, EventArgs e)

@@ -60,8 +60,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\trunk\fontes\.NET Framework\Unimake.Security.Platform\Unimake.Security.Platform.csproj" />
-	  <ProjectReference Include="..\..\trunk\fontes\.NET Standard\Unimake.Business.DFe\Unimake.Business.DFe.csproj" />
+	  <ProjectReference Include="..\..\..\github\Unimake.DFe\source\.NET Framework\Unimake.Security.Platform\Unimake.Security.Platform.csproj" />
+	  <ProjectReference Include="..\..\..\github\Unimake.DFe\source\.NET Standard\Unimake.Business.DFe\Unimake.Business.DFe.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

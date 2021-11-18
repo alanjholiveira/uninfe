@@ -10,7 +10,7 @@ namespace TesteDLL_Unimake.Business.DFe.UnitTest.NFSe
     [TestClass]
     public class RecepcionarLoteRpsTest
     {
-        #region Public Methods
+        #region Public Methods        
 
         [TestMethod]
         public void RecepcionarLoteRps()
@@ -18,7 +18,7 @@ namespace TesteDLL_Unimake.Business.DFe.UnitTest.NFSe
             var path = @"D:\testenfe\Unimake PV.pfx";
             var CertificadoSelecionado = new CertificadoDigital().CarregarCertificadoDigitalA1(path, "12345678");
 
-            var xml = @"D:\projetos\uninfe\exemplos\NFSe\PRODATA\EnviarLoteRpsEnvio-env-loterps.xml";
+            var xml = @"C:\projetos\uninfe\exemplos\NFSe\AVMB_ASTEN\EnviarLoteRpsEnvio-env-loterps.xml";
 
             var conteudoXML = new XmlDocument();
             conteudoXML.Load(xml);
@@ -27,10 +27,10 @@ namespace TesteDLL_Unimake.Business.DFe.UnitTest.NFSe
             {
                 TipoDFe = TipoDFe.NFSe,
                 CertificadoDigital = CertificadoSelecionado,
-                TipoAmbiente = TipoAmbiente.Producao,
-                CodigoMunicipio = 3513504,
+                TipoAmbiente = TipoAmbiente.Homologacao,
+                CodigoMunicipio = 4314407,
                 Servico = Servico.NFSeRecepcionarLoteRps,
-                SchemaVersao = "2.01"
+                SchemaVersao = "2.02"
             };
 
             var recepcionarLoteRps = new RecepcionarLoteRps(conteudoXML, configuracao);

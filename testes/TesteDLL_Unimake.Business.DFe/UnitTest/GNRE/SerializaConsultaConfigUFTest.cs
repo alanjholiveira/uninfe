@@ -24,8 +24,7 @@ namespace TesteDLL_Unimake.Business.DFe.UnitTest.GNRE
                 {
                     Courier = SimNaoLetra.Nao,
                     Value = 123456 
-                },
-                Versao = "1.00"
+                }
             };
 
             var conteudoXml = xml.GerarXML();
