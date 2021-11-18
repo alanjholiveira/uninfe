@@ -86,6 +86,7 @@
             "ELGIN_SMART",
             "EPSON",
             "EMULADOR",
+            "JETWAY",
             "NITERE",
             "SWEDA",
             "TANCA",

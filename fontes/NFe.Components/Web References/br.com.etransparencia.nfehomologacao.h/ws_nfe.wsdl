@@ -3,19 +3,19 @@
   <types>
     <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" elementFormDefault="qualified" targetNamespace="NFe">
       <xsd:complexType name="Sdt_ProcessarpsIn">
-        <xsd:all>
+        <xsd:sequence>
           <xsd:element name="Login" type="wsdlns:Sdt_ProcessarpsIn.Login" />
           <xsd:element name="SDTRPS" type="wsdlns:Sdt_ProcessarpsIn.SDTRPS" />
-        </xsd:all>
+        </xsd:sequence>
       </xsd:complexType>
       <xsd:complexType name="Sdt_ProcessarpsIn.Login">
-        <xsd:all>
+        <xsd:sequence>
           <xsd:element name="CodigoUsuario" type="xsd:string" />
           <xsd:element name="CodigoContribuinte" type="xsd:string" />
-        </xsd:all>
+        </xsd:sequence>
       </xsd:complexType>
       <xsd:complexType name="Sdt_ProcessarpsIn.SDTRPS">
-        <xsd:all>
+        <xsd:sequence>
           <xsd:element name="Ano" type="xsd:string" />
           <xsd:element name="Mes" type="xsd:string" />
           <xsd:element name="CPFCNPJ" type="xsd:string" />
@@ -33,7 +33,7 @@
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="Reg90" type="wsdlns:Sdt_ProcessarpsIn.SDTRPS.Reg90" />
-        </xsd:all>
+        </xsd:sequence>
       </xsd:complexType>
       <xsd:complexType name="ArrayOfSdt_ProcessarpsIn.SDTRPS.Reg20Item">
         <xsd:sequence>
@@ -41,7 +41,7 @@
         </xsd:sequence>
       </xsd:complexType>
       <xsd:complexType name="Sdt_ProcessarpsIn.SDTRPS.Reg20Item">
-        <xsd:all>
+        <xsd:sequence>
           <xsd:element name="TipoNFS" type="xsd:string" />
           <xsd:element name="NumRps" type="xsd:string" />
           <xsd:element name="SerRps" type="xsd:string" />
@@ -86,10 +86,10 @@
               </xsd:sequence>
             </xsd:complexType>
           </xsd:element>
-        </xsd:all>
+        </xsd:sequence>
       </xsd:complexType>
       <xsd:complexType name="Sdt_ProcessarpsIn.SDTRPS.Reg90">
-        <xsd:all>
+        <xsd:sequence>
           <xsd:element name="QtdRegNormal" type="xsd:string" />
           <xsd:element name="ValorNFS" type="xsd:string" />
           <xsd:element name="ValorISS" type="xsd:string" />
@@ -97,7 +97,7 @@
           <xsd:element name="ValorIssRetTom" type="xsd:string" />
           <xsd:element name="QtdReg30" type="xsd:string" />
           <xsd:element name="ValorTributos" type="xsd:string" />
-        </xsd:all>
+        </xsd:sequence>
       </xsd:complexType>
       <xsd:complexType name="ArrayOfSdt_ProcessarpsIn.SDTRPS.Reg20Item.Reg30Item">
         <xsd:sequence>
@@ -105,14 +105,14 @@
         </xsd:sequence>
       </xsd:complexType>
       <xsd:complexType name="Sdt_ProcessarpsIn.SDTRPS.Reg20Item.Reg30Item">
-        <xsd:all>
+        <xsd:sequence>
           <xsd:element name="TributoSigla" type="xsd:string" />
           <xsd:element name="TributoAliquota" type="xsd:string" />
           <xsd:element name="TributoValor" type="xsd:string" />
-        </xsd:all>
+        </xsd:sequence>
       </xsd:complexType>
       <xsd:complexType name="Sdt_ProcessarpsOut">
-        <xsd:all>
+        <xsd:sequence>
           <xsd:element name="Retorno" type="xsd:boolean" />
           <xsd:element name="Protocolo" type="xsd:string" />
           <xsd:element name="Messages">
@@ -122,7 +122,7 @@
               </xsd:sequence>
             </xsd:complexType>
           </xsd:element>
-        </xsd:all>
+        </xsd:sequence>
       </xsd:complexType>
       <xsd:complexType name="ArrayOfSdt_ProcessarpsOut.Message">
         <xsd:sequence>
@@ -130,27 +130,27 @@
         </xsd:sequence>
       </xsd:complexType>
       <xsd:complexType name="Sdt_ProcessarpsOut.Message">
-        <xsd:all>
+        <xsd:sequence>
           <xsd:element name="Id" type="xsd:string" />
           <xsd:element name="Type" type="xsd:byte" />
           <xsd:element name="Description" type="xsd:string" />
           <xsd:element name="LinErr" type="xsd:int" />
-        </xsd:all>
+        </xsd:sequence>
       </xsd:complexType>
       <xsd:complexType name="SDT_ConsultaProtocoloIn">
-        <xsd:all>
+        <xsd:sequence>
           <xsd:element name="Protocolo" type="xsd:string" />
           <xsd:element name="Login" type="wsdlns:SDT_ConsultaProtocoloIn.Login" />
-        </xsd:all>
+        </xsd:sequence>
       </xsd:complexType>
       <xsd:complexType name="SDT_ConsultaProtocoloIn.Login">
-        <xsd:all>
+        <xsd:sequence>
           <xsd:element name="CodigoUsuario" type="xsd:string" />
           <xsd:element name="CodigoContribuinte" type="xsd:string" />
-        </xsd:all>
+        </xsd:sequence>
       </xsd:complexType>
       <xsd:complexType name="SDT_ConsultaNotasProtocoloOut">
-        <xsd:all>
+        <xsd:sequence>
           <xsd:element name="Retorno" type="xsd:boolean" />
           <xsd:element name="Messages">
             <xsd:complexType>
@@ -160,7 +160,7 @@
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="XML_Notas" type="wsdlns:SDT_ConsultaNotasProtocoloOut.XML_Notas" />
-        </xsd:all>
+        </xsd:sequence>
       </xsd:complexType>
       <xsd:complexType name="ArrayOfSDT_ConsultaNotasProtocoloOut.Message">
         <xsd:sequence>
@@ -168,15 +168,15 @@
         </xsd:sequence>
       </xsd:complexType>
       <xsd:complexType name="SDT_ConsultaNotasProtocoloOut.Message">
-        <xsd:all>
+        <xsd:sequence>
           <xsd:element name="Id" type="xsd:string" />
           <xsd:element name="Type" type="xsd:byte" />
           <xsd:element name="Description" type="xsd:string" />
           <xsd:element name="LinErr" type="xsd:int" />
-        </xsd:all>
+        </xsd:sequence>
       </xsd:complexType>
       <xsd:complexType name="SDT_ConsultaNotasProtocoloOut.XML_Notas">
-        <xsd:all>
+        <xsd:sequence>
           <xsd:element name="CpfCnpj" type="xsd:string" />
           <xsd:element name="DtIni" nillable="true" type="xsd:date" />
           <xsd:element name="DtFin" nillable="true" type="xsd:date" />
@@ -190,7 +190,7 @@
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="Reg90" type="wsdlns:SDT_ConsultaNotasProtocoloOut.XML_Notas.Reg90" />
-        </xsd:all>
+        </xsd:sequence>
       </xsd:complexType>
       <xsd:complexType name="ArrayOfSDT_ConsultaNotasProtocoloOut.XML_Notas.Reg20Item">
         <xsd:sequence>
@@ -198,7 +198,7 @@
         </xsd:sequence>
       </xsd:complexType>
       <xsd:complexType name="SDT_ConsultaNotasProtocoloOut.XML_Notas.Reg20Item">
-        <xsd:all>
+        <xsd:sequence>
           <xsd:element name="TipoNf" type="xsd:string" />
           <xsd:element name="NumNf" type="xsd:int" />
           <xsd:element name="SerNf" type="xsd:string" />
@@ -259,10 +259,10 @@
               </xsd:sequence>
             </xsd:complexType>
           </xsd:element>
-        </xsd:all>
+        </xsd:sequence>
       </xsd:complexType>
       <xsd:complexType name="SDT_ConsultaNotasProtocoloOut.XML_Notas.Reg90">
-        <xsd:all>
+        <xsd:sequence>
           <xsd:element name="QtdRegNormal" type="xsd:int" />
           <xsd:element name="ValorNFS" type="xsd:double" />
           <xsd:element name="ValorISS" type="xsd:double" />
@@ -270,7 +270,7 @@
           <xsd:element name="ValorIssRet" type="xsd:double" />
           <xsd:element name="QtdReg30" type="xsd:int" />
           <xsd:element name="ValorTributos" type="xsd:double" />
-        </xsd:all>
+        </xsd:sequence>
       </xsd:complexType>
       <xsd:complexType name="ArrayOfSDT_ConsultaNotasProtocoloOut.XML_Notas.Reg20Item.Reg30Item">
         <xsd:sequence>
@@ -278,14 +278,36 @@
         </xsd:sequence>
       </xsd:complexType>
       <xsd:complexType name="SDT_ConsultaNotasProtocoloOut.XML_Notas.Reg20Item.Reg30Item">
-        <xsd:all>
+        <xsd:sequence>
           <xsd:element name="TributoSigla" type="xsd:string" />
           <xsd:element name="TributoAliquota" type="xsd:double" />
           <xsd:element name="TributoValor" type="xsd:double" />
-        </xsd:all>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="NFSERecebida_IN">
+        <xsd:sequence>
+          <xsd:element name="Login" type="wsdlns:SDT_ConsNFSERecebida_In.Login" />
+          <xsd:element name="Pagina" type="xsd:string" />
+          <xsd:element name="Filtro" type="wsdlns:SDT_ConsNFSERecebida_In.Filtro" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="SDT_ConsNFSERecebida_In.Login">
+        <xsd:sequence>
+          <xsd:element name="CodigoUsuario" type="xsd:string" />
+          <xsd:element name="CodigoContribuinte" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="SDT_ConsNFSERecebida_In.Filtro">
+        <xsd:sequence>
+          <xsd:element name="CpfCnpjPrestador" type="xsd:string" />
+          <xsd:element name="DtEmissaoDe" type="xsd:string" />
+          <xsd:element name="DtEmissaoAte" type="xsd:string" />
+          <xsd:element name="NumeroNotaDe" type="xsd:string" />
+          <xsd:element name="NumeroNotaAte" type="xsd:string" />
+        </xsd:sequence>
       </xsd:complexType>
       <xsd:complexType name="SDT_ConsultaProtocoloOut">
-        <xsd:all>
+        <xsd:sequence>
           <xsd:element name="Retorno" type="xsd:boolean" />
           <xsd:element name="PrtXSts" type="xsd:byte" />
           <xsd:element name="PrtCSerRps" type="xsd:string" />
@@ -302,7 +324,7 @@
               </xsd:sequence>
             </xsd:complexType>
           </xsd:element>
-        </xsd:all>
+        </xsd:sequence>
       </xsd:complexType>
       <xsd:complexType name="ArrayOfSDT_ConsultaProtocoloOut.Message">
         <xsd:sequence>
@@ -310,27 +332,27 @@
         </xsd:sequence>
       </xsd:complexType>
       <xsd:complexType name="SDT_ConsultaProtocoloOut.Message">
-        <xsd:all>
+        <xsd:sequence>
           <xsd:element name="Id" type="xsd:string" />
           <xsd:element name="Type" type="xsd:byte" />
           <xsd:element name="Description" type="xsd:string" />
           <xsd:element name="LinErr" type="xsd:int" />
-        </xsd:all>
+        </xsd:sequence>
       </xsd:complexType>
       <xsd:complexType name="Sdt_CancelaNFE">
-        <xsd:all>
+        <xsd:sequence>
           <xsd:element name="Login" type="wsdlns:Sdt_CancelaNFE.Login" />
           <xsd:element name="Nota" type="wsdlns:Sdt_CancelaNFE.Nota" />
-        </xsd:all>
+        </xsd:sequence>
       </xsd:complexType>
       <xsd:complexType name="Sdt_CancelaNFE.Login">
-        <xsd:all>
+        <xsd:sequence>
           <xsd:element name="CodigoUsuario" type="xsd:string" />
           <xsd:element name="CodigoContribuinte" type="xsd:string" />
-        </xsd:all>
+        </xsd:sequence>
       </xsd:complexType>
       <xsd:complexType name="Sdt_CancelaNFE.Nota">
-        <xsd:all>
+        <xsd:sequence>
           <xsd:element name="SerieNota" type="xsd:string" />
           <xsd:element name="NumeroNota" type="xsd:int" />
           <xsd:element name="SerieRPS" type="xsd:string" />
@@ -338,10 +360,10 @@
           <xsd:element name="ValorNota" type="xsd:double" />
           <xsd:element name="MotivoCancelamento" type="xsd:string" />
           <xsd:element name="PodeCancelarGuia" type="xsd:string" />
-        </xsd:all>
+        </xsd:sequence>
       </xsd:complexType>
       <xsd:complexType name="Sdt_RetornoCancelaNFE">
-        <xsd:all>
+        <xsd:sequence>
           <xsd:element name="Retorno" type="xsd:boolean" />
           <xsd:element name="Messages">
             <xsd:complexType>
@@ -350,7 +372,7 @@
               </xsd:sequence>
             </xsd:complexType>
           </xsd:element>
-        </xsd:all>
+        </xsd:sequence>
       </xsd:complexType>
       <xsd:complexType name="ArrayOfSdt_RetornoCancelaNFE.Message">
         <xsd:sequence>
@@ -358,10 +380,10 @@
         </xsd:sequence>
       </xsd:complexType>
       <xsd:complexType name="Sdt_RetornoCancelaNFE.Message">
-        <xsd:all>
+        <xsd:sequence>
           <xsd:element name="Id" type="xsd:string" />
           <xsd:element name="Description" type="xsd:string" />
-        </xsd:all>
+        </xsd:sequence>
       </xsd:complexType>
       <xsd:element name="ws_nfe.PROCESSARPS">
         <xsd:complexType>
@@ -388,6 +410,20 @@
         <xsd:complexType>
           <xsd:sequence>
             <xsd:element minOccurs="1" maxOccurs="1" name="Sdt_consultanotasprotocoloout" type="wsdlns:SDT_ConsultaNotasProtocoloOut" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ws_nfe.CONSNFSERECEBIDAS">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="Consnfserecebida_in" type="wsdlns:NFSERecebida_IN" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ws_nfe.CONSNFSERECEBIDASResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="Consnfserecebida_out" type="wsdlns:SDT_ConsultaNotasProtocoloOut" />
           </xsd:sequence>
         </xsd:complexType>
       </xsd:element>
@@ -433,6 +469,20 @@
           </xsd:sequence>
         </xsd:complexType>
       </xsd:element>
+      <xsd:element name="ws_nfe.IMPRESSAOLINKNFSE">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="Xml_entrada" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ws_nfe.IMPRESSAOLINKNFSEResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="Xml_saida" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
     </xsd:schema>
   </types>
   <message name="ws_nfe.PROCESSARPSSoapIn">
@@ -446,6 +496,12 @@
   </message>
   <message name="ws_nfe.CONSULTANOTASPROTOCOLOSoapOut">
     <part name="parameters" element="wsdlns:ws_nfe.CONSULTANOTASPROTOCOLOResponse" />
+  </message>
+  <message name="ws_nfe.CONSNFSERECEBIDASSoapIn">
+    <part name="parameters" element="wsdlns:ws_nfe.CONSNFSERECEBIDAS" />
+  </message>
+  <message name="ws_nfe.CONSNFSERECEBIDASSoapOut">
+    <part name="parameters" element="wsdlns:ws_nfe.CONSNFSERECEBIDASResponse" />
   </message>
   <message name="ws_nfe.CONSULTAPROTOCOLOSoapIn">
     <part name="parameters" element="wsdlns:ws_nfe.CONSULTAPROTOCOLO" />
@@ -465,6 +521,12 @@
   <message name="ws_nfe.CANCELANOTAELETRONICASoapOut">
     <part name="parameters" element="wsdlns:ws_nfe.CANCELANOTAELETRONICAResponse" />
   </message>
+  <message name="ws_nfe.IMPRESSAOLINKNFSESoapIn">
+    <part name="parameters" element="wsdlns:ws_nfe.IMPRESSAOLINKNFSE" />
+  </message>
+  <message name="ws_nfe.IMPRESSAOLINKNFSESoapOut">
+    <part name="parameters" element="wsdlns:ws_nfe.IMPRESSAOLINKNFSEResponse" />
+  </message>
   <portType name="ws_nfeSoapPort">
     <operation name="PROCESSARPS">
       <input message="wsdlns:ws_nfe.PROCESSARPSSoapIn" />
@@ -473,6 +535,10 @@
     <operation name="CONSULTANOTASPROTOCOLO">
       <input message="wsdlns:ws_nfe.CONSULTANOTASPROTOCOLOSoapIn" />
       <output message="wsdlns:ws_nfe.CONSULTANOTASPROTOCOLOSoapOut" />
+    </operation>
+    <operation name="CONSNFSERECEBIDAS">
+      <input message="wsdlns:ws_nfe.CONSNFSERECEBIDASSoapIn" />
+      <output message="wsdlns:ws_nfe.CONSNFSERECEBIDASSoapOut" />
     </operation>
     <operation name="CONSULTAPROTOCOLO">
       <input message="wsdlns:ws_nfe.CONSULTAPROTOCOLOSoapIn" />
@@ -485,6 +551,10 @@
     <operation name="CANCELANOTAELETRONICA">
       <input message="wsdlns:ws_nfe.CANCELANOTAELETRONICASoapIn" />
       <output message="wsdlns:ws_nfe.CANCELANOTAELETRONICASoapOut" />
+    </operation>
+    <operation name="IMPRESSAOLINKNFSE">
+      <input message="wsdlns:ws_nfe.IMPRESSAOLINKNFSESoapIn" />
+      <output message="wsdlns:ws_nfe.IMPRESSAOLINKNFSESoapOut" />
     </operation>
   </portType>
   <binding name="ws_nfeSoapBinding" type="wsdlns:ws_nfeSoapPort">
@@ -500,6 +570,15 @@
     </operation>
     <operation name="CONSULTANOTASPROTOCOLO">
       <soap:operation soapAction="NFeaction/AWS_NFE.CONSULTANOTASPROTOCOLO" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="CONSNFSERECEBIDAS">
+      <soap:operation soapAction="NFeaction/AWS_NFE.CONSNFSERECEBIDAS" />
       <input>
         <soap:body use="literal" />
       </input>
@@ -527,6 +606,15 @@
     </operation>
     <operation name="CANCELANOTAELETRONICA">
       <soap:operation soapAction="NFeaction/AWS_NFE.CANCELANOTAELETRONICA" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="IMPRESSAOLINKNFSE">
+      <soap:operation soapAction="NFeaction/AWS_NFE.IMPRESSAOLINKNFSE" />
       <input>
         <soap:body use="literal" />
       </input>

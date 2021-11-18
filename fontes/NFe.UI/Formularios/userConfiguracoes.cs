@@ -333,6 +333,7 @@ namespace NFe.UI
             oempresa.GravarEventosCancelamentoNaPastaEnviadosNFe = empresa.GravarEventosCancelamentoNaPastaEnviadosNFe;
             oempresa.GravarEventosDeTerceiros = empresa.GravarEventosDeTerceiros;
             oempresa.IndSinc = empresa.IndSinc;
+            oempresa.IndSincNFCe = empresa.IndSincNFCe;
 
             oempresa.CodigoAtivacaoSAT = empresa.CodigoAtivacaoSAT;
             oempresa.MarcaSAT = empresa.MarcaSAT;
@@ -648,6 +649,9 @@ namespace NFe.UI
                 ///
                 /// salva a lista de empresas
                 List<Empresa> temp = new List<Empresa>(Empresas.Configuracoes);
+
+                var pastaBackupValida = true;
+
                 try
                 {
                     ///
@@ -671,12 +675,21 @@ namespace NFe.UI
 
                         string _key = currentEmpresa.CNPJ + currentEmpresa.Servico.ToString();
                         ///
+                        /// 
                         /// salva a configuracao da empresa
                         ///
 
                         currentEmpresa.SalvarConfiguracao((currentEmpresa.Servico == TipoAplicativo.SAT ? false : true), true);
 
-                        ValidarPastaBackup();
+                        pastaBackupValida = ValidarPastaBackup();
+
+                        if (!pastaBackupValida)
+                        {
+                            if (MetroFramework.MetroMessageBox.Show(uninfeDummy.mainForm, "Não foi informado a pasta de backup dos XMLs autorizados. Você pode continuar sem informar, mas caso necessite do backup dos originais, não será possível recuperar. Aconselhamos informar esta pasta.\r\n\r\nContinuar?", "UniNFe", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.No)
+                            {
+                                throw new Exception("Não foi informado a pasta de backup dos XML autorizados.");
+                            }
+                        }
 
                         var app = new ConfiguracaoApp();
                         ///
@@ -739,7 +752,11 @@ namespace NFe.UI
                         }
                         catch { }
                     }
-                    MetroFramework.MetroMessageBox.Show(uninfeDummy.mainForm, ex.Message, "UniNFe");
+
+                    if (pastaBackupValida)
+                    {
+                        MetroFramework.MetroMessageBox.Show(uninfeDummy.mainForm, ex.Message, "UniNFe");
+                    }
                 }
             }
         }
@@ -750,18 +767,22 @@ namespace NFe.UI
         /// Verifica se tem alguma empresa sem informar a pasta de backup.
         /// Esta verificação só ocorre quando configurado manualmente no uninfe, quando é configurado pelo ERP, a pasta é opcional.
         /// </summary>
-        private void ValidarPastaBackup()
+        private bool ValidarPastaBackup()
         {
+            var retorna = true;
+
             for (int i = 0; i < Empresas.Configuracoes.Count; i++)
             {
                 if (Empresas.Configuracoes[i].Servico != TipoAplicativo.Nfse)
                 {
                     if (string.IsNullOrEmpty(Empresas.Configuracoes[i].PastaBackup))
                     {
-                        throw new Exception("Não foi informado a pasta de backup dos XML autorizados da empresa " + Empresas.Configuracoes[i].Nome.Trim() + ".");
+                        retorna = false;
                     }
                 }
             }
+
+            return retorna;
         }
 
         #endregion

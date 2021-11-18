@@ -119,10 +119,6 @@ namespace NFe.Components
                                 padraoNFSe = Functions.PadraoNFSe(UFCod).ToString() + "-4303004-";
                                 break;
 
-                            case 202: //BETHA 2.02
-                                padraoNFSe = PadroesNFSe.BETHA.ToString() + "-202-";
-                                break;
-
                             case 4322509: //Vacari-RS
                                 padraoNFSe = Functions.PadraoNFSe(UFCod).ToString() + "-4322509-";
                                 break;
@@ -231,6 +227,14 @@ namespace NFe.Components
                                 padraoNFSe = Functions.PadraoNFSe(UFCod).ToString() + "-3550803-";
                                 break;
 
+                            case 3101508: //Além Paraiba-MG
+                                padraoNFSe = Functions.PadraoNFSe(UFCod).ToString() + "-3101508-";
+                                break;
+
+                            case 3144805: //Nova Lima - MG
+                                padraoNFSe = Functions.PadraoNFSe(UFCod).ToString() + "-3144805-";
+                                break;
+
                             default:
                                 padraoNFSe = Functions.PadraoNFSe(UFCod).ToString() + "-";
                                 break;
@@ -286,6 +290,15 @@ namespace NFe.Components
 
                             if (nfse)
                             {
+                                switch (Functions.PadraoNFSe(UFCod))
+                                {
+                                    case PadroesNFSe.GINFES:
+                                        if (conteudoXML.DocumentElement.Name == "e:CancelarNfseEnvio" && conteudoXML.DocumentElement.FirstChild.Name == "Pedido")
+                                        {
+                                            versaoXML = "-3";
+                                        }
+                                        break;
+                                }
                                 if (Functions.PadraoNFSe(UFCod) == PadroesNFSe.GINFES)
                                 {
                                     if (conteudoXML.DocumentElement.Name == "e:CancelarNfseEnvio" && conteudoXML.DocumentElement.FirstChild.Name == "Pedido")
