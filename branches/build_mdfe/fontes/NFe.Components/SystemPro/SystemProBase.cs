@@ -35,6 +35,10 @@ namespace NFe.Components.SystemPro
                             case 4303806:
                                 systemProService = new HCampinasDoSul.NfseService_Homolog();
                                 break;
+
+                            case 4314134:
+                                systemProService = new HPauloBento.NfseService_Homolog();
+                                break;
                         }
                     }
                     else
@@ -55,6 +59,10 @@ namespace NFe.Components.SystemPro
 
                             case 4303806:
                                 systemProService = new PCampinasDoSul.NfseService();
+                                break;
+
+                            case 4314134:
+                                systemProService = new PPauloBento.NfseService();
                                 break;
                         }
                     }

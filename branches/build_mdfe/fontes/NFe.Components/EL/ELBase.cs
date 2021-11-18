@@ -60,6 +60,14 @@ namespace NFe.Components.EL
                                 elService = new Piuma.p.ELP(tpAmb, PastaRetorno, UsuarioWs, SenhaWs, UsuarioProxy, SenhaProxy, DomainProxy);
                                 break;
 
+                            case 3303401: //Nova Friburgo-RJ
+                                elService = new NovaFriburgoRJ.p.ELP(tpAmb, PastaRetorno, UsuarioWs, SenhaWs, UsuarioProxy, SenhaProxy, DomainProxy);
+                                break;
+
+                            case 3203205: //Linhares-ES
+                                elService = new PLinharesES.p.ELP(tpAmb, PastaRetorno, UsuarioWs, SenhaWs, UsuarioProxy, SenhaProxy, DomainProxy);
+                                break;
+
                             default:
                                 throw new Exceptions.ServicoInexistenteException();
                         }

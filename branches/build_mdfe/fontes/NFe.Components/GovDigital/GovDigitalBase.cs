@@ -56,10 +56,6 @@ namespace NFe.Components.GovDigital
                                 govDigitalService = new br.com.govdigital.homolog.pedroleopoldo.h.NfseServiceImplPlService();
                                 break;
 
-                            case 4314407: //Pelotas-SC
-                                govDigitalService = new br.com.govdigital.homolog.pelotas.h.NfseServiceImplPelotasService();
-                                break;
-
                             case 3128709: //Guaxupé-MG
                                 govDigitalService = new HGuaxupeMG.NfseServiceImplGuaxService();
                                 break;
@@ -124,10 +120,6 @@ namespace NFe.Components.GovDigital
 
                             case 3149309: //Pedro Leopoldo-MG
                                 govDigitalService = new br.com.govdigital.ws.pedroleopoldo.p.NfseServiceImplPlService();
-                                break;
-
-                            case 4314407: //Pelotas-SC
-                                govDigitalService = new br.com.govdigital.ws.pelotas.p.NfseServiceImplPelotasService();
                                 break;
 
                             case 3128709: //Guaxupé-MG

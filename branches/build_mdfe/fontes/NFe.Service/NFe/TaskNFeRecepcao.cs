@@ -120,16 +120,34 @@ namespace NFe.Service
                         Thread.Sleep(dadosRec.tMed * 1000);
                     }
 
-                    //Atualizar o número do recibo no XML de controle do fluxo de notas enviadas
-                    oFluxoNfe.AtualizarTag(oLer.oDadosNfe.chavenfe, FluxoNfe.ElementoEditavel.tMed, dadosRec.tMed.ToString());
-                    oFluxoNfe.AtualizarTagRec(idLote, dadosRec.nRec);
-
-                    var xmlPedRec = oGerarXML.XmlPedRecNFe(dadosRec.nRec, oLer.oDadosNfe.versao, oLer.oDadosNfe.mod, emp);
-                    var nfeRetRecepcao = new TaskNFeRetRecepcao(xmlPedRec)
+                    try
                     {
-                        chNFe = oLer.oDadosNfe.chavenfe
-                    };
-                    nfeRetRecepcao.Execute();
+                        var xmlPedRec = oGerarXML.XmlPedRecNFe(dadosRec.nRec, oLer.oDadosNfe.versao, oLer.oDadosNfe.mod, emp);
+                        var nfeRetRecepcao = new TaskNFeRetRecepcao(xmlPedRec)
+                        {
+                            chNFe = oLer.oDadosNfe.chavenfe
+                        };
+
+                        nfeRetRecepcao.Execute();
+                    }
+                    catch(ExceptionEnvioXML)
+                    {
+                        throw;
+                    }
+                    catch(ExceptionSemInternet)
+                    {
+                        throw;
+                    }
+                    catch(Exception)
+                    {
+                        throw;
+                    }
+                    finally
+                    {
+                        //Atualizar o número do recibo no XML de controle do fluxo de notas enviadas
+                        oFluxoNfe.AtualizarTag(oLer.oDadosNfe.chavenfe, FluxoNfe.ElementoEditavel.tMed, dadosRec.tMed.ToString());
+                        oFluxoNfe.AtualizarTagRec(idLote, dadosRec.nRec);
+                    }
                 }
                 else if(Convert.ToInt32(dadosRec.cStat) > 200 ||
                     Convert.ToInt32(dadosRec.cStat) == 108 || //Verifica se o servidor de processamento está paralisado momentaneamente. Wandrey 13/04/2012

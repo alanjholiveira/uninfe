@@ -32,6 +32,10 @@ namespace NFe.Components.Fiorilli
                                 fiorilliService = new TaquaraSP.h.FiorilliH(tpAmb, PastaRetorno, Usuario, SenhaWs, ProxyUser, ProxyPass, ProxyServer, Certificado);
                                 break;
 
+                            case 1100122: // Ji-Paraná- RO
+                                fiorilliService = new JiParanaRO.h.FiorilliH(tpAmb, PastaRetorno, Usuario, SenhaWs, ProxyUser, ProxyPass, ProxyServer, Certificado);
+                                break;
+
                             case 3504008: //Assis-SP
                             case 3530409: //Mirassolândia-SP
                                 fiorilliService = new MirassolandiaSP.h.FiorilliH(tpAmb, PastaRetorno, Usuario, SenhaWs, ProxyUser, ProxyPass, ProxyServer, Certificado);
@@ -88,10 +92,6 @@ namespace NFe.Components.Fiorilli
 
                             case 1502152://Canaã dos Carajás-PA
                                 fiorilliService = new CanaaDosCarajas.h.FiorilliH(tpAmb, PastaRetorno, Usuario, SenhaWs, ProxyUser, ProxyPass, ProxyServer, Certificado);
-                                break;
-
-                            case 1100122://Ji-Paraná-RO
-                                fiorilliService = new JiParanaRO.h.FiorilliH(tpAmb, PastaRetorno, Usuario, SenhaWs, ProxyUser, ProxyPass, ProxyServer, Certificado);
                                 break;
 
                             default:
