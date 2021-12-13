@@ -75,6 +75,8 @@ namespace NFe.Service
                     configuracao.ProxyPassword = ConfiguracaoApp.ProxySenha;
                 }
 
+                EnviNFe EnviNFe = null;
+
                 if(ler.oDadosNfe.mod == "65")
                 {
                     configuracao.CSC = Empresas.Configuracoes[emp].IdentificadorCSC;
@@ -86,6 +88,8 @@ namespace NFe.Service
                     ConteudoXML = autorizacao.ConteudoXMLAssinado;
 
                     vStrXmlRetorno = autorizacao.RetornoWSString;
+
+                    EnviNFe = autorizacao.EnviNFe;
                 }
                 else
                 {
@@ -95,6 +99,8 @@ namespace NFe.Service
                     ConteudoXML = autorizacao.ConteudoXMLAssinado;
 
                     vStrXmlRetorno = autorizacao.RetornoWSString;
+
+                    EnviNFe = autorizacao.EnviNFe;
                 }
 
                 SalvarArquivoEmProcessamento(emp);
@@ -126,10 +132,13 @@ namespace NFe.Service
                     try
                     {
                         var xmlPedRec = oGerarXML.XmlPedRecNFe(dadosRec.nRec, ler.oDadosNfe.versao, ler.oDadosNfe.mod, emp);
+                        
                         var nfeRetRecepcao = new TaskNFeRetRecepcao(xmlPedRec)
                         {
                             chNFe = ler.oDadosNfe.chavenfe
                         };
+
+                        nfeRetRecepcao.EnviNFe = EnviNFe;
 
                         nfeRetRecepcao.Execute();
                     }
@@ -200,7 +209,7 @@ namespace NFe.Service
         {
             try
             {
-                new FluxoNfe().ExcluirNfeFluxo(dadosNFe.chavenfe);
+                //new FluxoNfe().ExcluirNfeFluxo(dadosNFe.chavenfe);
 
                 if(((dadosNFe.mod == "55" && Empresas.Configuracoes[emp].IndSinc) || (dadosNFe.mod == "65" && Empresas.Configuracoes[emp].IndSincNFCe)))
                 {

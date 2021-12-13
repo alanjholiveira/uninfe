@@ -435,14 +435,6 @@ namespace NFe.Service
 
                         #endregion DFe
 
-                        #region LMC
-
-                        case Servicos.LMCAutorizacao:
-                            DirecionarArquivo(emp, true, true, arquivo, new TaskLMCAutorizacao(arquivo));
-                            break;
-
-                        #endregion LMC
-
                         #region EFDReinf
 
                         case Servicos.RecepcaoLoteReinf:
@@ -950,14 +942,6 @@ namespace NFe.Service
                                 break;
 
                             #endregion NFe
-
-                            #region LMC
-
-                            case "autorizacao":
-                                tipoServico = Servicos.LMCAutorizacao;
-                                break;
-
-                            #endregion LMC
 
                             #region EFDReinf
 
@@ -1658,7 +1642,6 @@ namespace NFe.Service
                         nfe is TaskMDFeConsultaStatus ||
                         nfe is TaskMDFeConsultaSituacao ||
                         nfe is TaskMDFeConsNaoEncerrado ||
-                        nfe is TaskLMCAutorizacao ||
                         (nfe is TaskNFeEventos && Empresas.Configuracoes[emp].tpEmis == (int)TipoEmissao.teEPEC) ||
                         (nfe is TaskCTeEventos && Empresas.Configuracoes[emp].tpEmis == (int)TipoEmissao.teEPEC) ||
                         nfe is TaskRecepcaoLoteReinf ||

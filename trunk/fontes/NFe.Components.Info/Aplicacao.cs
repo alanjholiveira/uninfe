@@ -214,7 +214,6 @@ namespace NFe.Components.Info
                                         Functions.GravaTxtXml(oXmlGravar, tipo + "NFeAutorizacao", (!string.IsNullOrEmpty(item.NFeAutorizacao)).ToString());
                                         Functions.GravaTxtXml(oXmlGravar, tipo + "NFeRetAutorizacao", (!string.IsNullOrEmpty(item.NFeRetAutorizacao)).ToString());
                                         Functions.GravaTxtXml(oXmlGravar, tipo + "DFeRecepcao", (!string.IsNullOrEmpty(item.DFeRecepcao)).ToString());
-                                        Functions.GravaTxtXml(oXmlGravar, tipo + Servicos.LMCAutorizacao.ToString(), (!string.IsNullOrEmpty(item.LMCAutorizacao)).ToString());
                                     }
                                     if(Empresas.Configuracoes[emp].Servico == TipoAplicativo.MDFe ||
                                         Empresas.Configuracoes[emp].Servico == TipoAplicativo.Todos)

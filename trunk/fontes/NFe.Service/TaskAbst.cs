@@ -1248,11 +1248,11 @@ namespace NFe.Service
                     switch(servico)
                     {
                         case Servicos.NFSeConsultarLoteRps:
-                            retorna = "";
+                            retorna = "consultarLoteRps";
                             break;
 
                         case Servicos.NFSeConsultar:
-                            retorna = "";
+                            retorna = "consultarNfsePorFaixa";
                             break;
 
                         case Servicos.NFSeConsultarPorRps:
@@ -3879,31 +3879,5 @@ namespace NFe.Service
         }
 
         #endregion EnvEvento
-
-        #region XmlLMC()
-
-        /// <summary>
-        /// Efetua a leitura do XML de LMC e grava os dados no objeto "dadosLMC"
-        /// </summary>
-        /// <param name="emp">Empresa</param>
-        /// <param name="dadosLMC">Objeto dados LMC para receber os valores</param>
-        protected virtual void XmlLMC(int emp, DadosLMC dadosLMC)
-        {
-            dadosLMC.tpAmb = 0;
-            dadosLMC.cUF = Empresas.Configuracoes[emp].UnidadeFederativaCodigo;
-            dadosLMC.Id =
-                dadosLMC.versao = string.Empty;
-
-            var infLivroCombustivel = (XmlElement)ConteudoXML.GetElementsByTagName("infLivroCombustivel")[0];
-
-            dadosLMC.tpAmb = Convert.ToInt32("0" + infLivroCombustivel.GetElementsByTagName(TpcnResources.tpAmb.ToString())[0].InnerText);
-            dadosLMC.versao = infLivroCombustivel.Attributes[TpcnResources.versao.ToString()].InnerText;
-            dadosLMC.Id = infLivroCombustivel.Attributes[TpcnResources.Id.ToString()].InnerText;
-
-            var movimento = (XmlElement)infLivroCombustivel.GetElementsByTagName("movimento")[0];
-            dadosLMC.dEmissao = Convert.ToDateTime(movimento.Attributes[TpcnResources.dEmissao.ToString()].InnerText);
-        }
-
-        #endregion XmlLMC()
     }
 }

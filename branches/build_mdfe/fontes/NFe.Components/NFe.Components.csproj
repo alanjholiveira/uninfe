@@ -187,8 +187,6 @@
     <Compile Include="Coplan\RondonopolisMT\p\CoplanP.cs" />
     <Compile Include="Coplan\MatupaMT\h\CoplanH.cs" />
     <Compile Include="Coplan\MatupaMT\p\CoplanP.cs" />
-    <Compile Include="Coplan\SinopMT\h\CoplanH.cs" />
-    <Compile Include="Coplan\SinopMT\p\CoplanP.cs" />
     <Compile Include="Coplan\GuarantaNorteMT\h\CoplanH.cs" />
     <Compile Include="Coplan\GuarantaNorteMT\p\CoplanP.cs" />
     <Compile Include="Coplan\NovaMutumMT\h\CoplanH.cs" />
@@ -343,8 +341,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="SigCorp\GovernadorValdaresMG\h\SigCorpH.cs" />
-    <Compile Include="SigCorp\GovernadorValdaresMG\p\SigCorpP.cs" />
     <Compile Include="SigCorp\PetropolisRJ\h\SigCorpH.cs" />
     <Compile Include="SigCorp\PetropolisRJ\p\SigCorpP.cs" />
     <Compile Include="Simple\CamboriuSC\p\SimpleP.cs" />
@@ -958,6 +954,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
+    <Compile Include="Web References\HIlheusBA\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
     <Compile Include="Web References\HIpojucaPE_TINUS_CancelarNfse\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1268,17 +1269,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
-    <Compile Include="Web References\HGovernadorValadaresMG\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.map</DependentUpon>
-    </Compile>
     <Compile Include="Web References\HGuaxupeMG\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.map</DependentUpon>
-    </Compile>
-    <Compile Include="Web References\HIlheusBA\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
@@ -1989,11 +1980,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
-    <Compile Include="Web References\PGovernadorValadaresMG\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.map</DependentUpon>
-    </Compile>
     <Compile Include="Web References\PGuarantaNorteMT\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -2190,11 +2176,6 @@
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
     <Compile Include="Web References\PSmaraPD_204\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.map</DependentUpon>
-    </Compile>
-    <Compile Include="Web References\PSinopMT\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
@@ -3941,6 +3922,18 @@
     <None Include="Web References\HIjuiRS\Services0.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Web References\HIlheusBA\Nfse.wsdl" />
+    <None Include="Web References\HIlheusBA\output.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\HIlheusBA\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\HIlheusBA\services.wsdl" />
+    <None Include="Web References\HIlheusBA\services.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Web References\HIpojucaPE_TINUS_CancelarNfse\CancelarNfseResposta.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
@@ -4593,20 +4586,6 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Web References\HGoianaPE_TINUS_RecepcionarLoteRps\WSNFSE.wsdl" />
-    <None Include="Web References\HGovernadorValadaresMG\HGovernadorValadaresMG-SIGCORP.wsdl" />
-    <None Include="Web References\HGovernadorValadaresMG\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Web References\HGovernadorValadaresMG\tcDadosNota.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\HGovernadorValadaresMG\tcEstruturaDescricaoErros.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\HGovernadorValadaresMG\tcRetornoNota.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
     <None Include="Web References\HGuaxupeMG\guax.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -4614,18 +4593,6 @@
     <None Include="Web References\HGuaxupeMG\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Web References\HIlheusBA\Nfse.wsdl" />
-    <None Include="Web References\HIlheusBA\output.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\HIlheusBA\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Web References\HIlheusBA\services.wsdl" />
-    <None Include="Web References\HIlheusBA\services.xsd">
-      <SubType>Designer</SubType>
     </None>
     <None Include="Web References\HItabiraMG\NFSeIntegracao.wsdl" />
     <None Include="Web References\HItabiraMG\Reference.map">
@@ -6602,20 +6569,6 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Web References\PGoianaPE_TINUS_RecepcionarLoteRps\WSNFSE.wsdl" />
-    <None Include="Web References\PGovernadorValadaresMG\PGovernadorValadaresMG-SIGCORP.wsdl" />
-    <None Include="Web References\PGovernadorValadaresMG\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Web References\PGovernadorValadaresMG\tcDadosNota.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\PGovernadorValadaresMG\tcEstruturaDescricaoErros.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\PGovernadorValadaresMG\tcRetornoNota.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
     <None Include="Web References\PGuarantaNorteMT\nfse_web_service.wsdl" />
     <None Include="Web References\PGuarantaNorteMT\output.datasource">
       <DependentUpon>Reference.map</DependentUpon>
@@ -7176,14 +7129,6 @@
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Web References\PSinopMT\nfse_web_service.wsdl" />
-    <None Include="Web References\PSinopMT\output.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\PSinopMT\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
     <None Include="Web References\PTaiobeirasMG\cnae.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
@@ -7494,17 +7439,6 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>NFe_Components_HGetulioVargasRS_NFSeIntegracao</CachedSettingsPropName>
     </WebReferenceUrl>
-    <WebReferenceUrl Include="C:\projetos\uninfe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Homologacao\HGovernadorValadaresMG-SIGCORP.wsdl">
-      <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\HGovernadorValadaresMG\</RelPath>
-      <UpdateFromURL>C:\projetos\uninfe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Homologacao\HGovernadorValadaresMG-SIGCORP.wsdl</UpdateFromURL>
-      <ServiceLocationURL>
-      </ServiceLocationURL>
-      <CachedDynamicPropName>
-      </CachedDynamicPropName>
-      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>NFe_Components_HGovernadorValadaresMG_WebService_SigISS</CachedSettingsPropName>
-    </WebReferenceUrl>
     <WebReferenceUrl Include="C:\Projetos\UniNFe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Homologacao\HGuaxupeMG-GOVDIGITAL.wsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\HGuaxupeMG\</RelPath>
@@ -7526,6 +7460,17 @@
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>NFe_Components_HIgarapeMG_NfseServiceImplVgpService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="C:\Projetos\UniNFe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Homologacao\HIlheusBA-METROPOLIS.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\HIlheusBA\</RelPath>
+      <UpdateFromURL>C:\Projetos\UniNFe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Homologacao\HIlheusBA-METROPOLIS.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>NFe_Components_HIlheusBA_Nfse</CachedSettingsPropName>
     </WebReferenceUrl>
     <WebReferenceUrl Include="C:\Projetos\UniNFe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Homologacao\HIpojucaPE_TINUS_CancelarNfse.wsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
@@ -8297,17 +8242,6 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>NFe_Components_PGetulioVargasRS_NFSeIntegracao</CachedSettingsPropName>
     </WebReferenceUrl>
-    <WebReferenceUrl Include="C:\projetos\uninfe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Producao\PGovernadorValadaresMG-SIGCORP.wsdl">
-      <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\PGovernadorValadaresMG\</RelPath>
-      <UpdateFromURL>C:\projetos\uninfe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Producao\PGovernadorValadaresMG-SIGCORP.wsdl</UpdateFromURL>
-      <ServiceLocationURL>
-      </ServiceLocationURL>
-      <CachedDynamicPropName>
-      </CachedDynamicPropName>
-      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>NFe_Components_PGovernadorValadaresMG_WebService_SigISS</CachedSettingsPropName>
-    </WebReferenceUrl>
     <WebReferenceUrl Include="C:\Projetos\UniNFe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Producao\PGuaxupeMG-GOVDIGITAL.wsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\PGuaxupeMG\</RelPath>
@@ -8924,17 +8858,6 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>NFe_Components_PSilvaniaGO_nfseWS</CachedSettingsPropName>
     </WebReferenceUrl>
-    <WebReferenceUrl Include="C:\projetos\uninfe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Producao\PSinopMT-COPLAN.wsdl">
-      <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\PSinopMT\</RelPath>
-      <UpdateFromURL>C:\projetos\uninfe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Producao\PSinopMT-COPLAN.wsdl</UpdateFromURL>
-      <ServiceLocationURL>
-      </ServiceLocationURL>
-      <CachedDynamicPropName>
-      </CachedDynamicPropName>
-      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>NFe_Components_PSinopMT_nfse_web_service</CachedSettingsPropName>
-    </WebReferenceUrl>
     <WebReferenceUrl Include="C:\Projetos\uninfe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Producao\PSjbicas-GovDigital.wsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\PSjbicas\</RelPath>
@@ -9352,17 +9275,6 @@
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>NFe_Components_HEntreIjuisRS_NFSeIntegracao</CachedSettingsPropName>
-    </WebReferenceUrl>
-    <WebReferenceUrl Include="D:\Projetos\UniNFe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Homologacao\HIlheusBA-METROPOLIS.wsdl">
-      <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\HIlheusBA\</RelPath>
-      <UpdateFromURL>D:\Projetos\UniNFe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Homologacao\HIlheusBA-METROPOLIS.wsdl</UpdateFromURL>
-      <ServiceLocationURL>
-      </ServiceLocationURL>
-      <CachedDynamicPropName>
-      </CachedDynamicPropName>
-      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>NFe_Components_HIlheusBA_Nfse</CachedSettingsPropName>
     </WebReferenceUrl>
     <WebReferenceUrl Include="D:\projetos\uninfe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Homologacao\HParanapanamaSP-PRONINServices.WSDL">
       <UrlBehavior>Dynamic</UrlBehavior>

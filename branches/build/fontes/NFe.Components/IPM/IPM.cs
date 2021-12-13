@@ -39,13 +39,13 @@ namespace NFSe.Components
                 Proxy = Proxy
             })
             {
-                if (Cidade == 74934 || Cidade == 4104808)
+                if (Cidade == 74934 || Cidade == 4104808) ////Cascavel-PR
                 {
                     // informe 1 para retorno em xml
                     result = post.PostForm("http://sync-pr.nfs-e.net/datacenter/include/nfw/importa_nfw/nfw_import_upload.php?eletron=1", PreparePostData(file));
                 }
 
-                if (Cidade == 8357 || Cidade == 4218202)
+                if (Cidade == 8357 || Cidade == 4218202) //Timbo-SC
                 {
                     var base64 = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{Usuario}:{Senha}"));
 
@@ -56,12 +56,32 @@ namespace NFSe.Components
                     }, $"Authorization: Basic {base64}");
                 }
 
-                else if (Cidade == 7583 || Cidade == 4109401)
+                else if (Cidade == 7583 || Cidade == 4109401) // Guarapuava-PR
                 {
                     var base64 = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{Usuario}:{Senha}"));
 
                     // informe 1 para retorno em xml
                     result = post.PostForm("https://guarapuava.atende.net/atende.php?pg=rest&service=WNERestServiceNFSe&cidade=padrao", new Dictionary<string, string>
+                    {
+                        {"f1", file}           //Endereço físico do arquivo
+                    }, $"Authorization: Basic {base64}");
+                }
+                else if ((Cidade == 5453 || Cidade == 4119152) && tpAmb == TipoAmbiente.taProducao) //Pinhais-PR - Produção
+                {
+                    var base64 = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{Usuario}:{Senha}"));
+
+                    // informe 1 para retorno em xml
+                    result = post.PostForm("https://ws-pinhais.atende.net:7443/atende.php?pg=rest&service=WNERestServiceNFSe&cidade=padrao", new Dictionary<string, string>
+                    {
+                        {"f1", file}           //Endereço físico do arquivo
+                    }, $"Authorization: Basic {base64}");
+                }
+                else if ((Cidade == 5453 || Cidade == 4119152) && tpAmb == TipoAmbiente.taHomologacao) //Pinhais-PR - Homologação
+                {
+                    var base64 = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{Usuario}:{Senha}"));
+
+                    // informe 1 para retorno em xml
+                    result = post.PostForm("https://treinamento.atende.net/atende.php?pg=rest&service=WNERestServiceNFSe&cidade=migra_pinhais", new Dictionary<string, string>
                     {
                         {"f1", file}           //Endereço físico do arquivo
                     }, $"Authorization: Basic {base64}");
@@ -215,8 +235,12 @@ namespace NFSe.Components
 
             var doc = new XmlDocument();
             doc.LoadXml(result);
-            doc.DocumentElement.RemoveChild(doc.GetElementsByTagName("codigo_html")[0]);
 
+            if (!doc.InnerText.Contains("XSD Error") && !doc.InnerText.Contains("00206 - Nenhuma NFSe foi encontrada"))
+            {
+                doc.DocumentElement.RemoveChild(doc.GetElementsByTagName("codigo_html")[0]);
+            }
+            
             result = doc.OuterXml;
 
             GerarRetorno(file, result, Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSe).EnvioXML,

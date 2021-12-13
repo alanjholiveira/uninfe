@@ -88,6 +88,9 @@ namespace NFe.Service.NFSe
                             case 3305109: //São João de Meriti-RJ
                             case 3505500: //Barretos-SP
                             case 2802908: //Itabaiana-SE
+                            case 4217600: //Siderópolis-SC
+                            case 3127701: //Governador Valadares-MG
+                            case 5107909: //Sinop-MT
                                 ExecuteDLL(emp, oDadosEnvLoteRps.cMunicipio, padraoNFSe);
                                 break;
 
@@ -1117,6 +1120,7 @@ namespace NFe.Service.NFSe
                 case PadroesNFSe.PRODATA:
                 case PadroesNFSe.AVMB_ASTEN:
                 case PadroesNFSe.WEBISS:
+                case PadroesNFSe.COPLAN:
                     switch (doc.DocumentElement.Name)
                     {
                         case "EnviarLoteRpsSincronoEnvio":
@@ -1184,6 +1188,7 @@ namespace NFe.Service.NFSe
                 case PadroesNFSe.NOTAINTELIGENTE:
                 case PadroesNFSe.AVMB_ASTEN:
                 case PadroesNFSe.WEBISS:
+                case PadroesNFSe.COPLAN:
                     versaoXML = "2.02";
                     break;
             }

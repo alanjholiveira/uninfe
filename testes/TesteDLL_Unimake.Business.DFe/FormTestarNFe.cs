@@ -61,6 +61,17 @@ namespace TesteDLL_Unimake.Business.DFe
             {
                 MessageBox.Show(ex.Message, "ERRO!!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+            CertificadoDigital testeCert = new CertificadoDigital();
+            testeCert.CarregarCertificadoDigitalA1(path, password);
+            
+            //Converte o certificado digital em array byte
+            byte[] certificadoString = testeCert.ToByteArray(path);
+
+            //Agora você pode gravar o array byte no banco de dados (certificadoString)
+
+            //Recuperar o certificado para uso a partir de uma array byte
+            X509Certificate2 CertSelect = testeCert.CarregarCertificadoDigitalA1(certificadoString, password);            
         }
 
         private void Button1_Click(object sender, EventArgs e)
@@ -542,6 +553,158 @@ namespace TesteDLL_Unimake.Business.DFe
         {
             try
             {
+                //var xml = new EnviNFe
+                //{
+                //    Versao = "4.00",
+                //    IdLote = "000000000000001",
+                //    IndSinc = SimNao.Sim,
+                //    NFe = new List<NFe> {
+                //        new NFe
+                //        {
+                //            InfNFe = new List<Unimake.Business.DFe.Xml.NFe.InfNFe> {
+                //                new Unimake.Business.DFe.Xml.NFe.InfNFe
+                //                {
+                //                    Versao = "4.00",
+
+                //                    Ide = new Unimake.Business.DFe.Xml.NFe.Ide
+                //                    {
+                //                        CUF = UFBrasil.MG,
+                //                        NatOp = "VENDA PRODUC.DO ESTABELEC",
+                //                        Mod = ModeloDFe.NFCe,
+                //                        Serie = 1,
+                //                        NNF = 57931,
+                //                        DhEmi = DateTime.Now,
+                //                        TpNF = TipoOperacao.Saida,
+                //                        IdDest = DestinoOperacao.OperacaoInterna,
+                //                        CMunFG = 4118402,
+                //                        TpImp = FormatoImpressaoDANFE.NFCe,
+                //                        TpEmis = TipoEmissao.ContingenciaOffLine,
+                //                        TpAmb = TipoAmbiente.Homologacao,
+                //                        FinNFe = FinalidadeNFe.Normal,
+                //                        IndFinal = SimNao.Sim,
+                //                        IndPres = IndicadorPresenca.OperacaoPresencial,
+                //                        ProcEmi = ProcessoEmissao.AplicativoContribuinte,
+                //                        VerProc = "TESTE 1.00"
+                //                    },
+                //                    Emit = new Unimake.Business.DFe.Xml.NFe.Emit
+                //                    {
+                //                        CNPJ = "06117473000150",
+                //                        XNome = "UNIMAKE SOLUCOES CORPORATIVAS LTDA",
+                //                        XFant = "UNIMAKE - PARANAVAI",
+                //                        EnderEmit = new Unimake.Business.DFe.Xml.NFe.EnderEmit
+                //                        {
+                //                            XLgr = "RUA ANTONIO FELIPE",
+                //                            Nro = "1500",
+                //                            XBairro = "CENTRO",
+                //                            CMun = 4118402,
+                //                            XMun = "PARANAVAI",
+                //                            UF = UFBrasil.MG,
+                //                            CEP = "87704030",
+                //                            Fone = "04431414900"
+                //                        },
+                //                        IE = "9032000301",
+                //                        IM = "14018",
+                //                        CNAE = "6202300",
+                //                        CRT = CRT.SimplesNacional
+                //                    },
+                //                    Det = CriarDet(),
+                //                    Total = new Total
+                //                    {
+                //                        ICMSTot = new ICMSTot
+                //                        {
+                //                            VBC = 0,
+                //                            VICMS = 0,
+                //                            VICMSDeson = 0,
+                //                            VFCP = 0,
+                //                            VBCST = 0,
+                //                            VST = 0,
+                //                            VFCPST = 0,
+                //                            VFCPSTRet = 0,
+                //                            VProd = 84.90,
+                //                            VFrete = 0,
+                //                            VSeg = 0,
+                //                            VDesc = 0,
+                //                            VII = 0,
+                //                            VIPI = 0,
+                //                            VIPIDevol = 0,
+                //                            VPIS = 0,
+                //                            VCOFINS = 0,
+                //                            VOutro = 0,
+                //                            VNF = 84.90,
+                //                            VTotTrib = 12.63
+                //                        }
+                //                    },
+                //                    Transp = new Transp
+                //                    {
+                //                        ModFrete = ModalidadeFrete.SemOcorrenciaTransporte
+                //                    },
+                //                    Cobr = new Unimake.Business.DFe.Xml.NFe.Cobr()
+                //                    {
+                //                        Fat = new Unimake.Business.DFe.Xml.NFe.Fat
+                //                        {
+                //                            NFat = "057910",
+                //                            VOrig = 84.90,
+                //                            VDesc = 0,
+                //                            VLiq = 84.90
+                //                        },
+                //                        Dup = new List<Unimake.Business.DFe.Xml.NFe.Dup>
+                //                        {
+                //                            new Unimake.Business.DFe.Xml.NFe.Dup
+                //                            {
+                //                                NDup = "001",
+                //                                DVenc = DateTime.Now,
+                //                                VDup = 84.90
+                //                            },
+                //                            new Unimake.Business.DFe.Xml.NFe.Dup
+                //                            {
+                //                                NDup = "002",
+                //                                DVenc = DateTime.Now,
+                //                                VDup = 84.90
+                //                            }
+                //                        }
+                //                    },
+                //                    Pag = new Pag
+                //                    {
+                //                        DetPag = new  List<DetPag>
+                //                        {
+                //                             new DetPag
+                //                             {
+                //                                 IndPag = IndicadorPagamento.PagamentoVista,
+                //                                 TPag = MeioPagamento.Outros,
+                //                                 VPag = 84.90
+                //                             },
+                //                             new DetPag
+                //                             {
+                //                                 IndPag = IndicadorPagamento.PagamentoPrazo,
+                //                                 TPag = MeioPagamento.Outros,
+                //                                 VPag = 84.90,
+                //                                 //Card = new Card
+                //                                 //{
+                //                                 //    TpIntegra = TipoIntegracaoPagamento.PagamentoIntegrado,
+                //                                 //    CAut = "",
+                //                                 //    CNPJ = "",
+                //                                 //    TBand = BandeiraOperadoraCartao.Cabal
+                //                                 //},                                                 
+                //                             }
+                //                        }
+                //                    },
+                //                    InfAdic = new Unimake.Business.DFe.Xml.NFe.InfAdic
+                //                    {
+                //                        InfCpl = ";CONTROLE: 0000241197;PEDIDO(S) ATENDIDO(S): 300474;Empresa optante pelo simples nacional, conforme lei compl. 128 de 19/12/2008;Permite o aproveitamento do credito de ICMS no valor de R$ 2,40, correspondente ao percentual de 2,83% . Nos termos do Art. 23 - LC 123/2006 (Resolucoes CGSN n. 10/2007 e 53/2008);Voce pagou aproximadamente: R$ 6,69 trib. federais / R$ 5,94 trib. estaduais / R$ 0,00 trib. municipais. Fonte: IBPT/empresometro.com.br 18.2.B A3S28F;",
+                //                    },
+                //                    InfRespTec = new Unimake.Business.DFe.Xml.NFe.InfRespTec
+                //                    {
+                //                        CNPJ = "06117473000150",
+                //                        XContato = "Wandrey Mundin Ferreira",
+                //                        Email = "wandrey@unimake.com.br",
+                //                        Fone = "04431414900"
+                //                    }
+                //                }
+                //            }
+                //        }
+                //    }
+                //};
+
                 var xml = new EnviNFe
                 {
                     Versao = "4.00",
@@ -555,19 +718,20 @@ namespace TesteDLL_Unimake.Business.DFe
                                 {
                                     Versao = "4.00",
 
-                                    Ide = new Unimake.Business.DFe.Xml.NFe.Ide
+                                    Ide = new Ide
                                     {
-                                        CUF = UFBrasil.MG,
+                                        CUF = UFBrasil.PR,
                                         NatOp = "VENDA PRODUC.DO ESTABELEC",
                                         Mod = ModeloDFe.NFCe,
                                         Serie = 1,
-                                        NNF = 57930,
+                                        NNF = 57931,
                                         DhEmi = DateTime.Now,
+                                        DhSaiEnt = DateTime.Now,
                                         TpNF = TipoOperacao.Saida,
                                         IdDest = DestinoOperacao.OperacaoInterna,
                                         CMunFG = 4118402,
                                         TpImp = FormatoImpressaoDANFE.NFCe,
-                                        TpEmis = TipoEmissao.ContingenciaOffLine,
+                                        TpEmis = TipoEmissao.Normal,
                                         TpAmb = TipoAmbiente.Homologacao,
                                         FinNFe = FinalidadeNFe.Normal,
                                         IndFinal = SimNao.Sim,
@@ -575,19 +739,19 @@ namespace TesteDLL_Unimake.Business.DFe
                                         ProcEmi = ProcessoEmissao.AplicativoContribuinte,
                                         VerProc = "TESTE 1.00"
                                     },
-                                    Emit = new Unimake.Business.DFe.Xml.NFe.Emit
+                                    Emit = new Emit
                                     {
                                         CNPJ = "06117473000150",
                                         XNome = "UNIMAKE SOLUCOES CORPORATIVAS LTDA",
                                         XFant = "UNIMAKE - PARANAVAI",
-                                        EnderEmit = new Unimake.Business.DFe.Xml.NFe.EnderEmit
+                                        EnderEmit = new EnderEmit
                                         {
                                             XLgr = "RUA ANTONIO FELIPE",
                                             Nro = "1500",
                                             XBairro = "CENTRO",
                                             CMun = 4118402,
                                             XMun = "PARANAVAI",
-                                            UF = UFBrasil.MG,
+                                            UF = UFBrasil.PR,
                                             CEP = "87704030",
                                             Fone = "04431414900"
                                         },
@@ -595,8 +759,125 @@ namespace TesteDLL_Unimake.Business.DFe
                                         IM = "14018",
                                         CNAE = "6202300",
                                         CRT = CRT.SimplesNacional
+                                    },                                    
+                                    Det = new List<Det> {
+                                        new Det
+                                        {
+                                            NItem = 1,
+                                            Prod = new Prod
+                                            {
+                                                CProd = "01042",
+                                                CEAN = "SEM GTIN",
+                                                XProd = "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL",
+                                                NCM = "84714900",
+                                                CFOP = "5101",
+                                                UCom = "LU",
+                                                QCom = 1.00,
+                                                VUnCom = 84.9000000000,
+                                                VProd = 84.90,
+                                                CEANTrib = "SEM GTIN",
+                                                UTrib = "LU",
+                                                QTrib = 1.00,
+                                                VUnTrib = 84.9000000000,
+                                                IndTot = SimNao.Sim,
+                                                XPed = "300474",
+                                                NItemPed = 1
+                                            },
+                                            Imposto = new Imposto
+                                            {
+                                                VTotTrib = 12.63,
+                                                ICMS = new List<ICMS> {
+                                                    new ICMS
+                                                    {
+                                                        ICMSSN101 = new ICMSSN101
+                                                        {
+                                                            Orig = OrigemMercadoria.Nacional,
+                                                            PCredSN = 2.8255,
+                                                            VCredICMSSN = 2.40
+                                                        }
+                                                    }
+                                                },
+                                                PIS = new PIS
+                                                {
+                                                    PISOutr = new PISOutr
+                                                    {
+                                                        CST = "99",
+                                                        VBC = 0.00,
+                                                        PPIS = 0.00,
+                                                        VPIS = 0.00
+                                                    }
+                                                },
+                                                COFINS = new COFINS
+                                                {
+                                                    COFINSOutr = new COFINSOutr
+                                                    {
+                                                        CST = "99",
+                                                        VBC = 0.00,
+                                                        PCOFINS = 0.00,
+                                                        VCOFINS = 0.00
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        new Det
+                                        {
+                                            NItem = 2,
+                                            Prod = new Prod
+                                            {
+                                                CProd = "11111",
+                                                CEAN = "SEM GTIN",
+                                                XProd = "TESTE DO PRODUTO DO ITEM 2",
+                                                NCM = "99999999", //"84714900",
+                                                CFOP = "5101",
+                                                UCom = "LU",
+                                                QCom = 1.00,
+                                                VUnCom = 84.9000000000,
+                                                VProd = 84.90,
+                                                CEANTrib = "SEM GTIN",
+                                                UTrib = "LU",
+                                                QTrib = 1.00,
+                                                VUnTrib = 84.9000000000,
+                                                IndTot = SimNao.Sim,
+                                                XPed = "300474",
+                                                NItemPed = 1
+                                            },
+                                            Imposto = new Imposto
+                                            {
+                                                VTotTrib = 12.63,
+                                                ICMS = new List<ICMS> {
+                                                    new ICMS
+                                                    {
+                                                        ICMSSN101 = new ICMSSN101
+                                                        {
+                                                            Orig = OrigemMercadoria.Nacional,
+                                                            PCredSN = 2.8255,
+                                                            VCredICMSSN = 2.40
+                                                        }
+                                                    }
+                                                },
+                                                PIS = new PIS
+                                                {
+                                                    PISOutr = new PISOutr
+                                                    {
+                                                        CST = "99",
+                                                        VBC = 0.00,
+                                                        PPIS = 0.00,
+                                                        VPIS = 0.00
+                                                    }
+                                                },
+                                                COFINS = new COFINS
+                                                {
+                                                    COFINSOutr = new COFINSOutr
+                                                    {
+                                                        CST = "99",
+                                                        VBC = 0.00,
+                                                        PCOFINS = 0.00,
+                                                        VCOFINS = 0.00
+                                                    }
+                                                }
+                                            }
+                                        }
                                     },
-                                    Det = CriarDet(),
                                     Total = new Total
                                     {
                                         ICMSTot = new ICMSTot
@@ -629,24 +910,18 @@ namespace TesteDLL_Unimake.Business.DFe
                                     },
                                     Cobr = new Unimake.Business.DFe.Xml.NFe.Cobr()
                                     {
-                                        Fat = new Unimake.Business.DFe.Xml.NFe.Fat
+                                        Fat = new Fat
                                         {
                                             NFat = "057910",
                                             VOrig = 84.90,
                                             VDesc = 0,
                                             VLiq = 84.90
                                         },
-                                        Dup = new List<Unimake.Business.DFe.Xml.NFe.Dup>
+                                        Dup = new List<Dup>
                                         {
-                                            new Unimake.Business.DFe.Xml.NFe.Dup
+                                            new Dup
                                             {
                                                 NDup = "001",
-                                                DVenc = DateTime.Now,
-                                                VDup = 84.90
-                                            },
-                                            new Unimake.Business.DFe.Xml.NFe.Dup
-                                            {
-                                                NDup = "002",
                                                 DVenc = DateTime.Now,
                                                 VDup = 84.90
                                             }
@@ -654,34 +929,21 @@ namespace TesteDLL_Unimake.Business.DFe
                                     },
                                     Pag = new Pag
                                     {
-                                        DetPag = new  List<DetPag>
+                                        DetPag = new List<DetPag>
                                         {
                                              new DetPag
                                              {
                                                  IndPag = IndicadorPagamento.PagamentoVista,
-                                                 TPag = MeioPagamento.Outros,
+                                                 TPag = MeioPagamento.Dinheiro,
                                                  VPag = 84.90
-                                             },
-                                             new DetPag
-                                             {
-                                                 IndPag = IndicadorPagamento.PagamentoPrazo,
-                                                 TPag = MeioPagamento.Outros,
-                                                 VPag = 84.90,
-                                                 //Card = new Card
-                                                 //{
-                                                 //    TpIntegra = TipoIntegracaoPagamento.PagamentoIntegrado,
-                                                 //    CAut = "",
-                                                 //    CNPJ = "",
-                                                 //    TBand = BandeiraOperadoraCartao.Cabal
-                                                 //},                                                 
                                              }
                                         }
                                     },
-                                    InfAdic = new Unimake.Business.DFe.Xml.NFe.InfAdic
+                                    InfAdic = new InfAdic
                                     {
                                         InfCpl = ";CONTROLE: 0000241197;PEDIDO(S) ATENDIDO(S): 300474;Empresa optante pelo simples nacional, conforme lei compl. 128 de 19/12/2008;Permite o aproveitamento do credito de ICMS no valor de R$ 2,40, correspondente ao percentual de 2,83% . Nos termos do Art. 23 - LC 123/2006 (Resolucoes CGSN n. 10/2007 e 53/2008);Voce pagou aproximadamente: R$ 6,69 trib. federais / R$ 5,94 trib. estaduais / R$ 0,00 trib. municipais. Fonte: IBPT/empresometro.com.br 18.2.B A3S28F;",
                                     },
-                                    InfRespTec = new Unimake.Business.DFe.Xml.NFe.InfRespTec
+                                    InfRespTec = new InfRespTec
                                     {
                                         CNPJ = "06117473000150",
                                         XContato = "Wandrey Mundin Ferreira",
@@ -708,10 +970,6 @@ namespace TesteDLL_Unimake.Business.DFe
                 var autorizacao = new Unimake.Business.DFe.Servicos.NFCe.Autorizacao(xml, configuracao);
                 var qq = autorizacao.ConteudoXMLAssinado;
                 autorizacao.Executar();
-
-                var nItem = 10; //Aqui vc coloca o numero do item que vc pegou na mensagem
-                Console.WriteLine(xml.NFe[0].InfNFe[0].Det[nItem].Prod.CProd); //Codigo do produto no seu sistema
-                Console.WriteLine(xml.NFe[0].InfNFe[0].Det[nItem].Prod.XProd); //Descrição do produto no seu sistema
 
                 MessageBox.Show(autorizacao.RetornoWSString);
                 MessageBox.Show(autorizacao.Result.XMotivo);
@@ -1325,7 +1583,7 @@ namespace TesteDLL_Unimake.Business.DFe
                                         NatOp = "VENDA PRODUC.DO ESTABELEC",
                                         Mod = ModeloDFe.NFe,
                                         Serie = 1,
-                                        NNF = 57962,
+                                        NNF = 57970,
                                         DhEmi = DateTime.Now,
                                         DhSaiEnt = DateTime.Now,
                                         TpNF = TipoOperacao.Saida,
@@ -1390,6 +1648,64 @@ namespace TesteDLL_Unimake.Business.DFe
                                                 CEAN = "SEM GTIN",
                                                 XProd = "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL",
                                                 NCM = "84714900",
+                                                CFOP = "6101",
+                                                UCom = "LU",
+                                                QCom = 1.00,
+                                                VUnCom = 84.9000000000,
+                                                VProd = 84.90,
+                                                CEANTrib = "SEM GTIN",
+                                                UTrib = "LU",
+                                                QTrib = 1.00,
+                                                VUnTrib = 84.9000000000,
+                                                IndTot = SimNao.Sim,
+                                                XPed = "300474",
+                                                NItemPed = 1
+                                            },
+                                            Imposto = new Imposto
+                                            {
+                                                VTotTrib = 12.63,
+                                                ICMS = new List<ICMS> {
+                                                    new ICMS
+                                                    {
+                                                        ICMSSN101 = new ICMSSN101
+                                                        {
+                                                            Orig = OrigemMercadoria.Nacional,
+                                                            PCredSN = 2.8255,
+                                                            VCredICMSSN = 2.40
+                                                        }
+                                                    }
+                                                },
+                                                PIS = new PIS
+                                                {
+                                                    PISOutr = new PISOutr
+                                                    {
+                                                        CST = "99",
+                                                        VBC = 0.00,
+                                                        PPIS = 0.00,
+                                                        VPIS = 0.00
+                                                    }
+                                                },
+                                                COFINS = new COFINS
+                                                {
+                                                    COFINSOutr = new COFINSOutr
+                                                    {
+                                                        CST = "99",
+                                                        VBC = 0.00,
+                                                        PCOFINS = 0.00,
+                                                        VCOFINS = 0.00
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        new Det
+                                        {
+                                            NItem = 2,
+                                            Prod = new Prod
+                                            {
+                                                CProd = "11111",
+                                                CEAN = "SEM GTIN",
+                                                XProd = "TESTE DO PRODUTO DO ITEM 2",
+                                                NCM = "99999999", //"84714900",
                                                 CFOP = "6101",
                                                 UCom = "LU",
                                                 QCom = 1.00,
@@ -1528,241 +1844,6 @@ namespace TesteDLL_Unimake.Business.DFe
                         }
                     }
                 };
-
-                //#region CriarNFe
-
-                //var xml = new EnviNFe
-                //{
-                //    Versao = "4.00",
-                //    IdLote = "000000000000001",
-                //    IndSinc = SimNao.Sim,
-                //    NFe = new List<NFe> {
-                //        new NFe
-                //        {
-                //            InfNFe = new List<Unimake.Business.DFe.Xml.NFe.InfNFe> {
-                //                new Unimake.Business.DFe.Xml.NFe.InfNFe
-                //                {
-                //                    Versao = "4.00",
-
-                //                    Ide = new Unimake.Business.DFe.Xml.NFe.Ide
-                //                    {
-                //                        CUF = UFBrasil.MG,
-                //                        NatOp = "VENDA PRODUC.DO ESTABELEC",
-                //                        Mod = ModeloDFe.NFe,
-                //                        Serie = 2,
-                //                        NNF = 129,
-                //                        DhEmi = DateTime.Now,
-                //                        DhSaiEnt = DateTime.Now,
-                //                        TpNF = TipoOperacao.Saida,
-                //                        IdDest = DestinoOperacao.OperacaoInterna,
-                //                        CMunFG = 3151800,
-                //                        TpImp = FormatoImpressaoDANFE.NormalRetrato,
-                //                        TpEmis = TipoEmissao.Normal,
-                //                        TpAmb = TipoAmbiente.Homologacao,
-                //                        FinNFe = FinalidadeNFe.Normal,
-                //                        IndFinal = SimNao.Sim,
-                //                        IndPres = IndicadorPresenca.OperacaoPresencial,
-                //                        ProcEmi = ProcessoEmissao.AplicativoContribuinte,
-                //                        VerProc = "VisualNF-e 3.0.0.1"
-                //                    },
-                //                    Emit = new Unimake.Business.DFe.Xml.NFe.Emit
-                //                    {
-                //                        CNPJ = "01618295000127",
-                //                        XNome = "BOLIVAR PRODUTOS PLASTICOS LTDA",
-                //                        XFant = "BOLIVAR PRODUTOS PLASTICOS LTDA.",
-                //                        EnderEmit = new Unimake.Business.DFe.Xml.NFe.EnderEmit
-                //                        {
-                //                            XLgr = "RODOVIA GERALDO MARTINS COSTA",
-                //                            Nro = "35",
-                //                            XBairro = "BORTOLAN SUL",
-                //                            CMun = 3151800,
-                //                            XMun = "POCOS DE CALDAS",
-                //                            UF = UFBrasil.MS,
-                //                            CEP = "37718000",
-                //                            Fone = "3537221444"
-                //                        },
-                //                        IE = "5183314120022",
-                //                        //IM = "14018",
-                //                        //CNAE = "6202300",
-                //                        CRT = CRT.RegimeNormal
-                //                    },
-                //                    Dest = new Unimake.Business.DFe.Xml.NFe.Dest
-                //                    {
-                //                        CNPJ = "05377777000193",
-                //                        XNome = "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL",
-                //                        EnderDest = new Unimake.Business.DFe.Xml.NFe.EnderDest
-                //                        {
-                //                            XLgr = "RUA PREFEITO CHAGAS",
-                //                            Nro = "605",
-                //                            XBairro = "CENTRO",
-                //                            CMun = 3151800,
-                //                            XMun = "POCOS DE CALDAS",
-                //                            UF = UFBrasil.MG,
-                //                            CEP = "37701010",
-                //                            Fone = "3530642491"
-                //                        },
-                //                        IndIEDest = IndicadorIEDestinatario.ContribuinteICMS,
-                //                        IE = "5182106750000",
-                //                        Email = "email@email.com.br"
-                //                    },
-                //                    //Det = CriarDet(),
-                //                    Det = new List<Det> {
-                //                        new Det
-                //                        {
-                //                            NItem = 1,
-                //                            Prod = new Prod
-                //                            {
-                //                                CProd = "0011290",
-                //                                CEAN = "SEM GTIN",
-                //                                XProd = "CABO DE REDE UTP CAT5E",
-                //                                NCM = "85444900",
-                //                                CEST = "1200700",
-                //                                CFOP = "5405",
-                //                                UCom = "MT",
-                //                                QCom = 305,
-                //                                VUnCom = 0.46,
-                //                                VProd = 140.30,
-                //                                CEANTrib = "SEM GTIN",
-                //                                UTrib = "MT",
-                //                                QTrib = 305,
-                //                                VUnTrib = 0.46,
-                //                                IndTot = SimNao.Sim,
-                //                                NItemPed = 1,
-                //                                //Comb = CriarComb()
-                //                            },
-                //                            Imposto = new Imposto
-                //                            {
-                //                                VTotTrib = 49.16,
-                //                                ICMS = new List<Unimake.Business.DFe.Xml.NFe.ICMS> {
-                //                                    new Unimake.Business.DFe.Xml.NFe.ICMS
-                //                                    {
-                //                                        ICMS60 = new Unimake.Business.DFe.Xml.NFe.ICMS60
-                //                                        {
-                //                                            Orig = OrigemMercadoria.Nacional,
-                //                                            VBCSTRet = null
-                //                                        }
-                //                                    }
-                //                                },
-                //                                PIS = new PIS
-                //                                {
-                //                                    PISAliq= new PISAliq
-                //                                    {
-                //                                        CST = "01",
-                //                                        VBC = 140.30,
-                //                                        PPIS = 1.65,
-                //                                        VPIS = 2.31
-                //                                    }
-                //                                },
-                //                                COFINS = new COFINS
-                //                                {
-                //                                    COFINSAliq = new COFINSAliq
-                //                                    {
-                //                                        CST = "01",
-                //                                        VBC = 140.30,
-                //                                        PCOFINS = 7.60,
-                //                                        VCOFINS = 10.66
-                //                                    }
-                //                                }
-                //                            }
-                //                        }
-                //                    },
-                //                    Total = new Total
-                //                    {
-                //                        ICMSTot = new ICMSTot
-                //                        {
-                //                            VBC = 0,
-                //                            VICMS = 0,
-                //                            VICMSDeson = 0,
-                //                            VFCP = 0,
-                //                            VBCST = 0,
-                //                            VST = 0,
-                //                            VFCPST = 0,
-                //                            VFCPSTRet = 0,
-                //                            VProd = 140.30,
-                //                            VFrete = 0,
-                //                            VSeg = 0,
-                //                            VDesc = 0,
-                //                            VII = 0,
-                //                            VIPI = 0,
-                //                            VIPIDevol = 0,
-                //                            VPIS = 2.31,
-                //                            VCOFINS = 10.66,
-                //                            VOutro = 0,
-                //                            VNF = 140.30,
-                //                            VTotTrib = 49.16
-                //                        }
-                //                    },
-                //                    Transp = new Transp
-                //                    {
-                //                        ModFrete = ModalidadeFrete.ContratacaoFretePorContaDestinatário_FOB,
-                //                        Transporta = new Transporta
-                //                        {
-                //                            XNome = "RETIRADO PELO CLIENTE",
-                //                            XEnder ="RUA RIO DE JANEIRO",
-                //                            XMun ="POCOS DE CALDAS",
-                //                            UF =  UFBrasil.MG
-                //                        },
-                //                        Vol = new List<Vol>
-                //                        {
-                //                            new Vol
-                //                            {
-                //                                QVol = 2,
-                //                                Esp = "VOLUMES",
-                //                                Marca = "CAIXAS",
-                //                                PesoL = 0.000,
-                //                                PesoB = 0.000
-                //                            }
-                //                        }
-                //                    },
-                //                    Cobr = new Unimake.Business.DFe.Xml.NFe.Cobr()
-                //                    {
-                //                        Fat = new Unimake.Business.DFe.Xml.NFe.Fat
-                //                        {
-                //                            NFat = "151342",
-                //                            VOrig = 140.30,
-                //                            VDesc = 0,
-                //                            VLiq = 140.30
-                //                        },
-                //                        Dup = new List<Unimake.Business.DFe.Xml.NFe.Dup>
-                //                        {
-                //                            new Unimake.Business.DFe.Xml.NFe.Dup
-                //                            {
-                //                                NDup = "001",
-                //                                DVenc = DateTime.Now,
-                //                                VDup = 140.30
-                //                            }
-                //                        }
-                //                    },
-                //                    Pag = new Pag
-                //                    {
-                //                        DetPag = new List<DetPag>
-                //                        {
-                //                             new DetPag
-                //                             {
-                //                                 IndPag = IndicadorPagamento.PagamentoPrazo ,
-                //                                 TPag = MeioPagamento.BoletoBancario,
-                //                                 VPag = 140.30
-                //                             }
-                //                        }
-                //                    },
-                //                    InfAdic = new Unimake.Business.DFe.Xml.NFe.InfAdic
-                //                    {
-                //                        InfCpl = ";Trib aprox: Federal Estadual Municipal ; Trib aprox: Federal Estadual Municipal Fonte: ;",
-                //                    },
-                //                    InfRespTec = new Unimake.Business.DFe.Xml.NFe.InfRespTec
-                //                    {
-                //                        CNPJ = "05413671000106",
-                //                        XContato = "Oduvaldo de Oliveira",
-                //                        Email = "oduvaldo@visualsistemas.net",
-                //                        Fone = "3537215351"
-                //                    }
-                //                }
-                //             }
-                //        }
-                //    }
-                //};
-
-                //#endregion CriarNFe
 
                 var configuracao = new Configuracao
                 {
@@ -1981,7 +2062,7 @@ namespace TesteDLL_Unimake.Business.DFe
                         CProd = "01042",
                         CEAN = "SEM GTIN",
                         XProd = "NOTA FISCAL EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL",
-                        NCM = "84714900",
+                        NCM = "99999999", // "84714900",
                         CFOP = "5101",
                         UCom = "LU",
                         QCom = 1.00,
@@ -3560,7 +3641,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 var xml = new EnviMDFe
                 {
                     Versao = "3.00",
-                    IdLote = "000000000000001",
+                    IdLote = "000000000000001",                    
                     MDFe = new MDFe
                     {
 
@@ -3897,16 +3978,17 @@ namespace TesteDLL_Unimake.Business.DFe
                                 {
                                     Versao = "4.00",
 
-                                    Ide = new Unimake.Business.DFe.Xml.NFe.Ide
+                                    Ide = new Ide
                                     {
                                         CUF = UFBrasil.PR,
                                         NatOp = "VENDA PRODUC.DO ESTABELEC",
                                         Mod = ModeloDFe.NFe,
                                         Serie = 1,
-                                        NNF = 57934,
+                                        NNF = 57968,
                                         DhEmi = DateTime.Now,
+                                        DhSaiEnt = DateTime.Now,
                                         TpNF = TipoOperacao.Saida,
-                                        IdDest = DestinoOperacao.OperacaoInterna,
+                                        IdDest = DestinoOperacao.OperacaoInterestadual,
                                         CMunFG = 4118402,
                                         TpImp = FormatoImpressaoDANFE.NormalRetrato,
                                         TpEmis = TipoEmissao.Normal,
@@ -3917,12 +3999,12 @@ namespace TesteDLL_Unimake.Business.DFe
                                         ProcEmi = ProcessoEmissao.AplicativoContribuinte,
                                         VerProc = "TESTE 1.00"
                                     },
-                                    Emit = new Unimake.Business.DFe.Xml.NFe.Emit
+                                    Emit = new Emit
                                     {
                                         CNPJ = "06117473000150",
                                         XNome = "UNIMAKE SOLUCOES CORPORATIVAS LTDA",
                                         XFant = "UNIMAKE - PARANAVAI",
-                                        EnderEmit = new Unimake.Business.DFe.Xml.NFe.EnderEmit
+                                        EnderEmit = new EnderEmit
                                         {
                                             XLgr = "RUA ANTONIO FELIPE",
                                             Nro = "1500",
@@ -3938,26 +4020,143 @@ namespace TesteDLL_Unimake.Business.DFe
                                         CNAE = "6202300",
                                         CRT = CRT.SimplesNacional
                                     },
-                                    Dest = new Unimake.Business.DFe.Xml.NFe.Dest
+                                    Dest = new Dest
                                     {
-                                        CNPJ = "01761135000132",
+                                        CNPJ = "04218457000128",
                                         XNome = "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL",
-                                        EnderDest = new Unimake.Business.DFe.Xml.NFe.EnderDest
+                                        EnderDest = new EnderDest
                                         {
-                                            XLgr = "AV. COMENDADOR NORBERTO MARCONDES",
-                                            Nro = "2156",
-                                            XBairro = "CENTRO",
-                                            CMun = 4104303,
-                                            XMun = "CAMPO MOURAO",
-                                            UF = UFBrasil.PR,
-                                            CEP = "87303100",
-                                            Fone = "04430171247"
+                                            XLgr = "AVENIDA DA SAUDADE",
+                                            Nro = "1555",
+                                            XBairro = "CAMPOS ELISEOS",
+                                            CMun = 3543402,
+                                            XMun = "RIBEIRAO PRETO",
+                                            UF = UFBrasil.SP,
+                                            CEP = "14080000",
+                                            Fone = "01639611500"
                                         },
-                                        IE = "9021987090",
                                         IndIEDest = IndicadorIEDestinatario.ContribuinteICMS,
-                                        Email = "teste@teste.com.br"
+                                        IE = "582614838110",
+                                        Email = "janelaorp@janelaorp.com.br"
                                     },
-                                    Det = CriarDet(),
+                                    Det = new List<Det> {
+                                        new Det
+                                        {
+                                            NItem = 1,
+                                            Prod = new Prod
+                                            {
+                                                CProd = "01042",
+                                                CEAN = "SEM GTIN",
+                                                XProd = "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL",
+                                                NCM = "84714900",
+                                                CFOP = "6101",
+                                                UCom = "LU",
+                                                QCom = 1.00,
+                                                VUnCom = 84.9000000000,
+                                                VProd = 84.90,
+                                                CEANTrib = "SEM GTIN",
+                                                UTrib = "LU",
+                                                QTrib = 1.00,
+                                                VUnTrib = 84.9000000000,
+                                                IndTot = SimNao.Sim,
+                                                XPed = "300474",
+                                                NItemPed = 1
+                                            },
+                                            Imposto = new Imposto
+                                            {
+                                                VTotTrib = 12.63,
+                                                ICMS = new List<ICMS> {
+                                                    new ICMS
+                                                    {
+                                                        ICMSSN101 = new ICMSSN101
+                                                        {
+                                                            Orig = OrigemMercadoria.Nacional,
+                                                            PCredSN = 2.8255,
+                                                            VCredICMSSN = 2.40
+                                                        }
+                                                    }
+                                                },
+                                                PIS = new PIS
+                                                {
+                                                    PISOutr = new PISOutr
+                                                    {
+                                                        CST = "99",
+                                                        VBC = 0.00,
+                                                        PPIS = 0.00,
+                                                        VPIS = 0.00
+                                                    }
+                                                },
+                                                COFINS = new COFINS
+                                                {
+                                                    COFINSOutr = new COFINSOutr
+                                                    {
+                                                        CST = "99",
+                                                        VBC = 0.00,
+                                                        PCOFINS = 0.00,
+                                                        VCOFINS = 0.00
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        new Det
+                                        {
+                                            NItem = 2,
+                                            Prod = new Prod
+                                            {
+                                                CProd = "22222",
+                                                CEAN = "SEM GTIN",
+                                                XProd = "PRODUTO NUMERO 2",
+                                                NCM = "99999999", //"84714900",
+                                                CFOP = "6101",
+                                                UCom = "LU",
+                                                QCom = 1.00,
+                                                VUnCom = 84.9000000000,
+                                                VProd = 84.90,
+                                                CEANTrib = "SEM GTIN",
+                                                UTrib = "LU",
+                                                QTrib = 1.00,
+                                                VUnTrib = 84.9000000000,
+                                                IndTot = SimNao.Sim,
+                                                XPed = "300474",
+                                                NItemPed = 1
+                                            },
+                                            Imposto = new Imposto
+                                            {
+                                                VTotTrib = 12.63,
+                                                ICMS = new List<ICMS> {
+                                                    new ICMS
+                                                    {
+                                                        ICMSSN101 = new ICMSSN101
+                                                        {
+                                                            Orig = OrigemMercadoria.Nacional,
+                                                            PCredSN = 2.8255,
+                                                            VCredICMSSN = 2.40
+                                                        }
+                                                    }
+                                                },
+                                                PIS = new PIS
+                                                {
+                                                    PISOutr = new PISOutr
+                                                    {
+                                                        CST = "99",
+                                                        VBC = 0.00,
+                                                        PPIS = 0.00,
+                                                        VPIS = 0.00
+                                                    }
+                                                },
+                                                COFINS = new COFINS
+                                                {
+                                                    COFINSOutr = new COFINSOutr
+                                                    {
+                                                        CST = "99",
+                                                        VBC = 0.00,
+                                                        PCOFINS = 0.00,
+                                                        VCOFINS = 0.00
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
                                     Total = new Total
                                     {
                                         ICMSTot = new ICMSTot
@@ -3986,20 +4185,31 @@ namespace TesteDLL_Unimake.Business.DFe
                                     },
                                     Transp = new Transp
                                     {
-                                        ModFrete = ModalidadeFrete.SemOcorrenciaTransporte
+                                        ModFrete = ModalidadeFrete.ContratacaoFretePorContaRemetente_CIF,
+                                        Vol = new List<Vol>
+                                        {
+                                            new Vol
+                                            {
+                                                QVol = 1,
+                                                Esp = "LU",
+                                                Marca = "UNIMAKE",
+                                                PesoL = 0.000,
+                                                PesoB = 0.000
+                                            }
+                                        }
                                     },
                                     Cobr = new Unimake.Business.DFe.Xml.NFe.Cobr()
                                     {
-                                        Fat = new Unimake.Business.DFe.Xml.NFe.Fat
+                                        Fat = new Fat
                                         {
                                             NFat = "057910",
                                             VOrig = 84.90,
                                             VDesc = 0,
                                             VLiq = 84.90
                                         },
-                                        Dup = new List<Unimake.Business.DFe.Xml.NFe.Dup>
+                                        Dup = new List<Dup>
                                         {
-                                            new Unimake.Business.DFe.Xml.NFe.Dup
+                                            new Dup
                                             {
                                                 NDup = "001",
                                                 DVenc = DateTime.Now,
@@ -4009,21 +4219,21 @@ namespace TesteDLL_Unimake.Business.DFe
                                     },
                                     Pag = new Pag
                                     {
-                                        DetPag = new  List<DetPag>
+                                        DetPag = new List<DetPag>
                                         {
                                              new DetPag
                                              {
                                                  IndPag = IndicadorPagamento.PagamentoVista,
-                                                 TPag = MeioPagamento.Outros,
+                                                 TPag = MeioPagamento.Dinheiro,
                                                  VPag = 84.90
                                              }
                                         }
                                     },
-                                    InfAdic = new Unimake.Business.DFe.Xml.NFe.InfAdic
+                                    InfAdic = new InfAdic
                                     {
                                         InfCpl = ";CONTROLE: 0000241197;PEDIDO(S) ATENDIDO(S): 300474;Empresa optante pelo simples nacional, conforme lei compl. 128 de 19/12/2008;Permite o aproveitamento do credito de ICMS no valor de R$ 2,40, correspondente ao percentual de 2,83% . Nos termos do Art. 23 - LC 123/2006 (Resolucoes CGSN n. 10/2007 e 53/2008);Voce pagou aproximadamente: R$ 6,69 trib. federais / R$ 5,94 trib. estaduais / R$ 0,00 trib. municipais. Fonte: IBPT/empresometro.com.br 18.2.B A3S28F;",
                                     },
-                                    InfRespTec = new Unimake.Business.DFe.Xml.NFe.InfRespTec
+                                    InfRespTec = new InfRespTec
                                     {
                                         CNPJ = "06117473000150",
                                         XContato = "Wandrey Mundin Ferreira",
@@ -4040,16 +4250,17 @@ namespace TesteDLL_Unimake.Business.DFe
                                 {
                                     Versao = "4.00",
 
-                                    Ide = new Unimake.Business.DFe.Xml.NFe.Ide
+                                    Ide = new Ide
                                     {
                                         CUF = UFBrasil.PR,
                                         NatOp = "VENDA PRODUC.DO ESTABELEC",
                                         Mod = ModeloDFe.NFe,
                                         Serie = 1,
-                                        NNF = 57935,
+                                        NNF = 57969,
                                         DhEmi = DateTime.Now,
+                                        DhSaiEnt = DateTime.Now,
                                         TpNF = TipoOperacao.Saida,
-                                        IdDest = DestinoOperacao.OperacaoInterna,
+                                        IdDest = DestinoOperacao.OperacaoInterestadual,
                                         CMunFG = 4118402,
                                         TpImp = FormatoImpressaoDANFE.NormalRetrato,
                                         TpEmis = TipoEmissao.Normal,
@@ -4060,12 +4271,12 @@ namespace TesteDLL_Unimake.Business.DFe
                                         ProcEmi = ProcessoEmissao.AplicativoContribuinte,
                                         VerProc = "TESTE 1.00"
                                     },
-                                    Emit = new Unimake.Business.DFe.Xml.NFe.Emit
+                                    Emit = new Emit
                                     {
                                         CNPJ = "06117473000150",
                                         XNome = "UNIMAKE SOLUCOES CORPORATIVAS LTDA",
                                         XFant = "UNIMAKE - PARANAVAI",
-                                        EnderEmit = new Unimake.Business.DFe.Xml.NFe.EnderEmit
+                                        EnderEmit = new EnderEmit
                                         {
                                             XLgr = "RUA ANTONIO FELIPE",
                                             Nro = "1500",
@@ -4081,26 +4292,85 @@ namespace TesteDLL_Unimake.Business.DFe
                                         CNAE = "6202300",
                                         CRT = CRT.SimplesNacional
                                     },
-                                    Dest = new Unimake.Business.DFe.Xml.NFe.Dest
+                                    Dest = new Dest
                                     {
-                                        CNPJ = "01761135000132",
+                                        CNPJ = "04218457000128",
                                         XNome = "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL",
-                                        EnderDest = new Unimake.Business.DFe.Xml.NFe.EnderDest
+                                        EnderDest = new EnderDest
                                         {
-                                            XLgr = "AV. COMENDADOR NORBERTO MARCONDES",
-                                            Nro = "2156",
-                                            XBairro = "CENTRO",
-                                            CMun = 4104303,
-                                            XMun = "CAMPO MOURAO",
-                                            UF = UFBrasil.PR,
-                                            CEP = "87303100",
-                                            Fone = "04430171247"
+                                            XLgr = "AVENIDA DA SAUDADE",
+                                            Nro = "1555",
+                                            XBairro = "CAMPOS ELISEOS",
+                                            CMun = 3543402,
+                                            XMun = "RIBEIRAO PRETO",
+                                            UF = UFBrasil.SP,
+                                            CEP = "14080000",
+                                            Fone = "01639611500"
                                         },
-                                        IE = "9021987090",
                                         IndIEDest = IndicadorIEDestinatario.ContribuinteICMS,
-                                        Email = "teste@teste.com.br"
+                                        IE = "582614838110",
+                                        Email = "janelaorp@janelaorp.com.br"
                                     },
-                                    Det = CriarDet(),
+                                    Det = new List<Det> {
+                                        new Det
+                                        {
+                                            NItem = 1,
+                                            Prod = new Prod
+                                            {
+                                                CProd = "01042",
+                                                CEAN = "SEM GTIN",
+                                                XProd = "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL",
+                                                NCM = "99999999", //"84714900",
+                                                CFOP = "6101",
+                                                UCom = "LU",
+                                                QCom = 1.00,
+                                                VUnCom = 84.9000000000,
+                                                VProd = 84.90,
+                                                CEANTrib = "SEM GTIN",
+                                                UTrib = "LU",
+                                                QTrib = 1.00,
+                                                VUnTrib = 84.9000000000,
+                                                IndTot = SimNao.Sim,
+                                                XPed = "300474",
+                                                NItemPed = 1
+                                            },
+                                            Imposto = new Imposto
+                                            {
+                                                VTotTrib = 12.63,
+                                                ICMS = new List<ICMS> {
+                                                    new ICMS
+                                                    {
+                                                        ICMSSN101 = new ICMSSN101
+                                                        {
+                                                            Orig = OrigemMercadoria.Nacional,
+                                                            PCredSN = 2.8255,
+                                                            VCredICMSSN = 2.40
+                                                        }
+                                                    }
+                                                },
+                                                PIS = new PIS
+                                                {
+                                                    PISOutr = new PISOutr
+                                                    {
+                                                        CST = "99",
+                                                        VBC = 0.00,
+                                                        PPIS = 0.00,
+                                                        VPIS = 0.00
+                                                    }
+                                                },
+                                                COFINS = new COFINS
+                                                {
+                                                    COFINSOutr = new COFINSOutr
+                                                    {
+                                                        CST = "99",
+                                                        VBC = 0.00,
+                                                        PCOFINS = 0.00,
+                                                        VCOFINS = 0.00
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
                                     Total = new Total
                                     {
                                         ICMSTot = new ICMSTot
@@ -4129,20 +4399,31 @@ namespace TesteDLL_Unimake.Business.DFe
                                     },
                                     Transp = new Transp
                                     {
-                                        ModFrete = ModalidadeFrete.SemOcorrenciaTransporte
+                                        ModFrete = ModalidadeFrete.ContratacaoFretePorContaRemetente_CIF,
+                                        Vol = new List<Vol>
+                                        {
+                                            new Vol
+                                            {
+                                                QVol = 1,
+                                                Esp = "LU",
+                                                Marca = "UNIMAKE",
+                                                PesoL = 0.000,
+                                                PesoB = 0.000
+                                            }
+                                        }
                                     },
                                     Cobr = new Unimake.Business.DFe.Xml.NFe.Cobr()
                                     {
-                                        Fat = new Unimake.Business.DFe.Xml.NFe.Fat
+                                        Fat = new Fat
                                         {
                                             NFat = "057910",
                                             VOrig = 84.90,
                                             VDesc = 0,
                                             VLiq = 84.90
                                         },
-                                        Dup = new List<Unimake.Business.DFe.Xml.NFe.Dup>
+                                        Dup = new List<Dup>
                                         {
-                                            new Unimake.Business.DFe.Xml.NFe.Dup
+                                            new Dup
                                             {
                                                 NDup = "001",
                                                 DVenc = DateTime.Now,
@@ -4152,21 +4433,21 @@ namespace TesteDLL_Unimake.Business.DFe
                                     },
                                     Pag = new Pag
                                     {
-                                        DetPag = new  List<DetPag>
+                                        DetPag = new List<DetPag>
                                         {
                                              new DetPag
                                              {
                                                  IndPag = IndicadorPagamento.PagamentoVista,
-                                                 TPag = MeioPagamento.Outros,
+                                                 TPag = MeioPagamento.Dinheiro,
                                                  VPag = 84.90
                                              }
                                         }
                                     },
-                                    InfAdic = new Unimake.Business.DFe.Xml.NFe.InfAdic
+                                    InfAdic = new InfAdic
                                     {
                                         InfCpl = ";CONTROLE: 0000241197;PEDIDO(S) ATENDIDO(S): 300474;Empresa optante pelo simples nacional, conforme lei compl. 128 de 19/12/2008;Permite o aproveitamento do credito de ICMS no valor de R$ 2,40, correspondente ao percentual de 2,83% . Nos termos do Art. 23 - LC 123/2006 (Resolucoes CGSN n. 10/2007 e 53/2008);Voce pagou aproximadamente: R$ 6,69 trib. federais / R$ 5,94 trib. estaduais / R$ 0,00 trib. municipais. Fonte: IBPT/empresometro.com.br 18.2.B A3S28F;",
                                     },
-                                    InfRespTec = new Unimake.Business.DFe.Xml.NFe.InfRespTec
+                                    InfRespTec = new InfRespTec
                                     {
                                         CNPJ = "06117473000150",
                                         XContato = "Wandrey Mundin Ferreira",
@@ -4176,7 +4457,6 @@ namespace TesteDLL_Unimake.Business.DFe
                                 }
                             }
                         }
-
                     }
                 };
 
@@ -4216,6 +4496,7 @@ namespace TesteDLL_Unimake.Business.DFe
                         };
 
                         var retAutorizacao = new Unimake.Business.DFe.Servicos.NFe.RetAutorizacao(xmlRec, configRec);
+                        retAutorizacao.EnviNFe = XMLUtility.Deserializar<EnviNFe>(autorizacao.ConteudoXMLAssinado.OuterXml);
                         retAutorizacao.Executar();
 
                         autorizacao.RetConsReciNFe = retAutorizacao.Result;
@@ -5181,63 +5462,82 @@ namespace TesteDLL_Unimake.Business.DFe
         private void button44_Click(object sender, EventArgs e)
         {
             var doc = new XmlDocument();
-            doc.Load(@"C:\Users\Wandrey\Downloads\Telegram Desktop\41211129451730000190580000000002071008111464-mdfe.xml");
+            doc.Load(@"C:\Users\Wandrey\Downloads\31211206302001000177570010000120771010212219-cte (1).xml");
 
-            var xml = new EnviMDFe();
-            xml.IdLote = "00000000000001";
-            xml.Versao = "3.00";
-            xml.MDFe = xml.LerXML<MDFe>(doc);
+
+            #region NFe / NFCe
+
+            var xmlNFe = new EnviNFe();
+            xmlNFe.IdLote = "000000000000001";
+            xmlNFe.Versao = "4.00";
+            xmlNFe.NFe = new List<NFe>();
+            xmlNFe.NFe.Add(XMLUtility.Deserializar<NFe>(doc));
 
             var config = new Configuracao
             {
-                TipoDFe = TipoDFe.MDFe,
+                TipoDFe = TipoDFe.NFe,
                 CertificadoDigital = CertificadoSelecionado
             };
 
-            Unimake.Business.DFe.Servicos.MDFe.Autorizacao autorizacao = new Unimake.Business.DFe.Servicos.MDFe.Autorizacao(xml, config);
+            Unimake.Business.DFe.Servicos.NFe.Autorizacao autorizacao = new Unimake.Business.DFe.Servicos.NFe.Autorizacao(xmlNFe, config);
+            autorizacao.Executar();
 
-            XmlDocument doc2 = xml.GerarXML();
+            #endregion
 
-            //var cert = new CertificadoDigital();
-            //X509Certificate2 certSel1 = null;
-            //X509Certificate2 certSel2 = null;
+            #region CTe
 
-            //var sair = false;
-            //while(!sair)
+            //var xmlCTe = new EnviCTe();
+            //xmlCTe.IdLote = "000000000000001";
+            //xmlCTe.Versao = "3.00";
+            //xmlCTe.CTe = new List<CTe>();
+            //xmlCTe.CTe.Add(XMLUtility.Deserializar<CTe>(doc));
+
+            //var config = new Configuracao
             //{
-            //    if(MessageBox.Show("Sim = Testar certificado digital da SafeWeb\r\nNão = Testar certificado digital da Certsign", "Teste", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            //    {
-            //        try
-            //        {
-            //            if(certSel1 == null)
-            //            {
-            //                certSel1 = cert.BuscarCertificadoDigital("58219FD2EADA297B"); //Certificado SafeWeb
-            //            }
-            //        }
-            //        catch { }
+            //    TipoDFe = TipoDFe.CTe,
+            //    CertificadoDigital = CertificadoSelecionado
+            //};
 
-            //        TesteCertificadoA3(certSel1);
-            //    }
-            //    else
-            //    {
+            //Unimake.Business.DFe.Servicos.CTe.Autorizacao autorizacao = new Unimake.Business.DFe.Servicos.CTe.Autorizacao(xmlCTe, config);
+            //autorizacao.Executar();
+
+            #endregion
+
+            #region CTeOS
+
+            //var xmlCTeOS = new CTeOS();
+            //xmlCTeOS = XMLUtility.Deserializar<CTeOS>(doc);
+
+            //var config = new Configuracao
+            //{
+            //    TipoDFe = TipoDFe.CTeOS,
+            //    CertificadoDigital = CertificadoSelecionado
+            //};
+
+            //Unimake.Business.DFe.Servicos.CTeOS.Autorizacao autorizacao = new Unimake.Business.DFe.Servicos.CTeOS.Autorizacao(xmlCTeOS, config);
+            //autorizacao.Executar();
+
+            #endregion
 
 
-            //        try
-            //        {
-            //            if(certSel2 == null)
-            //            {
-            //                certSel2 = cert.BuscarCertificadoDigital("1B820C60F4CE57E513AA8D5DEEF26C7D");
-            //            }
-            //        }
-            //        catch { }
+            #region MDFe
 
-            //        TesteCertificadoA3(certSel2);
-            //    }
+            //var xmlMDFe = new EnviMDFe();
+            //xmlMDFe.IdLote = "000000000000001";
+            //xmlMDFe.Versao = "3.00";
+            //xmlMDFe.MDFe = new MDFe();
+            //xmlMDFe.MDFe = XMLUtility.Deserializar<MDFe>(doc);
 
-            //    //CertificadoSelecionado.Reset();
-            //    //CertificadoSelecionado.Dispose();
-            //    //CertificadoSelecionado = null;
-            //}
+            //var config = new Configuracao
+            //{
+            //    TipoDFe = TipoDFe.MDFe,
+            //    CertificadoDigital = CertificadoSelecionado
+            //};
+
+            //Unimake.Business.DFe.Servicos.MDFe.Autorizacao autorizacao = new Unimake.Business.DFe.Servicos.MDFe.Autorizacao(xmlMDFe, config);
+            //autorizacao.Executar();
+
+            #endregion            
         }
 
         private bool CertSetPin1 = false;

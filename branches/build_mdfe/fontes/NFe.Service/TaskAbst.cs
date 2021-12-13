@@ -1248,11 +1248,11 @@ namespace NFe.Service
                     switch(servico)
                     {
                         case Servicos.NFSeConsultarLoteRps:
-                            retorna = "";
+                            retorna = "consultarLoteRps";
                             break;
 
                         case Servicos.NFSeConsultar:
-                            retorna = "";
+                            retorna = "consultarNfsePorFaixa";
                             break;
 
                         case Servicos.NFSeConsultarPorRps:

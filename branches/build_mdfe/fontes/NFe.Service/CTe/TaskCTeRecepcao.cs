@@ -94,12 +94,30 @@ namespace NFe.Service
                         Thread.Sleep(dadosRec.tMed * 1000);
                     }
 
-                    //Atualizar o número do recibo no XML de controle do fluxo de notas enviadas
-                    fluxoNfe.AtualizarTag(lerXml.oDadosNfe.chavenfe, FluxoNfe.ElementoEditavel.tMed, (dadosRec.tMed + 2).ToString());
-                    fluxoNfe.AtualizarTagRec(idLote, dadosRec.nRec);
-                    var xmlPedRec = oGerarXML.XmlPedRecCTe(dadosRec.nRec, dadosRec.versao, emp);
-                    var cteRetRecepcao = new TaskCTeRetRecepcao(xmlPedRec);
-                    cteRetRecepcao.Execute();
+                    try
+                    {
+                        var xmlPedRec = oGerarXML.XmlPedRecCTe(dadosRec.nRec, dadosRec.versao, emp);
+                        var cteRetRecepcao = new TaskCTeRetRecepcao(xmlPedRec);
+                        cteRetRecepcao.Execute();
+                    }
+                    catch(ExceptionEnvioXML)
+                    {
+                        throw;
+                    }
+                    catch(ExceptionSemInternet)
+                    {
+                        throw;
+                    }
+                    catch(Exception)
+                    {
+                        throw;
+                    }
+                    finally
+                    {
+                        //Atualizar o número do recibo no XML de controle do fluxo de notas enviadas
+                        fluxoNfe.AtualizarTag(lerXml.oDadosNfe.chavenfe, FluxoNfe.ElementoEditavel.tMed, dadosRec.tMed.ToString());
+                        fluxoNfe.AtualizarTagRec(idLote, dadosRec.nRec);
+                    }
                 }
                 else if(Convert.ToInt32(dadosRec.cStat) > 200 ||
                     Convert.ToInt32(dadosRec.cStat) == 108 || //Verifica se o servidor de processamento está paralisado momentaneamente. Wandrey 13/04/2012
