@@ -1152,14 +1152,6 @@ namespace NFe.Settings
 
                         #endregion CFS-e
 
-                        #region LMC
-
-                        case Servicos.LMCAutorizacao:
-                            WSDL = (tipoAmbiente == (int)TipoAmbiente.taHomologacao ? list.LocalHomologacao.LMCAutorizacao : list.LocalProducao.LMCAutorizacao);
-                            break;
-
-                        #endregion LMC
-
                         #region EFDReinf
 
                         case Servicos.RecepcaoLoteReinf:

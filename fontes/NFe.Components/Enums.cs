@@ -515,15 +515,6 @@ namespace NFe.Components
 
         #endregion Impressao do relatorio de e-mails do DANFE
 
-        #region LMC
-
-        /// <summary>
-        /// Envio do XML de LMC
-        /// </summary>
-        LMCAutorizacao,
-
-        #endregion LMC
-
         DFeEnviar,
 
         #region EFDReinf
@@ -1023,13 +1014,13 @@ namespace NFe.Components
         /// <summary>
         /// Padrão Actcon
         /// </summary>
-        [Description("Portal Fácil/Actcon")]
+        [Description("Portal Fácil/Actcon 2.01")]
         PORTALFACIL_ACTCON,
 
         /// <summary>
         /// Padrão Actcon
         /// </summary>
-        [Description("Portal Fácil/Actcon")]
+        [Description("Portal Fácil/Actcon 2.02")]
         PORTALFACIL_ACTCON_202,
 
         /// <summary>

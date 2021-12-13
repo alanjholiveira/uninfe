@@ -12,10 +12,10 @@ namespace NFSe.Components
             {
                 Tag = "EnviarLoteRpsEnvio",
                 ID = SchemaXML.InfSchemas.Count + 1,
-                ArquivoXSD = "NFSe\\SMARAPD\\nfse_v2-04.xsd",
+                ArquivoXSD = "",
                 Descricao = "XML de Lote RPS",
-                TagAssinatura = "Rps",
-                TagAtributoId = "InfDeclaracaoPrestacaoServico",
+                TagAssinatura = "",
+                TagAtributoId = "",
                 TagLoteAssinatura = "EnviarLoteRpsEnvio",
                 TagLoteAtributoId = "LoteRps",
                 TargetNameSpace = "http://www.abrasf.org.br/nfse.xsd"
@@ -28,10 +28,10 @@ namespace NFSe.Components
             {
                 Tag = "EnviarLoteRpsSincronoEnvio",
                 ID = SchemaXML.InfSchemas.Count + 1,
-                ArquivoXSD = "NFSe\\SMARAPD\\nfse_v2-04.xsd",
+                ArquivoXSD = "",
                 Descricao = "XML de Lote RPS",
-                TagAssinatura = "Rps",
-                TagAtributoId = "InfDeclaracaoPrestacaoServico",
+                TagAssinatura = "",
+                TagAtributoId = "",
                 TagLoteAssinatura = "EnviarLoteRpsSincronoEnvio",
                 TagLoteAtributoId = "LoteRps",
                 TargetNameSpace = "http://www.abrasf.org.br/nfse.xsd"
@@ -44,7 +44,7 @@ namespace NFSe.Components
             {
                 Tag = "CancelarNfseEnvio",
                 ID = SchemaXML.InfSchemas.Count + 1,
-                ArquivoXSD = "NFSe\\SMARAPD\\nfse_v2-04.xsd",
+                ArquivoXSD = "",
                 Descricao = "XML de Cancelamento da NFS-e",
                 TagAssinatura = "Pedido",
                 TagAtributoId = "InfPedidoCancelamento",
@@ -58,10 +58,10 @@ namespace NFSe.Components
             {
                 Tag = "ConsultarLoteRpsEnvio",
                 ID = SchemaXML.InfSchemas.Count + 1,
-                ArquivoXSD = "NFSe\\SMARAPD\\nfse_v2-04.xsd",
+                ArquivoXSD = "",
                 Descricao = "XML de Consulta de Lote RPS",
-                TagAssinatura = "",
-                TagAtributoId = "",
+                TagAssinatura = "ConsultarLoteRpsEnvio",
+                TagAtributoId = "Prestador",
                 TargetNameSpace = "http://www.abrasf.org.br/nfse.xsd"
             });
             #endregion XML de Consulta de Lote RPS
@@ -72,10 +72,10 @@ namespace NFSe.Components
             {
                 Tag = "ConsultarNfseRpsEnvio",
                 ID = SchemaXML.InfSchemas.Count + 1,
-                ArquivoXSD = "NFSe\\SMARAPD\\nfse_v2-04.xsd",
+                ArquivoXSD = "",
                 Descricao = "XML de Consulta de NFSe por Rps",
-                TagAssinatura = "",
-                TagAtributoId = "",
+                TagAssinatura = "ConsultarNfseRpsEnvio",
+                TagAtributoId = "Prestador",
                 TargetNameSpace = "http://www.abrasf.org.br/nfse.xsd"
             });
             #endregion XML de Consulta de NFSe por Rps
@@ -86,10 +86,10 @@ namespace NFSe.Components
             {
                 Tag = "ConsultarNfseFaixaEnvio",
                 ID = SchemaXML.InfSchemas.Count + 1,
-                ArquivoXSD = "NFSe\\SMARAPD\\nfse_v2-04.xsd",
+                ArquivoXSD = "",
                 Descricao = "XML de Consulta de NFSe por Faixa",
-                TagAssinatura = "",
-                TagAtributoId = "",
+                TagAssinatura = "ConsultarNfseFaixaEnvio",
+                TagAtributoId = "Prestador",
                 TargetNameSpace = "http://www.abrasf.org.br/nfse.xsd"
             });
 
@@ -101,7 +101,7 @@ namespace NFSe.Components
             {
                 Tag = "EnviarLoteRpsEnvio",
                 ID = SchemaXML.InfSchemas.Count + 1,
-                ArquivoXSD = "NFSe\\SMARAPD\\nfse_v2-04.xsd",
+                ArquivoXSD = "",
                 Descricao = "XML de Lote RPS",
                 TagAssinatura = "Rps",
                 TagAtributoId = "InfDeclaracaoPrestacaoServico",
@@ -115,7 +115,7 @@ namespace NFSe.Components
             {
                 Tag = "SubstituirNfseEnvio",
                 ID = SchemaXML.InfSchemas.Count + 1,
-                ArquivoXSD = "NFSe\\SMARAPD\\nfse_v2-04.xsd",
+                ArquivoXSD = "",
                 Descricao = "XML de Substituição de NFSe",
                 TagAssinatura0 = "Pedido",
                 TagAtributoId0 = "InfPedidoCancelamento",
@@ -134,7 +134,7 @@ namespace NFSe.Components
             {
                 Tag = "ConsultarNfseServicoPrestadoEnvio",
                 ID = SchemaXML.InfSchemas.Count + 1,
-                ArquivoXSD = "NFSe\\SMARAPD\\nfse_v2-04.xsd",
+                ArquivoXSD = "",
                 Descricao = "XML de Consulta da NFSe Servicos Tomados",
                 TagAssinatura = "",
                 TagAtributoId = "",

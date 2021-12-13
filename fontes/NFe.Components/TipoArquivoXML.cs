@@ -203,6 +203,10 @@ namespace NFe.Components
                                 padraoNFSe = Functions.PadraoNFSe(UFCod).ToString() + "-3131307-";
                                 break;
 
+                            case 2105302: //Imperatriz-MA
+                                padraoNFSe = Functions.PadraoNFSe(UFCod).ToString() + "-2105302-";
+                                break;
+
                             case 4300109: //Agudo-RS
                                 padraoNFSe = Functions.PadraoNFSe(UFCod).ToString() + "-4300109-";
                                 break;

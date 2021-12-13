@@ -93,6 +93,60 @@ namespace NFSe.Components
             });
             #endregion
 
+            #region XML de Lote RPS Imperatriz - MA 2.02
+            SchemaXML.InfSchemas.Add("NFSE-PORTALFACIL_ACTCON_202-2105302-EnviarLoteRpsSincronoEnvio", new InfSchema()
+            {
+                Tag = "EnviarLoteRpsEnvio",
+                ID = SchemaXML.InfSchemas.Count + 1,
+                ArquivoXSD = "", //NFSe\\ACTCON\\nfse_v204.xsd
+                Descricao = "XML de Lote RPS",
+                TagAssinatura = "Rps",
+                TagAtributoId = "InfDeclaracaoPrestacaoServico",
+                TagLoteAssinatura = "EnviarLoteRpsSincronoEnvio",
+                TagLoteAtributoId = "LoteRps",
+                TargetNameSpace = "http://nfse-ma-imperatriz.portalfacil.com.br/nfseserv/schema/nfse_v202.xsd"
+            });
+            #endregion
+
+            #region XML de Cancelamento de Imperatriz - MA 2.02
+            SchemaXML.InfSchemas.Add("NFSE-PORTALFACIL_ACTCON_202-2105302-CancelarNfseEnvio", new InfSchema()
+            {
+                Tag = "CancelarNfseEnvio",
+                ID = SchemaXML.InfSchemas.Count + 1,
+                ArquivoXSD = "",
+                Descricao = "XML de Cancelamento da NFS-e",
+                TagAssinatura = "Pedido",
+                TagAtributoId = "InfPedidoCancelamento",
+                TargetNameSpace = ""
+            });
+            #endregion
+
+            #region XML de Consulta de Lote RPS Imperatriz - MA 2.02
+            SchemaXML.InfSchemas.Add("NFSE-PORTALFACIL_ACTCON_202-2105302-ConsultarLoteRpsEnvio", new InfSchema()
+            {
+                Tag = "ConsultarLoteRpsEnvio",
+                ID = SchemaXML.InfSchemas.Count + 1,
+                ArquivoXSD = "",
+                Descricao = "XML de Consulta de Lote RPS",
+                TagAssinatura = "",
+                TagAtributoId = "",
+                TargetNameSpace = ""
+            });
+            #endregion
+
+            #region XML de Consulta de NFSe por Rps Imperatriz - MA 2.02
+            SchemaXML.InfSchemas.Add("NFSE-PORTALFACIL_ACTCON_202-2105302-ConsultarNfseRpsEnvio", new InfSchema()
+            {
+                Tag = "ConsultarNfseRpsEnvio",
+                ID = SchemaXML.InfSchemas.Count + 1,
+                ArquivoXSD = "",
+                Descricao = "XML de Consulta de NFSe por Rps",
+                TagAssinatura = "",
+                TagAtributoId = "",
+                TargetNameSpace = ""
+            });
+            #endregion
+
             #endregion 2.02
 
             #region 2.04

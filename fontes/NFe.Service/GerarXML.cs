@@ -2221,63 +2221,7 @@ namespace NFe.Service
             return nomeArqProcMDFe;   //danasa 11-4-2012
         }
 
-        #endregion XMLDistMDFe()
-
-        #region XMLDistLMC()
-
-        /// <summary>
-        /// Criar o arquivo XML de distribuição dos LMC com o protocolo de autorização anexado
-        /// </summary>
-        /// <param name="arqLMC">Nome arquivo XML da LMC</param>
-        /// <param name="protLMC">String contendo a parte do XML do protocolo a ser anexado</param>
-        /// <param name="extensao">String contendo a extensão do arquivo</param>
-        public string XmlDistLMC(string arqLMC, string protLMC, string extensao)
-        {
-            var nomeArqProcLMC = string.Empty;
-            var emp = EmpIndex;
-            StreamWriter swProc = null;
-
-            try
-            {
-                if(File.Exists(arqLMC))
-                {
-                    var tipo = "livroCombustivel";
-
-                    var doc = new XmlDocument();
-                    doc.Load(arqLMC);
-
-                    var LMCList = doc.GetElementsByTagName(tipo);
-                    var LMCNode = LMCList[0];
-                    var conteudoLMC = LMCNode.OuterXml;
-
-                    //Montar a string contendo o XML -procLMC.xml
-                    var xmlProcLMC = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>" +
-                        "<" + tipo + "Proc xmlns=\"" + NFeStrConstants.NAME_SPACE_LMC + "\" versao=\"1.00\">" +
-                        conteudoLMC +
-                        protLMC +
-                        "</" + tipo + "Proc>";
-
-                    //Montar o nome do arquivo -procLMC.xml
-                    nomeArqProcLMC = Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" +
-                                     PastaEnviados.EmProcessamento.ToString() + "\\" +
-                                     Functions.ExtrairNomeArq(arqLMC, Propriedade.Extensao(Propriedade.TipoEnvio.LMC).EnvioXML) +
-                                     extensao;
-
-                    swProc = File.CreateText(nomeArqProcLMC);
-                    swProc.Write(xmlProcLMC);
-                }
-            }
-            finally
-            {
-                if(swProc != null)
-                {
-                    swProc.Close();
-                }
-            }
-            return nomeArqProcLMC;
-        }
-
-        #endregion XMLDistLMC()        
+        #endregion XMLDistMDFe()             
 
         #region EnvioConsultaNFeDest
 
