@@ -1146,11 +1146,7 @@ namespace NFe.Components
             CTeRecepcaoEvento =
             CTeConsultaCadastro =
             CTeDistribuicaoDFe =
-            CteRecepcaoOS =
-
-            ///
-            /// LMC
-            LMCAutorizacao = string.Empty;
+            CteRecepcaoOS = string.Empty;
         }
 
         #region Propriedades referente as tags do webservice.xml
@@ -1359,11 +1355,6 @@ namespace NFe.Components
         /// Consulta dos MDFe´s não encerrados
         /// </summary>
         public string MDFeNaoEncerrado { get; set; }
-
-        /// <summary>
-        /// Recepcao dos LMC´s
-        /// </summary>
-        public string LMCAutorizacao { get; set; }
 
         #endregion MDF-e
 

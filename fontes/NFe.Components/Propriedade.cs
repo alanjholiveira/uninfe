@@ -367,7 +367,6 @@ namespace NFe.Components
             EnvImpressaoDanfe,
             EnvLot,
             EnvWSExiste,
-            LMC,
             MontarLote,
             PedEve,
             PedInu,
@@ -841,12 +840,6 @@ namespace NFe.Components
                 "",
                 "Pedido de envio de lote de NFe/NFCe/MDFe/CTe"));
 
-            ListaExtensoes.Add(TipoEnvio.LMC, new ExtensaoClass(
-                "-lmc.xml", "",
-                "-ret-lmc.xml", "",
-                "",
-                "Movimentação de Combustíveis (LMC)"));
-
             ListaExtensoes.Add(TipoEnvio.MontarLote, new ExtensaoClass(
                 "-montar-lote.xml", "-montar-lote.txt",
                 "", "",
@@ -1245,12 +1238,6 @@ namespace NFe.Components
 
             #endregion Extensoes de DFe
 
-            #region Extensões LMC
-
-            public static string LMC = Extensao(TipoEnvio.LMC).EnvioXML;
-
-            #endregion Extensões LMC
-
             #region Extensões só para resolver um problema de compatibilidade de um usuário, com o tempo poderemos excluir. Wandrey 10/12/2014
 
             public static string cce_XML = Extensao(TipoEnvio.cce_XML).EnvioXML;
@@ -1308,7 +1295,6 @@ namespace NFe.Components
             public static string retEnvDFe_TXT = Extensao(TipoEnvio.EnvDFe).RetornoTXT;
             public static string retEnvDFeCTe_XML = Extensao(TipoEnvio.EnvDFeCTe).RetornoXML;
             public static string retEnvDFeCTe_TXT = Extensao(TipoEnvio.EnvDFeCTe).RetornoTXT;
-            public static string LMCRet = Extensao(TipoEnvio.LMC).RetornoXML;
 
             #endregion Extensoes que so estao aqui para quem utiliza o codigo em seus projetos
 
@@ -1523,20 +1509,6 @@ namespace NFe.Components
             public const string retEnvDFeCTe_ERR = "-con-dist-dfecte.err";
 
             #endregion Extensoes de DFe
-
-            #region Extensões do LMC
-
-            /// <summary>
-            /// -ret-lmc.err
-            /// </summary>
-            public static string LMCRet_ERR = "-ret-lmc.err";
-
-            /// <summary>
-            /// -procLMC.xml
-            /// </summary>
-            public static string ProcLMC = "-procLMC.xml";
-
-            #endregion Extensões do LMC
 
             #region EFD Reinf
 

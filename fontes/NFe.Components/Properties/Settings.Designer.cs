@@ -1071,36 +1071,6 @@ namespace NFe.Components.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://www.gp.srv.br/tributario_sinop/servlet/anfse_web_service")]
-        public string NFe_Components_PSinopMT_nfse_web_service {
-            get {
-                return ((string)(this["NFe_Components_PSinopMT_nfse_web_service"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://testevaladares.sigiss.com.br:443/testevaladares/ws/sigiss_ws.php")]
-        public string NFe_Components_HGovernadorValadaresMG_WebService_SigISS {
-            get {
-                return ((string)(this["NFe_Components_HGovernadorValadaresMG_WebService_SigISS"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://valadares.sigiss.com.br:443/valadares/ws/sigiss_ws.php")]
-        public string NFe_Components_PGovernadorValadaresMG_WebService_SigISS {
-            get {
-                return ((string)(this["NFe_Components_PGovernadorValadaresMG_WebService_SigISS"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
         [global::System.Configuration.DefaultSettingValueAttribute("http://187.108.203.210:8110/IssWeb-ejb/IssWebWS/IssWebWS")]
         public string NFe_Components_PItaitubaPA_IssWebWS {
             get {
@@ -1965,16 +1935,6 @@ namespace NFe.Components.Properties {
         public string NFe_Components_PBarraBonitaSP_ConsultarNfe_webservice {
             get {
                 return ((string)(this["NFe_Components_PBarraBonitaSP_ConsultarNfe_webservice"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://lftributos.metropolisweb.com.br:9090/webservicenfse/nfse/services")]
-        public string NFe_Components_HIlheusBA_Nfse {
-            get {
-                return ((string)(this["NFe_Components_HIlheusBA_Nfse"]));
             }
         }
         
@@ -3483,6 +3443,16 @@ namespace NFe.Components.Properties {
         public string NFe_Components_PLinharesES_EL_RpsServiceService {
             get {
                 return ((string)(this["NFe_Components_PLinharesES_EL_RpsServiceService"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://ilheus.metropolisweb.com.br:9091/webservicenfse/nfse/services")]
+        public string NFe_Components_HIlheusBA_Nfse {
+            get {
+                return ((string)(this["NFe_Components_HIlheusBA_Nfse"]));
             }
         }
     }

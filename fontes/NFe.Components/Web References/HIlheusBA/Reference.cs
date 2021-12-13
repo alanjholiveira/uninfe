@@ -29,15 +29,15 @@ namespace NFe.Components.HIlheusBA {
     [System.Web.Services.WebServiceBindingAttribute(Name="NfseSoapPortBinding", Namespace="http://impl.endpoint.nfse.ws.webservicenfse.edza.com.br/")]
     public partial class Nfse : System.Web.Services.Protocols.SoapHttpClientProtocol {
         
-        private System.Threading.SendOrPostCallback CancelarNfseOperationCompleted;
-        
         private System.Threading.SendOrPostCallback ConsultarSituacaoLoteRpsOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback CancelarNfseOperationCompleted;
         
         private System.Threading.SendOrPostCallback ConsultarNfseOperationCompleted;
         
-        private System.Threading.SendOrPostCallback ConsultarLoteRpsOperationCompleted;
-        
         private System.Threading.SendOrPostCallback RecepcionarLoteRpsOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback ConsultarLoteRpsOperationCompleted;
         
         private System.Threading.SendOrPostCallback ConsultarNfsePorRpsOperationCompleted;
         
@@ -45,7 +45,7 @@ namespace NFe.Components.HIlheusBA {
         
         /// <remarks/>
         public Nfse() {
-            this.Url = global::NFe.Components.Properties.Settings.Default.NFe_Components_br_com_metropolisweb_lftributos_p_Nfse;
+            this.Url = global::NFe.Components.Properties.Settings.Default.NFe_Components_HIlheusBA_Nfse;
             if ((this.IsLocalFileSystemWebService(this.Url) == true)) {
                 this.UseDefaultCredentials = true;
                 this.useDefaultCredentialsSetExplicitly = false;
@@ -80,52 +80,22 @@ namespace NFe.Components.HIlheusBA {
         }
         
         /// <remarks/>
-        public event CancelarNfseCompletedEventHandler CancelarNfseCompleted;
+        public event ConsultarSituacaoLoteRpsCompletedEventHandler ConsultarSituacaoLoteRpsCompleted;
         
         /// <remarks/>
-        public event ConsultarSituacaoLoteRpsCompletedEventHandler ConsultarSituacaoLoteRpsCompleted;
+        public event CancelarNfseCompletedEventHandler CancelarNfseCompleted;
         
         /// <remarks/>
         public event ConsultarNfseCompletedEventHandler ConsultarNfseCompleted;
         
         /// <remarks/>
-        public event ConsultarLoteRpsCompletedEventHandler ConsultarLoteRpsCompleted;
-        
-        /// <remarks/>
         public event RecepcionarLoteRpsCompletedEventHandler RecepcionarLoteRpsCompleted;
         
         /// <remarks/>
+        public event ConsultarLoteRpsCompletedEventHandler ConsultarLoteRpsCompleted;
+        
+        /// <remarks/>
         public event ConsultarNfsePorRpsCompletedEventHandler ConsultarNfsePorRpsCompleted;
-        
-        /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", RequestNamespace="http://endpoint.nfse.ws.webservicenfse.edza.com.br/", ResponseNamespace="http://endpoint.nfse.ws.webservicenfse.edza.com.br/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        [return: System.Xml.Serialization.XmlElementAttribute("CancelarNfseResponse", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public output CancelarNfse([System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)] input CancelarNfseRequest) {
-            object[] results = this.Invoke("CancelarNfse", new object[] {
-                        CancelarNfseRequest});
-            return ((output)(results[0]));
-        }
-        
-        /// <remarks/>
-        public void CancelarNfseAsync(input CancelarNfseRequest) {
-            this.CancelarNfseAsync(CancelarNfseRequest, null);
-        }
-        
-        /// <remarks/>
-        public void CancelarNfseAsync(input CancelarNfseRequest, object userState) {
-            if ((this.CancelarNfseOperationCompleted == null)) {
-                this.CancelarNfseOperationCompleted = new System.Threading.SendOrPostCallback(this.OnCancelarNfseOperationCompleted);
-            }
-            this.InvokeAsync("CancelarNfse", new object[] {
-                        CancelarNfseRequest}, this.CancelarNfseOperationCompleted, userState);
-        }
-        
-        private void OnCancelarNfseOperationCompleted(object arg) {
-            if ((this.CancelarNfseCompleted != null)) {
-                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.CancelarNfseCompleted(this, new CancelarNfseCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-            }
-        }
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", RequestNamespace="http://endpoint.nfse.ws.webservicenfse.edza.com.br/", ResponseNamespace="http://endpoint.nfse.ws.webservicenfse.edza.com.br/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -154,6 +124,36 @@ namespace NFe.Components.HIlheusBA {
             if ((this.ConsultarSituacaoLoteRpsCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.ConsultarSituacaoLoteRpsCompleted(this, new ConsultarSituacaoLoteRpsCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", RequestNamespace="http://endpoint.nfse.ws.webservicenfse.edza.com.br/", ResponseNamespace="http://endpoint.nfse.ws.webservicenfse.edza.com.br/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute("CancelarNfseResponse", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public output CancelarNfse([System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)] input CancelarNfseRequest) {
+            object[] results = this.Invoke("CancelarNfse", new object[] {
+                        CancelarNfseRequest});
+            return ((output)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void CancelarNfseAsync(input CancelarNfseRequest) {
+            this.CancelarNfseAsync(CancelarNfseRequest, null);
+        }
+        
+        /// <remarks/>
+        public void CancelarNfseAsync(input CancelarNfseRequest, object userState) {
+            if ((this.CancelarNfseOperationCompleted == null)) {
+                this.CancelarNfseOperationCompleted = new System.Threading.SendOrPostCallback(this.OnCancelarNfseOperationCompleted);
+            }
+            this.InvokeAsync("CancelarNfse", new object[] {
+                        CancelarNfseRequest}, this.CancelarNfseOperationCompleted, userState);
+        }
+        
+        private void OnCancelarNfseOperationCompleted(object arg) {
+            if ((this.CancelarNfseCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.CancelarNfseCompleted(this, new CancelarNfseCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -189,36 +189,6 @@ namespace NFe.Components.HIlheusBA {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", RequestNamespace="http://endpoint.nfse.ws.webservicenfse.edza.com.br/", ResponseNamespace="http://endpoint.nfse.ws.webservicenfse.edza.com.br/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        [return: System.Xml.Serialization.XmlElementAttribute("ConsultarLoteRpsResponse", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public output ConsultarLoteRps([System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)] input ConsultarLoteRpsRequest) {
-            object[] results = this.Invoke("ConsultarLoteRps", new object[] {
-                        ConsultarLoteRpsRequest});
-            return ((output)(results[0]));
-        }
-        
-        /// <remarks/>
-        public void ConsultarLoteRpsAsync(input ConsultarLoteRpsRequest) {
-            this.ConsultarLoteRpsAsync(ConsultarLoteRpsRequest, null);
-        }
-        
-        /// <remarks/>
-        public void ConsultarLoteRpsAsync(input ConsultarLoteRpsRequest, object userState) {
-            if ((this.ConsultarLoteRpsOperationCompleted == null)) {
-                this.ConsultarLoteRpsOperationCompleted = new System.Threading.SendOrPostCallback(this.OnConsultarLoteRpsOperationCompleted);
-            }
-            this.InvokeAsync("ConsultarLoteRps", new object[] {
-                        ConsultarLoteRpsRequest}, this.ConsultarLoteRpsOperationCompleted, userState);
-        }
-        
-        private void OnConsultarLoteRpsOperationCompleted(object arg) {
-            if ((this.ConsultarLoteRpsCompleted != null)) {
-                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.ConsultarLoteRpsCompleted(this, new ConsultarLoteRpsCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-            }
-        }
-        
-        /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", RequestNamespace="http://endpoint.nfse.ws.webservicenfse.edza.com.br/", ResponseNamespace="http://endpoint.nfse.ws.webservicenfse.edza.com.br/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         [return: System.Xml.Serialization.XmlElementAttribute("RecepcionarLoteRpsResponse", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public output RecepcionarLoteRps([System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)] input RecepcionarLoteRpsRequest) {
             object[] results = this.Invoke("RecepcionarLoteRps", new object[] {
@@ -244,6 +214,36 @@ namespace NFe.Components.HIlheusBA {
             if ((this.RecepcionarLoteRpsCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.RecepcionarLoteRpsCompleted(this, new RecepcionarLoteRpsCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", RequestNamespace="http://endpoint.nfse.ws.webservicenfse.edza.com.br/", ResponseNamespace="http://endpoint.nfse.ws.webservicenfse.edza.com.br/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute("ConsultarLoteRpsResponse", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public output ConsultarLoteRps([System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)] input ConsultarLoteRpsRequest) {
+            object[] results = this.Invoke("ConsultarLoteRps", new object[] {
+                        ConsultarLoteRpsRequest});
+            return ((output)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ConsultarLoteRpsAsync(input ConsultarLoteRpsRequest) {
+            this.ConsultarLoteRpsAsync(ConsultarLoteRpsRequest, null);
+        }
+        
+        /// <remarks/>
+        public void ConsultarLoteRpsAsync(input ConsultarLoteRpsRequest, object userState) {
+            if ((this.ConsultarLoteRpsOperationCompleted == null)) {
+                this.ConsultarLoteRpsOperationCompleted = new System.Threading.SendOrPostCallback(this.OnConsultarLoteRpsOperationCompleted);
+            }
+            this.InvokeAsync("ConsultarLoteRps", new object[] {
+                        ConsultarLoteRpsRequest}, this.ConsultarLoteRpsOperationCompleted, userState);
+        }
+        
+        private void OnConsultarLoteRpsOperationCompleted(object arg) {
+            if ((this.ConsultarLoteRpsCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ConsultarLoteRpsCompleted(this, new ConsultarLoteRpsCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -355,17 +355,17 @@ namespace NFe.Components.HIlheusBA {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
-    public delegate void CancelarNfseCompletedEventHandler(object sender, CancelarNfseCompletedEventArgs e);
+    public delegate void ConsultarSituacaoLoteRpsCompletedEventHandler(object sender, ConsultarSituacaoLoteRpsCompletedEventArgs e);
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class CancelarNfseCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    public partial class ConsultarSituacaoLoteRpsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
         
-        internal CancelarNfseCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+        internal ConsultarSituacaoLoteRpsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
@@ -381,17 +381,17 @@ namespace NFe.Components.HIlheusBA {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
-    public delegate void ConsultarSituacaoLoteRpsCompletedEventHandler(object sender, ConsultarSituacaoLoteRpsCompletedEventArgs e);
+    public delegate void CancelarNfseCompletedEventHandler(object sender, CancelarNfseCompletedEventArgs e);
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class ConsultarSituacaoLoteRpsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    public partial class CancelarNfseCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
         
-        internal ConsultarSituacaoLoteRpsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+        internal CancelarNfseCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
@@ -433,17 +433,17 @@ namespace NFe.Components.HIlheusBA {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
-    public delegate void ConsultarLoteRpsCompletedEventHandler(object sender, ConsultarLoteRpsCompletedEventArgs e);
+    public delegate void RecepcionarLoteRpsCompletedEventHandler(object sender, RecepcionarLoteRpsCompletedEventArgs e);
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class ConsultarLoteRpsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    public partial class RecepcionarLoteRpsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
         
-        internal ConsultarLoteRpsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+        internal RecepcionarLoteRpsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
@@ -459,17 +459,17 @@ namespace NFe.Components.HIlheusBA {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
-    public delegate void RecepcionarLoteRpsCompletedEventHandler(object sender, RecepcionarLoteRpsCompletedEventArgs e);
+    public delegate void ConsultarLoteRpsCompletedEventHandler(object sender, ConsultarLoteRpsCompletedEventArgs e);
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class RecepcionarLoteRpsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    public partial class ConsultarLoteRpsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
         
-        internal RecepcionarLoteRpsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+        internal ConsultarLoteRpsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }

@@ -80,6 +80,9 @@ namespace NFe.Service.NFSe
                             case 3305109: //São João de Meriti-RJ
                             case 3505500: //Barretos-SP
                             case 2802908: //Itabaiana-SE
+                            case 4217600: //Siderópolis-SC
+                            case 3127701: //Governador Valadares-MG
+                            case 5107909: //Sinop-MT
                                 ExecuteDLL(emp, oDadosPedSitNfse.cMunicipio, padraoNFSe);
                                 break;
 
@@ -800,6 +803,7 @@ namespace NFe.Service.NFSe
 
                 case PadroesNFSe.PRODATA:
                 case PadroesNFSe.AVMB_ASTEN:
+                case PadroesNFSe.COPLAN:
                     result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarNfseFaixa;
                     break;
 
@@ -851,6 +855,7 @@ namespace NFe.Service.NFSe
 
                 case PadroesNFSe.AVMB_ASTEN:
                 case PadroesNFSe.WEBISS:
+                case PadroesNFSe.COPLAN:
                     versaoXML = "2.02";
                     break;
             }

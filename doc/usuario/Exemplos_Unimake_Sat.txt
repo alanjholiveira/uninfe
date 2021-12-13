@@ -1,0 +1,72 @@
+var CodigoAtivacao = "12345678";
+var Sat = new Unimake.SAT.SAT(Unimake.SAT.Enuns.Fabricante.DARUMA, CodigoAtivacao);
+
+//Consultar SAT
+var resposta = Sat.ConsultarSAT();
+var ConsultarRetorno = new Servicos.Retorno.ConsultarSATResponse(resposta);
+var retornoString = ConsultarRetorno.ToXML();
+
+//Consultar SAT Operacional
+var resposta = Sat.ConsultarStatusOperacional();
+var ConsultarStatusOperacionalRetorno = new Servicos.Retorno.ConsultarStatusOperacionalResponse(resposta);
+var retornoString = ConsultarStatusOperacionalRetorno.ToXML();
+
+//Desbloquear SAT
+var resposta = Sat.DesbloquearSAT();
+var DesbloquearSATRetorno = new Servicos.Retorno.DesbloquearSATResponse(resposta);
+var retornoString = DesbloquearSATRetorno.ToXML();
+
+//Consultar Numero Sessão
+var NumeroSessao = "1";
+var resposta = Sat.ConsultarNumeroSessao(NumeroSessao);
+var ConsultarRetorno = new Servicos.Retorno.ConsultarNumeroSessaoResponse(resposta);
+var retornoString = ConsultarRetorno.ToXML();
+
+//Cancelar Última Venda
+var ChaveAcessoVenda = "ChaveDeAcessoVendaACancelar";
+var CancelarUltimaVendaEnvio = "string do xml de cancelamento";
+var resposta = Sat.CancelarUltimaVenda(ChaveAcessoVenda, CancelarUltimaVendaEnvio);
+var CancelarUltimaVendaRetorno = new Servicos.Retorno.CancelarUltimaVendaResponse(resposta);
+var retornoString = CancelarUltimaVendaRetorno.ToXML();
+
+//Bloquear SAT
+var resposta = Sat.BloquearSAT();
+var BloquearSATRetorno = new Servicos.Retorno.BloquearSATResponse(resposta);
+var retornoString = BloquearSATRetorno.ToXML();
+
+//Ativar SAT
+var resposta = Sat.AtivarSAT(SubComando, CNPJ, CodigoUF);
+var AtivarSATRetorno = new Servicos.Retorno.AtivarSATResponse(resposta);
+var retornoString = AtivarSATRetorno.ToXML();
+
+//Associar Assinatura
+var resposta Sat.AssociarAssinatura(CNPJValue, AssinaturaCNPJs);
+var AssociarAssinaturaRetorno = new Servicos.Retorno.AssociarAssinaturaResponse(resposta);
+var retornoString = AssociarAssinaturaRetorno.ToXML();
+
+//Desbloquear SAT
+var resposta = Sat.DesbloquearSAT();
+var DesbloquearSATRetorno = new Servicos.Retorno.DesbloquearSATResponse(resposta);
+var retornoString = DesbloquearSATRetorno.ToXML();
+
+//Enviar dados venda
+var DadosVendaEnvio = "conteudo XML SAT";
+var resposta = Sat.EnviarDadosVenda(DadosVendaEnvio);
+var DadosVendaRetorno = new Servicos.Retorno.EnviarDadosVendaResponse(resposta);
+var retornoString = DadosVendaRetorno.ToXML();
+
+//Extrair dados LOGs
+var resposta = Sat.ExtrairLogs();
+var ExtrairLogsRetorno = new Servicos.Retorno.ExtrairLogsResponse(resposta);
+var retornoString = ExtrairLogsRetorno.ToXML();
+
+//Teste fim a fim
+var TesteFimAFimEnvio = "conteudo do XML SAT";
+var resposta = Sat.TesteFimAFim(TesteFimAFimEnvio);
+var TesteFimAFimRetorno = new Servicos.Retorno.TesteFimAFimResponse(resposta);
+var retornoString = TesteFimAFimRetorno.ToXML();
+
+//Trocar código de ativação
+var resposta = Sat.TrocarCodigoDeAtivacao("1" , "12345678", "11111111");
+var TrocarCodigoDeAtivacaoRetorno = new Servicos.Retorno.TrocarCodigoDeAtivacaoResponse(resposta);
+var retornoString = TrocarCodigoDeAtivacaoRetorno.ToXML();
