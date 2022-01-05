@@ -1114,9 +1114,10 @@ namespace NFe.Components
         MANAUS_AM,
 
         /// <summary>
-        /// Padrão utilizado pela prefeitura de Joinville-SC
+        /// Próprio Joinville SC 
         /// </summary>
-        JOINVILLE_SC,
+        [Description("Próprio Joinville SC")]
+        PROPRIOJOINVILLESC,
 
         /// <summary>
         /// Padrão utilizado pela prefeitura de Pelotas-RS
@@ -1332,7 +1333,8 @@ namespace NFe.Components
         FalhaEnvioXmlWS = 2,
         CertificadoVencido = 3,
         FalhaEnvioXmlNFeWS = 5,
-        CertificadoNaoEncontrado = 6
+        CertificadoNaoEncontrado = 6,
+        ValidarXML = 7
     }
 
     #endregion Erros Padrões

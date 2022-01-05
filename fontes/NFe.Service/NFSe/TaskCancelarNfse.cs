@@ -103,6 +103,7 @@ namespace NFe.Service.NFSe
                             case 4217600: //Siderópolis-SC
                             case 3127701: //Governador Valadares-MG
                             case 5107909: //Sinop-MT
+                            case 4209102: //Joinville-SC
                                 ExecuteDLL(emp, oDadosPedCanNfse.cMunicipio, padraoNFSe);
                                 break;
 
@@ -738,20 +739,6 @@ namespace NFe.Service.NFSe
                                         cabecMsg = "<?xml version=\"1.0\" encoding=\"utf-8\"?><p:cabecalho versao=\"1\" xmlns:ds=\"http://www.w3.org/2000/09/xmldsig#\" xmlns:p=\"http://ws.speedgov.com.br/cabecalho_v1.xsd\" xmlns:p1=\"http://ws.speedgov.com.br/tipos_v1.xsd\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://ws.speedgov.com.br/cabecalho_v1.xsd cabecalho_v1.xsd \"><versaoDados>1</versaoDados></p:cabecalho>";
                                         break;
 
-                                    case PadroesNFSe.JOINVILLE_SC:
-                                        wsProxy = new WebServiceProxy(Empresas.Configuracoes[emp].X509Certificado);
-
-                                        if(oDadosPedCanNfse.tpAmb == 2)
-                                        {
-                                            pedCanNfse = new Components.HJoinvilleSC.Servicos();
-                                        }
-                                        else
-                                        {
-                                            pedCanNfse = new Components.PJoinvilleSC.Servicos();
-                                        }
-
-                                        break;
-
                                     case PadroesNFSe.EMBRAS:
                                         cabecMsg = "<cabecalho versao=\"2.02\" xmlns=\"http://www.abrasf.org.br/nfse.xsd\"><versaoDados>2.02</versaoDados></cabecalho>";
                                         break;
@@ -979,6 +966,10 @@ namespace NFe.Service.NFSe
                 case PadroesNFSe.WEBISS:
                 case PadroesNFSe.COPLAN:
                     versaoXML = "2.02";
+                    break;
+
+                case PadroesNFSe.PROPRIOJOINVILLESC:
+                    versaoXML = "2.04";
                     break;
             }
 

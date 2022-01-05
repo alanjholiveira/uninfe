@@ -1,8 +1,8 @@
 ECHO OFF
 CHCP 65001
 ::Variáveis
-SET filesDir=D:\Projetos\uninfe\trunk\fontes\Unimake.DFe\Compilacao\INTEROP_Release\
-SET istool="C:\Program Files (x86)\Inno Script Studio\ISStudio.exe"
+SET filesDir=D:\Projetos\UnimakeTeam\Unimake.DFe\source\Unimake.DFe\Compilacao\INTEROP_Release\
+SET istool="C:\Program Files (x86)\Inno Setup 6\ISCC.exe"
 
 ::Prepara
 DEL /S %cd%\err
@@ -11,7 +11,12 @@ CLS
 
 @ECHO Compilando Unimake.DFe
 
-CALL D:\Projetos\uninfe\trunk\fontes\Unimake.DFe\Unimake.DFe.sln
+dotnet build D:\Projetos\UnimakeTeam\Unimake.DFe\source\Unimake.DFe.sln --configuration INTEROP_Release --force
+
+@ECHO:
+@ECHO:
+@ECHO Verifique as mensagens de erro. Pressione CTRL+C para terminar a compilação ou ...
+PAUSE
 
 @ECHO Limpando diretório de release
 
@@ -42,22 +47,19 @@ DEL /S %filesDir%\net472\Unimake.Business.DFe.dll
 ::Ações
 @ECHO Assinando executáveis e dlls
 FORFILES /p %filesDir% /s /m unimake.* /c "cmd /c %CD%\sign.bat @path %cd%"
-IF EXIST err GOTO err
-
 
 @ECHO Compilando script
-:: Aqui abrimos o diretório apenas para atualizar o script, poderia ser automatizado, mas ... 
-EXPLORER %filesDir%
+
 CALL %istool% Unimake.DFe.iss
-EXPLORER %cd%\output
+
+@ECHO:
+@ECHO:
+@ECHO Verifique as mensagens de erro. Pressione CTRL+C para terminar a compilação ou ...
+PAUSE
 
 @ECHO Assinando o instalador
 CALL sign %cd%\output\Install_Unimake.DFe.exe %cd%
-IF NOT EXIST err GOTO ok
-
-:err
-@ECHO Error: %ERRORLEVEL%
-PAUSE
+EXPLORER %cd%\output
 
 :ok
 exit /B 0

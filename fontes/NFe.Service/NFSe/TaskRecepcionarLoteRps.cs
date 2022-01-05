@@ -91,6 +91,7 @@ namespace NFe.Service.NFSe
                             case 4217600: //Siderópolis-SC
                             case 3127701: //Governador Valadares-MG
                             case 5107909: //Sinop-MT
+                            case 4209102: //Joinville-SC
                                 ExecuteDLL(emp, oDadosEnvLoteRps.cMunicipio, padraoNFSe);
                                 break;
 
@@ -785,20 +786,6 @@ namespace NFe.Service.NFSe
                                         cabecMsg = "<cabecalho versao=\"201001\"><versaoDados>V2010</versaoDados></cabecalho>";
                                         break;
 
-                                    case PadroesNFSe.JOINVILLE_SC:
-                                        wsProxy = new WebServiceProxy(Empresas.Configuracoes[emp].X509Certificado);
-
-                                        if (oDadosEnvLoteRps.tpAmb == 2)
-                                        {
-                                            envLoteRps = new Components.HJoinvilleSC.Servicos();
-                                        }
-                                        else
-                                        {
-                                            envLoteRps = new Components.PJoinvilleSC.Servicos();
-                                        }
-
-                                        break;
-
                                     case PadroesNFSe.EMBRAS:
                                         Servico = GetTipoServicoSincrono(Servico, NomeArquivoXML, PadroesNFSe.EMBRAS);
                                         cabecMsg = "<cabecalho versao=\"2.02\" xmlns=\"http://www.abrasf.org.br/nfse.xsd\"><versaoDados>2.02</versaoDados></cabecalho>";
@@ -1121,6 +1108,7 @@ namespace NFe.Service.NFSe
                 case PadroesNFSe.AVMB_ASTEN:
                 case PadroesNFSe.WEBISS:
                 case PadroesNFSe.COPLAN:
+                case PadroesNFSe.PROPRIOJOINVILLESC:
                     switch (doc.DocumentElement.Name)
                     {
                         case "EnviarLoteRpsSincronoEnvio":
@@ -1190,6 +1178,10 @@ namespace NFe.Service.NFSe
                 case PadroesNFSe.WEBISS:
                 case PadroesNFSe.COPLAN:
                     versaoXML = "2.02";
+                    break;
+
+                case PadroesNFSe.PROPRIOJOINVILLESC:
+                    versaoXML = "2.04";
                     break;
             }
 
