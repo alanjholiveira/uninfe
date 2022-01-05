@@ -1583,7 +1583,7 @@ namespace TesteDLL_Unimake.Business.DFe
                                         NatOp = "VENDA PRODUC.DO ESTABELEC",
                                         Mod = ModeloDFe.NFe,
                                         Serie = 1,
-                                        NNF = 57970,
+                                        NNF = 57971,
                                         DhEmi = DateTime.Now,
                                         DhSaiEnt = DateTime.Now,
                                         TpNF = TipoOperacao.Saida,
@@ -1705,7 +1705,7 @@ namespace TesteDLL_Unimake.Business.DFe
                                                 CProd = "11111",
                                                 CEAN = "SEM GTIN",
                                                 XProd = "TESTE DO PRODUTO DO ITEM 2",
-                                                NCM = "99999999", //"84714900",
+                                                NCM = "84714900",
                                                 CFOP = "6101",
                                                 UCom = "LU",
                                                 QCom = 1.00,
@@ -1768,7 +1768,7 @@ namespace TesteDLL_Unimake.Business.DFe
                                             VST = 0,
                                             VFCPST = 0,
                                             VFCPSTRet = 0,
-                                            VProd = 84.90,
+                                            VProd = 169.80,
                                             VFrete = 0,
                                             VSeg = 0,
                                             VDesc = 0,
@@ -1778,8 +1778,8 @@ namespace TesteDLL_Unimake.Business.DFe
                                             VPIS = 0,
                                             VCOFINS = 0,
                                             VOutro = 0,
-                                            VNF = 84.90,
-                                            VTotTrib = 12.63
+                                            VNF = 169.80,
+                                            VTotTrib = 25.26
                                         }
                                     },
                                     Transp = new Transp
@@ -1802,9 +1802,9 @@ namespace TesteDLL_Unimake.Business.DFe
                                         Fat = new Fat
                                         {
                                             NFat = "057910",
-                                            VOrig = 84.90,
+                                            VOrig = 169.80,
                                             VDesc = 0,
-                                            VLiq = 84.90
+                                            VLiq = 169.80
                                         },
                                         Dup = new List<Dup>
                                         {
@@ -1812,7 +1812,7 @@ namespace TesteDLL_Unimake.Business.DFe
                                             {
                                                 NDup = "001",
                                                 DVenc = DateTime.Now,
-                                                VDup = 84.90
+                                                VDup = 169.80
                                             }
                                         }
                                     },
@@ -1824,7 +1824,7 @@ namespace TesteDLL_Unimake.Business.DFe
                                              {
                                                  IndPag = IndicadorPagamento.PagamentoVista,
                                                  TPag = MeioPagamento.Dinheiro,
-                                                 VPag = 84.90
+                                                 VPag = 169.80
                                              }
                                         }
                                     },
@@ -5462,8 +5462,7 @@ namespace TesteDLL_Unimake.Business.DFe
         private void button44_Click(object sender, EventArgs e)
         {
             var doc = new XmlDocument();
-            doc.Load(@"C:\Users\Wandrey\Downloads\31211206302001000177570010000120771010212219-cte (1).xml");
-
+            doc.Load(@"C:\Users\Wandrey\Downloads\Telegram Desktop\31211228284553000132650010000007151000097586-nfe.xml");
 
             #region NFe / NFCe
 
@@ -5518,7 +5517,6 @@ namespace TesteDLL_Unimake.Business.DFe
             //autorizacao.Executar();
 
             #endregion
-
 
             #region MDFe
 

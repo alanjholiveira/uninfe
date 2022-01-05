@@ -4207,8 +4207,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="NFse\WSDL\Homologacao\HSantanaLivramentoRS-DBSELLER.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Producao\PSantanaLivramentoRS-DBSELLER.wsdl" />
-    <EmbeddedResource Include="NFse\WSDL\Homologacao\HJoinvilleSC.wsdl" />
-    <EmbeddedResource Include="NFse\WSDL\Producao\PJoinvilleSC.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Homologacao\HSaoJoseDosCamposSP.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Producao\PSaoJoseDosCamposSP.wsdl" />
     <EmbeddedResource Include="NFse\schemas\NFSe\DSF\SJCSP\nfse.xsd">
@@ -4603,6 +4601,9 @@
     <EmbeddedResource Include="NFse\WSDL\Homologacao\HIpatingaMG-PORTALFACIL_ACTCON.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Producao\PIpatingaMG-PORTALFACIL_ACTCON.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Producao\PThemaCancelamento.wsdl" />
+    <EmbeddedResource Include="NFse\WSDL\Producao\PBauruSP_SMARAPD_203.wsdl" />
+    <EmbeddedResource Include="NFse\WSDL\Producao\PMageRJ-MODERNIZACAO_PUBLICA.wsdl" />
+    <EmbeddedResource Include="NFse\WSDL\Homologacao\HMageRJ-MODERNIZACAO_PUBLICA.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="NFse\WSDL\Producao\PCamacariBA.wsdl">

@@ -58,6 +58,7 @@ namespace NFe.Service.NFSe
                             case 2802908: //Itabaiana-SE
                             case 4217600: //Siderópolis-SC
                             case 5107909: //Sinop-MT
+                            case 4209102: //Joinville-SC
                                 ExecuteDLL(emp, ler.oDadosPedSitNfseRps.cMunicipio, padraoNFSe);
                                 break;
 
@@ -464,20 +465,6 @@ namespace NFe.Service.NFSe
                                         cabecMsg = "<cabecalho versao=\"201001\"><versaoDados>V2010</versaoDados></cabecalho>";
                                         break;
 
-                                    case PadroesNFSe.JOINVILLE_SC:
-                                        wsProxy = new WebServiceProxy(Empresas.Configuracoes[emp].X509Certificado);
-
-                                        if (ler.oDadosPedSitNfseRps.tpAmb == 2)
-                                        {
-                                            pedLoteRps = new Components.HJoinvilleSC.Servicos();
-                                        }
-                                        else
-                                        {
-                                            pedLoteRps = new Components.PJoinvilleSC.Servicos();
-                                        }
-
-                                        break;
-
                                     case PadroesNFSe.EMBRAS:
                                         cabecMsg = "<cabecalho versao=\"2.02\" xmlns=\"http://www.abrasf.org.br/nfse.xsd\"><versaoDados>2.02</versaoDados></cabecalho>";
                                         break;
@@ -685,6 +672,10 @@ namespace NFe.Service.NFSe
                 case PadroesNFSe.WEBISS:
                 case PadroesNFSe.COPLAN:
                     versaoXML = "2.02";
+                    break;
+
+                case PadroesNFSe.PROPRIOJOINVILLESC:
+                    versaoXML = "2.04";
                     break;
             }
 

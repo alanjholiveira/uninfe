@@ -1891,26 +1891,6 @@ namespace NFe.Components.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://nfemwshomologacao.joinville.sc.gov.br/NotaFiscal/Servicos.asmx")]
-        public string NFe_Components_HJoinvilleSC_Servicos {
-            get {
-                return ((string)(this["NFe_Components_HJoinvilleSC_Servicos"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://nfemws.joinville.sc.gov.br/NotaFiscal/Servicos.asmx")]
-        public string NFe_Components_PJoinvilleSC_Servicos {
-            get {
-                return ((string)(this["NFe_Components_PJoinvilleSC_Servicos"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
         [global::System.Configuration.DefaultSettingValueAttribute("https://www.webfiscotecnologia.com.br/issqn/wservice/wsnfeenvia.php")]
         public string NFe_Components_PBarraBonitaSP_Enviar_webservice {
             get {

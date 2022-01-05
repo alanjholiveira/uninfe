@@ -39,18 +39,33 @@ namespace NFSe.Components
                 Proxy = Proxy
             })
             {
-                if (Cidade == 74934 || Cidade == 4104808) ////Cascavel-PR
-                {
-                    // informe 1 para retorno em xml
-                    result = post.PostForm("http://sync-pr.nfs-e.net/datacenter/include/nfw/importa_nfw/nfw_import_upload.php?eletron=1", PreparePostData(file));
-                }
-
                 if (Cidade == 8357 || Cidade == 4218202) //Timbo-SC
                 {
                     var base64 = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{Usuario}:{Senha}"));
 
                     // informe 1 para retorno em xml
                     result = post.PostForm("https://timbo.atende.net/atende.php?pg=rest&service=WNERestServiceNFSe&cidade=padrao", new Dictionary<string, string>
+                    {
+                        {"f1", file}           //Endereço físico do arquivo
+                    }, $"Authorization: Basic {base64}");
+                }
+
+                else if ((Cidade == 74934 || Cidade == 4104808) && tpAmb == TipoAmbiente.taProducao) //Cascavel-PR - Produção
+                {
+                    var base64 = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{Usuario}:{Senha}"));
+
+                    // informe 1 para retorno em xml
+                    result = post.PostForm("https://ws-cascavel.atende.net:7443/atende.php?pg=rest&service=WNERestServiceNFSe&cidade=padrao", new Dictionary<string, string>
+                    {
+                        {"f1", file}           //Endereço físico do arquivo
+                    }, $"Authorization: Basic {base64}");
+                }
+                else if ((Cidade == 74934 || Cidade == 4104808) && tpAmb == TipoAmbiente.taHomologacao) //Cascavel-PR - Homologação
+                {
+                    var base64 = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{Usuario}:{Senha}"));
+
+                    // informe 1 para retorno em xml
+                    result = post.PostForm("https://treinamento.atende.net/atende.php?pg=rest&service=WNERestServiceNFSe&cidade=migra_cascavel", new Dictionary<string, string>
                     {
                         {"f1", file}           //Endereço físico do arquivo
                     }, $"Authorization: Basic {base64}");

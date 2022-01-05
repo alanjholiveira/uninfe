@@ -1912,31 +1912,6 @@ namespace NFe.Service
 
                 #endregion MANAUS_AM
 
-                #region JOINVILLE_SC
-
-                case PadroesNFSe.JOINVILLE_SC:
-                    switch(servico)
-                    {
-                        case Servicos.NFSeRecepcionarLoteRps:
-                            retorna = "RecepcionarLoteRps";
-                            break;
-
-                        case Servicos.NFSeCancelar:
-                            retorna = "CancelarNfse";
-                            break;
-
-                        case Servicos.NFSeConsultarLoteRps:
-                            retorna = "ConsultarLoteRps";
-                            break;
-
-                        case Servicos.NFSeConsultarPorRps:
-                            retorna = "ConsultarNfsePorRps";
-                            break;
-                    }
-                    break;
-
-                #endregion JOINVILLE_SC
-
                 #region EMBRAS
 
                 case PadroesNFSe.EMBRAS:
@@ -3300,7 +3275,6 @@ namespace NFe.Service
                 case PadroesNFSe.METROPOLIS:
                 case PadroesNFSe.BAURU_SP:
                 case PadroesNFSe.SOFTPLAN:
-                case PadroesNFSe.JOINVILLE_SC:
                 case PadroesNFSe.ADM_SISTEMAS:
                 case PadroesNFSe.SIMPLE:
                 case PadroesNFSe.WEBFISCO_TECNOLOGIA:
@@ -3348,7 +3322,6 @@ namespace NFe.Service
                 case PadroesNFSe.PAULISTANA:
                 case PadroesNFSe.NA_INFORMATICA:
                 case PadroesNFSe.BSITBR:
-                case PadroesNFSe.JOINVILLE_SC:
                 case PadroesNFSe.ADM_SISTEMAS:
                 case PadroesNFSe.IIBRASIL:
                     invocar = true;

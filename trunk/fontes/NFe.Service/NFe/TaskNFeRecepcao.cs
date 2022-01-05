@@ -7,6 +7,7 @@ using System.Threading;
 using System.Xml;
 using Unimake.Business.DFe.Servicos;
 using Unimake.Business.DFe.Xml.NFe;
+using Unimake.Security.Exceptions;
 
 namespace NFe.Service
 {
@@ -79,6 +80,11 @@ namespace NFe.Service
 
                 if(ler.oDadosNfe.mod == "65")
                 {
+                    if(string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].IdentificadorCSC.Trim()) || string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].TokenCSC))
+                    {
+                        throw new Exception("Para autorizar NFC-e é obrigatório informar nas configurações do UniNFe os campos CSC e IDToken do CSC.");
+                    }
+
                     configuracao.CSC = Empresas.Configuracoes[emp].IdentificadorCSC;
                     configuracao.CSCIDToken = Convert.ToInt32(Empresas.Configuracoes[emp].TokenCSC);
 
@@ -112,6 +118,8 @@ namespace NFe.Service
                 else
                 {
                     Recibo(vStrXmlRetorno, emp);
+
+                    oGerarXML.XmlRetorno(Propriedade.Extensao(Propriedade.TipoEnvio.EnvLot).EnvioXML, Propriedade.ExtRetorno.Rec, vStrXmlRetorno);
                 }
 
                 #region Parte que trata o retorno do lote, ou seja, o número do recibo ou protocolo
@@ -132,7 +140,7 @@ namespace NFe.Service
                     try
                     {
                         var xmlPedRec = oGerarXML.XmlPedRecNFe(dadosRec.nRec, ler.oDadosNfe.versao, ler.oDadosNfe.mod, emp);
-                        
+
                         var nfeRetRecepcao = new TaskNFeRetRecepcao(xmlPedRec)
                         {
                             chNFe = ler.oDadosNfe.chavenfe
@@ -186,15 +194,49 @@ namespace NFe.Service
             }
             catch(ExceptionEnvioXML ex)
             {
-                TrataException(emp, ex, ler.oDadosNfe);
+                TrataException(ex, ler.oDadosNfe);
             }
             catch(ExceptionSemInternet ex)
             {
-                TrataException(emp, ex, ler.oDadosNfe);
+                TrataException(ex, ler.oDadosNfe);
+            }
+            catch(ValidarXMLException ex)
+            {
+                SalvarArquivoErroValidacao(emp, ex);
             }
             catch(Exception ex)
             {
-                TrataException(emp, ex, ler.oDadosNfe);
+                TrataException(ex, ler.oDadosNfe);
+            }
+        }
+
+        /// <summary>
+        /// Gravar arquivo de erro na pasta retorno para o ERP e mover o arquivo do XML da nota para pasta com erro.
+        /// </summary>
+        /// <param name="emp">Codigo da empresa</param>
+        /// <param name="exception">Exceção gerada</param>
+        private void SalvarArquivoErroValidacao(int emp, ValidarXMLException exception)
+        {
+            try
+            {
+                var nodeListNFe = ConteudoXML.GetElementsByTagName("NFe");
+
+                foreach(var nodeNFe in nodeListNFe)
+                {
+                    var xmlElementNFe = (XmlElement)nodeNFe;
+                    var chaveNFe = ((XmlElement)xmlElementNFe.GetElementsByTagName("infNFe")[0]).GetAttribute("Id");
+
+                    var fluxoNFe = new FluxoNfe();
+                    var nomeArqNFe = fluxoNFe.LerTag(chaveNFe, FluxoNfe.ElementoFixo.ArqNFe);
+                    var arqXMLNFe = Empresas.Configuracoes[emp].PastaXmlEnvio + "\\temp\\" + nomeArqNFe;
+
+                    TFunctions.GravarArqErroServico(arqXMLNFe, Propriedade.ExtEnvio.NFe, Propriedade.ExtRetorno.Nfe_ERR, exception, ErroPadrao.ValidarXML, true);
+                }
+            }
+            catch
+            {
+                //Se falhou algo na hora de gravar o retorno .ERR (de erro) para o ERP, infelizmente não posso fazer mais nada.
+                //Wandrey 16/03/2010
             }
         }
 
@@ -203,26 +245,17 @@ namespace NFe.Service
         /// <summary>
         /// Tratar exceção
         /// </summary>
-        /// <param name="emp">Código da empresa</param>
         /// <param name="ex">Objeto com a exception</param>
-        private void TrataException(int emp, Exception ex, DadosNFeClass dadosNFe)
+        /// <param name="dadosNFe">Dados da NFe/NFCe</param>
+        private void TrataException(Exception ex, DadosNFeClass dadosNFe)
         {
             try
             {
                 //new FluxoNfe().ExcluirNfeFluxo(dadosNFe.chavenfe);
 
-                if(((dadosNFe.mod == "55" && Empresas.Configuracoes[emp].IndSinc) || (dadosNFe.mod == "65" && Empresas.Configuracoes[emp].IndSincNFCe)))
+                if(dadosNFe.indSinc)
                 {
-                    var oLer = new LerXML();
-                    oLer.Nfe(ConteudoXML);
-                    if(oLer.oDadosNfe.indSinc)
-                    {
-                        TFunctions.GravarArqErroServico(NomeArquivoXML, Propriedade.ExtEnvio.EnvLot, Propriedade.ExtRetorno.ProRec_ERR, ex);
-                    }
-                    else
-                    {
-                        TFunctions.GravarArqErroServico(NomeArquivoXML, Propriedade.Extensao(Propriedade.TipoEnvio.EnvLot).EnvioXML, Propriedade.ExtRetorno.Rec_ERR, ex);
-                    }
+                    TFunctions.GravarArqErroServico(NomeArquivoXML, Propriedade.ExtEnvio.EnvLot, Propriedade.ExtRetorno.ProRec_ERR, ex);
                 }
                 else
                 {

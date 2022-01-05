@@ -177,7 +177,8 @@ namespace NFe.Service
                 {
                     XmlElement emitElemento = (XmlElement)emitNode;
 
-                    oDadosNfe.CNPJ = Functions.LerTag(emitElemento, NFe.Components.TpcnResources.CNPJ.ToString(), false);
+                    oDadosNfe.CNPJ = Functions.LerTag(emitElemento, TpcnResources.CNPJ.ToString(), false);
+                    oDadosNfe.CPF = Functions.LerTag(emitElemento, TpcnResources.CPF.ToString(), false);
                 }
             }
 
