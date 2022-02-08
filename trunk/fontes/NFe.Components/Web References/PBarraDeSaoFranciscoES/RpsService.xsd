@@ -42,6 +42,14 @@
   <xs:element name="verificarContribuinteResponse" type="tns:verificarContribuinteResponse" />
   <xs:element name="verificarEmpresa" type="tns:verificarEmpresa" />
   <xs:element name="verificarEmpresaResponse" type="tns:verificarEmpresaResponse" />
+  <xs:complexType name="finalizarSessao">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="hashIdentificador" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="finalizarSessaoResponse">
+    <xs:sequence />
+  </xs:complexType>
   <xs:complexType name="CancelarNfseEnvio">
     <xs:sequence>
       <xs:element minOccurs="0" name="identificacaoPrestador" type="xs:string" />
@@ -69,14 +77,6 @@
       <xs:element minOccurs="0" name="rpsNumero" type="xs:string" />
       <xs:element minOccurs="0" name="situacao" type="xs:string" />
     </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="finalizarSessao">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="hashIdentificador" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="finalizarSessaoResponse">
-    <xs:sequence />
   </xs:complexType>
   <xs:complexType name="fecharConexao">
     <xs:sequence />
@@ -208,6 +208,17 @@
       <xs:element minOccurs="0" name="tipoServico" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
+  <xs:complexType name="autenticarContribuinte">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="identificacaoPrestador" type="xs:string" />
+      <xs:element minOccurs="0" name="senha" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="autenticarContribuinteResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
   <xs:complexType name="ConsultarUltimoLote">
     <xs:sequence>
       <xs:element minOccurs="0" name="identificacaoPrestador" type="xs:string" />
@@ -235,17 +246,6 @@
       <xs:element minOccurs="0" maxOccurs="unbounded" name="mensagens" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="numeroLote" type="xs:string" />
       <xs:element minOccurs="0" name="numeroProtocolo" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="autenticarContribuinte">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="identificacaoPrestador" type="xs:string" />
-      <xs:element minOccurs="0" name="senha" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="autenticarContribuinteResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="return" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="ListarServicosMunicipais">

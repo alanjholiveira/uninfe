@@ -238,6 +238,9 @@ namespace NFe.Components
                             case 3144805: //Nova Lima - MG
                                 padraoNFSe = Functions.PadraoNFSe(UFCod).ToString() + "-3144805-";
                                 break;
+                            case 4301057: //Arroio do Sal-RS
+                                padraoNFSe = Functions.PadraoNFSe(UFCod).ToString() + "-4301057-";
+                                break;
 
                             default:
                                 padraoNFSe = Functions.PadraoNFSe(UFCod).ToString() + "-";

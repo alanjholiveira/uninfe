@@ -773,12 +773,12 @@ namespace TesteDLL_Unimake.Business.DFe
                                                 CFOP = "5101",
                                                 UCom = "LU",
                                                 QCom = 1.00,
-                                                VUnCom = 84.9000000000,
+                                                VUnCom = 84.9000000000M,
                                                 VProd = 84.90,
                                                 CEANTrib = "SEM GTIN",
                                                 UTrib = "LU",
                                                 QTrib = 1.00,
-                                                VUnTrib = 84.9000000000,
+                                                VUnTrib = 84.9M,
                                                 IndTot = SimNao.Sim,
                                                 XPed = "300474",
                                                 NItemPed = 1
@@ -831,12 +831,12 @@ namespace TesteDLL_Unimake.Business.DFe
                                                 CFOP = "5101",
                                                 UCom = "LU",
                                                 QCom = 1.00,
-                                                VUnCom = 84.9000000000,
+                                                VUnCom = 84.9000000000M,
                                                 VProd = 84.90,
                                                 CEANTrib = "SEM GTIN",
                                                 UTrib = "LU",
                                                 QTrib = 1.00,
-                                                VUnTrib = 84.9000000000,
+                                                VUnTrib = 84.9M,
                                                 IndTot = SimNao.Sim,
                                                 XPed = "300474",
                                                 NItemPed = 1
@@ -1238,8 +1238,8 @@ namespace TesteDLL_Unimake.Business.DFe
                 var xml = new ConsSitMDFe
                 {
                     Versao = "3.00",
-                    TpAmb = TipoAmbiente.Homologacao,
-                    ChMDFe = "41170701761135000132570010000186931903758906"
+                    TpAmb = TipoAmbiente.Producao,
+                    ChMDFe = "35220155842132000152580020000004351000005350"
                 };
 
                 var configuracao = new Configuracao
@@ -1437,11 +1437,12 @@ namespace TesteDLL_Unimake.Business.DFe
 
                 var inutilizacao = new Inutilizacao(xml, configuracao);
                 inutilizacao.Executar();
+               
                 MessageBox.Show(inutilizacao.RetornoWSString);
                 MessageBox.Show(inutilizacao.Result.InfInut.XMotivo);
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                switch(inutilizacao.Result.InfInut.CStat)
+                switch (inutilizacao.Result.InfInut.CStat)
                 {
                     case 102: //Inutilização homologada
                         inutilizacao.GravarXmlDistribuicao(@"c:\testenfe\");
@@ -1651,12 +1652,12 @@ namespace TesteDLL_Unimake.Business.DFe
                                                 CFOP = "6101",
                                                 UCom = "LU",
                                                 QCom = 1.00,
-                                                VUnCom = 84.9000000000,
+                                                VUnCom = 84.9000000000M,
                                                 VProd = 84.90,
                                                 CEANTrib = "SEM GTIN",
                                                 UTrib = "LU",
                                                 QTrib = 1.00,
-                                                VUnTrib = 84.9000000000,
+                                                VUnTrib = 12536.3653003546M,
                                                 IndTot = SimNao.Sim,
                                                 XPed = "300474",
                                                 NItemPed = 1
@@ -1709,12 +1710,12 @@ namespace TesteDLL_Unimake.Business.DFe
                                                 CFOP = "6101",
                                                 UCom = "LU",
                                                 QCom = 1.00,
-                                                VUnCom = 84.9000000000,
+                                                VUnCom = 84.9000000000M,
                                                 VProd = 84.90,
                                                 CEANTrib = "SEM GTIN",
                                                 UTrib = "LU",
                                                 QTrib = 1.00,
-                                                VUnTrib = 84.9000000000,
+                                                VUnTrib = 84.9M,
                                                 IndTot = SimNao.Sim,
                                                 XPed = "300474",
                                                 NItemPed = 1
@@ -2066,12 +2067,12 @@ namespace TesteDLL_Unimake.Business.DFe
                         CFOP = "5101",
                         UCom = "LU",
                         QCom = 1.00,
-                        VUnCom = 84.9000000000,
+                        VUnCom = 84.9000000000M,
                         VProd = 84.90,
                         CEANTrib = "SEM GTIN",
                         UTrib = "LU",
                         QTrib = 1.00,
-                        VUnTrib = 84.9000000000,
+                        VUnTrib = 84.9M,
                         IndTot = SimNao.Sim,
                         XPed = "300474",
                         NItemPed = 1
@@ -3901,7 +3902,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 };
 
                 var autorizacao = new Unimake.Business.DFe.Servicos.MDFe.Autorizacao(xml, configuracao);
-                autorizacao.Executar();
+                autorizacao.Executar();            
 
                 MessageBox.Show(autorizacao.RetornoWSString);
 
@@ -4052,12 +4053,12 @@ namespace TesteDLL_Unimake.Business.DFe
                                                 CFOP = "6101",
                                                 UCom = "LU",
                                                 QCom = 1.00,
-                                                VUnCom = 84.9000000000,
+                                                VUnCom = 84.9000000000M,
                                                 VProd = 84.90,
                                                 CEANTrib = "SEM GTIN",
                                                 UTrib = "LU",
                                                 QTrib = 1.00,
-                                                VUnTrib = 84.9000000000,
+                                                VUnTrib = 84.9M,
                                                 IndTot = SimNao.Sim,
                                                 XPed = "300474",
                                                 NItemPed = 1
@@ -4110,12 +4111,12 @@ namespace TesteDLL_Unimake.Business.DFe
                                                 CFOP = "6101",
                                                 UCom = "LU",
                                                 QCom = 1.00,
-                                                VUnCom = 84.9000000000,
+                                                VUnCom = 84.9000000000M,
                                                 VProd = 84.90,
                                                 CEANTrib = "SEM GTIN",
                                                 UTrib = "LU",
                                                 QTrib = 1.00,
-                                                VUnTrib = 84.9000000000,
+                                                VUnTrib = 84.9M,
                                                 IndTot = SimNao.Sim,
                                                 XPed = "300474",
                                                 NItemPed = 1
@@ -4324,12 +4325,12 @@ namespace TesteDLL_Unimake.Business.DFe
                                                 CFOP = "6101",
                                                 UCom = "LU",
                                                 QCom = 1.00,
-                                                VUnCom = 84.9000000000,
+                                                VUnCom = 84.9000000000M,
                                                 VProd = 84.90,
                                                 CEANTrib = "SEM GTIN",
                                                 UTrib = "LU",
                                                 QTrib = 1.00,
-                                                VUnTrib = 84.9000000000,
+                                                VUnTrib = 84.9M,
                                                 IndTot = SimNao.Sim,
                                                 XPed = "300474",
                                                 NItemPed = 1
@@ -4796,12 +4797,12 @@ namespace TesteDLL_Unimake.Business.DFe
                                                 CFOP = "5405",
                                                 UCom = "MT",
                                                 QCom = 305,
-                                                VUnCom = 0.46,
+                                                VUnCom = 0.46M,
                                                 VProd = 140.30,
                                                 CEANTrib = "SEM GTIN",
                                                 UTrib = "MT",
                                                 QTrib = 305,
-                                                VUnTrib = 0.46,
+                                                VUnTrib = 0.46M,
                                                 IndTot = SimNao.Sim,
                                                 NItemPed = 1
                                             },
@@ -5462,7 +5463,8 @@ namespace TesteDLL_Unimake.Business.DFe
         private void button44_Click(object sender, EventArgs e)
         {
             var doc = new XmlDocument();
-            doc.Load(@"C:\Users\Wandrey\Downloads\Telegram Desktop\31211228284553000132650010000007151000097586-nfe.xml");
+            doc.Load(@"C:\Users\Wandrey\Downloads\Telegram Desktop\24220228837079000129550020000111051961075429-nfe.xml");
+            //doc.Load(@"C:\Users\Wandrey\Downloads\31220107400075000109670010000012435100908817-cte.xml");
 
             #region NFe / NFCe
 
@@ -5504,8 +5506,7 @@ namespace TesteDLL_Unimake.Business.DFe
 
             #region CTeOS
 
-            //var xmlCTeOS = new CTeOS();
-            //xmlCTeOS = XMLUtility.Deserializar<CTeOS>(doc);
+            //var xmlCTeOS = XMLUtility.Deserializar<CTeOS>(doc);
 
             //var config = new Configuracao
             //{
@@ -6019,25 +6020,9 @@ namespace TesteDLL_Unimake.Business.DFe
 
         private void button52_Click(object sender, EventArgs e)
         {
-            try
-            {
-                var doc = new XmlDocument();
-                doc.Load(@"C:\Users\Wandrey\Downloads\cte\CTeOS_ModalRodoOS.xml");
-                var xml = new CTeOS();
-                xml = xml.LerXML<CTeOS>(doc);
-
-                var configuracao = new Configuracao
-                {
-                    TipoDFe = TipoDFe.CTeOS,
-                    CertificadoDigital = CertificadoSelecionado
-                };
-
-                var autorizacao = new Unimake.Business.DFe.Servicos.CTeOS.Autorizacao(xml, configuracao);
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            var xml = new XmlDocument();
+            xml.Load(@"C:\Users\Wandrey\Downloads\QQQQ-nfse.xml");
+            AssinaturaDigital.Assinar(xml, "Rps", CertificadoSelecionado, AlgorithmType.Sha1, true);
         }
 
         private void button53_Click(object sender, EventArgs e)

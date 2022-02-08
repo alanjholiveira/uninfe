@@ -19,10 +19,10 @@ namespace TesteDLL_Unimake.Business.DFe.UnitTest.NFSe
         [TestMethod]
         public void Cancelar()
         {
-            var path = @"D:\testenfe\Unimake PV.pfx";
-            X509Certificate2 CertificadoSelecionado = new CertificadoDigital().CarregarCertificadoDigitalA1(path, "12345678");
+            var path = @"D:\testenfe\certificados\Volta_Redonda-senha123456.pfx";
+            var CertificadoSelecionado = new CertificadoDigital().CarregarCertificadoDigitalA1(path, "123456");
 
-            string xml = @"C:\projetos\uninfe\exemplos\NFSe\AVMB_ASTEN\CancelarNfseEnvio-ped-cannfse.xml";
+            string xml = @"C:\projetos\uninfe\exemplos\NFSe\SONNER\2.01\CancelarNfseEnvio-ped-cannfse.xml";
 
             var conteudoXML = new XmlDocument();
             conteudoXML.Load(xml);
@@ -31,16 +31,23 @@ namespace TesteDLL_Unimake.Business.DFe.UnitTest.NFSe
             {
                 TipoDFe = TipoDFe.NFSe,
                 CertificadoDigital = CertificadoSelecionado,
-                TipoAmbiente = TipoAmbiente.Producao,
-                CodigoMunicipio = 4314407,
                 Servico = Servico.NFSeCancelarNfse,
-                SchemaVersao = "2.02"
+                TipoAmbiente = TipoAmbiente.Homologacao,
+                CodigoMunicipio = 3306305,
+                SchemaVersao = "2.03"
             };
 
-            var cancelarNfse = new CancelarNfse(conteudoXML, configuracao);
-            cancelarNfse.Executar();
+            try
+            {
+                var cancelarNfse = new CancelarNfse(conteudoXML, configuracao);
+                cancelarNfse.Executar();
 
-            Debug.Assert(!string.IsNullOrWhiteSpace(cancelarNfse.RetornoWSString));
+                Debug.Assert(!string.IsNullOrWhiteSpace(cancelarNfse.RetornoWSString));
+            }
+            catch(Exception ex)
+            {
+                throw (ex);
+            }
         }
 
         #endregion Public Methods

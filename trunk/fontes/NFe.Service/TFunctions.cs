@@ -682,6 +682,11 @@ namespace NFe.Service
 
                 switch(doc.DocumentElement.Name)
                 {
+                    case "procInutNFe":
+                        arqProcNFe = nomeArquivoRecebido;
+                        tipo = "inut";
+                        break;
+
                     case "nfeProc":
                         arqProcNFe = nomeArquivoRecebido;
                         break;

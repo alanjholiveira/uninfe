@@ -13,12 +13,12 @@ namespace TesteDLL_Unimake.Business.DFe.UnitTest.NFSe
         #region Public Methods
 
         [TestMethod]
-        public void RecepcionarLoteRps()
+        public void SubstituirNfse()
         {
-            var path = @"D:\testenfe\Unimake PV.pfx";
-            var CertificadoSelecionado = new CertificadoDigital().CarregarCertificadoDigitalA1(path, "12345678");
+            var path = @"D:\testenfe\CertificadoA1Projesom.pfx";
+            var CertificadoSelecionado = new CertificadoDigital().CarregarCertificadoDigitalA1(path, "Itajubá");
 
-            var xml = @"C:\projetos\uninfe\exemplos\NFSe\AVMB_ASTEN\SubstituirNfseEnvio-ped-substnfse.xml";
+            var xml = @"C:\projetos\uninfe\exemplos\NFSe\SONNER\2.01\SubstituirNfseEnvio-ped-substnfse.xml";
 
             var conteudoXML = new XmlDocument();
             conteudoXML.Load(xml);
@@ -27,10 +27,10 @@ namespace TesteDLL_Unimake.Business.DFe.UnitTest.NFSe
             {
                 TipoDFe = TipoDFe.NFSe,
                 CertificadoDigital = CertificadoSelecionado,
-                TipoAmbiente = TipoAmbiente.Producao,
-                CodigoMunicipio = 4314407,
                 Servico = Servico.NFSeSubstituirNfse,
-                SchemaVersao = "2.02"
+                TipoAmbiente = TipoAmbiente.Homologacao,
+                CodigoMunicipio = 3132404,
+                SchemaVersao = "2.01"
             };
 
             var substituirNfse = new SubstituirNfse(conteudoXML, configuracao);

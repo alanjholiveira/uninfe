@@ -42,67 +42,77 @@ namespace NFe.Service.NFSe
                 switch(padraoNFSe)
                 {
                     case PadroesNFSe.BETHA:
+                    case PadroesNFSe.SIMPLISS:
                         ExecuteDLL(emp, dadosXML.cMunicipio, padraoNFSe);
                         break;
-
                     default:
-                        WebServiceProxy wsProxy = null;
-                        object pedConsNfseTomados = null;
-
-                        if(IsUtilizaCompilacaoWs(padraoNFSe))
+                        switch (dadosXML.cMunicipio)
                         {
-                            wsProxy = ConfiguracaoApp.DefinirWS(Servico, emp, dadosXML.cMunicipio, dadosXML.tpAmb, dadosXML.tpEmis, padraoNFSe, dadosXML.cMunicipio);
-                            pedConsNfseTomados = wsProxy.CriarObjeto(wsProxy.NomeClasseWS);
+                            case 5105606: //Matupá-MT
+                            case 3132404: //Itajubá-MG
+                                ExecuteDLL(emp, dadosXML.cMunicipio, padraoNFSe);
+                                break;
+
+                            default:
+                                WebServiceProxy wsProxy = null;
+                                object pedConsNfseTomados = null;
+
+                                if (IsUtilizaCompilacaoWs(padraoNFSe))
+                                {
+                                    wsProxy = ConfiguracaoApp.DefinirWS(Servico, emp, dadosXML.cMunicipio, dadosXML.tpAmb, dadosXML.tpEmis, padraoNFSe, dadosXML.cMunicipio);
+                                    pedConsNfseTomados = wsProxy.CriarObjeto(wsProxy.NomeClasseWS);
+                                }
+                                var cabecMsg = "";
+
+                                switch (padraoNFSe)
+                                {
+                                    case PadroesNFSe.INDAIATUBA_SP:
+                                        cabecMsg = "<cabecalho versao=\"2.03\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns=\"http://www.abrasf.org.br/nfse.xsd\"><versaoDados>2.03</versaoDados></cabecalho>";
+                                        break;
+
+                                    case PadroesNFSe.SIGCORP_SIGISS_203:
+                                        cabecMsg = "<cabecalho versao=\"2.03\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns=\"http://www.abrasf.org.br/nfse.xsd\"><versaoDados>2.03</versaoDados></cabecalho>";
+                                        break;
+
+                                    case PadroesNFSe.SMARAPD_204:
+                                        cabecMsg = "<cabecalho versao=\"2.04\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns=\"http://www.abrasf.org.br/nfse.xsd\"><versaoDados>2.04</versaoDados></cabecalho>";
+                                        break;
+                                    case PadroesNFSe.IIBRASIL:
+                                        cabecMsg = "<cabecalho xmlns=\"http://www.abrasf.org.br/nfse.xsd\" versao=\"2.04\"><versaoDados>2.04</versaoDados></cabecalho>";
+                                        break;
+                                }
+
+                                var securityProtocolType = WebServiceProxy.DefinirProtocoloSeguranca(dadosXML.cMunicipio, dadosXML.tpAmb, dadosXML.tpEmis, padraoNFSe, Servico);
+
+                                if (IsInvocar(padraoNFSe, Servico, dadosXML.cMunicipio))
+                                {
+                                    //Assinar o XML
+                                    var ad = new AssinaturaDigital();
+                                    ad.Assinar(NomeArquivoXML, emp, dadosXML.cMunicipio);
+
+                                    //Invocar o método que envia o XML para o SEFAZ
+                                    oInvocarObj.InvocarNFSe(wsProxy, pedConsNfseTomados, NomeMetodoWS(Servico, dadosXML.cMunicipio), cabecMsg, this,
+                                        Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeTom).EnvioXML,
+                                        Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeTom).RetornoXML,
+                                        padraoNFSe, Servico, securityProtocolType);
+
+                                    /// grava o arquivo no FTP
+                                    var filenameFTP = Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno,
+                                        Functions.ExtrairNomeArq(NomeArquivoXML, Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeTom).EnvioXML) +
+                                        Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeTom).RetornoXML);
+
+                                    if (File.Exists(filenameFTP))
+                                    {
+                                        new GerarXML(emp).XmlParaFTP(emp, filenameFTP);
+                                    }
+                                }
+
+                                break;
                         }
-                        var cabecMsg = "";
-
-                        switch(padraoNFSe)
-                        {
-                            case PadroesNFSe.INDAIATUBA_SP:
-                                cabecMsg = "<cabecalho versao=\"2.03\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns=\"http://www.abrasf.org.br/nfse.xsd\"><versaoDados>2.03</versaoDados></cabecalho>";
-                                break;
-
-                            case PadroesNFSe.SIGCORP_SIGISS_203:
-                                cabecMsg = "<cabecalho versao=\"2.03\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns=\"http://www.abrasf.org.br/nfse.xsd\"><versaoDados>2.03</versaoDados></cabecalho>";
-                                break;
-
-                            case PadroesNFSe.SMARAPD_204:
-                                cabecMsg = "<cabecalho versao=\"2.04\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns=\"http://www.abrasf.org.br/nfse.xsd\"><versaoDados>2.04</versaoDados></cabecalho>";
-                                break;
-                            case PadroesNFSe.IIBRASIL:
-                                cabecMsg = "<cabecalho xmlns=\"http://www.abrasf.org.br/nfse.xsd\" versao=\"2.04\"><versaoDados>2.04</versaoDados></cabecalho>";
-                                break;
-                        }
-
-                        var securityProtocolType = WebServiceProxy.DefinirProtocoloSeguranca(dadosXML.cMunicipio, dadosXML.tpAmb, dadosXML.tpEmis, padraoNFSe, Servico);
-
-                        if(IsInvocar(padraoNFSe, Servico, dadosXML.cMunicipio))
-                        {
-                            //Assinar o XML
-                            var ad = new AssinaturaDigital();
-                            ad.Assinar(NomeArquivoXML, emp, dadosXML.cMunicipio);
-
-                            //Invocar o método que envia o XML para o SEFAZ
-                            oInvocarObj.InvocarNFSe(wsProxy, pedConsNfseTomados, NomeMetodoWS(Servico, dadosXML.cMunicipio), cabecMsg, this,
-                                Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeTom).EnvioXML,
-                                Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeTom).RetornoXML,
-                                padraoNFSe, Servico, securityProtocolType);
-
-                            /// grava o arquivo no FTP
-                            var filenameFTP = Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno,
-                                Functions.ExtrairNomeArq(NomeArquivoXML, Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeTom).EnvioXML) +
-                                Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeTom).RetornoXML);
-
-                            if(File.Exists(filenameFTP))
-                            {
-                                new GerarXML(emp).XmlParaFTP(emp, filenameFTP);
-                            }
-                        }
-
                         break;
                 }
-            }
-            catch(Exception ex)
+                }
+            catch (Exception ex)
             {
                 try
                 {
@@ -174,7 +184,7 @@ namespace NFe.Service.NFSe
             var filenameFTP = Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno,
                 Functions.ExtrairNomeArq(NomeArquivoXML, Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeTom).EnvioXML) + Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeTom).RetornoXML);
 
-            if(File.Exists(filenameFTP))
+            if (File.Exists(filenameFTP))
             {
                 new GerarXML(emp).XmlParaFTP(emp, filenameFTP);
             }
@@ -190,10 +200,22 @@ namespace NFe.Service.NFSe
         {
             var versaoXML = "0.00";
 
-            switch(padraoNFSe)
+            switch (padraoNFSe)
             {
                 case PadroesNFSe.BETHA:
                     versaoXML = "2.02";
+                    break;
+
+                case PadroesNFSe.SIMPLISS:
+                    versaoXML = "2.03";
+                    break;
+
+                case PadroesNFSe.COPLAN:
+                    versaoXML = "2.02";
+                    break;
+
+                case PadroesNFSe.SONNER:
+                    versaoXML = "2.01";
                     break;
             }
 

@@ -388,7 +388,7 @@ namespace NFe.Components
         /// <summary>
         /// Envia os lotes de MDFe para os webservices Sincrono
         /// </summary>
-        MDFeEnviarLoteSinc,
+        MDFeEnviarSinc,
 
         /// <summary>
         /// Montar lote de um MDFe
@@ -903,6 +903,12 @@ namespace NFe.Components
         /// </summary>
         [Description("Gov-Digital")]
         GOVDIGITAL,
+
+        /// <summary>
+        /// Padrao Sonner (antigo GOV-Digital)
+        /// </summary>
+        [Description("SONNER")]
+        SONNER,
 
         /// <summary>
         /// Padrão Equiplano

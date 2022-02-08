@@ -109,7 +109,6 @@ namespace NFe.Service
                 case Servicos.MDFePedidoConsultaSituacao:
                 case Servicos.MDFePedidoSituacaoLote:
                 case Servicos.MDFeEnviarLote:
-                case Servicos.MDFeEnviarLoteSinc:
                 case Servicos.MDFeConsultaStatusServico:
                 case Servicos.MDFeRecepcaoEvento:
                 case Servicos.MDFeConsultaNaoEncerrado:
@@ -263,10 +262,6 @@ namespace NFe.Service
 
                 case Servicos.MDFeConsultaStatusServico:
                     retorna = "mdfeStatusServicoMDF";
-                    break;
-
-                case Servicos.MDFeEnviarLoteSinc:
-                    retorna = "mdfeRecepcao";
                     break;
 
                 case Servicos.MDFeEnviarLote:
@@ -2369,7 +2364,7 @@ namespace NFe.Service
                             break;
 
                         case Servicos.NFSeCancelar:
-                            retorna = "CancelaNota";
+                            retorna = "CancelarNfse";
                             break;
 
                         case Servicos.NFSeRecepcionarLoteRps:
@@ -3243,7 +3238,8 @@ namespace NFe.Service
                         cMunicipio == 4101408 ||
                         cMunicipio == 3550407 ||
                         cMunicipio == 4310207 ||
-                        cMunicipio == 1502400 ||
+                        cMunicipio == 1502400 || 
+                        cMunicipio == 4301057 ||
                         cMunicipio == 3550803)
                     {
                         retorno = false;

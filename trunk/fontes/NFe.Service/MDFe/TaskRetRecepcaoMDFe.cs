@@ -342,7 +342,15 @@ namespace NFe.Service
                     }
 
                     //Definir o nome do arquivo da NFe e seu caminho
-                    var strNomeArqNfe = fluxoNFe.LerTag(strChaveNFe, FluxoNfe.ElementoFixo.ArqNFe);
+                    var strNomeArqNfe = "";
+                    if(Empresas.Configuracoes[emp].IndSincMDFe)
+                    {
+                        strNomeArqNfe = new FileInfo(NomeArquivoXML).Name;
+                    }
+                    else
+                    {
+                        strNomeArqNfe = fluxoNFe.LerTag(strChaveNFe, FluxoNfe.ElementoFixo.ArqNFe);
+                    }
 
                     // se por algum motivo o XML não existir no "Fluxo", então o arquivo tem que existir
                     // na pasta "EmProcessamento" assinada.
@@ -475,7 +483,6 @@ namespace NFe.Service
                     break;
                 }
             }
-
         }
         #endregion
     }
