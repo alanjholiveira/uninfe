@@ -104,6 +104,12 @@ namespace NFe.Service.NFSe
                             case 3127701: //Governador Valadares-MG
                             case 5107909: //Sinop-MT
                             case 4209102: //Joinville-SC
+                            case 3306305: //Volta Redonda-RJ
+                            case 3530706: //Mogi Guaçu - SP
+                            case 5105606: //Matupá-MT
+                            case 3132404: //Itajubá-MG
+                            case 2933307: //Vitória da Conquista-BA
+                            case 3201209: //Cachoeiro de Itapemirim
                                 ExecuteDLL(emp, oDadosPedCanNfse.cMunicipio, padraoNFSe);
                                 break;
 
@@ -526,6 +532,8 @@ namespace NFe.Service.NFSe
                                             oDadosPedCanNfse.cMunicipio == 3550407 ||
                                             oDadosPedCanNfse.cMunicipio == 4310207 ||
                                             oDadosPedCanNfse.cMunicipio == 1502400 ||
+                                            oDadosPedCanNfse.cMunicipio == 4322509 ||
+                                            oDadosPedCanNfse.cMunicipio == 4301057 ||
                                             oDadosPedCanNfse.cMunicipio == 3550803)
                                         {
                                             var pronin = new Pronin((TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
@@ -945,6 +953,7 @@ namespace NFe.Service.NFSe
             switch(padraoNFSe)
             {
                 case PadroesNFSe.PRODATA:
+                case PadroesNFSe.SONNER:
                     versaoXML = "2.01";
                     break;
 
@@ -958,7 +967,7 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadroesNFSe.SIGCORP_SIGISS:
-                    versaoXML = "0.00";
+                    versaoXML = "2.03";
                     break;
 
                 case PadroesNFSe.NOTAINTELIGENTE:
@@ -969,6 +978,7 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadroesNFSe.PROPRIOJOINVILLESC:
+                case PadroesNFSe.EL:
                     versaoXML = "2.04";
                     break;
             }

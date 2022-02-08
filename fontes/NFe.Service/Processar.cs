@@ -324,11 +324,11 @@ namespace NFe.Service
                             break;
 
                         case Servicos.NFeMontarLoteUma:
-                            DirecionarArquivo(emp, true, false, arquivo, new TaskNFeMontarLoteUmaNFe(arquivo));
+                            DirecionarArquivo(emp, true, true, arquivo, new TaskNFeMontarLoteUmaNFe(arquivo));
                             break;
 
                         case Servicos.NFeMontarLoteVarias:
-                            DirecionarArquivo(emp, true, false, arquivo, new TaskNFeMontarLoteVarias());
+                            DirecionarArquivo(emp, true, true, arquivo, new TaskNFeMontarLoteVarias());
                             break;
 
                         case Servicos.NFePedidoConsultaSituacao:
@@ -352,17 +352,20 @@ namespace NFe.Service
                             DirecionarArquivo(emp, true, true, arquivo, new TaskMDFeConsultaStatus(arquivo));
                             break;
 
+                        case Servicos.MDFeEnviarSinc:
+                            DirecionarArquivo(emp, true, true, arquivo, new TaskMDFeRecepcaoSinc(arquivo));
+                            break;
+
                         case Servicos.MDFeEnviarLote:
-                        case Servicos.MDFeEnviarLoteSinc:
                             DirecionarArquivo(emp, false, true, arquivo, new TaskMDFeRecepcao(arquivo));
                             break;
 
                         case Servicos.MDFeMontarLoteUm:
-                            DirecionarArquivo(emp, true, false, arquivo, new TaskMDFeMontarLoteUm(arquivo));
+                            DirecionarArquivo(emp, true, true, arquivo, new TaskMDFeMontarLoteUm(arquivo));
                             break;
 
                         case Servicos.MDFeMontarLoteVarios:
-                            DirecionarArquivo(emp, true, false, arquivo, new TaskMDFeMontarLoteVarias());
+                            DirecionarArquivo(emp, true, true, arquivo, new TaskMDFeMontarLoteVarias());
                             break;
 
                         case Servicos.MDFePedidoSituacaoLote:
@@ -399,7 +402,7 @@ namespace NFe.Service
                             break;
 
                         case Servicos.CTeMontarLoteUm:
-                            DirecionarArquivo(emp, true, false, arquivo, new TaskCTeMontarLoteUm(arquivo));
+                            DirecionarArquivo(emp, true, true, arquivo, new TaskCTeMontarLoteUm(arquivo));
                             break;
 
                         case Servicos.CTeMontarLoteVarios:
@@ -797,13 +800,20 @@ namespace NFe.Service
                                 break;
 
                             case "MDFe":
-                                if(pastaArq == pastaLote)
+                                if(Empresas.Configuracoes[empresa].IndSincMDFe) //Envio do MDFe Sincrono
                                 {
-                                    tipoServico = Servicos.MDFeAssinarValidarEnvioEmLote;
+                                    tipoServico = Servicos.MDFeEnviarSinc;
                                 }
-                                else if(pastaArq == pastaEnvio)
+                                else //Envio do MDFe Assíncrono
                                 {
-                                    tipoServico = Servicos.MDFeMontarLoteUm;
+                                    if(pastaArq == pastaLote)
+                                    {
+                                        tipoServico = Servicos.MDFeAssinarValidarEnvioEmLote;
+                                    }
+                                    else if(pastaArq == pastaEnvio)
+                                    {
+                                        tipoServico = Servicos.MDFeMontarLoteUm;
+                                    }
                                 }
 
                                 break;
@@ -1273,9 +1283,12 @@ namespace NFe.Service
             {
                 var emp = Empresas.FindEmpresaByThread();
 
-                if(AssinarValidarNew(arquivo))
+                if (!arquivo.EndsWith(".txt", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    return;
+                    if (AssinarValidarNew(arquivo))
+                    {
+                        return;
+                    }
                 }
 
                 Functions.DeletarArquivo(Path.Combine(Empresas.Configuracoes[emp].PastaValidado, Path.GetFileName(Path.ChangeExtension(arquivo, ".xml"))));
@@ -1409,7 +1422,7 @@ namespace NFe.Service
         {
             var validarXML = new ValidarXMLNew();
 
-            return validarXML.Validar(arquivoXML);
+            return validarXML.Validar(arquivoXML, true);
         }
 
         #endregion AssinarValidar()
@@ -1990,7 +2003,8 @@ namespace NFe.Service
             //Verificar antes se tem conexão com a internet, se não tiver já gera uma exceção no padrão já esperado pelo ERP
             if(ConfiguracaoApp.ChecarConexaoInternet)
             {
-                if(!Functions.IsConnectedToInternet())
+    //            if(!Functions.IsConnectedToInternet())
+                if (!Functions.HasInternetConnection()) 
                 {
                     throw new ExceptionSemInternet(ErroPadrao.FalhaInternet);
                 }
@@ -2060,6 +2074,7 @@ namespace NFe.Service
                     break;
 
                 case Servicos.MDFeMontarLoteUm:
+                case Servicos.MDFeEnviarSinc:
                     extRet = Propriedade.Extensao(Propriedade.TipoEnvio.MDFe).EnvioXML;
                     extRetERR = Propriedade.ExtRetorno.MDFe_ERR;
                     break;
@@ -2074,7 +2089,6 @@ namespace NFe.Service
                 case Servicos.CTeEnviarLote:
                 case Servicos.NFeEnviarLote:
                 case Servicos.MDFeEnviarLote:
-                case Servicos.MDFeEnviarLoteSinc:
                     extRet = Propriedade.Extensao(Propriedade.TipoEnvio.EnvLot).EnvioXML;
                     extRetERR = Propriedade.ExtRetorno.Rec_ERR;
                     break;

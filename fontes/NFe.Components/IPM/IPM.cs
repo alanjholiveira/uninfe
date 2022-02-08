@@ -236,6 +236,9 @@ namespace NFSe.Components
 
                 case 4218202: //Timbó-SC
                     return 8357;
+
+                case 4214805: //Rio do Sul-SC
+                    return 8291;
             }
 
             return 0;

@@ -565,7 +565,8 @@ namespace NFe.UI.Formularios
                            ufCod == 4218202 /*Timbó-SC*/||
                            ufCod == 3306305 /*Volta Redonda-RJ*/||
                            ufCod == 3506003 /*Bauru-SP*/||
-                           ufCod == 3203205 /*Linhares-ES*/;
+                           ufCod == 3203205 /*Linhares-ES*/||
+                           ufCod == 4214805 /*Rio do Sul-SC*/;
 
 
 

@@ -72,6 +72,11 @@ namespace NFe.Service.NFSe
                             case 3127701: //Governador Valadares-MG
                             case 5107909: //Sinop-MT
                             case 4209102: //Joinville-SC
+                            case 3306305: //Volta Redonda - RJ
+                            case 3530706: //Mogi Guaçu - SP
+                            case 5105606: //Matupá-MT
+                            case 2933307: //Vitória da Conquista-BA
+                            case 3201209: //Cachoeiro de Itapemirim
                                 ExecuteDLL(emp, ler.oDadosPedSitNfseRps.cMunicipio, padraoNFSe);
                                 break;
 
@@ -417,6 +422,7 @@ namespace NFe.Service.NFSe
                                             ler.oDadosPedSitNfseRps.cMunicipio == 3550407 ||
                                             ler.oDadosPedSitNfseRps.cMunicipio == 4310207 ||
                                             ler.oDadosPedSitNfseRps.cMunicipio == 1502400 ||
+                                            ler.oDadosPedSitNfseRps.cMunicipio == 4301057 ||
                                             ler.oDadosPedSitNfseRps.cMunicipio == 3550803)
 
                                         {
@@ -716,7 +722,7 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadroesNFSe.SIGCORP_SIGISS:
-                    versaoXML = "0.00";
+                    versaoXML = "2.03";
                     break;
 
 
@@ -727,7 +733,12 @@ namespace NFe.Service.NFSe
                     versaoXML = "2.02";
                     break;
 
+                case PadroesNFSe.SIMPLISS:
+                    versaoXML = "2.03";
+                    break;
+
                 case PadroesNFSe.PROPRIOJOINVILLESC:
+                case PadroesNFSe.EL:
                     versaoXML = "2.04";
                     break;
             }

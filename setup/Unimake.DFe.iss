@@ -53,8 +53,12 @@ UseRelativePaths=True
 ;----------------------------------------------------------------------------------------------------
 ;Exemplo e dll em VB6
 ;----------------------------------------------------------------------------------------------------
-Source: "D:\Projetos\UnimakeTeam\Unimake.DFe\source\Unimake.DFe\Interop\VB6.rar"; DestDir: "{app}\Exemplo_VB6"; Flags: ignoreversion; Tasks: exemplo_vb6
-Source: "D:\Projetos\UnimakeTeam\Unimake.DFe\source\Unimake.DFe\Interop\VB6\System.Security.Cryptography.Xml.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\projetos\github\Unimake.DFe\source\Unimake.DFe\Interop\VB6.zip"; DestDir: "{app}\Exemplo_VB6"; Flags: ignoreversion; Tasks: exemplo_vb6
+Source: "C:\projetos\github\Unimake.DFe\source\Unimake.DFe\Interop\VB6\System.Security.Cryptography.Xml.dll"; DestDir: "{app}"; Flags: ignoreversion
+;----------------------------------------------------------------------------------------------------
+;Exemplo e dll em VFP - Visual FoxPro
+;----------------------------------------------------------------------------------------------------
+Source: "C:\projetos\github\Unimake.DFe\source\Unimake.DFe\Interop\VFP.zip"; DestDir: "{app}\Exemplo_VFP"; Flags: ignoreversion; Tasks: exemplo_vfp
 ;----------------------------------------------------------------------------------------------------
 ;Registrar
 ;----------------------------------------------------------------------------------------------------
@@ -62,11 +66,11 @@ Source: "Register_UnimakeDFe.bat"; DestDir: "{app}"; Flags: ignoreversion
 ;----------------------------------------------------------------------------------------------------
 ;.netstandard
 ;----------------------------------------------------------------------------------------------------
-Source: "D:\Projetos\UnimakeTeam\Unimake.DFe\source\Unimake.DFe\Compilacao\INTEROP_Release\netstandard2.0\Unimake.Business.DFe.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\projetos\github\Unimake.DFe\source\Unimake.DFe\Compilacao\INTEROP_Release\netstandard2.0\Unimake.Business.DFe.dll"; DestDir: "{app}"; Flags: ignoreversion
 ;----------------------------------------------------------------------------------------------------
 ;DLLs net472
 ;----------------------------------------------------------------------------------------------------
-Source: "D:\Projetos\UnimakeTeam\Unimake.DFe\source\Unimake.DFe\Compilacao\INTEROP_Release\net472\Unimake.Security.Platform.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\projetos\github\Unimake.DFe\source\Unimake.DFe\Compilacao\INTEROP_Release\net472\Unimake.Security.Platform.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 [Run]
 Filename: "{app}\Register_UnimakeDFe.bat"; Flags: runhidden; StatusMsg: "Registrando dll"
@@ -76,6 +80,7 @@ Type: filesandordirs; Name: "{app}\Unimake.DFe"
 
 [Tasks]
 Name: "exemplo_vb6"; Description: "Instalar exemplo em VB6"
+Name: "exemplo_vfp"; Description: "Instalar exemplo em Visual FoxPro"
 
 [Code]
 //incialização do setup. É sempre chamada pelo Inno ao iniciar o setup

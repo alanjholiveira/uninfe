@@ -58,7 +58,7 @@ namespace NFe.Service
                         CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado
                     };
 
-                    if(ConfiguracaoApp.Proxy)
+                    if (ConfiguracaoApp.Proxy)
                     {
                         configuracao.HasProxy = true;
                         configuracao.ProxyAutoDetect = ConfiguracaoApp.DetectarConfiguracaoProxyAuto;
@@ -66,7 +66,7 @@ namespace NFe.Service
                         configuracao.ProxyPassword = ConfiguracaoApp.ProxySenha;
                     }
 
-                    if(dadosPedInut.mod == 65)
+                    if (dadosPedInut.mod == 65)
                     {
                         var inutilizacao = new Unimake.Business.DFe.Servicos.NFCe.Inutilizacao(xml, configuracao);
                         inutilizacao.Executar();
@@ -220,7 +220,7 @@ namespace NFe.Service
         {
             int emp = Empresas.FindEmpresaByThread();
 
-            //vStrXmlRetorno = "<retInutNFe versao=\"3.10\" xmlns=\"http://www.portalfiscal.inf.br/nfe\"><infInut><tpAmb>1</tpAmb><verAplic>SP_NFE_PL_008i2</verAplic><cStat>102</cStat><xMotivo>Inutilização de número homologado</xMotivo><cUF>35</cUF><ano>17</ano><CNPJ>48221139000191</CNPJ><mod>55</mod><serie>1</serie><nNFIni>46066</nNFIni><nNFFin>46066</nNFFin><dhRecbto>2017-03-27T09:58:07-03:00</dhRecbto><nProt>135170189046750</nProt></infInut></retInutNFe>";
+           // vStrXmlRetorno = "<retInutNFe versao=\"3.10\" xmlns=\"http://www.portalfiscal.inf.br/nfe\"><infInut><tpAmb>1</tpAmb><verAplic>SP_NFE_PL_008i2</verAplic><cStat>102</cStat><xMotivo>Inutilização de número homologado</xMotivo><cUF>35</cUF><ano>17</ano><CNPJ>48221139000191</CNPJ><mod>55</mod><serie>1</serie><nNFIni>46066</nNFIni><nNFFin>46066</nNFFin><dhRecbto>2017-03-27T09:58:07-03:00</dhRecbto><nProt>135170189046750</nProt></infInut></retInutNFe>";
 
             XmlDocument doc = new XmlDocument();
             doc.Load(Functions.StringXmlToStream(vStrXmlRetorno));
@@ -240,20 +240,31 @@ namespace NFe.Service
                     if (infInutElemento.GetElementsByTagName(TpcnResources.cStat.ToString())[0].InnerText == "102") //Inutilização de Número Homologado
                     {
                         string strRetInutNFe = retInutNFeNode.OuterXml;
+                        DateTime dataInut = DateTime.Now;
+                        oGerarXML.XmlDistInut(ConteudoXML, strRetInutNFe, NomeArquivoXML, dataInut);
 
-                        oGerarXML.XmlDistInut(ConteudoXML, strRetInutNFe, NomeArquivoXML);
 
                         //Move o arquivo de solicitação do serviço para a pasta de enviados autorizados
                         StreamWriter sw = File.CreateText(NomeArquivoXML);
                         sw.Write(ConteudoXML.OuterXml);
                         sw.Close();
-                        TFunctions.MoverArquivo(NomeArquivoXML, PastaEnviados.Autorizados, DateTime.Now);
+                        TFunctions.MoverArquivo(NomeArquivoXML, PastaEnviados.Autorizados, dataInut);
 
                         //Move o arquivo de Distribuição para a pasta de enviados autorizados
-                        string strNomeArqProcInutNFe = Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" + 
+                        string strNomeArqProcInutNFe = Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" +
                             PastaEnviados.EmProcessamento.ToString() + "\\" +
                             Functions.ExtrairNomeArq(NomeArquivoXML, Propriedade.Extensao(Propriedade.TipoEnvio.PedInu).EnvioXML) + Propriedade.ExtRetorno.ProcInutNFe;
-                        TFunctions.MoverArquivo(strNomeArqProcInutNFe, PastaEnviados.Autorizados, DateTime.Now);
+                        TFunctions.MoverArquivo(strNomeArqProcInutNFe, PastaEnviados.Autorizados, dataInut);
+
+                        //Evento autorizado sem vinculação do evento à respectiva NF-e
+                        try
+                        {
+                            TFunctions.ExecutaUniDanfe(oGerarXML.NomeArqGerado, DateTime.Today, Empresas.Configuracoes[emp]);
+                        }
+                        catch (Exception ex)
+                        {
+                            Auxiliar.WriteLog("TaskInutilizacao: " + ex.Message, false);
+                        }
                     }
                     else
                     {

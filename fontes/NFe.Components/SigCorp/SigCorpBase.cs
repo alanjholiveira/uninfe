@@ -31,10 +31,6 @@ namespace NFe.Components.SigCorp
                                 sigCorpService = new RioGrandeRS.h.SigCorpH(tpAmb, PastaRetorno);
                                 break;
 
-                            case 3530706: //Mogi Guaçu-SP
-                                sigCorpService = new MogiGuacuSP.h.SigCorpH(tpAmb, PastaRetorno);
-                                break;
-
                             case 3303906: //Petrópolis-RJ
                                 sigCorpService = new PetropolisRJ.h.SigCorpH(tpAmb, PastaRetorno);
                                 break;
@@ -59,10 +55,6 @@ namespace NFe.Components.SigCorp
 
                             case 4315602: //Rio Grande-RS
                                 sigCorpService = new RioGrandeRS.p.SigCorpP(tpAmb, PastaRetorno);
-                                break;
-
-                            case 3530706: //Mogi Guaçu-SP
-                                sigCorpService = new MogiGuacuSP.p.SigCorpP(tpAmb, PastaRetorno);
                                 break;
 
                             case 3303906: //Petrópolis-RJ

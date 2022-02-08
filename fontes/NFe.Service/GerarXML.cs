@@ -1750,13 +1750,22 @@ namespace NFe.Service
         /// <param name="nomeArqInut">Nome arquivo XML de Inutilização</param>
         /// <param name="strRetInut">Conteúdo retornado pela SEFAZ com o protocolo da inutilização</param>
         /// <param name="conteudoXML">Conteúdo do XML de inutilização já assinado</param>
-        public void XmlDistInut(XmlDocument conteudoXML, string strRetInut, string nomeArqInut)
+        /// <param name="dataInut">Data que ocorreu a inutilização</param>
+        public void XmlDistInut(XmlDocument conteudoXML, string strRetInut, string nomeArqInut, DateTime dataInut)
         {
             var emp = EmpIndex;
             StreamWriter swProc = null;
 
             try
             {
+                NomeArqGerado  = Path.Combine(Empresas.Configuracoes[emp].PastaXmlEnviado, 
+                PastaEnviados.Autorizados.ToString() + "\\" +
+                    Empresas.Configuracoes[emp].DiretorioSalvarComo.ToString(dataInut) +
+                    Functions.ExtrairNomeArq(nomeArqInut, Propriedade.Extensao(Propriedade.TipoEnvio.PedInu).EnvioXML) +
+                    Propriedade.ExtRetorno.ProcInutNFe);
+
+              
+
                 var InutNFeList = conteudoXML.GetElementsByTagName("inutNFe");
                 var InutNFeNode = InutNFeList[0];
                 var strInutNFe = InutNFeNode.OuterXml;

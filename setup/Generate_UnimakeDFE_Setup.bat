@@ -1,8 +1,8 @@
 ECHO OFF
 CHCP 65001
 ::Variáveis
-SET filesDir=D:\Projetos\UnimakeTeam\Unimake.DFe\source\Unimake.DFe\Compilacao\INTEROP_Release\
-SET istool="C:\Program Files (x86)\Inno Setup 6\ISCC.exe"
+SET filesDir=D:\projetos\github\Unimake.DFe\source\Unimake.DFe\Compilacao\INTEROP_Release\
+SET istool="D:\Program Files (x86)\Inno Setup 6\ISCC.exe"
 
 ::Prepara
 DEL /S %cd%\err
@@ -11,7 +11,7 @@ CLS
 
 @ECHO Compilando Unimake.DFe
 
-dotnet build D:\Projetos\UnimakeTeam\Unimake.DFe\source\Unimake.DFe.sln --configuration INTEROP_Release --force
+dotnet build D:\projetos\github\Unimake.DFe\source\Unimake.DFe.sln --configuration INTEROP_Release --force
 
 @ECHO:
 @ECHO:

@@ -76,7 +76,7 @@ namespace NFe.UI.Formularios
                     break;
                 case TipoAplicativo.Todos:
                 case TipoAplicativo.MDFe:
-                    cbIndSincMDFe.Visible = false;
+                    cbIndSincMDFe.Visible = true;
                     break;
             }
         }
