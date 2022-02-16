@@ -808,10 +808,9 @@ namespace NFe.Components
         SIGCORP_SIGISS_203,
 
         /// <summary>
-        /// Padrão SmaraPD
-        /// Prefeitura de Sertãozinho - SP
+        /// Padrão SMARAPD
         /// </summary>
-        [Description("SmaraPD")]
+        [Description("SMARAPD")]
         SMARAPD,
 
         /// <summary>
@@ -1082,12 +1081,6 @@ namespace NFe.Components
         /// </summary>
         [Description("MARINGA_PR")]
         MARINGA_PR,
-
-        /// <summary>
-        /// Padrão utilizado pela prefeitura de Bauru-SP
-        /// </summary>
-        [Description("BAURU_SP")]
-        BAURU_SP,
 
         /// <summary>
         /// Padrão utilizado pela prefeitura de Jaboatão dos Guararapes-PE

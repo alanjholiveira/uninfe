@@ -153,6 +153,7 @@
             this.udDiasLimpeza.UseSelectable = true;
             this.udDiasLimpeza.UseStyleColors = true;
             this.udDiasLimpeza.TextChanged += new System.EventHandler(this.comboBox_Ambiente_SelectedIndexChanged);
+            this.udDiasLimpeza.Click += new System.EventHandler(this.udDiasLimpeza_Click);
             this.udDiasLimpeza.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.udDiasLimpeza_KeyPress);
             // 
             // cboDiretorioSalvarComo
@@ -713,6 +714,8 @@
             this.Controls.Add(this.checkBoxGravarEventosDeTerceiros);
             this.Name = "userConfiguracao_diversos";
             this.Size = new System.Drawing.Size(701, 453);
+            this.Style = MetroFramework.MetroColorStyle.Default;
+            this.Theme = MetroFramework.MetroThemeStyle.Default;
             this.grpQRCode.ResumeLayout(false);
             this.grpQRCode.PerformLayout();
             this.ResumeLayout(false);

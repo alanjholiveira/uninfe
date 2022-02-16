@@ -21,12 +21,6 @@ namespace NFe.Validate
 {
     public class ValidarXMLNew
     {
-        #region Private Fields
-
-        public string TipoArquivoXML { get; set; }
-
-        #endregion Private Fields
-
         #region Private Methods
 
         /// <summary>
@@ -52,7 +46,249 @@ namespace NFe.Validate
             xml.Save(Empresas.Configuracoes[emp].PastaXmlRetorno + "\\" + arquivoRetorno);
         }
 
+        private void Validar(TipoXML tipoXML, Configuracao configuracao, ValidarSchema validarSchema, bool retornoArquivo, XmlDocument xmlSalvar, string arquivoXML, XmlDocument xmlDoc, int emp)
+        {
+            var schema = configuracao.TipoDFe.ToString() + "." + configuracao.SchemaArquivo;
+            switch (configuracao.TipoDFe)
+            {
+                case TipoDFe.NFCe:
+                    schema = TipoDFe.NFe.ToString() + "." + configuracao.SchemaArquivo;
+                    break;
+
+                case TipoDFe.CTeOS:
+                    schema = TipoDFe.CTe.ToString() + "." + configuracao.SchemaArquivo;
+                    break;
+            }
+
+            TipoArquivoXML = EnumHelper.GetEnumItemDescription(tipoXML);
+
+            validarSchema.Validar(xmlDoc, schema, configuracao.TargetNS);
+
+            if (!validarSchema.Success)
+            {
+                var erro = "Ocorreu um erro ao validar o XML: " + validarSchema.ErrorMessage;
+                if (retornoArquivo)
+                {
+                    GravarXMLRetornoValidacao(arquivoXML, "2", erro);
+                    new Auxiliar().MoveArqErro(arquivoXML);
+                }
+                else
+                {
+                    throw new Exception(erro);
+                }
+            }
+            else
+            {
+                if (retornoArquivo)
+                {
+                    if (!Directory.Exists(Empresas.Configuracoes[emp].PastaValidado))
+                    {
+                        Directory.CreateDirectory(Empresas.Configuracoes[emp].PastaValidado);
+                    }
+
+                    var arquivoNovo = Empresas.Configuracoes[emp].PastaValidado + "\\" + Path.GetFileName(arquivoXML);
+
+                    //Gravar XML assinado e validado na subpasta "Validados"
+                    var SW_2 = File.CreateText(arquivoNovo);
+                    SW_2.Write(xmlSalvar.OuterXml);
+                    SW_2.Close();
+
+                    GravarXMLRetornoValidacao(arquivoXML, "1", "XML assinado e validado com sucesso.");
+                }
+            }
+        }
+
+        private void XmlValidarCTe(TipoXML tipoXML, Configuracao configuracao, ValidarSchema validarSchema, bool retornoArquivo, XmlDocument xmlSalvar, string arquivoXML, XmlDocument xmlDoc, int emp)
+        {
+            if (configuracao.SchemasEspecificos.Count > 0)
+            {
+                #region Validar o XML geral
+
+                configuracao.SchemaArquivo = configuracao.SchemasEspecificos["1"].SchemaArquivo; //De qualquer modal o xml de validação da parte geral é o mesmo, então vou pegar do número 1, pq tanto faz.
+                Validar(tipoXML, configuracao, validarSchema, retornoArquivo, xmlSalvar, arquivoXML, xmlDoc, emp);
+
+                #endregion Validar o XML geral
+
+                #region Validar a parte específica de modal do CTe
+
+                foreach (XmlElement itemCTe in xmlDoc.GetElementsByTagName("CTe"))
+                {
+                    var modal = string.Empty;
+
+                    foreach (XmlElement itemIde in itemCTe.GetElementsByTagName("ide"))
+                    {
+                        modal = itemIde.GetElementsByTagName("modal")[0].InnerText;
+                    }
+
+                    foreach (XmlElement itemInfModal in itemCTe.GetElementsByTagName("infModal"))
+                    {
+                        var xmlEspecifico = new XmlDocument();
+                        xmlEspecifico.LoadXml(itemInfModal.InnerXml);
+
+                        configuracao.SchemaArquivo = configuracao.SchemasEspecificos[modal.Substring(1, 1)].SchemaArquivoEspecifico;
+                        Validar(tipoXML, configuracao, validarSchema, retornoArquivo, xmlSalvar, arquivoXML, xmlEspecifico, emp);
+                    }
+                }
+
+                #endregion Validar a parte específica de modal do CTe
+            }
+        }
+
+        private void XmlValidarEventoNFe(TipoXML tipoXML, Configuracao configuracao, ValidarSchema validarSchema, bool retornoArquivo, XmlDocument xmlSalvar, string arquivoXML, XmlDocument xmlDoc, int emp)
+        {
+            if (xmlDoc.GetElementsByTagName("tpEvento")[0] == null)
+            {
+                throw new Exception("Não foi possível localizar a tag tpEvento no XML para identificar o tipo do evento a ser validado.");
+            }
+
+            var tpEvento = xmlDoc.GetElementsByTagName("tpEvento")[0].InnerText;
+
+            #region Validar o XML Geral
+
+            configuracao.SchemaArquivo = configuracao.SchemasEspecificos[tpEvento].SchemaArquivo;
+
+            Validar(tipoXML, configuracao, validarSchema, retornoArquivo, xmlSalvar, arquivoXML, xmlDoc, emp);
+
+            #endregion Validar o XML Geral
+
+            #region Validar o Modal do Evento
+
+            configuracao.SchemaArquivo = configuracao.SchemasEspecificos[tpEvento].SchemaArquivoEspecifico;
+
+            var listEvento = xmlDoc.GetElementsByTagName("evento");
+            for (var i = 0; i < listEvento.Count; i++)
+            {
+                var elementEvento = (XmlElement)listEvento[i];
+
+                if (elementEvento.GetElementsByTagName("infEvento")[0] != null)
+                {
+                    var elementInfEvento = (XmlElement)elementEvento.GetElementsByTagName("infEvento")[0];
+                    var xmlEspecifico = new XmlDocument();
+                    xmlEspecifico.LoadXml(elementInfEvento.GetElementsByTagName("detEvento")[0].OuterXml);
+
+                    Validar(tipoXML, configuracao, validarSchema, retornoArquivo, xmlSalvar, arquivoXML, xmlEspecifico, emp);
+                }
+            }
+
+            #endregion Validar o Modal do Evento
+        }
+
+        private void XmlValidarEventoCTe(TipoXML tipoXML, Configuracao configuracao, ValidarSchema validarSchema, bool retornoArquivo, XmlDocument xmlSalvar, string arquivoXML, XmlDocument xmlDoc, int emp)
+        {
+            if (xmlDoc.GetElementsByTagName("tpEvento")[0] == null)
+            {
+                throw new Exception("Não foi possível localizar a tag tpEvento no XML para identificar o tipo do evento a ser validado.");
+            }
+
+            var tpEvento = xmlDoc.GetElementsByTagName("tpEvento")[0].InnerText;
+
+            #region Validar o XML Geral
+
+            configuracao.SchemaArquivo = configuracao.SchemasEspecificos[tpEvento].SchemaArquivo;
+
+            Validar(tipoXML, configuracao, validarSchema, retornoArquivo, xmlSalvar, arquivoXML, xmlDoc, emp);
+
+            #endregion Validar o XML Geral
+
+            #region Validar o Modal do Evento
+
+            configuracao.SchemaArquivo = configuracao.SchemasEspecificos[tpEvento].SchemaArquivoEspecifico;
+
+            var listEvento = xmlDoc.GetElementsByTagName("eventoCTe");
+            for (var i = 0; i < listEvento.Count; i++)
+            {
+                var elementEvento = (XmlElement)listEvento[i];
+
+                if (elementEvento.GetElementsByTagName("infEvento")[0] != null)
+                {
+                    var elementInfEvento = (XmlElement)elementEvento.GetElementsByTagName("infEvento")[0];
+                    var xmlEspecifico = new XmlDocument();
+                    xmlEspecifico.LoadXml(elementInfEvento.GetElementsByTagName(elementInfEvento.GetElementsByTagName("detEvento")[0].FirstChild.Name)[0].OuterXml);
+
+                    Validar(tipoXML, configuracao, validarSchema, retornoArquivo, xmlSalvar, arquivoXML, xmlEspecifico, emp);
+                }
+            }
+
+            #endregion Validar o Modal do Evento
+        }
+
+        private void XmlValidarEventoMDFe(TipoXML tipoXML, Configuracao configuracao, ValidarSchema validarSchema, bool retornoArquivo, XmlDocument xmlSalvar, string arquivoXML, XmlDocument xmlDoc, int emp)
+        {
+            if (xmlDoc.GetElementsByTagName("tpEvento")[0] == null)
+            {
+                throw new Exception("Não foi possível localizar a tag tpEvento no XML para identificar o tipo do evento a ser validado.");
+            }
+
+            var tpEvento = xmlDoc.GetElementsByTagName("tpEvento")[0].InnerText;
+
+            #region Validar o XML Geral
+
+            configuracao.SchemaArquivo = configuracao.SchemasEspecificos[tpEvento].SchemaArquivo;
+
+            Validar(tipoXML, configuracao, validarSchema, retornoArquivo, xmlSalvar, arquivoXML, xmlDoc, emp);
+
+            #endregion Validar o XML Geral
+
+            #region Validar o Modal do Evento
+
+            configuracao.SchemaArquivo = configuracao.SchemasEspecificos[tpEvento].SchemaArquivoEspecifico;
+
+            var listEvento = xmlDoc.GetElementsByTagName("eventoMDFe");
+            for (var i = 0; i < listEvento.Count; i++)
+            {
+                var elementEvento = (XmlElement)listEvento[i];
+
+                if (elementEvento.GetElementsByTagName("infEvento")[0] != null)
+                {
+                    var elementInfEvento = (XmlElement)elementEvento.GetElementsByTagName("infEvento")[0];
+                    var xmlEspecifico = new XmlDocument();
+                    xmlEspecifico.LoadXml(elementInfEvento.GetElementsByTagName(elementInfEvento.GetElementsByTagName("detEvento")[0].FirstChild.Name)[0].OuterXml);
+
+                    Validar(tipoXML, configuracao, validarSchema, retornoArquivo, xmlSalvar, arquivoXML, xmlEspecifico, emp);
+                }
+            }
+
+            #endregion Validar o Modal do Evento
+        }
+
+        private void XmlValidarMDFe(XmlMDFe.EnviMDFe enviMDFe, TipoXML tipoXML, Configuracao configuracao, ValidarSchema validarSchema, bool retornoArquivo, XmlDocument xmlSalvar, string arquivoXML, XmlDocument xmlDoc, int emp)
+        {
+            var xml = enviMDFe;
+            var modal = 0;
+
+            if (configuracao.SchemasEspecificos.Count > 0)
+            {
+                modal = (int)xml.MDFe.InfMDFe.Ide.Modal;
+            }
+
+            #region Validar o XML geral
+
+            configuracao.SchemaArquivo = configuracao.SchemasEspecificos[modal.ToString()].SchemaArquivo; //De qualquer modal o xml de validação da parte geral é o mesmo, então vou pegar do número 1, pq tanto faz.
+            Validar(tipoXML, configuracao, validarSchema, retornoArquivo, xmlSalvar, arquivoXML, xmlDoc, emp);
+
+            #endregion Validar o XML geral
+
+            #region Validar a parte específica de modal do MDFe
+
+            var xmlEspecifico = new XmlDocument();
+            foreach (XmlElement item in xmlDoc.GetElementsByTagName("infModal"))
+            {
+                xmlEspecifico.LoadXml(item.InnerXml);
+            }
+
+            configuracao.SchemaArquivo = configuracao.SchemasEspecificos[modal.ToString()].SchemaArquivoEspecifico;
+            Validar(tipoXML, configuracao, validarSchema, retornoArquivo, xmlSalvar, arquivoXML, xmlEspecifico, emp);
+
+            #endregion Validar a parte específica de modal do MDFe
+        }
+
         #endregion Private Methods
+
+        #region Public Properties
+
+        public string TipoArquivoXML { get; set; }
+
+        #endregion Public Properties
 
         #region Public Methods
 
@@ -64,11 +300,23 @@ namespace NFe.Validate
         /// <returns>Retorna se efetuou a validação ou não (Se não detectar o tipo do arquivo ele não roda a validação)</returns>
         public bool Validar(string arquivoXML, bool retornoArquivo)
         {
+            var xmlDoc = new XmlDocument();
+            xmlDoc.Load(arquivoXML);
+
+            return Validar(xmlDoc, retornoArquivo, arquivoXML);
+        }
+
+        /// <summary>
+        /// Validar XML
+        /// </summary>
+        /// <param name="xmlDoc">XML a ser validado</param>
+        /// <param name="retornoArquivo">Gerar arquivos na pasta de retorno com a resposta da validação? Se false, não vai gerar os retornos bem como não vai movimentar o arquivo validado para a subpasta validados</param>
+        /// <returns>Retorna se efetuou a validação ou não (Se não detectar o tipo do arquivo ele não roda a validação)</returns>
+        public bool Validar(XmlDocument xmlDoc, bool retornoArquivo, string arquivoXML)
+        {
             try
             {
                 var emp = Empresas.FindEmpresaByThread();
-                var xmlDoc = new XmlDocument();
-                xmlDoc.Load(arquivoXML);
 
                 var xmlSalvar = new XmlDocument();
 
@@ -82,7 +330,7 @@ namespace NFe.Validate
 
                 var tipoXML = XMLUtility.DetectXMLType(xmlDoc);
 
-                bool jaValidou = false;
+                var jaValidou = false;
 
                 switch (tipoXML)
                 {
@@ -141,11 +389,11 @@ namespace NFe.Validate
 
                         var recepcaoEventoNFe = new ServicosNFe.RecepcaoEvento(xmlEnvEventoNFe, configuracao);
 
-                        var tpEvento = ((int)xmlEnvEventoNFe.Evento[0].InfEvento.TpEvento);
-                        configuracao.SchemaArquivo = configuracao.SchemasEspecificos[tpEvento.ToString()].SchemaArquivo;
-
                         xmlDoc = recepcaoEventoNFe.ConteudoXMLAssinado;
                         xmlSalvar = xmlDoc;
+
+                        XmlValidarEventoNFe(tipoXML, configuracao, validarSchema, retornoArquivo, xmlSalvar, arquivoXML, xmlDoc, emp);
+                        jaValidou = true;
                         break;
 
                     case TipoXML.NFeInutilizacao:
@@ -281,12 +529,11 @@ namespace NFe.Validate
                         configuracao.TipoDFe = TipoDFe.CTe;
 
                         var recepcaoEventoCTe = new ServicosCTe.RecepcaoEvento(xmlEventoCTe, configuracao);
-
-                        var tpEventoCTe = ((int)xmlEventoCTe.InfEvento.TpEvento);
-                        configuracao.SchemaArquivo = configuracao.SchemasEspecificos[tpEventoCTe.ToString()].SchemaArquivo;
-
                         xmlDoc = recepcaoEventoCTe.ConteudoXMLAssinado;
                         xmlSalvar = xmlDoc;
+
+                        XmlValidarEventoCTe(tipoXML, configuracao, validarSchema, retornoArquivo, xmlSalvar, arquivoXML, xmlDoc, emp);
+                        jaValidou = true;
                         break;
 
                     case TipoXML.CTeInutilizacao:
@@ -384,12 +631,11 @@ namespace NFe.Validate
                         configuracao.TipoDFe = TipoDFe.MDFe;
 
                         var recepcaoEventoMDFe = new ServicosMDFe.RecepcaoEvento(xmlEventoMDFe, configuracao);
-
-                        var tpEventoMDFe = ((int)xmlEventoMDFe.InfEvento.TpEvento);
-                        configuracao.SchemaArquivo = configuracao.SchemasEspecificos[tpEventoMDFe.ToString()].SchemaArquivo;
-
                         xmlDoc = recepcaoEventoMDFe.ConteudoXMLAssinado;
                         xmlSalvar = xmlDoc;
+
+                        XmlValidarEventoMDFe(tipoXML, configuracao, validarSchema, retornoArquivo, xmlSalvar, arquivoXML, xmlDoc, emp);
+                        jaValidou = true;
                         break;
 
                     case TipoXML.MDFe:
@@ -467,7 +713,7 @@ namespace NFe.Validate
             }
             catch (Exception ex)
             {
-                var erro = "Ocorreu um erro ao validar o XML: " + ex.Message;
+                var erro = ex.Message;
                 if (retornoArquivo)
                 {
                     GravarXMLRetornoValidacao(arquivoXML, "3", erro);
@@ -480,125 +726,6 @@ namespace NFe.Validate
             }
 
             return true;
-        }
-
-        private void Validar(TipoXML tipoXML, Configuracao configuracao, ValidarSchema validarSchema, bool retornoArquivo, XmlDocument xmlSalvar, string arquivoXML, XmlDocument xmlDoc, int emp)
-        {
-            var schema = configuracao.TipoDFe.ToString() + "." + configuracao.SchemaArquivo;
-            switch (configuracao.TipoDFe)
-            {
-                case TipoDFe.NFCe:
-                    schema = TipoDFe.NFe.ToString() + "." + configuracao.SchemaArquivo;
-                    break;
-
-                case TipoDFe.CTeOS:
-                    schema = TipoDFe.CTe.ToString() + "." + configuracao.SchemaArquivo;
-                    break;
-            }
-
-            TipoArquivoXML = EnumHelper.GetEnumItemDescription(tipoXML);
-
-            validarSchema.Validar(xmlDoc, schema, configuracao.TargetNS);
-
-            if (!validarSchema.Success)
-            {
-                var erro = "Ocorreu um erro ao validar o XML: " + validarSchema.ErrorMessage;
-                if (retornoArquivo)
-                {
-                    GravarXMLRetornoValidacao(arquivoXML, "2", erro);
-                    new Auxiliar().MoveArqErro(arquivoXML);
-                }
-                else
-                {
-                    throw new Exception(erro);
-                }
-            }
-            else
-            {
-                if (retornoArquivo)
-                {
-                    if (!Directory.Exists(Empresas.Configuracoes[emp].PastaValidado))
-                    {
-                        Directory.CreateDirectory(Empresas.Configuracoes[emp].PastaValidado);
-                    }
-
-                    var arquivoNovo = Empresas.Configuracoes[emp].PastaValidado + "\\" + Path.GetFileName(arquivoXML);
-
-                    //Gravar XML assinado e validado na subpasta "Validados"
-                    var SW_2 = File.CreateText(arquivoNovo);
-                    SW_2.Write(xmlSalvar.OuterXml);
-                    SW_2.Close();
-
-                    GravarXMLRetornoValidacao(arquivoXML, "1", "XML assinado e validado com sucesso.");
-                }
-            }
-        }
-
-        private void XmlValidarCTe(TipoXML tipoXML, Configuracao configuracao, ValidarSchema validarSchema, bool retornoArquivo, XmlDocument xmlSalvar, string arquivoXML, XmlDocument xmlDoc, int emp)
-        {
-            if (configuracao.SchemasEspecificos.Count > 0)
-            {
-                #region Validar o XML geral
-
-                configuracao.SchemaArquivo = configuracao.SchemasEspecificos["1"].SchemaArquivo; //De qualquer modal o xml de validação da parte geral é o mesmo, então vou pegar do número 1, pq tanto faz.
-                Validar(tipoXML, configuracao, validarSchema, retornoArquivo, xmlSalvar, arquivoXML, xmlDoc, emp);
-
-                #endregion Validar o XML geral
-
-                #region Validar a parte específica de modal do CTe
-
-                foreach (XmlElement itemCTe in xmlDoc.GetElementsByTagName("CTe"))
-                {
-                    var modal = string.Empty;
-
-                    foreach (XmlElement itemIde in itemCTe.GetElementsByTagName("ide"))
-                    {
-                        modal = itemIde.GetElementsByTagName("modal")[0].InnerText;
-                    }
-
-                    foreach (XmlElement itemInfModal in itemCTe.GetElementsByTagName("infModal"))
-                    {
-                        var xmlEspecifico = new XmlDocument();
-                        xmlEspecifico.LoadXml(itemInfModal.InnerXml);
-
-                        configuracao.SchemaArquivo = configuracao.SchemasEspecificos[modal.Substring(1, 1)].SchemaArquivoEspecifico;
-                        Validar(tipoXML, configuracao, validarSchema, retornoArquivo, xmlSalvar, arquivoXML, xmlEspecifico, emp);
-                    }
-                }
-
-                #endregion Validar a parte específica de cada evento
-            }            
-        }
-
-        private void XmlValidarMDFe(XmlMDFe.EnviMDFe enviMDFe, TipoXML tipoXML, Configuracao configuracao, ValidarSchema validarSchema, bool retornoArquivo, XmlDocument xmlSalvar, string arquivoXML, XmlDocument xmlDoc, int emp)
-        {
-            var xml = enviMDFe;
-            int modal = 0;
-
-            if (configuracao.SchemasEspecificos.Count > 0)
-            {
-                modal = (int)xml.MDFe.InfMDFe.Ide.Modal;
-            }
-
-            #region Validar o XML geral
-
-            configuracao.SchemaArquivo = configuracao.SchemasEspecificos[modal.ToString()].SchemaArquivo; //De qualquer modal o xml de validação da parte geral é o mesmo, então vou pegar do número 1, pq tanto faz.
-            Validar(tipoXML, configuracao, validarSchema, retornoArquivo, xmlSalvar, arquivoXML, xmlDoc, emp);
-
-            #endregion Validar o XML geral
-
-            #region Validar a parte específica de modal do MDFe
-
-            var xmlEspecifico = new XmlDocument();
-            foreach (XmlElement item in xmlDoc.GetElementsByTagName("infModal"))
-            {
-                xmlEspecifico.LoadXml(item.InnerXml);
-            }
-
-            configuracao.SchemaArquivo = configuracao.SchemasEspecificos[modal.ToString()].SchemaArquivoEspecifico;
-            Validar(tipoXML, configuracao, validarSchema, retornoArquivo, xmlSalvar, arquivoXML, xmlEspecifico, emp);
-
-            #endregion Validar a parte específica de modal do MDFe
         }
 
         #endregion Public Methods

@@ -1025,5 +1025,8 @@
     <Setting Name="NFe_Components_HCanelaRS_NfseService_Homolog" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">https://www.nfse.canela.rs.gov.br:8182/NfseService_Homolog/NfseService_Homolog</Value>
     </Setting>
+    <Setting Name="NFe_Components_PMedianeiraPR_NFSeIntegracao" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://nfse2.medianeira.pr.gov.br/NFSe.Portal.Integracao/Services.svc</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -64,6 +64,7 @@ namespace NFe.Service.NFSe
                             case 3132404: //Itajubá-MG
                             case 2933307: //Vitória da Conquista-BA
                             case 3201209: //Cachoeiro de Itapemirim
+                            case 3506003: //Bauru-SP
                                 ExecuteDLL(emp, ler.oDadosPedSitNfseRps.cMunicipio, padraoNFSe);
                                 break;
 
@@ -419,6 +420,7 @@ namespace NFe.Service.NFSe
                                             ler.oDadosPedSitNfseRps.cMunicipio == 4310207 ||
                                             ler.oDadosPedSitNfseRps.cMunicipio == 1502400 ||
                                             ler.oDadosPedSitNfseRps.cMunicipio == 4301057 ||
+                                            ler.oDadosPedSitNfseRps.cMunicipio == 4115804 ||
                                             ler.oDadosPedSitNfseRps.cMunicipio == 3550803)
                                         {
                                             var pronin = new Pronin((TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
@@ -681,6 +683,7 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadroesNFSe.SIMPLISS:
+                case PadroesNFSe.SMARAPD:
                     versaoXML = "2.03";
                     break;
 

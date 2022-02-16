@@ -3476,5 +3476,15 @@ namespace NFe.Components.Properties {
                 return ((string)(this["NFe_Components_HCanelaRS_NfseService_Homolog"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://nfse2.medianeira.pr.gov.br/NFSe.Portal.Integracao/Services.svc")]
+        public string NFe_Components_PMedianeiraPR_NFSeIntegracao {
+            get {
+                return ((string)(this["NFe_Components_PMedianeiraPR_NFSeIntegracao"]));
+            }
+        }
     }
 }

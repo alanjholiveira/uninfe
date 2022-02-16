@@ -98,6 +98,7 @@ namespace NFe.Service.NFSe
                             case 3132404: //Itajubá-MG
                             case 2933307: //Vitória da Conquista-BA
                             case 3201209: //Cachoeiro de Itapemirim
+                            case 3506003: //Bauru-SP
                                 ExecuteDLL(emp, oDadosEnvLoteRps.cMunicipio, padraoNFSe);
                                 break;
 
@@ -627,6 +628,7 @@ namespace NFe.Service.NFSe
                                             oDadosEnvLoteRps.cMunicipio == 1502400 ||
                                             oDadosEnvLoteRps.cMunicipio == 4322509 ||
                                             oDadosEnvLoteRps.cMunicipio == 4301057 ||
+                                            oDadosEnvLoteRps.cMunicipio == 4115804 ||
                                             oDadosEnvLoteRps.cMunicipio == 3550803)
                                         {
                                             var pronin = new Pronin((TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
@@ -1120,6 +1122,7 @@ namespace NFe.Service.NFSe
                 case PadroesNFSe.SIMPLISS:
                 case PadroesNFSe.SONNER:
                 case PadroesNFSe.EL:
+                case PadroesNFSe.SMARAPD:
                     switch (doc.DocumentElement.Name)
                     {
                         case "EnviarLoteRpsSincronoEnvio":
@@ -1192,6 +1195,7 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadroesNFSe.SIMPLISS:
+                case PadroesNFSe.SMARAPD:
                     versaoXML = "2.03";
                     break;
 

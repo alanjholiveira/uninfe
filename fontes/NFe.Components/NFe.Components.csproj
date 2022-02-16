@@ -263,6 +263,7 @@
     <Compile Include="Pronin\BastosSP\p\ProninP.cs" />
     <Compile Include="Pronin\AgudoRS\h\ProninH.cs" />
     <Compile Include="Pronin\AgudoRS\p\ProninP.cs" />
+    <Compile Include="Pronin\MedianeiraPR\p\ProninP.cs" />
     <Compile Include="Pronin\CosmopolisSP\p\ProninP.cs" />
     <Compile Include="Pronin\EntreIjuisRS\h\ProninH.cs" />
     <Compile Include="Pronin\EntreIjuisRS\p\ProninP.cs" />
@@ -428,7 +429,6 @@
     <Compile Include="Schemas\SchemaXMLNFSe_MARINGA_PR.cs" />
     <Compile Include="Schemas\SchemaXMLNFSe_DBSELLER.cs" />
     <Compile Include="Schemas\SchemaXMLNFSe_GOIANIA.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_BAURU_SP.cs" />
     <Compile Include="Schemas\SchemaXMLNFSe_SUPERNOVA.cs" />
     <Compile Include="Schemas\SchemaXMLNFSe_COPLAN.cs" />
     <Compile Include="Schemas\SchemaXMLNFSe_PORTALFACIL_ACTCON_202.cs" />
@@ -1581,6 +1581,11 @@
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
     <Compile Include="Web References\PLinharesES_EL\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\PMedianeiraPR\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
@@ -5389,6 +5394,17 @@
     <None Include="Web References\PLinharesES_EL\situacaoLoteRps.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
+    <None Include="Web References\PMedianeiraPR\NFSeIntegracao.wsdl" />
+    <None Include="Web References\PMedianeiraPR\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\PMedianeiraPR\Services.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\PMedianeiraPR\Services0.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Web References\PNovaFriburgoRJ\cnae.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
@@ -8545,6 +8561,17 @@
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>NFe_Components_PLinharesES_EL_RpsServiceService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="C:\projetos\uninfe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Producao\PMedianeiraPR-PRONIN.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\PMedianeiraPR\</RelPath>
+      <UpdateFromURL>C:\projetos\uninfe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Producao\PMedianeiraPR-PRONIN.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>NFe_Components_PMedianeiraPR_NFSeIntegracao</CachedSettingsPropName>
     </WebReferenceUrl>
     <WebReferenceUrl Include="D:\Projetos\UniNFe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Homologacao\HPauloBentoRS-SystemPro.wsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
