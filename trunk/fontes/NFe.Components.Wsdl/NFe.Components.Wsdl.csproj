@@ -4538,7 +4538,6 @@
     <EmbeddedResource Include="NFse\WSDL\Homologacao\HThemaConsulta.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Homologacao\HThemaRemessa.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Homologacao\HThemaCancelamento.wsdl" />
-    <EmbeddedResource Include="NFse\WSDL\Homologacao\HBauruSP_SMARAPD_203.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Homologacao\HMogiDasCruzesSP_SMARAPD_203.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Producao\PMogiDasCruzesSP_SMARAPD_203.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Producao\PSalvadorBAConsultaLoteRPS.wsdl" />
@@ -4576,7 +4575,6 @@
     <EmbeddedResource Include="NFse\WSDL\Homologacao\HIpatingaMG-PORTALFACIL_ACTCON.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Producao\PIpatingaMG-PORTALFACIL_ACTCON.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Producao\PThemaCancelamento.wsdl" />
-    <EmbeddedResource Include="NFse\WSDL\Producao\PBauruSP_SMARAPD_203.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Producao\PMageRJ-MODERNIZACAO_PUBLICA.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Homologacao\HMageRJ-MODERNIZACAO_PUBLICA.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Homologacao\HVacariRS-PRONIN.wsdl" />
@@ -4604,6 +4602,7 @@
     <EmbeddedResource Include="NFse\WSDL\Producao\PArroioDoSal-PRONIN.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Producao\PCanelaRS-SystemPro.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Homologacao\HCanelaRS-SystemPro.wsdl" />
+    <EmbeddedResource Include="NFse\WSDL\Producao\PMedianeiraPR-PRONIN.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="NFse\WSDL\Producao\PCamacariBA.wsdl">

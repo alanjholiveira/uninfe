@@ -51,6 +51,7 @@ namespace NFe.Service.NFSe
                     case PadroesNFSe.COPLAN:
                     case PadroesNFSe.SIMPLISS:
                     case PadroesNFSe.SONNER:
+                    case PadroesNFSe.SMARAPD:
                         ExecuteDLL(emp, dadosXML.cMunicipio, padraoNFSe);
                         break;
 
@@ -278,6 +279,7 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadroesNFSe.SIMPLISS:
+                case PadroesNFSe.SMARAPD:
                     versaoXML = "2.03";
                     break;
 

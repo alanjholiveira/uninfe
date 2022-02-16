@@ -221,6 +221,10 @@ namespace NFe.Components.Pronin
                                 proninService = new ArroioDoSal.p.ProninP(tpAmb, PastaRetorno, UsuarioProxy, SenhaProxy, DomainProxy, Certificado);
                                 break;
 
+                            case 4115804://Medianeira - PR
+                                proninService = new PMedianeiraPR.p.ProninP(tpAmb, PastaRetorno, UsuarioProxy, SenhaProxy, DomainProxy, Certificado);
+                                break;
+
                             default:
                                 throw new Exceptions.ServicoInexistenteException();
                         }

@@ -50,6 +50,7 @@ namespace NFe.Service.NFSe
                         {
                             case 5105606: //Matupá-MT
                             case 3132404: //Itajubá-MG
+                            case 3506003: //Bauru-SP
                                 ExecuteDLL(emp, dadosXML.cMunicipio, padraoNFSe);
                                 break;
 
@@ -207,6 +208,7 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadroesNFSe.SIMPLISS:
+                case PadroesNFSe.SMARAPD:
                     versaoXML = "2.03";
                     break;
 

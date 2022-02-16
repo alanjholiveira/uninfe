@@ -25,16 +25,18 @@ namespace NFe.UI
         {
             LimparEPosicionarTC();
 
+            string arquivoXML = edtFilename.Text.Replace("\"", "");
+
             try
             {
-                if (edtFilename.Text == "" || !File.Exists(edtFilename.Text))
+                if (arquivoXML == "" || !File.Exists(arquivoXML))
                 {
                     textBox_resultado.Text = "Arquivo não encontrado.";
                     return;
                 }
 
                 //Copiar o arquivo XML para temporários para assinar e depois vou validar o que está nos temporários
-                FileInfo fileInfo = new FileInfo(edtFilename.Text);
+                FileInfo fileInfo = new FileInfo(arquivoXML);
                 string arquivo = Path.GetTempPath() + fileInfo.Name;
 
                 arqDestino = new FileInfo(arquivo);

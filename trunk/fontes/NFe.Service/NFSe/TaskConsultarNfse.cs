@@ -87,6 +87,7 @@ namespace NFe.Service.NFSe
                             case 3530706: //Mogi Guaçu - SP
                             case 5105606: //Matupá-MT
                             case 3132404: //Itajubá-MG
+                            case 3506003: //Bauru-SP
                                 ExecuteDLL(emp, oDadosPedSitNfse.cMunicipio, padraoNFSe);
                                 break;
 
@@ -456,6 +457,7 @@ namespace NFe.Service.NFSe
                                             oDadosPedSitNfse.cMunicipio == 4310207 ||
                                             oDadosPedSitNfse.cMunicipio == 1502400 ||
                                             oDadosPedSitNfse.cMunicipio == 4301057 ||
+                                            oDadosPedSitNfse.cMunicipio == 4115804 ||
                                             oDadosPedSitNfse.cMunicipio == 3550803)
                                         {
                                             var pronin = new Pronin((TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
@@ -807,6 +809,7 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadroesNFSe.SONNER:
+                case PadroesNFSe.SMARAPD:
                     switch (doc.DocumentElement.Name)
                     {
                         case "ConsultarNfseServicoPrestadoEnvio":
@@ -878,6 +881,7 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadroesNFSe.SIMPLISS:
+                case PadroesNFSe.SMARAPD:
                     versaoXML = "2.03";
                     break;
 

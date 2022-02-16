@@ -2710,6 +2710,23 @@ namespace NFe.Service
                     Functions.DeletarArquivo(Empresas.Configuracoes[emp].PastaXmlErro + "\\" + Path.GetFileName(NomeArquivoXML));
                 }
 
+                #region Assinar e validar o XML para manter uma compatibilidade antes de usar a DLL do UNINFE. Wandrey 09/02/2022
+
+                try
+                {
+                    XmlDocument xmlDoc = new XmlDocument();
+                    xmlDoc.LoadXml(conteudoXML.OuterXml);
+
+                    ValidarXMLNew validarXMLNew = new ValidarXMLNew();
+                    validarXMLNew.Validar(xmlDoc, false, NomeArquivoXML);
+                }
+                catch (Exception ex)
+                {
+                    throw (ex);
+                }
+
+                #endregion
+
                 //Validações gerais
                 ValidacoesGeraisXMLNFe(dadosNFe);
 
@@ -3240,6 +3257,7 @@ namespace NFe.Service
                         cMunicipio == 4310207 ||
                         cMunicipio == 1502400 || 
                         cMunicipio == 4301057 ||
+                        cMunicipio == 4115804 ||
                         cMunicipio == 3550803)
                     {
                         retorno = false;
@@ -3269,7 +3287,6 @@ namespace NFe.Service
                 case PadroesNFSe.NA_INFORMATICA:
                 case PadroesNFSe.BSITBR:
                 case PadroesNFSe.METROPOLIS:
-                case PadroesNFSe.BAURU_SP:
                 case PadroesNFSe.SOFTPLAN:
                 case PadroesNFSe.ADM_SISTEMAS:
                 case PadroesNFSe.SIMPLE:

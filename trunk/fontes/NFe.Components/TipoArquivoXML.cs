@@ -242,6 +242,10 @@ namespace NFe.Components
                                 padraoNFSe = Functions.PadraoNFSe(UFCod).ToString() + "-4301057-";
                                 break;
 
+                            case 4115804: //Medianeira-PR
+                                padraoNFSe = Functions.PadraoNFSe(UFCod).ToString() + "-4115804-";
+                                break;
+
                             default:
                                 padraoNFSe = Functions.PadraoNFSe(UFCod).ToString() + "-";
                                 break;
