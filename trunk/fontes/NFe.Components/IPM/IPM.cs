@@ -101,6 +101,16 @@ namespace NFSe.Components
                         {"f1", file}           //Endereço físico do arquivo
                     }, $"Authorization: Basic {base64}");
                 }
+                else if (Cidade == 8291 || Cidade == 4214805) // Rio do Sul
+                {
+                    var base64 = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{Usuario}:{Senha}"));
+
+                    // informe 1 para retorno em xml
+                    result = post.PostForm("https://riodosul.atende.net/atende.php?pg=rest&service=WNERestServiceNFSe&cidade=padrao", new Dictionary<string, string>
+                    {
+                        { "f1", file}           //Endereço físico do arquivo
+                    }, $"Authorization: Basic {base64}");
+                }
                 else
                 {
                     // informe 1 para retorno em xml
@@ -258,7 +268,7 @@ namespace NFSe.Components
             {
                 doc.DocumentElement.RemoveChild(doc.GetElementsByTagName("codigo_html")[0]);
             }
-            
+
             result = doc.OuterXml;
 
             GerarRetorno(file, result, Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSe).EnvioXML,
