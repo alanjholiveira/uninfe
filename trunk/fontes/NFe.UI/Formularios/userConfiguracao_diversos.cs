@@ -694,11 +694,6 @@ namespace NFe.UI.Formularios
             }
         }
 
-        private void udDiasLimpeza_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void Configurar(Empresa empresa, bool novaempresa)
         {
             switch (empresa.Servico)

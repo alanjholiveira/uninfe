@@ -153,7 +153,6 @@
             this.udDiasLimpeza.UseSelectable = true;
             this.udDiasLimpeza.UseStyleColors = true;
             this.udDiasLimpeza.TextChanged += new System.EventHandler(this.comboBox_Ambiente_SelectedIndexChanged);
-            this.udDiasLimpeza.Click += new System.EventHandler(this.udDiasLimpeza_Click);
             this.udDiasLimpeza.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.udDiasLimpeza_KeyPress);
             // 
             // cboDiretorioSalvarComo
