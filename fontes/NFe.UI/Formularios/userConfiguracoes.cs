@@ -659,14 +659,16 @@ namespace NFe.UI
                     ///
                     bool grava = DadosMudaramDaEmpresa(true);
 
-                    var oe = Empresas.FindConfEmpresa(currentEmpresa.CNPJ, servicoCurrent);
+                
 
                     if (!EmpresaValidada)
                         return;
 
                     if (grava)
                     {
-                        if (currentEmpresa.DiasLimpeza > 0 && currentEmpresa.DiasLimpeza != oe.DiasLimpeza)
+                        var oe = Empresas.FindConfEmpresa(currentEmpresa.CNPJ, servicoCurrent);
+
+                        if (currentEmpresa.DiasLimpeza > 0 && currentEmpresa.DiasLimpeza != oe.DiasLimpeza && oe != null)
                         {
                             string mensagem = "Ao informar \"Quantos dias devem ser mantidos os arquivos na pasta temporário e retorno?\" você está permitindo o UniNFe apagar os arquivos destas pastas. " +
                                 "Verifique se informou corretamente as pastas abaixo para evitar perda de dados importantes:\r\n";
