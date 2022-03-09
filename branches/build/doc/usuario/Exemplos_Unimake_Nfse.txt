@@ -1,0 +1,247 @@
+// ---------------------------------------------------------------------------------------------
+// Serviço: RecepcionarLoteRps
+// ---------------------------------------------------------------------------------------------
+
+var arqXML = "c:\teste\EnviarLoteRpsEnvio-env-loterps.xml";
+
+try
+{
+	var conteudoXML = new XmlDocument();
+	conteudoXML.Load(arqXML);
+
+	var configuracao = new Configuracao
+	{
+		TipoDFe = TipoDFe.NFSe,
+		CertificadoDigital = CertificadoSelecionado,
+		TipoAmbiente = TipoAmbiente.Homologacao,
+		CodigoMunicipio = 5107909, //Codigo IBGE
+		Servico = Servico.NFSeRecepcionarLoteRps,
+		SchemaVersao = "2.02"
+	};
+
+	var recepcionarLoteRps = new RecepcionarLoteRps(conteudoXML, configuracao);
+	recepcionarLoteRps.Executar();
+	
+	MessageBox.Show(recepcionarLoteRps.RetornoWSString);
+}
+catch(Exception ex)
+{
+
+}
+
+// ---------------------------------------------------------------------------------------------
+// Serviço: RecepcionarLoteRpsSincrono
+// ---------------------------------------------------------------------------------------------
+
+var arqXML = "c:\teste\EnviarLoteRpsSincronoEnvio-env-loterps.xml;
+
+try
+{
+	var conteudoXML = new XmlDocument();
+	conteudoXML.Load(arqXML);
+
+	var configuracao = new Configuracao
+	{		
+    	TipoDFe = TipoDFe.NFSe,
+		CertificadoDigital = CertificadoSelecionado,
+		TipoAmbiente = TipoAmbiente.Homologacao,
+		CodigoMunicipio = 5107909, //Codigo IBGE
+		Servico = Servico.NFSeRecepcionarLoteRpsSincrono,
+		SchemaVersao = "2.02"
+	};
+
+	var recepcionarLoteRpsSincrono = new RecepcionarLoteRpsSincrono(conteudoXML, configuracao);
+	recepcionarLoteRpsSincrono.Executar();
+	
+	MessageBox.Show(recepcionarLoteRpsSincrono.RetornoWSString);
+}
+catch(Exception ex)
+{
+}
+
+
+// ---------------------------------------------------------------------------------------------
+// Serviço: CancelarNfse
+// ---------------------------------------------------------------------------------------------
+
+var arqXML = "c:\teste\CancelarNfseEnvio-ped-cannfse.xml;
+
+try
+{
+	var conteudoXML = new XmlDocument();
+	conteudoXML.Load(arqXML);
+
+	var configuracao = new Configuracao
+	{		
+    	TipoDFe = TipoDFe.NFSe,
+		CertificadoDigital = CertificadoSelecionado,
+		TipoAmbiente = TipoAmbiente.Homologacao,
+		CodigoMunicipio = 5107909, //Codigo IBGE
+		Servico = Servico.NFSeCancelarNfse,
+		SchemaVersao = "2.02"
+	};
+
+	var cancelarNfse = new CancelarNfse(conteudoXML, configuracao);
+	cancelarNfse.Executar();
+	
+	MessageBox.Show(cancelarNfse.RetornoWSString);
+}
+catch(Exception ex)
+{
+
+}
+
+// ---------------------------------------------------------------------------------------------
+// Serviço: SubstituirNfse
+// ---------------------------------------------------------------------------------------------
+
+var arqXML = "c:\teste\SubstituirNfseEnvio-ped-substnfse.xml;
+
+try
+{
+	var conteudoXML = new XmlDocument();
+	conteudoXML.Load(arqXML);
+
+	var configuracao = new Configuracao
+	{		
+    	TipoDFe = TipoDFe.NFSe,
+		CertificadoDigital = CertificadoSelecionado,
+		TipoAmbiente = TipoAmbiente.Homologacao,
+		CodigoMunicipio = 5107909, //Codigo IBGE
+		Servico = Servico.NFSeSubstituirNfse,
+		SchemaVersao = "2.02"
+	};
+
+	var substituirNfse = new SubstituirNfse(conteudoXML, configuracao);
+	substituirNfse.Executar();
+	
+	MessageBox.Show(substituirNfse.RetornoWSString);
+}
+catch(Exception ex)
+{
+
+}
+
+// ---------------------------------------------------------------------------------------------
+// Serviço: ConsultarLoteRps
+// ---------------------------------------------------------------------------------------------
+
+var arqXML = "c:\teste\ConsultarLoteRpsEnvio-ped-loterps.xml;
+
+try
+{
+	var conteudoXML = new XmlDocument();
+	conteudoXML.Load(arqXML);
+
+	var configuracao = new Configuracao
+	{		
+    	TipoDFe = TipoDFe.NFSe,
+		CertificadoDigital = CertificadoSelecionado,
+		TipoAmbiente = TipoAmbiente.Homologacao,
+		CodigoMunicipio = 5107909, //Codigo IBGE
+		Servico = Servico.NFSeConsultarLoteRps,
+		SchemaVersao = "2.02"
+	};
+
+	var consultarLoteRps = new ConsultarLoteRps(conteudoXML, configuracao);
+	consultarLoteRps.Executar();
+	
+    MessageBox.Show(consultarLoteRps.RetornoWSString);
+}
+catch(Exception ex)
+{
+
+}
+
+// ---------------------------------------------------------------------------------------------
+// Serviço: ConsultarNfsePorRps
+// ---------------------------------------------------------------------------------------------
+
+var arqXML = "c:\teste\ConsultarNfseRpsEnvio-ped-sitnfserps.xml;
+
+try
+{
+	var conteudoXML = new XmlDocument();
+	conteudoXML.Load(arqXML);
+
+	var configuracao = new Configuracao
+	{		
+    	TipoDFe = TipoDFe.NFSe,
+		CertificadoDigital = CertificadoSelecionado,
+		TipoAmbiente = TipoAmbiente.Homologacao,
+		CodigoMunicipio = 5107909, //Codigo IBGE
+		Servico = Servico.NFSeConsultarNfsePorRps,
+		SchemaVersao = "2.02"
+	};
+
+	var consultarNfsePorRps = new ConsultarNfsePorRps(conteudoXML, configuracao);
+	consultarNfsePorRps.Executar();
+	
+	MessageBox.Show(consultarNfsePorRps.RetornoWSString);
+}
+catch(Exception ex)
+{
+
+}
+
+// ---------------------------------------------------------------------------------------------
+// Serviço: ConsultarNfseFaixa
+// ---------------------------------------------------------------------------------------------
+
+var arqXML = "c:\teste\ConsultarNfseFaixaEnvio-ped-sitnfse.xml;
+
+try
+{
+	var conteudoXML = new XmlDocument();
+	conteudoXML.Load(arqXML);
+
+	var configuracao = new Configuracao
+	{		
+    	TipoDFe = TipoDFe.NFSe,
+		CertificadoDigital = CertificadoSelecionado,
+		TipoAmbiente = TipoAmbiente.Homologacao,
+		CodigoMunicipio = 5107909, //Codigo IBGE
+		Servico = Servico.NFSeConsultarNfseFaixa,
+		SchemaVersao = "2.02"
+	};
+
+	var consultarNfseFaixa = new ConsultarNfseFaixa(conteudoXML, configuracao);
+	consultarNfseFaixa.Executar();
+	
+	MessageBox.Show(consultarNfseFaixa.RetornoWSString);
+}
+catch(Exception ex)
+{
+
+}
+
+// ---------------------------------------------------------------------------------------------
+// Serviço: ConsultarNfseFaixa
+// ---------------------------------------------------------------------------------------------
+
+var arqXML = "c:\teste\ConsultarNfseFaixaEnvio-ped-sitnfse.xml;
+
+try
+{
+	var conteudoXML = new XmlDocument();
+	conteudoXML.Load(arqXML);
+
+	var configuracao = new Configuracao
+	{		
+    	TipoDFe = TipoDFe.NFSe,
+		CertificadoDigital = CertificadoSelecionado,
+		TipoAmbiente = TipoAmbiente.Homologacao,
+		CodigoMunicipio = 5107909, //Codigo IBGE
+		Servico = Servico.NFSeConsultarNfseFaixa,
+		SchemaVersao = "2.02"
+	};
+
+	var consultarNfseFaixa = new ConsultarNfseFaixa(conteudoXML, configuracao);
+	consultarNfseFaixa.Executar();
+	
+	MessageBox.Show(consultarNfseFaixa.RetornoWSString);
+}
+catch(Exception ex)
+{
+
+}

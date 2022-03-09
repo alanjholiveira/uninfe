@@ -30,7 +30,7 @@ using InfRespTec = Unimake.Business.DFe.Xml.NFe.InfRespTec;
 
 namespace TesteDLL_Unimake.Business.DFe
 {
-    public partial class FormTestarNFe: Form
+    public partial class FormTestarNFe : Form
     {
         #region Private Fields
 
@@ -57,13 +57,13 @@ namespace TesteDLL_Unimake.Business.DFe
                 CertificadoSelecionado = new CertificadoDigital().CarregarCertificadoDigitalA1(path, password);
                 MessageBox.Show("O certificado foi selecionado.", "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "ERRO!!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             CertificadoDigital testeCert = new CertificadoDigital();
-            X509Certificate2 certSel = testeCert.CarregarCertificadoDigitalA1(path, password);         
+            X509Certificate2 certSel = testeCert.CarregarCertificadoDigitalA1(path, password);
 
             //Converte o certificado digital em array byte
             byte[] certificadoString = testeCert.ToByteArray(path);
@@ -71,7 +71,7 @@ namespace TesteDLL_Unimake.Business.DFe
             //Agora você pode gravar o array byte no banco de dados (certificadoString)
 
             //Recuperar o certificado para uso a partir de uma array byte
-            X509Certificate2 CertSelect = testeCert.CarregarCertificadoDigitalA1(certificadoString, password);            
+            X509Certificate2 CertSelect = testeCert.CarregarCertificadoDigitalA1(certificadoString, password);
         }
 
         private void Button1_Click(object sender, EventArgs e)
@@ -101,7 +101,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(statusServico.RetornoWSString);
                 MessageBox.Show(statusServico.Result.XMotivo);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -150,9 +150,9 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(recepcaoEvento.Result.XMotivo);
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                if(recepcaoEvento.Result.CStat == 128) //128 = Lote de evento processado com sucesso
+                if (recepcaoEvento.Result.CStat == 128) //128 = Lote de evento processado com sucesso
                 {
-                    switch(recepcaoEvento.Result.RetEvento[0].InfEvento.CStat)
+                    switch (recepcaoEvento.Result.RetEvento[0].InfEvento.CStat)
                     {
                         case 135: //Evento homologado com vinculação da respectiva NFe
                         case 136: //Evento homologado sem vinculação com a respectiva NFe (SEFAZ não encontrou a NFe na base dela)
@@ -166,7 +166,7 @@ namespace TesteDLL_Unimake.Business.DFe
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -240,9 +240,9 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(recepcaoEvento.Result.XMotivo);
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                if(recepcaoEvento.Result.CStat == 128) //128 = Lote de evento processado com sucesso
+                if (recepcaoEvento.Result.CStat == 128) //128 = Lote de evento processado com sucesso
                 {
-                    switch(recepcaoEvento.Result.RetEvento[0].InfEvento.CStat)
+                    switch (recepcaoEvento.Result.RetEvento[0].InfEvento.CStat)
                     {
                         case 135: //Evento homologado com vinculação da respectiva NFe
                         case 136: //Evento homologado sem vinculação com a respectiva NFe (SEFAZ não encontrou a NFe na base dela)
@@ -256,7 +256,7 @@ namespace TesteDLL_Unimake.Business.DFe
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -281,10 +281,11 @@ namespace TesteDLL_Unimake.Business.DFe
 
                 var statusServico = new Unimake.Business.DFe.Servicos.NFCe.StatusServico(xml, configuracao);
                 statusServico.Executar();
+
                 MessageBox.Show(statusServico.RetornoWSString);
                 MessageBox.Show(statusServico.Result.XMotivo);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -312,7 +313,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(consultaProtocolo.RetornoWSString);
                 MessageBox.Show(consultaProtocolo.Result.XMotivo);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -351,7 +352,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(inutilizacao.Result.InfInut.XMotivo);
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                switch(inutilizacao.Result.InfInut.CStat)
+                switch (inutilizacao.Result.InfInut.CStat)
                 {
                     case 102: //Inutilização homologada
                         inutilizacao.GravarXmlDistribuicao(@"c:\testenfe\");
@@ -362,7 +363,7 @@ namespace TesteDLL_Unimake.Business.DFe
                         break;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -393,7 +394,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(consultaCad.RetornoWSString);
                 MessageBox.Show(consultaCad.Result.InfCons.XMotivo);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -443,9 +444,9 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(recepcaoEvento.Result.XMotivo);
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                if(recepcaoEvento.Result.CStat == 128) //128 = Lote de evento processado com sucesso
+                if (recepcaoEvento.Result.CStat == 128) //128 = Lote de evento processado com sucesso
                 {
-                    switch(recepcaoEvento.Result.RetEvento[0].InfEvento.CStat)
+                    switch (recepcaoEvento.Result.RetEvento[0].InfEvento.CStat)
                     {
                         case 135: //Evento homologado com vinculação da respectiva NFe
                         case 136: //Evento homologado sem vinculação com a respectiva NFe (SEFAZ não encontrou a NFe na base dela)
@@ -459,7 +460,7 @@ namespace TesteDLL_Unimake.Business.DFe
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -527,9 +528,9 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(recepcaoEvento.Result.XMotivo);
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                if(recepcaoEvento.Result.CStat == 128) //128 = Lote de evento processado com sucesso
+                if (recepcaoEvento.Result.CStat == 128) //128 = Lote de evento processado com sucesso
                 {
-                    switch(recepcaoEvento.Result.RetEvento[0].InfEvento.CStat)
+                    switch (recepcaoEvento.Result.RetEvento[0].InfEvento.CStat)
                     {
                         case 135: //Evento homologado com vinculação da respectiva NFe
                         case 136: //Evento homologado sem vinculação com a respectiva NFe (SEFAZ não encontrou a NFe na base dela)
@@ -543,7 +544,7 @@ namespace TesteDLL_Unimake.Business.DFe
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -759,7 +760,7 @@ namespace TesteDLL_Unimake.Business.DFe
                                         IM = "14018",
                                         CNAE = "6202300",
                                         CRT = CRT.SimplesNacional
-                                    },                                    
+                                    },
                                     Det = new List<Det> {
                                         new Det
                                         {
@@ -975,9 +976,9 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(autorizacao.Result.XMotivo);
 
                 //Gravar o XML de distribuição se a nota foi autorizada ou denegada
-                if(autorizacao.Result.ProtNFe != null)
+                if (autorizacao.Result.ProtNFe != null)
                 {
-                    switch(autorizacao.Result.ProtNFe.InfProt.CStat)
+                    switch (autorizacao.Result.ProtNFe.InfProt.CStat)
                     {
                         case 100: //Autorizado o uso da NF-e
                         case 110: //Uso Denegado
@@ -996,7 +997,7 @@ namespace TesteDLL_Unimake.Business.DFe
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -1025,7 +1026,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(retAutorizacao.RetornoWSString);
                 MessageBox.Show(retAutorizacao.Result.XMotivo);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -1050,9 +1051,9 @@ namespace TesteDLL_Unimake.Business.DFe
                 var consultaProtocolo = new ConsultaProtocolo(xml, configuracao);
                 consultaProtocolo.Executar();
                 MessageBox.Show(consultaProtocolo.RetornoWSString);
-                if(consultaProtocolo.Result.CStat == 100)
+                if (consultaProtocolo.Result.CStat == 100)
                 {
-                    if(consultaProtocolo.Result.ProtNFe != null) //Retornou o protocolo de autorização
+                    if (consultaProtocolo.Result.ProtNFe != null) //Retornou o protocolo de autorização
                     {
                         MessageBox.Show(consultaProtocolo.Result.ProtNFe.InfProt.NProt); //Demonstrar o protocolo de autorização
                     }
@@ -1066,7 +1067,7 @@ namespace TesteDLL_Unimake.Business.DFe
                     MessageBox.Show(consultaProtocolo.Result.XMotivo);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -1105,7 +1106,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(inutilizacao.Result.InfInut.XMotivo);
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                switch(inutilizacao.Result.InfInut.CStat)
+                switch (inutilizacao.Result.InfInut.CStat)
                 {
                     case 102: //Inutilização homologada
                         inutilizacao.GravarXmlDistribuicao(@"c:\testenfe\");
@@ -1116,7 +1117,7 @@ namespace TesteDLL_Unimake.Business.DFe
                         break;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -1147,7 +1148,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(consultaCad.RetornoWSString);
                 MessageBox.Show(consultaCad.Result.InfCons.XMotivo);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -1167,7 +1168,7 @@ namespace TesteDLL_Unimake.Business.DFe
             Application.DoEvents();
             pbConsultaDFe.Refresh();
 
-            while(true)
+            while (true)
             {
                 try
                 {
@@ -1188,7 +1189,7 @@ namespace TesteDLL_Unimake.Business.DFe
 
                     #region Atualizar ProgressBar
 
-                    if(pbConsultaDFe.Maximum != Convert.ToInt32(distribuicaoDFe.Result.MaxNSU))
+                    if (pbConsultaDFe.Maximum != Convert.ToInt32(distribuicaoDFe.Result.MaxNSU))
                     {
                         pbConsultaDFe.Maximum = Convert.ToInt32(distribuicaoDFe.Result.MaxNSU);
                     }
@@ -1199,11 +1200,11 @@ namespace TesteDLL_Unimake.Business.DFe
 
                     #endregion Atualizar ProgressBar
 
-                    if(distribuicaoDFe.Result.CStat.Equals(138)) //Documentos localizados
+                    if (distribuicaoDFe.Result.CStat.Equals(138)) //Documentos localizados
                     {
                         var folder = @"c:\testenfe\doczipcte";
 
-                        if(Environment.MachineName == "MARCELO-PC")
+                        if (Environment.MachineName == "MARCELO-PC")
                         {
                             folder = @"D:\temp\uninfe";
                         }
@@ -1214,12 +1215,12 @@ namespace TesteDLL_Unimake.Business.DFe
 
                     nsu = distribuicaoDFe.Result.UltNSU;
 
-                    if(Convert.ToInt64(distribuicaoDFe.Result.UltNSU) >= Convert.ToInt64(distribuicaoDFe.Result.MaxNSU))
+                    if (Convert.ToInt64(distribuicaoDFe.Result.UltNSU) >= Convert.ToInt64(distribuicaoDFe.Result.MaxNSU))
                     {
                         break;
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     CatchException(ex);
                 }
@@ -1254,7 +1255,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(consultaProtocolo.RetornoWSString);
                 MessageBox.Show(consultaProtocolo.Result.XMotivo);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -1282,7 +1283,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(statusServico.RetornoWSString);
                 MessageBox.Show(statusServico.Result.XMotivo);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -1374,7 +1375,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(consultaProtocolo.RetornoWSString);
                 MessageBox.Show(consultaProtocolo.Result.XMotivo);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -1403,7 +1404,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(statusServico.RetornoWSString);
                 MessageBox.Show(statusServico.Result.XMotivo);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -1437,7 +1438,7 @@ namespace TesteDLL_Unimake.Business.DFe
 
                 var inutilizacao = new Inutilizacao(xml, configuracao);
                 inutilizacao.Executar();
-               
+
                 MessageBox.Show(inutilizacao.RetornoWSString);
                 MessageBox.Show(inutilizacao.Result.InfInut.XMotivo);
 
@@ -1453,7 +1454,7 @@ namespace TesteDLL_Unimake.Business.DFe
                         break;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -1483,7 +1484,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(consultaCad.RetornoWSString);
                 MessageBox.Show(consultaCad.Result.InfCons.XMotivo);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -1539,9 +1540,9 @@ namespace TesteDLL_Unimake.Business.DFe
                 var qq = recepcaoEvento.ProcEventoNFeResult[0].GerarXML().OuterXml;
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                if(recepcaoEvento.Result.CStat == 128) //128 = Lote de evento processado com sucesso
+                if (recepcaoEvento.Result.CStat == 128) //128 = Lote de evento processado com sucesso
                 {
-                    switch(recepcaoEvento.Result.RetEvento[0].InfEvento.CStat)
+                    switch (recepcaoEvento.Result.RetEvento[0].InfEvento.CStat)
                     {
                         case 135: //Evento homologado com vinculação da respectiva NFe
                         case 136: //Evento homologado sem vinculação com a respectiva NFe (SEFAZ não encontrou a NFe na base dela)
@@ -1555,7 +1556,7 @@ namespace TesteDLL_Unimake.Business.DFe
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -1852,6 +1853,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 };
 
                 var autorizacao = new Autorizacao(xml, configuracao);
+
                 autorizacao.Executar();
                 MessageBox.Show(autorizacao.RetornoWSString);
                 MessageBox.Show(autorizacao.Result.XMotivo);
@@ -1859,10 +1861,10 @@ namespace TesteDLL_Unimake.Business.DFe
                 //Gravar o arquivo do conteúdo retornado em uma pasta qualquer para ter em segurança. Pode-se também gravar na base de dados. Fica a critério de cada um.
                 File.WriteAllText(@"c:\testenfe\retorno\nomearquivoretorno.xml", autorizacao.RetornoWSString);
 
-                if(autorizacao.Result.ProtNFe != null)
+                if (autorizacao.Result.ProtNFe != null)
                 {
                     //Gravar o XML de distribuição se a nota foi autorizada ou denegada
-                    switch(autorizacao.Result.ProtNFe.InfProt.CStat)
+                    switch (autorizacao.Result.ProtNFe.InfProt.CStat)
                     {
                         case 100: //Autorizado o uso da NF-e
                         case 110: //Uso Denegado
@@ -1883,7 +1885,7 @@ namespace TesteDLL_Unimake.Business.DFe
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -1939,7 +1941,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(retAutorizacao.RetornoWSString);
                 MessageBox.Show(retAutorizacao.Result.XMotivo);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -1965,7 +1967,7 @@ namespace TesteDLL_Unimake.Business.DFe
             Application.DoEvents();
             pbConsultaDFe.Refresh();
 
-            while(true)
+            while (true)
             {
                 try
                 {
@@ -1986,7 +1988,7 @@ namespace TesteDLL_Unimake.Business.DFe
 
                     #region Atualizar ProgressBar
 
-                    if(pbConsultaDFe.Maximum != Convert.ToInt32(distribuicaoDFe.Result.MaxNSU))
+                    if (pbConsultaDFe.Maximum != Convert.ToInt32(distribuicaoDFe.Result.MaxNSU))
                     {
                         pbConsultaDFe.Maximum = Convert.ToInt32(distribuicaoDFe.Result.MaxNSU);
                     }
@@ -1997,11 +1999,11 @@ namespace TesteDLL_Unimake.Business.DFe
 
                     #endregion Atualizar ProgressBar
 
-                    if(distribuicaoDFe.Result.CStat.Equals(138)) //Documentos localizados
+                    if (distribuicaoDFe.Result.CStat.Equals(138)) //Documentos localizados
                     {
                         var folder = @"c:\testenfe\doczip";
 
-                        if(Environment.MachineName == "MARCELO-PC")
+                        if (Environment.MachineName == "MARCELO-PC")
                         {
                             folder = @"D:\temp\uninfe";
                         }
@@ -2012,12 +2014,12 @@ namespace TesteDLL_Unimake.Business.DFe
 
                     nsu = distribuicaoDFe.Result.UltNSU;
 
-                    if(Convert.ToInt64(distribuicaoDFe.Result.UltNSU) >= Convert.ToInt64(distribuicaoDFe.Result.MaxNSU))
+                    if (Convert.ToInt64(distribuicaoDFe.Result.UltNSU) >= Convert.ToInt64(distribuicaoDFe.Result.MaxNSU))
                     {
                         break;
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     CatchException(ex);
                 }
@@ -2037,7 +2039,7 @@ namespace TesteDLL_Unimake.Business.DFe
             {
                 message.AppendLine($"{ex.Message}\r\n");
                 ex = ex.InnerException;
-            } while(ex != null);
+            } while (ex != null);
 
             MessageBox.Show(message.ToString(), "ERRO!", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
@@ -2051,20 +2053,21 @@ namespace TesteDLL_Unimake.Business.DFe
         /// <returns></returns>
         private List<Det> CriarDet()
         {
-            var det = new List<Det>();
+            var dets = new List<Unimake.Business.DFe.Xml.NFe.Det>();
 
-            for(var i = 0; i < 1; i++)
+
+            for (var i = 0; i < 1; i++)
             {
-                det.Add(new Det
+                dets.Add(new Unimake.Business.DFe.Xml.NFe.Det
                 {
                     NItem = i + 1,
-                    Prod = new Prod
+                    Prod = new Unimake.Business.DFe.Xml.NFe.Prod
                     {
                         CProd = "01042",
                         CEAN = "SEM GTIN",
-                        XProd = "NOTA FISCAL EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL",
-                        NCM = "99999999", // "84714900",
-                        CFOP = "5101",
+                        XProd = "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL",
+                        NCM = "84714900",
+                        CFOP = "6101",
                         UCom = "LU",
                         QCom = 1.00,
                         VUnCom = 84.9000000000M,
@@ -2072,20 +2075,51 @@ namespace TesteDLL_Unimake.Business.DFe
                         CEANTrib = "SEM GTIN",
                         UTrib = "LU",
                         QTrib = 1.00,
-                        VUnTrib = 84.9M,
+                        VUnTrib = 84.9000000000M,
                         IndTot = SimNao.Sim,
                         XPed = "300474",
                         NItemPed = 1
                     },
-                    Imposto = new Imposto
+                    Imposto = new Unimake.Business.DFe.Xml.NFe.Imposto
                     {
                         VTotTrib = 12.63,
-                        ICMS = CriarICMS(),
+                        ICMS = new List<Unimake.Business.DFe.Xml.NFe.ICMS>
+                        {
+                            new Unimake.Business.DFe.Xml.NFe.ICMS
+                            {
+                                ICMSSN101 = new Unimake.Business.DFe.Xml.NFe.ICMSSN101
+                                {
+                                    Orig = OrigemMercadoria.Nacional,
+                                    PCredSN = 2.8255,
+                                    VCredICMSSN = 2.40
+                                }
+                            }
+                        },
+                        PIS = new Unimake.Business.DFe.Xml.NFe.PIS
+                        {
+                            PISOutr = new Unimake.Business.DFe.Xml.NFe.PISOutr
+                            {
+                                CST = "99",
+                                VBC = 0.00,
+                                PPIS = 0.00,
+                                VPIS = 0.00
+                            }
+                        },
+                        COFINS = new Unimake.Business.DFe.Xml.NFe.COFINS
+                        {
+                            COFINSOutr = new Unimake.Business.DFe.Xml.NFe.COFINSOutr
+                            {
+                                CST = "99",
+                                VBC = 0.00,
+                                PCOFINS = 0.00,
+                                VCOFINS = 0.00
+                            }
+                        }
                     }
                 });
             }
 
-            return det;
+            return dets;
         }
 
         /// <summary>
@@ -2100,7 +2134,7 @@ namespace TesteDLL_Unimake.Business.DFe
 
             var cst = "102";
 
-            switch(cst)
+            switch (cst)
             {
                 case "102":
                     icms.ICMSSN102 = new ICMSSN102
@@ -2142,7 +2176,7 @@ namespace TesteDLL_Unimake.Business.DFe
             CertificadoSelecionado = cert.Selecionar();
 
             //Setar a senha do PIN do certificado A3
-            if(CertificadoSelecionado.IsA3())
+            if (CertificadoSelecionado.IsA3())
             {
                 CertificadoSelecionado.SetPinPrivateKey("1234");
             }
@@ -2178,7 +2212,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(retAutorizacao.RetornoWSString);
                 MessageBox.Show(retAutorizacao.Result.XMotivo);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -2224,7 +2258,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(recepcaoEvento.Result.InfEvento.XMotivo);
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                switch(recepcaoEvento.Result.InfEvento.CStat)
+                switch (recepcaoEvento.Result.InfEvento.CStat)
                 {
                     case 134: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respectivo CT-e com situação diferente de Autorizada.
                     case 135: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respetivo CTe.
@@ -2237,7 +2271,7 @@ namespace TesteDLL_Unimake.Business.DFe
                         break;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -2265,7 +2299,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(retAutorizacao.RetornoWSString);
                 MessageBox.Show(retAutorizacao.Result.XMotivo);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -2312,7 +2346,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(recepcaoEvento.Result.InfEvento.XMotivo);
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                switch(recepcaoEvento.Result.InfEvento.CStat)
+                switch (recepcaoEvento.Result.InfEvento.CStat)
                 {
                     case 134: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respectivo CT-e com situação diferente de Autorizada.
                     case 135: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respetivo CTe.
@@ -2326,7 +2360,7 @@ namespace TesteDLL_Unimake.Business.DFe
                         break;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -2388,7 +2422,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(recepcaoEvento.Result.InfEvento.XMotivo);
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                switch(recepcaoEvento.Result.InfEvento.CStat)
+                switch (recepcaoEvento.Result.InfEvento.CStat)
                 {
                     case 134: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respectivo CT-e com situação diferente de Autorizada.
                     case 135: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respetivo CTe.
@@ -2401,7 +2435,7 @@ namespace TesteDLL_Unimake.Business.DFe
                         break;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -2431,7 +2465,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(consNaoEnc.RetornoWSString);
                 MessageBox.Show(consNaoEnc.Result.XMotivo);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -2477,7 +2511,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(recepcaoEvento.Result.InfEvento.XMotivo);
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                switch(recepcaoEvento.Result.InfEvento.CStat)
+                switch (recepcaoEvento.Result.InfEvento.CStat)
                 {
                     case 134: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respectivo CT-e com situação diferente de Autorizada.
                     case 135: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respetivo CTe.
@@ -2490,7 +2524,7 @@ namespace TesteDLL_Unimake.Business.DFe
                         break;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -2708,11 +2742,11 @@ namespace TesteDLL_Unimake.Business.DFe
                 autorizacao.Executar();
                 MessageBox.Show(autorizacao.RetornoWSString);
 
-                if(autorizacao.Result != null)
+                if (autorizacao.Result != null)
                 {
                     MessageBox.Show(autorizacao.Result.XMotivo);
 
-                    if(autorizacao.Result.CStat == 103) //103 = Lote Recebido com Sucesso
+                    if (autorizacao.Result.CStat == 103) //103 = Lote Recebido com Sucesso
                     {
                         // Finalizar através da consulta do recibo.
                         var xmlRec = new ConsReciCTe
@@ -2758,7 +2792,7 @@ namespace TesteDLL_Unimake.Business.DFe
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -2815,7 +2849,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(recepcaoEvento.Result.InfEvento.XMotivo);
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                switch(recepcaoEvento.Result.InfEvento.CStat)
+                switch (recepcaoEvento.Result.InfEvento.CStat)
                 {
                     case 134: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respectivo CT-e com situação diferente de Autorizada.
                     case 135: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respetivo CTe.
@@ -2828,7 +2862,7 @@ namespace TesteDLL_Unimake.Business.DFe
                         break;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -2878,7 +2912,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 CertificadoDigital = CertificadoSelecionado
             };
 
-            foreach(var item in xml.NFe)
+            foreach (var item in xml.NFe)
             {
                 var xmlSit = new ConsSitNFe
                 {
@@ -2939,7 +2973,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(recepcaoEvento.Result.InfEvento.XMotivo);
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                switch(recepcaoEvento.Result.InfEvento.CStat)
+                switch (recepcaoEvento.Result.InfEvento.CStat)
                 {
                     case 134: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respectivo CT-e com situação diferente de Autorizada.
                     case 135: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respetivo CTe.
@@ -2952,7 +2986,7 @@ namespace TesteDLL_Unimake.Business.DFe
                         break;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -3354,11 +3388,11 @@ namespace TesteDLL_Unimake.Business.DFe
                 autorizacao.Executar();
                 MessageBox.Show(autorizacao.RetornoWSString);
 
-                if(autorizacao.Result != null)
+                if (autorizacao.Result != null)
                 {
                     MessageBox.Show(autorizacao.Result.XMotivo);
 
-                    if(autorizacao.Result.CStat == 103) //103 = Lote Recebido com Sucesso
+                    if (autorizacao.Result.CStat == 103) //103 = Lote Recebido com Sucesso
                     {
                         #region Finalizar através da consulta do recibo.
 
@@ -3395,7 +3429,7 @@ namespace TesteDLL_Unimake.Business.DFe
                             CertificadoDigital = CertificadoSelecionado
                         };
 
-                        foreach(var item in xml.CTe)
+                        foreach (var item in xml.CTe)
                         {
                             var xmlSit = new ConsSitCTe
                             {
@@ -3416,7 +3450,7 @@ namespace TesteDLL_Unimake.Business.DFe
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -3470,9 +3504,9 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(recepcaoEvento.Result.XMotivo);
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                if(recepcaoEvento.Result.CStat == 128) //128 = Lote de evento processado com sucesso
+                if (recepcaoEvento.Result.CStat == 128) //128 = Lote de evento processado com sucesso
                 {
-                    switch(recepcaoEvento.Result.RetEvento[0].InfEvento.CStat)
+                    switch (recepcaoEvento.Result.RetEvento[0].InfEvento.CStat)
                     {
                         case 135: //Evento homologado com vinculação da respectiva NFe
                         case 136: //Evento homologado sem vinculação com a respectiva NFe (SEFAZ não encontrou a NFe na base dela)
@@ -3486,7 +3520,7 @@ namespace TesteDLL_Unimake.Business.DFe
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -3541,7 +3575,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(recepcaoEvento.Result.InfEvento.XMotivo);
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                switch(recepcaoEvento.Result.InfEvento.CStat)
+                switch (recepcaoEvento.Result.InfEvento.CStat)
                 {
                     case 134: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respectivo CT-e com situação diferente de Autorizada.
                     case 135: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respetivo CTe.
@@ -3554,7 +3588,7 @@ namespace TesteDLL_Unimake.Business.DFe
                         break;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -3613,7 +3647,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(recepcaoEvento.Result.InfEvento.XMotivo);
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                switch(recepcaoEvento.Result.InfEvento.CStat)
+                switch (recepcaoEvento.Result.InfEvento.CStat)
                 {
                     case 134: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respectivo CT-e com situação diferente de Autorizada.
                     case 135: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respetivo CTe.
@@ -3626,7 +3660,7 @@ namespace TesteDLL_Unimake.Business.DFe
                         break;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -3642,7 +3676,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 var xml = new EnviMDFe
                 {
                     Versao = "3.00",
-                    IdLote = "000000000000001",                    
+                    IdLote = "000000000000001",
                     MDFe = new MDFe
                     {
 
@@ -3902,15 +3936,15 @@ namespace TesteDLL_Unimake.Business.DFe
                 };
 
                 var autorizacao = new Unimake.Business.DFe.Servicos.MDFe.Autorizacao(xml, configuracao);
-                autorizacao.Executar();            
+                autorizacao.Executar();
 
                 MessageBox.Show(autorizacao.RetornoWSString);
 
-                if(autorizacao.Result != null)
+                if (autorizacao.Result != null)
                 {
                     MessageBox.Show(autorizacao.Result.XMotivo);
 
-                    if(autorizacao.Result.CStat == 103) //103 = Lote Recebido com Sucesso
+                    if (autorizacao.Result.CStat == 103) //103 = Lote Recebido com Sucesso
                     {
                         // Finalizar através da consulta do recibo.
                         var xmlRec = new ConsReciMDFe
@@ -3956,7 +3990,7 @@ namespace TesteDLL_Unimake.Business.DFe
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -3966,514 +4000,324 @@ namespace TesteDLL_Unimake.Business.DFe
         {
             try
             {
-                //var xml = new EnviNFe
-                //{
-                //    Versao = "4.00",
-                //    IdLote = "000000000000001",
-                //    IndSinc = SimNao.Nao,
-                //    NFe = new List<NFe> {
-                //        new NFe
-                //        {
-                //            InfNFe = new List<Unimake.Business.DFe.Xml.NFe.InfNFe> {
-                //                new Unimake.Business.DFe.Xml.NFe.InfNFe
-                //                {
-                //                    Versao = "4.00",
-
-                //                    Ide = new Ide
-                //                    {
-                //                        CUF = UFBrasil.PR,
-                //                        NatOp = "VENDA PRODUC.DO ESTABELEC",
-                //                        Mod = ModeloDFe.NFe,
-                //                        Serie = 1,
-                //                        NNF = 57968,
-                //                        DhEmi = DateTime.Now,
-                //                        DhSaiEnt = DateTime.Now,
-                //                        TpNF = TipoOperacao.Saida,
-                //                        IdDest = DestinoOperacao.OperacaoInterestadual,
-                //                        CMunFG = 4118402,
-                //                        TpImp = FormatoImpressaoDANFE.NormalRetrato,
-                //                        TpEmis = TipoEmissao.Normal,
-                //                        TpAmb = TipoAmbiente.Homologacao,
-                //                        FinNFe = FinalidadeNFe.Normal,
-                //                        IndFinal = SimNao.Sim,
-                //                        IndPres = IndicadorPresenca.OperacaoPresencial,
-                //                        ProcEmi = ProcessoEmissao.AplicativoContribuinte,
-                //                        VerProc = "TESTE 1.00"
-                //                    },
-                //                    Emit = new Emit
-                //                    {
-                //                        CNPJ = "06117473000150",
-                //                        XNome = "UNIMAKE SOLUCOES CORPORATIVAS LTDA",
-                //                        XFant = "UNIMAKE - PARANAVAI",
-                //                        EnderEmit = new EnderEmit
-                //                        {
-                //                            XLgr = "RUA ANTONIO FELIPE",
-                //                            Nro = "1500",
-                //                            XBairro = "CENTRO",
-                //                            CMun = 4118402,
-                //                            XMun = "PARANAVAI",
-                //                            UF = UFBrasil.PR,
-                //                            CEP = "87704030",
-                //                            Fone = "04431414900"
-                //                        },
-                //                        IE = "9032000301",
-                //                        IM = "14018",
-                //                        CNAE = "6202300",
-                //                        CRT = CRT.SimplesNacional
-                //                    },
-                //                    Dest = new Dest
-                //                    {
-                //                        CNPJ = "04218457000128",
-                //                        XNome = "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL",
-                //                        EnderDest = new EnderDest
-                //                        {
-                //                            XLgr = "AVENIDA DA SAUDADE",
-                //                            Nro = "1555",
-                //                            XBairro = "CAMPOS ELISEOS",
-                //                            CMun = 3543402,
-                //                            XMun = "RIBEIRAO PRETO",
-                //                            UF = UFBrasil.SP,
-                //                            CEP = "14080000",
-                //                            Fone = "01639611500"
-                //                        },
-                //                        IndIEDest = IndicadorIEDestinatario.ContribuinteICMS,
-                //                        IE = "582614838110",
-                //                        Email = "janelaorp@janelaorp.com.br"
-                //                    },
-                //                    Det = new List<Det> {
-                //                        new Det
-                //                        {
-                //                            NItem = 1,
-                //                            Prod = new Prod
-                //                            {
-                //                                CProd = "01042",
-                //                                CEAN = "SEM GTIN",
-                //                                XProd = "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL",
-                //                                NCM = "84714900",
-                //                                CFOP = "6101",
-                //                                UCom = "LU",
-                //                                QCom = 1.00,
-                //                                VUnCom = 84.9000000000M,
-                //                                VProd = 84.90,
-                //                                CEANTrib = "SEM GTIN",
-                //                                UTrib = "LU",
-                //                                QTrib = 1.00,
-                //                                VUnTrib = 84.9M,
-                //                                IndTot = SimNao.Sim,
-                //                                XPed = "300474",
-                //                                NItemPed = 1
-                //                            },
-                //                            Imposto = new Imposto
-                //                            {
-                //                                VTotTrib = 12.63,
-                //                                ICMS = new List<ICMS> {
-                //                                    new ICMS
-                //                                    {
-                //                                        ICMSSN101 = new ICMSSN101
-                //                                        {
-                //                                            Orig = OrigemMercadoria.Nacional,
-                //                                            PCredSN = 2.8255,
-                //                                            VCredICMSSN = 2.40
-                //                                        }
-                //                                    }
-                //                                },
-                //                                PIS = new PIS
-                //                                {
-                //                                    PISOutr = new PISOutr
-                //                                    {
-                //                                        CST = "99",
-                //                                        VBC = 0.00,
-                //                                        PPIS = 0.00,
-                //                                        VPIS = 0.00
-                //                                    }
-                //                                },
-                //                                COFINS = new COFINS
-                //                                {
-                //                                    COFINSOutr = new COFINSOutr
-                //                                    {
-                //                                        CST = "99",
-                //                                        VBC = 0.00,
-                //                                        PCOFINS = 0.00,
-                //                                        VCOFINS = 0.00
-                //                                    }
-                //                                }
-                //                            }
-                //                        },
-                //                        new Det
-                //                        {
-                //                            NItem = 2,
-                //                            Prod = new Prod
-                //                            {
-                //                                CProd = "22222",
-                //                                CEAN = "SEM GTIN",
-                //                                XProd = "PRODUTO NUMERO 2",
-                //                                NCM = "99999999", //"84714900",
-                //                                CFOP = "6101",
-                //                                UCom = "LU",
-                //                                QCom = 1.00,
-                //                                VUnCom = 84.9000000000M,
-                //                                VProd = 84.90,
-                //                                CEANTrib = "SEM GTIN",
-                //                                UTrib = "LU",
-                //                                QTrib = 1.00,
-                //                                VUnTrib = 84.9M,
-                //                                IndTot = SimNao.Sim,
-                //                                XPed = "300474",
-                //                                NItemPed = 1
-                //                            },
-                //                            Imposto = new Imposto
-                //                            {
-                //                                VTotTrib = 12.63,
-                //                                ICMS = new List<ICMS> {
-                //                                    new ICMS
-                //                                    {
-                //                                        ICMSSN101 = new ICMSSN101
-                //                                        {
-                //                                            Orig = OrigemMercadoria.Nacional,
-                //                                            PCredSN = 2.8255,
-                //                                            VCredICMSSN = 2.40
-                //                                        }
-                //                                    }
-                //                                },
-                //                                PIS = new PIS
-                //                                {
-                //                                    PISOutr = new PISOutr
-                //                                    {
-                //                                        CST = "99",
-                //                                        VBC = 0.00,
-                //                                        PPIS = 0.00,
-                //                                        VPIS = 0.00
-                //                                    }
-                //                                },
-                //                                COFINS = new COFINS
-                //                                {
-                //                                    COFINSOutr = new COFINSOutr
-                //                                    {
-                //                                        CST = "99",
-                //                                        VBC = 0.00,
-                //                                        PCOFINS = 0.00,
-                //                                        VCOFINS = 0.00
-                //                                    }
-                //                                }
-                //                            }
-                //                        }
-                //                    },
-                //                    Total = new Total
-                //                    {
-                //                        ICMSTot = new ICMSTot
-                //                        {
-                //                            VBC = 0,
-                //                            VICMS = 0,
-                //                            VICMSDeson = 0,
-                //                            VFCP = 0,
-                //                            VBCST = 0,
-                //                            VST = 0,
-                //                            VFCPST = 0,
-                //                            VFCPSTRet = 0,
-                //                            VProd = 84.90,
-                //                            VFrete = 0,
-                //                            VSeg = 0,
-                //                            VDesc = 0,
-                //                            VII = 0,
-                //                            VIPI = 0,
-                //                            VIPIDevol = 0,
-                //                            VPIS = 0,
-                //                            VCOFINS = 0,
-                //                            VOutro = 0,
-                //                            VNF = 84.90,
-                //                            VTotTrib = 12.63
-                //                        }
-                //                    },
-                //                    Transp = new Transp
-                //                    {
-                //                        ModFrete = ModalidadeFrete.ContratacaoFretePorContaRemetente_CIF,
-                //                        Vol = new List<Vol>
-                //                        {
-                //                            new Vol
-                //                            {
-                //                                QVol = 1,
-                //                                Esp = "LU",
-                //                                Marca = "UNIMAKE",
-                //                                PesoL = 0.000,
-                //                                PesoB = 0.000
-                //                            }
-                //                        }
-                //                    },
-                //                    Cobr = new Unimake.Business.DFe.Xml.NFe.Cobr()
-                //                    {
-                //                        Fat = new Fat
-                //                        {
-                //                            NFat = "057910",
-                //                            VOrig = 84.90,
-                //                            VDesc = 0,
-                //                            VLiq = 84.90
-                //                        },
-                //                        Dup = new List<Dup>
-                //                        {
-                //                            new Dup
-                //                            {
-                //                                NDup = "001",
-                //                                DVenc = DateTime.Now,
-                //                                VDup = 84.90
-                //                            }
-                //                        }
-                //                    },
-                //                    Pag = new Pag
-                //                    {
-                //                        DetPag = new List<DetPag>
-                //                        {
-                //                             new DetPag
-                //                             {
-                //                                 IndPag = IndicadorPagamento.PagamentoVista,
-                //                                 TPag = MeioPagamento.Dinheiro,
-                //                                 VPag = 84.90
-                //                             }
-                //                        }
-                //                    },
-                //                    InfAdic = new InfAdic
-                //                    {
-                //                        InfCpl = ";CONTROLE: 0000241197;PEDIDO(S) ATENDIDO(S): 300474;Empresa optante pelo simples nacional, conforme lei compl. 128 de 19/12/2008;Permite o aproveitamento do credito de ICMS no valor de R$ 2,40, correspondente ao percentual de 2,83% . Nos termos do Art. 23 - LC 123/2006 (Resolucoes CGSN n. 10/2007 e 53/2008);Voce pagou aproximadamente: R$ 6,69 trib. federais / R$ 5,94 trib. estaduais / R$ 0,00 trib. municipais. Fonte: IBPT/empresometro.com.br 18.2.B A3S28F;",
-                //                    },
-                //                    InfRespTec = new InfRespTec
-                //                    {
-                //                        CNPJ = "06117473000150",
-                //                        XContato = "Wandrey Mundin Ferreira",
-                //                        Email = "wandrey@unimake.com.br",
-                //                        Fone = "04431414900"
-                //                    }
-                //                }
-                //            }
-                //        },
-                //        new NFe
-                //        {
-                //            InfNFe = new List<Unimake.Business.DFe.Xml.NFe.InfNFe> {
-                //                new Unimake.Business.DFe.Xml.NFe.InfNFe
-                //                {
-                //                    Versao = "4.00",
-
-                //                    Ide = new Ide
-                //                    {
-                //                        CUF = UFBrasil.PR,
-                //                        NatOp = "VENDA PRODUC.DO ESTABELEC",
-                //                        Mod = ModeloDFe.NFe,
-                //                        Serie = 1,
-                //                        NNF = 57969,
-                //                        DhEmi = DateTime.Now,
-                //                        DhSaiEnt = DateTime.Now,
-                //                        TpNF = TipoOperacao.Saida,
-                //                        IdDest = DestinoOperacao.OperacaoInterestadual,
-                //                        CMunFG = 4118402,
-                //                        TpImp = FormatoImpressaoDANFE.NormalRetrato,
-                //                        TpEmis = TipoEmissao.Normal,
-                //                        TpAmb = TipoAmbiente.Homologacao,
-                //                        FinNFe = FinalidadeNFe.Normal,
-                //                        IndFinal = SimNao.Sim,
-                //                        IndPres = IndicadorPresenca.OperacaoPresencial,
-                //                        ProcEmi = ProcessoEmissao.AplicativoContribuinte,
-                //                        VerProc = "TESTE 1.00"
-                //                    },
-                //                    Emit = new Emit
-                //                    {
-                //                        CNPJ = "06117473000150",
-                //                        XNome = "UNIMAKE SOLUCOES CORPORATIVAS LTDA",
-                //                        XFant = "UNIMAKE - PARANAVAI",
-                //                        EnderEmit = new EnderEmit
-                //                        {
-                //                            XLgr = "RUA ANTONIO FELIPE",
-                //                            Nro = "1500",
-                //                            XBairro = "CENTRO",
-                //                            CMun = 4118402,
-                //                            XMun = "PARANAVAI",
-                //                            UF = UFBrasil.PR,
-                //                            CEP = "87704030",
-                //                            Fone = "04431414900"
-                //                        },
-                //                        IE = "9032000301",
-                //                        IM = "14018",
-                //                        CNAE = "6202300",
-                //                        CRT = CRT.SimplesNacional
-                //                    },
-                //                    Dest = new Dest
-                //                    {
-                //                        CNPJ = "04218457000128",
-                //                        XNome = "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL",
-                //                        EnderDest = new EnderDest
-                //                        {
-                //                            XLgr = "AVENIDA DA SAUDADE",
-                //                            Nro = "1555",
-                //                            XBairro = "CAMPOS ELISEOS",
-                //                            CMun = 3543402,
-                //                            XMun = "RIBEIRAO PRETO",
-                //                            UF = UFBrasil.SP,
-                //                            CEP = "14080000",
-                //                            Fone = "01639611500"
-                //                        },
-                //                        IndIEDest = IndicadorIEDestinatario.ContribuinteICMS,
-                //                        IE = "582614838110",
-                //                        Email = "janelaorp@janelaorp.com.br"
-                //                    },
-                //                    Det = new List<Det> {
-                //                        new Det
-                //                        {
-                //                            NItem = 1,
-                //                            Prod = new Prod
-                //                            {
-                //                                CProd = "01042",
-                //                                CEAN = "SEM GTIN",
-                //                                XProd = "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL",
-                //                                NCM = "99999999", //"84714900",
-                //                                CFOP = "6101",
-                //                                UCom = "LU",
-                //                                QCom = 1.00,
-                //                                VUnCom = 84.9000000000M,
-                //                                VProd = 84.90,
-                //                                CEANTrib = "SEM GTIN",
-                //                                UTrib = "LU",
-                //                                QTrib = 1.00,
-                //                                VUnTrib = 84.9M,
-                //                                IndTot = SimNao.Sim,
-                //                                XPed = "300474",
-                //                                NItemPed = 1
-                //                            },
-                //                            Imposto = new Imposto
-                //                            {
-                //                                VTotTrib = 12.63,
-                //                                ICMS = new List<ICMS> {
-                //                                    new ICMS
-                //                                    {
-                //                                        ICMSSN101 = new ICMSSN101
-                //                                        {
-                //                                            Orig = OrigemMercadoria.Nacional,
-                //                                            PCredSN = 2.8255,
-                //                                            VCredICMSSN = 2.40
-                //                                        }
-                //                                    }
-                //                                },
-                //                                PIS = new PIS
-                //                                {
-                //                                    PISOutr = new PISOutr
-                //                                    {
-                //                                        CST = "99",
-                //                                        VBC = 0.00,
-                //                                        PPIS = 0.00,
-                //                                        VPIS = 0.00
-                //                                    }
-                //                                },
-                //                                COFINS = new COFINS
-                //                                {
-                //                                    COFINSOutr = new COFINSOutr
-                //                                    {
-                //                                        CST = "99",
-                //                                        VBC = 0.00,
-                //                                        PCOFINS = 0.00,
-                //                                        VCOFINS = 0.00
-                //                                    }
-                //                                }
-                //                            }
-                //                        }
-                //                    },
-                //                    Total = new Total
-                //                    {
-                //                        ICMSTot = new ICMSTot
-                //                        {
-                //                            VBC = 0,
-                //                            VICMS = 0,
-                //                            VICMSDeson = 0,
-                //                            VFCP = 0,
-                //                            VBCST = 0,
-                //                            VST = 0,
-                //                            VFCPST = 0,
-                //                            VFCPSTRet = 0,
-                //                            VProd = 84.90,
-                //                            VFrete = 0,
-                //                            VSeg = 0,
-                //                            VDesc = 0,
-                //                            VII = 0,
-                //                            VIPI = 0,
-                //                            VIPIDevol = 0,
-                //                            VPIS = 0,
-                //                            VCOFINS = 0,
-                //                            VOutro = 0,
-                //                            VNF = 84.90,
-                //                            VTotTrib = 12.63
-                //                        }
-                //                    },
-                //                    Transp = new Transp
-                //                    {
-                //                        ModFrete = ModalidadeFrete.ContratacaoFretePorContaRemetente_CIF,
-                //                        Vol = new List<Vol>
-                //                        {
-                //                            new Vol
-                //                            {
-                //                                QVol = 1,
-                //                                Esp = "LU",
-                //                                Marca = "UNIMAKE",
-                //                                PesoL = 0.000,
-                //                                PesoB = 0.000
-                //                            }
-                //                        }
-                //                    },
-                //                    Cobr = new Unimake.Business.DFe.Xml.NFe.Cobr()
-                //                    {
-                //                        Fat = new Fat
-                //                        {
-                //                            NFat = "057910",
-                //                            VOrig = 84.90,
-                //                            VDesc = 0,
-                //                            VLiq = 84.90
-                //                        },
-                //                        Dup = new List<Dup>
-                //                        {
-                //                            new Dup
-                //                            {
-                //                                NDup = "001",
-                //                                DVenc = DateTime.Now,
-                //                                VDup = 84.90
-                //                            }
-                //                        }
-                //                    },
-                //                    Pag = new Pag
-                //                    {
-                //                        DetPag = new List<DetPag>
-                //                        {
-                //                             new DetPag
-                //                             {
-                //                                 IndPag = IndicadorPagamento.PagamentoVista,
-                //                                 TPag = MeioPagamento.Dinheiro,
-                //                                 VPag = 84.90
-                //                             }
-                //                        }
-                //                    },
-                //                    InfAdic = new InfAdic
-                //                    {
-                //                        InfCpl = ";CONTROLE: 0000241197;PEDIDO(S) ATENDIDO(S): 300474;Empresa optante pelo simples nacional, conforme lei compl. 128 de 19/12/2008;Permite o aproveitamento do credito de ICMS no valor de R$ 2,40, correspondente ao percentual de 2,83% . Nos termos do Art. 23 - LC 123/2006 (Resolucoes CGSN n. 10/2007 e 53/2008);Voce pagou aproximadamente: R$ 6,69 trib. federais / R$ 5,94 trib. estaduais / R$ 0,00 trib. municipais. Fonte: IBPT/empresometro.com.br 18.2.B A3S28F;",
-                //                    },
-                //                    InfRespTec = new InfRespTec
-                //                    {
-                //                        CNPJ = "06117473000150",
-                //                        XContato = "Wandrey Mundin Ferreira",
-                //                        Email = "wandrey@unimake.com.br",
-                //                        Fone = "04431414900"
-                //                    }
-                //                }
-                //            }
-                //        }
-                //    }
-                //};
-
-
-                var doc = new XmlDocument();
-                doc.Load(@"C:\Users\Wandrey\Downloads\Telegram Desktop\35220262988365000123559000000000146892190513-nfe.xml");
-
-                EnviNFe xml = new EnviNFe
+                var xml = new Unimake.Business.DFe.Xml.NFe.EnviNFe
                 {
-                    IdLote = "00000000000001",
-                    IndSinc = SimNao.Nao,
                     Versao = "4.00",
-                    NFe = new List<NFe>
+                    IdLote = "000000000000001",
+                    IndSinc = SimNao.Nao,
+                    NFe = new List<Unimake.Business.DFe.Xml.NFe.NFe>
+                {
+                    new Unimake.Business.DFe.Xml.NFe.NFe
                     {
-                        XMLUtility.Deserializar<NFe>(doc)
+                        InfNFe = new List<Unimake.Business.DFe.Xml.NFe.InfNFe>
+                        {
+                            new Unimake.Business.DFe.Xml.NFe.InfNFe
+                            {
+                                Versao = "4.00",
+                                Ide = new Unimake.Business.DFe.Xml.NFe.Ide
+                                {
+                                    CUF = UFBrasil.PR,
+                                    NatOp = "VENDA PRODUC.DO ESTABELEC",
+                                    Mod = ModeloDFe.NFe,
+                                    Serie = 1,
+                                    NNF = 58000,
+                                    DhEmi = DateTime.Now,
+                                    DhSaiEnt = DateTime.Now,
+                                    TpNF = TipoOperacao.Saida,
+                                    IdDest = DestinoOperacao.OperacaoInterestadual,
+                                    CMunFG = 4118402,
+                                    TpImp = FormatoImpressaoDANFE.NormalRetrato,
+                                    TpEmis = TipoEmissao.Normal,
+                                    TpAmb = TipoAmbiente.Homologacao,
+                                    FinNFe = FinalidadeNFe.Normal,
+                                    IndFinal = SimNao.Sim,
+                                    IndPres = IndicadorPresenca.OperacaoPresencial,
+                                    ProcEmi = ProcessoEmissao.AplicativoContribuinte,
+                                    VerProc = "TESTE 1.00"
+                                },
+                                Emit = new Unimake.Business.DFe.Xml.NFe.Emit
+                                {
+                                    CNPJ = "06117473000150",
+                                    XNome = "UNIMAKE SOLUCOES CORPORATIVAS LTDA",
+                                    XFant = "UNIMAKE - PARANAVAI",
+                                    EnderEmit = new Unimake.Business.DFe.Xml.NFe.EnderEmit
+                                    {
+                                        XLgr = "RUA ANTONIO FELIPE",
+                                        Nro = "1500",
+                                        XBairro = "CENTRO",
+                                        CMun = 4118402,
+                                        XMun = "PARANAVAI",
+                                        UF = UFBrasil.PR,
+                                        CEP = "87704030",
+                                        Fone = "04431414900"
+                                    },
+                                    IE = "9032000301",
+                                    IM = "14018",
+                                    CNAE = "6202300",
+                                    CRT = CRT.SimplesNacional
+                                },
+                                Dest = new Unimake.Business.DFe.Xml.NFe.Dest
+                                {
+                                    CNPJ = "04218457000128",
+                                    XNome = "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL",
+                                    EnderDest = new Unimake.Business.DFe.Xml.NFe.EnderDest
+                                    {
+                                        XLgr = "AVENIDA DA SAUDADE",
+                                        Nro = "1555",
+                                        XBairro = "CAMPOS ELISEOS",
+                                        CMun = 3543402,
+                                        XMun = "RIBEIRAO PRETO",
+                                        UF = UFBrasil.SP,
+                                        CEP = "14080000",
+                                        Fone = "01639611500"
+                                    },
+                                    IndIEDest = IndicadorIEDestinatario.ContribuinteICMS,
+                                    IE = "582614838110",
+                                    Email = "janelaorp@janelaorp.com.br"
+                                },
+                                Det = CriarDet(),
+                                Total = new Unimake.Business.DFe.Xml.NFe.Total
+                                {
+                                    ICMSTot = new Unimake.Business.DFe.Xml.NFe.ICMSTot
+                                    {
+                                        VBC = 0,
+                                        VICMS = 0,
+                                        VICMSDeson = 0,
+                                        VFCP = 0,
+                                        VBCST = 0,
+                                        VST = 0,
+                                        VFCPST = 0,
+                                        VFCPSTRet = 0,
+                                        VProd = 84.90,
+                                        VFrete = 0,
+                                        VSeg = 0,
+                                        VDesc = 0,
+                                        VII = 0,
+                                        VIPI = 0,
+                                        VIPIDevol = 0,
+                                        VPIS = 0,
+                                        VCOFINS = 0,
+                                        VOutro = 0,
+                                        VNF = 84.90,
+                                        VTotTrib = 12.63
+                                    }
+                                },
+                                Transp = new Unimake.Business.DFe.Xml.NFe.Transp
+                                {
+                                    ModFrete = ModalidadeFrete.ContratacaoFretePorContaRemetente_CIF,
+                                    Vol = new List<Unimake.Business.DFe.Xml.NFe.Vol>
+                                    {
+                                        new Unimake.Business.DFe.Xml.NFe.Vol
+                                        {
+                                            QVol = 1,
+                                            Esp = "LU",
+                                            Marca = "UNIMAKE",
+                                            PesoL = 0.000,
+                                            PesoB = 0.000
+                                        }
+                                    }
+                                },
+                                Cobr = new Unimake.Business.DFe.Xml.NFe.Cobr()
+                                {
+                                    Fat = new Unimake.Business.DFe.Xml.NFe.Fat
+                                    {
+                                        NFat = "057910",
+                                        VOrig = 84.90,
+                                        VDesc = 0,
+                                        VLiq = 84.90
+                                    },
+                                    Dup = new List<Unimake.Business.DFe.Xml.NFe.Dup>
+                                    {
+                                        new Unimake.Business.DFe.Xml.NFe.Dup
+                                        {
+                                            NDup = "001",
+                                            DVenc = DateTime.Now,
+                                            VDup = 84.90
+                                        }
+                                    }
+                                },
+                                Pag = new Unimake.Business.DFe.Xml.NFe.Pag
+                                {
+                                    DetPag = new List<Unimake.Business.DFe.Xml.NFe.DetPag>
+                                    {
+                                        new Unimake.Business.DFe.Xml.NFe.DetPag
+                                        {
+                                            IndPag = IndicadorPagamento.PagamentoVista,
+                                            TPag = MeioPagamento.Dinheiro,
+                                            VPag = 84.90
+                                        }
+                                    }
+                                },
+                                InfAdic = new Unimake.Business.DFe.Xml.NFe.InfAdic
+                                {
+                                    InfCpl = ";CONTROLE: 0000241197;PEDIDO(S) ATENDIDO(S): 300474;Empresa optante pelo simples nacional, conforme lei compl. 128 de 19/12/2008;Permite o aproveitamento do credito de ICMS no valor de R$ 2,40, correspondente ao percentual de 2,83% . Nos termos do Art. 23 - LC 123/2006 (Resolucoes CGSN n. 10/2007 e 53/2008);Voce pagou aproximadamente: R$ 6,69 trib. federais / R$ 5,94 trib. estaduais / R$ 0,00 trib. municipais. Fonte: IBPT/empresometro.com.br 18.2.B A3S28F;",
+                                },
+                                InfRespTec = new Unimake.Business.DFe.Xml.NFe.InfRespTec
+                                {
+                                    CNPJ = "06117473000150",
+                                    XContato = "Wandrey Mundin Ferreira",
+                                    Email = "wandrey@unimake.com.br",
+                                    Fone = "04431414900"
+                                }
+                            }
+                        }
+                    },
+                    new Unimake.Business.DFe.Xml.NFe.NFe
+                    {
+                        InfNFe = new List<Unimake.Business.DFe.Xml.NFe.InfNFe>
+                        {
+                            new Unimake.Business.DFe.Xml.NFe.InfNFe
+                            {
+                                Versao = "4.00",
+                                Ide = new Unimake.Business.DFe.Xml.NFe.Ide
+                                {
+                                    CUF = UFBrasil.PR,
+                                    NatOp = "VENDA PRODUC.DO ESTABELEC",
+                                    Mod = ModeloDFe.NFe,
+                                    Serie = 1,
+                                    NNF = 58001,
+                                    DhEmi = DateTime.Now,
+                                    DhSaiEnt = DateTime.Now,
+                                    TpNF = TipoOperacao.Saida,
+                                    IdDest = DestinoOperacao.OperacaoInterestadual,
+                                    CMunFG = 4118402,
+                                    TpImp = FormatoImpressaoDANFE.NormalRetrato,
+                                    TpEmis = TipoEmissao.Normal,
+                                    TpAmb = TipoAmbiente.Homologacao,
+                                    FinNFe = FinalidadeNFe.Normal,
+                                    IndFinal = SimNao.Sim,
+                                    IndPres = IndicadorPresenca.OperacaoPresencial,
+                                    ProcEmi = ProcessoEmissao.AplicativoContribuinte,
+                                    VerProc = "TESTE 1.00"
+                                },
+                                Emit = new Unimake.Business.DFe.Xml.NFe.Emit
+                                {
+                                    CNPJ = "06117473000150",
+                                    XNome = "UNIMAKE SOLUCOES CORPORATIVAS LTDA",
+                                    XFant = "UNIMAKE - PARANAVAI",
+                                    EnderEmit = new Unimake.Business.DFe.Xml.NFe.EnderEmit
+                                    {
+                                        XLgr = "RUA ANTONIO FELIPE",
+                                        Nro = "1500",
+                                        XBairro = "CENTRO",
+                                        CMun = 4118402,
+                                        XMun = "PARANAVAI",
+                                        UF = UFBrasil.PR,
+                                        CEP = "87704030",
+                                        Fone = "04431414900"
+                                    },
+                                    IE = "9032000301",
+                                    IM = "14018",
+                                    CNAE = "6202300",
+                                    CRT = CRT.SimplesNacional
+                                },
+                                Dest = new Unimake.Business.DFe.Xml.NFe.Dest
+                                {
+                                    CNPJ = "04218457000128",
+                                    XNome = "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL",
+                                    EnderDest = new Unimake.Business.DFe.Xml.NFe.EnderDest
+                                    {
+                                        XLgr = "AVENIDA DA SAUDADE",
+                                        Nro = "1555",
+                                        XBairro = "CAMPOS ELISEOS",
+                                        CMun = 3543402,
+                                        XMun = "RIBEIRAO PRETO",
+                                        UF = UFBrasil.SP,
+                                        CEP = "14080000",
+                                        Fone = "01639611500"
+                                    },
+                                    IndIEDest = IndicadorIEDestinatario.ContribuinteICMS,
+                                    IE = "582614838110",
+                                    Email = "janelaorp@janelaorp.com.br"
+                                },
+                                Det = CriarDet(),
+                                Total = new Unimake.Business.DFe.Xml.NFe.Total
+                                {
+                                    ICMSTot = new Unimake.Business.DFe.Xml.NFe.ICMSTot
+                                    {
+                                        VBC = 0,
+                                        VICMS = 0,
+                                        VICMSDeson = 0,
+                                        VFCP = 0,
+                                        VBCST = 0,
+                                        VST = 0,
+                                        VFCPST = 0,
+                                        VFCPSTRet = 0,
+                                        VProd = 84.90,
+                                        VFrete = 0,
+                                        VSeg = 0,
+                                        VDesc = 0,
+                                        VII = 0,
+                                        VIPI = 0,
+                                        VIPIDevol = 0,
+                                        VPIS = 0,
+                                        VCOFINS = 0,
+                                        VOutro = 0,
+                                        VNF = 84.90,
+                                        VTotTrib = 12.63
+                                    }
+                                },
+                                Transp = new Unimake.Business.DFe.Xml.NFe.Transp
+                                {
+                                    ModFrete = ModalidadeFrete.ContratacaoFretePorContaRemetente_CIF,
+                                    Vol = new List<Unimake.Business.DFe.Xml.NFe.Vol>
+                                    {
+                                        new Unimake.Business.DFe.Xml.NFe.Vol
+                                        {
+                                            QVol = 1,
+                                            Esp = "LU",
+                                            Marca = "UNIMAKE",
+                                            PesoL = 0.000,
+                                            PesoB = 0.000
+                                        }
+                                    }
+                                },
+                                Cobr = new Unimake.Business.DFe.Xml.NFe.Cobr()
+                                {
+                                    Fat = new Unimake.Business.DFe.Xml.NFe.Fat
+                                    {
+                                        NFat = "057910",
+                                        VOrig = 84.90,
+                                        VDesc = 0,
+                                        VLiq = 84.90
+                                    },
+                                    Dup = new List<Unimake.Business.DFe.Xml.NFe.Dup>
+                                    {
+                                        new Unimake.Business.DFe.Xml.NFe.Dup
+                                        {
+                                            NDup = "001",
+                                            DVenc = DateTime.Now,
+                                            VDup = 84.90
+                                        }
+                                    }
+                                },
+                                Pag = new Unimake.Business.DFe.Xml.NFe.Pag
+                                {
+                                    DetPag = new List<Unimake.Business.DFe.Xml.NFe.DetPag>
+                                    {
+                                        new Unimake.Business.DFe.Xml.NFe.DetPag
+                                        {
+                                            IndPag = IndicadorPagamento.PagamentoVista,
+                                            TPag = MeioPagamento.Dinheiro,
+                                            VPag = 84.90
+                                        }
+                                    }
+                                },
+                                InfAdic = new Unimake.Business.DFe.Xml.NFe.InfAdic
+                                {
+                                    InfCpl = ";CONTROLE: 0000241197;PEDIDO(S) ATENDIDO(S): 300474;Empresa optante pelo simples nacional, conforme lei compl. 128 de 19/12/2008;Permite o aproveitamento do credito de ICMS no valor de R$ 2,40, correspondente ao percentual de 2,83% . Nos termos do Art. 23 - LC 123/2006 (Resolucoes CGSN n. 10/2007 e 53/2008);Voce pagou aproximadamente: R$ 6,69 trib. federais / R$ 5,94 trib. estaduais / R$ 0,00 trib. municipais. Fonte: IBPT/empresometro.com.br 18.2.B A3S28F;",
+                                },
+                                InfRespTec = new Unimake.Business.DFe.Xml.NFe.InfRespTec
+                                {
+                                    CNPJ = "06117473000150",
+                                    XContato = "Wandrey Mundin Ferreira",
+                                    Email = "wandrey@unimake.com.br",
+                                    Fone = "04431414900"
+                                }
+                            }
+                        }
                     }
+                }
                 };
 
                 var configuracao = new Configuracao
@@ -4486,14 +4330,17 @@ namespace TesteDLL_Unimake.Business.DFe
                 var autorizacao = new Autorizacao(xml, configuracao);
                 autorizacao.Executar();
 
-                if(autorizacao.Result != null)
+
+
+
+                if (autorizacao.Result != null)
                 {
                     //Gravar o arquivo do conteúdo retornado em uma pasta qualquer para ter em segurança. Pode-se também gravar na base de dados. Fica a critério de cada um.
                     File.WriteAllText(@"c:\testenfe\retorno\nomearquivoretorno.xml", autorizacao.RetornoWSString);
 
                     MessageBox.Show(autorizacao.Result.XMotivo);
 
-                    if(autorizacao.Result.CStat == 103) //103 = Lote Recebido com Sucesso
+                    if (autorizacao.Result.CStat == 103) //103 = Lote Recebido com Sucesso
                     {
                         #region Finalizar através da consulta do recibo.
 
@@ -4517,6 +4364,7 @@ namespace TesteDLL_Unimake.Business.DFe
                         retAutorizacao.Executar();
 
                         autorizacao.RetConsReciNFe = retAutorizacao.Result;
+
                         autorizacao.GravarXmlDistribuicao(@"c:\testenfe\");
 
                         #endregion
@@ -4531,7 +4379,7 @@ namespace TesteDLL_Unimake.Business.DFe
                             CertificadoDigital = CertificadoSelecionado
                         };
 
-                        foreach(var item in xml.NFe)
+                        foreach (var item in xml.NFe)
                         {
                             var xmlSit = new ConsSitNFe
                             {
@@ -4552,10 +4400,10 @@ namespace TesteDLL_Unimake.Business.DFe
                     }
                 }
 
-                if(autorizacao.Result.ProtNFe != null)
+                if (autorizacao.Result.ProtNFe != null)
                 {
                     //Gravar o XML de distribuição se a nota foi autorizada ou denegada
-                    switch(autorizacao.Result.ProtNFe.InfProt.CStat)
+                    switch (autorizacao.Result.ProtNFe.InfProt.CStat)
                     {
                         case 100: //Autorizado o uso da NF-e
                         case 110: //Uso Denegado
@@ -4576,7 +4424,7 @@ namespace TesteDLL_Unimake.Business.DFe
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -4615,7 +4463,6 @@ namespace TesteDLL_Unimake.Business.DFe
                     CertificadoDigital = CertificadoSelecionado
                 };
 
-
                 var recepcaoEvento = new Unimake.Business.DFe.Servicos.MDFe.RecepcaoEvento(xml, configuracao);
 
                 //xml.LerXML<EventoCTe>(recepcaoEvento.ConteudoXMLAssinado);
@@ -4625,7 +4472,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(recepcaoEvento.Result.InfEvento.XMotivo);
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                switch(recepcaoEvento.Result.InfEvento.CStat)
+                switch (recepcaoEvento.Result.InfEvento.CStat)
                 {
                     case 134: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respectivo CT-e com situação diferente de Autorizada.
                     case 135: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respetivo CTe.
@@ -4638,7 +4485,7 @@ namespace TesteDLL_Unimake.Business.DFe
                         break;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -4659,7 +4506,7 @@ namespace TesteDLL_Unimake.Business.DFe
             //    Versao = "4.00",
             //    NFe = new List<NFe>
             //    {
-            //        xmlNFe.LoadFromFile(@"C:\Users\Wandrey\Downloads\31201037364506000190550010000000541000000568-NFe (1).xml")
+            //        Unimake.Business.DFe.Xml.NFe.LoadFromFile(@"C:\Users\Wandrey\Downloads\31201037364506000190550010000000541000000568-NFe (1).xml")
             //    }
             //};
 
@@ -4698,7 +4545,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 CertificadoDigital = CertificadoSelecionado
             };
 
-            foreach(var item in xml.NFe)
+            foreach (var item in xml.NFe)
             {
                 var xmlSit = new ConsSitNFe
                 {
@@ -5172,10 +5019,10 @@ namespace TesteDLL_Unimake.Business.DFe
                 autorizacao.Executar();
                 MessageBox.Show(autorizacao.RetornoWSString);
 
-                if(autorizacao.Result.ProtCTe != null)
+                if (autorizacao.Result.ProtCTe != null)
                 {
 
-                    if(autorizacao.Result.CStat == 103) //103 = Lote Recebido com Sucesso
+                    if (autorizacao.Result.CStat == 103) //103 = Lote Recebido com Sucesso
                     {
                         autorizacao.GravarXmlDistribuicao(@"c:\testenfe\");
                     }
@@ -5202,7 +5049,7 @@ namespace TesteDLL_Unimake.Business.DFe
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -5231,7 +5078,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(statusServico.RetornoWSString);
                 MessageBox.Show(statusServico.Result.XMotivo);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -5260,7 +5107,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(consultaProtocolo.RetornoWSString);
                 MessageBox.Show(consultaProtocolo.Result.XMotivo);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -5299,7 +5146,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(inutilizacao.Result.InfInut.XMotivo);
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                switch(inutilizacao.Result.InfInut.CStat)
+                switch (inutilizacao.Result.InfInut.CStat)
                 {
                     case 102: //Inutilização homologada
                         inutilizacao.GravarXmlDistribuicao(@"c:\testenfe\");
@@ -5310,7 +5157,7 @@ namespace TesteDLL_Unimake.Business.DFe
                         break;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -5341,7 +5188,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(consultaCad.RetornoWSString);
                 MessageBox.Show(consultaCad.Result.InfCons.XMotivo);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -5387,7 +5234,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(recepcaoEvento.Result.InfEvento.XMotivo);
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                switch(recepcaoEvento.Result.InfEvento.CStat)
+                switch (recepcaoEvento.Result.InfEvento.CStat)
                 {
                     case 134: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respectivo CT-e com situação diferente de Autorizada.
                     case 135: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respetivo CTe.
@@ -5400,7 +5247,7 @@ namespace TesteDLL_Unimake.Business.DFe
                         break;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -5457,7 +5304,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(recepcaoEvento.Result.InfEvento.XMotivo);
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                switch(recepcaoEvento.Result.InfEvento.CStat)
+                switch (recepcaoEvento.Result.InfEvento.CStat)
                 {
                     case 134: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respectivo CT-e com situação diferente de Autorizada.
                     case 135: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respetivo CTe.
@@ -5470,7 +5317,7 @@ namespace TesteDLL_Unimake.Business.DFe
                         break;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -5479,23 +5326,26 @@ namespace TesteDLL_Unimake.Business.DFe
         private void button44_Click(object sender, EventArgs e)
         {
             var doc = new XmlDocument();
-            doc.Load(@"C:\Users\Wandrey\Downloads\31220218485836000199550010000034251660749083-nfe.xml");
+            doc.Load(@"C:\Users\Wandrey\Downloads\41220378688660000102550020000015691411561232-nfe.xml");
 
             #region NFe / NFCe
 
             var xmlNFe = new EnviNFe();
             xmlNFe.IdLote = "000000000000001";
             xmlNFe.Versao = "4.00";
+            xmlNFe.IndSinc = SimNao.Sim;
             xmlNFe.NFe = new List<NFe>();
             xmlNFe.NFe.Add(XMLUtility.Deserializar<NFe>(doc));
 
             var config = new Configuracao
             {
-                TipoDFe = TipoDFe.NFe,
-                CertificadoDigital = CertificadoSelecionado
+                TipoDFe = TipoDFe.NFCe,
+                CertificadoDigital = CertificadoSelecionado,
+                CSC = "HCJBIRTWGCQ3HVQN7DCA0ZY0P2NYT6FVLPJG",
+                CSCIDToken = 2
             };
 
-            Unimake.Business.DFe.Servicos.NFe.Autorizacao autorizacao = new Unimake.Business.DFe.Servicos.NFe.Autorizacao(xmlNFe, config);
+            var autorizacao = new Unimake.Business.DFe.Servicos.NFCe.Autorizacao(xmlNFe, config);
             autorizacao.Executar();
 
             #endregion
@@ -5551,7 +5401,21 @@ namespace TesteDLL_Unimake.Business.DFe
             //Unimake.Business.DFe.Servicos.MDFe.Autorizacao autorizacao = new Unimake.Business.DFe.Servicos.MDFe.Autorizacao(xmlMDFe, config);
             //autorizacao.Executar();
 
-            #endregion            
+            #endregion
+
+            #region MDFe Síncrono
+
+            //var xmlMDFe = XMLUtility.Deserializar<MDFe>(doc);
+            //var config = new Configuracao
+            //{
+            //    TipoDFe = TipoDFe.MDFe,
+            //    CertificadoDigital = CertificadoSelecionado
+            //};
+
+            //Unimake.Business.DFe.Servicos.MDFe.AutorizacaoSinc autorizacao = new Unimake.Business.DFe.Servicos.MDFe.AutorizacaoSinc(xmlMDFe, config);
+            //autorizacao.Executar();
+
+            #endregion
         }
 
         private bool CertSetPin1 = false;
@@ -5561,11 +5425,11 @@ namespace TesteDLL_Unimake.Business.DFe
         {
             try
             {
-                if(certificado.IsA3())
+                if (certificado.IsA3())
                 {
-                    if(certificado.SerialNumber == "58219FD2EADA297B")
+                    if (certificado.SerialNumber == "58219FD2EADA297B")
                     {
-                        if(!CertSetPin1)
+                        if (!CertSetPin1)
                         {
                             certificado.SetPinPrivateKey("@123456x");
                             CertSetPin1 = true;
@@ -5573,7 +5437,7 @@ namespace TesteDLL_Unimake.Business.DFe
                     }
                     else
                     {
-                        if(!CertSetPin2)
+                        if (!CertSetPin2)
                         {
                             certificado.SetPinPrivateKey("1234");
                             CertSetPin2 = true;
@@ -5604,7 +5468,7 @@ namespace TesteDLL_Unimake.Business.DFe
 
                 var qq = statusServico.RetornoWSString;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -5878,7 +5742,7 @@ namespace TesteDLL_Unimake.Business.DFe
 
             validarSchema.Validar(doc, schema, "http://www.portalfiscal.inf.br/nfe");
 
-            if(!validarSchema.Success)
+            if (!validarSchema.Success)
             {
                 MessageBox.Show("Code: " + validarSchema.ErrorCode + "\r\n\r\nMessage: " + validarSchema.ErrorMessage);
             }
@@ -5944,9 +5808,9 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(recepcaoEvento.Result.XMotivo);
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                if(recepcaoEvento.Result.CStat == 128) //128 = Lote de evento processado com sucesso
+                if (recepcaoEvento.Result.CStat == 128) //128 = Lote de evento processado com sucesso
                 {
-                    switch(recepcaoEvento.Result.RetEvento[0].InfEvento.CStat)
+                    switch (recepcaoEvento.Result.RetEvento[0].InfEvento.CStat)
                     {
                         case 135: //Evento homologado com vinculação da respectiva NFe
                         case 136: //Evento homologado sem vinculação com a respectiva NFe (SEFAZ não encontrou a NFe na base dela)
@@ -5960,7 +5824,7 @@ namespace TesteDLL_Unimake.Business.DFe
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -6015,7 +5879,7 @@ namespace TesteDLL_Unimake.Business.DFe
 
                 MessageBox.Show(recepcaoEvento.RetornoWSString);
 
-                switch(recepcaoEvento.Result.InfEvento.CStat)
+                switch (recepcaoEvento.Result.InfEvento.CStat)
                 {
                     case 134: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respectivo CT-e com situação diferente de Autorizada.
                     case 135: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respetivo CTe.
@@ -6027,7 +5891,7 @@ namespace TesteDLL_Unimake.Business.DFe
                         break;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -6035,9 +5899,41 @@ namespace TesteDLL_Unimake.Business.DFe
 
         private void button52_Click(object sender, EventArgs e)
         {
-            var xml = new XmlDocument();
-            xml.Load(@"C:\Users\Wandrey\Downloads\QQQQ-nfse.xml");
-            AssinaturaDigital.Assinar(xml, "Rps", CertificadoSelecionado, AlgorithmType.Sha1, true);
+            var doc = new XmlDocument();
+            doc.Load(@"C:\Users\Wandrey\Downloads\Telegram Desktop\35904220000124_0000001-env-loterps2 (2).xml");
+
+            var nodeListListaMensagemRetorno = doc.GetElementsByTagName("ListaMensagemRetorno");
+
+            foreach (var nodeListaMensagemRetorno in nodeListListaMensagemRetorno)
+            {
+                var nodeListMensagemRetorno = ((XmlElement)nodeListaMensagemRetorno).GetElementsByTagName("MensagemRetorno");
+
+                foreach (var nodeMensagemRetorno in nodeListMensagemRetorno)
+                {
+                    string codigo = "";
+                    string mensagem = "";
+                    string correcao = "";
+
+                    var elementMensagemRetorno = (XmlElement)nodeMensagemRetorno;
+
+                    if (elementMensagemRetorno.GetElementsByTagName("Codigo") != null)
+                    {
+                        codigo = elementMensagemRetorno.GetElementsByTagName("Codigo")[0].InnerText;
+                    }
+                    if (elementMensagemRetorno.GetElementsByTagName("Mensagem") != null)
+                    {
+                        mensagem = elementMensagemRetorno.GetElementsByTagName("Mensagem")[0].InnerText;
+                    }
+                    if (elementMensagemRetorno.GetElementsByTagName("Correcao") != null)
+                    {
+                        correcao = elementMensagemRetorno.GetElementsByTagName("Correcao")[0].InnerText;
+                    }
+
+                    MessageBox.Show("Código: " + codigo + "\r\n" +
+                        "Mensagem: " + mensagem + "\r\n"+
+                        "Correção: " + correcao);
+                }
+            }
         }
 
         private void button53_Click(object sender, EventArgs e)
@@ -6097,9 +5993,9 @@ namespace TesteDLL_Unimake.Business.DFe
                 var qq = recepcaoEvento.ProcEventoNFeResult[0].GerarXML().OuterXml;
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                if(recepcaoEvento.Result.CStat == 128) //128 = Lote de evento processado com sucesso
+                if (recepcaoEvento.Result.CStat == 128) //128 = Lote de evento processado com sucesso
                 {
-                    switch(recepcaoEvento.Result.RetEvento[0].InfEvento.CStat)
+                    switch (recepcaoEvento.Result.RetEvento[0].InfEvento.CStat)
                     {
                         case 135: //Evento homologado com vinculação da respectiva NFe
                         case 136: //Evento homologado sem vinculação com a respectiva NFe (SEFAZ não encontrou a NFe na base dela)
@@ -6113,7 +6009,7 @@ namespace TesteDLL_Unimake.Business.DFe
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -6170,9 +6066,9 @@ namespace TesteDLL_Unimake.Business.DFe
                 var qq = recepcaoEvento.ProcEventoNFeResult[0].GerarXML().OuterXml;
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                if(recepcaoEvento.Result.CStat == 128) //128 = Lote de evento processado com sucesso
+                if (recepcaoEvento.Result.CStat == 128) //128 = Lote de evento processado com sucesso
                 {
-                    switch(recepcaoEvento.Result.RetEvento[0].InfEvento.CStat)
+                    switch (recepcaoEvento.Result.RetEvento[0].InfEvento.CStat)
                     {
                         case 135: //Evento homologado com vinculação da respectiva NFe
                         case 136: //Evento homologado sem vinculação com a respectiva NFe (SEFAZ não encontrou a NFe na base dela)
@@ -6186,7 +6082,7 @@ namespace TesteDLL_Unimake.Business.DFe
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -6295,7 +6191,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(recepcaoEvento.Result.InfEvento.XMotivo);
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                switch(recepcaoEvento.Result.InfEvento.CStat)
+                switch (recepcaoEvento.Result.InfEvento.CStat)
                 {
                     case 134: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respectivo CT-e com situação diferente de Autorizada.
                     case 135: //Recebido pelo Sistema de Registro de Eventos, com vinculação do evento no respetivo CTe.
@@ -6308,7 +6204,7 @@ namespace TesteDLL_Unimake.Business.DFe
                         break;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -6369,9 +6265,9 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(recepcaoEvento.Result.XMotivo);
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                if(recepcaoEvento.Result.CStat == 128) //128 = Lote de evento processado com sucesso
+                if (recepcaoEvento.Result.CStat == 128) //128 = Lote de evento processado com sucesso
                 {
-                    switch(recepcaoEvento.Result.RetEvento[0].InfEvento.CStat)
+                    switch (recepcaoEvento.Result.RetEvento[0].InfEvento.CStat)
                     {
                         case 135: //Evento homologado com vinculação da respectiva NFe
                         case 136: //Evento homologado sem vinculação com a respectiva NFe (SEFAZ não encontrou a NFe na base dela)
@@ -6385,7 +6281,7 @@ namespace TesteDLL_Unimake.Business.DFe
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }
@@ -6439,9 +6335,9 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(recepcaoEvento.Result.XMotivo);
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
-                if(recepcaoEvento.Result.CStat == 128) //128 = Lote de evento processado com sucesso
+                if (recepcaoEvento.Result.CStat == 128) //128 = Lote de evento processado com sucesso
                 {
-                    switch(recepcaoEvento.Result.RetEvento[0].InfEvento.CStat)
+                    switch (recepcaoEvento.Result.RetEvento[0].InfEvento.CStat)
                     {
                         case 135: //Evento homologado com vinculação da respectiva NFe
                         case 136: //Evento homologado sem vinculação com a respectiva NFe (SEFAZ não encontrou a NFe na base dela)
@@ -6455,7 +6351,7 @@ namespace TesteDLL_Unimake.Business.DFe
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CatchException(ex);
             }

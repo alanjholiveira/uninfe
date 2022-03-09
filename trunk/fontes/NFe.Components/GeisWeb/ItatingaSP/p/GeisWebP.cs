@@ -86,6 +86,7 @@ namespace NFe.Components.GeisWeb.ItatingaSP.p
             GeisWebService Service = new GeisWebService();
             Service.ClientCertificates.Add(Certificado);
             string strResult = Service.ConsultaNfse(doc.OuterXml);
+            strResult = strResult.Replace("&", "&amp;");
 
             GerarRetorno(file,
                 strResult,

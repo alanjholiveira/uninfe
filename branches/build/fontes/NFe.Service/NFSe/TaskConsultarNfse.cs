@@ -83,6 +83,12 @@ namespace NFe.Service.NFSe
                             case 4217600: //Siderópolis-SC
                             case 3127701: //Governador Valadares-MG
                             case 5107909: //Sinop-MT
+                            case 3306305: //Volta Redonda - RJ
+                            case 3530706: //Mogi Guaçu - SP
+                            case 5105606: //Matupá-MT
+                            case 3132404: //Itajubá-MG
+                            case 3506003: //Bauru-SP
+                            case 2925303: //Porto Seguro-BA
                                 ExecuteDLL(emp, oDadosPedSitNfse.cMunicipio, padraoNFSe);
                                 break;
 
@@ -451,6 +457,8 @@ namespace NFe.Service.NFSe
                                             oDadosPedSitNfse.cMunicipio == 3550407 ||
                                             oDadosPedSitNfse.cMunicipio == 4310207 ||
                                             oDadosPedSitNfse.cMunicipio == 1502400 ||
+                                            oDadosPedSitNfse.cMunicipio == 4301057 ||
+                                            oDadosPedSitNfse.cMunicipio == 4115804 ||
                                             oDadosPedSitNfse.cMunicipio == 3550803)
                                         {
                                             var pronin = new Pronin((TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
@@ -801,10 +809,28 @@ namespace NFe.Service.NFSe
                     result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarNfseServicoPrestado;
                     break;
 
+                case PadroesNFSe.SONNER:
+                case PadroesNFSe.SMARAPD:
+                    switch (doc.DocumentElement.Name)
+                    {
+                        case "ConsultarNfseServicoPrestadoEnvio":
+                            result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarNfseServicoPrestado;
+                            break;
+                        case "ConsultarNfseFaixaEnvio":
+                            result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarNfseFaixa;
+                            break;
+                    }
+                    break;
+
                 case PadroesNFSe.PRODATA:
                 case PadroesNFSe.AVMB_ASTEN:
                 case PadroesNFSe.COPLAN:
+                case PadroesNFSe.SIMPLISS:
                     result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarNfseFaixa;
+                    break;
+
+                case PadroesNFSe.NOBESISTEMAS:
+                    result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarNfse;
                     break;
 
                 case PadroesNFSe.BETHA:
@@ -849,8 +875,12 @@ namespace NFe.Service.NFSe
                     }
                     break;
 
-                case PadroesNFSe.SIGCORP_SIGISS:
-                    versaoXML = "0.00";
+                case PadroesNFSe.NOBESISTEMAS:
+                    versaoXML = "1.00";
+                    break;
+
+                case PadroesNFSe.SONNER:
+                    versaoXML = "2.01";
                     break;
 
                 case PadroesNFSe.AVMB_ASTEN:
@@ -858,6 +888,13 @@ namespace NFe.Service.NFSe
                 case PadroesNFSe.COPLAN:
                     versaoXML = "2.02";
                     break;
+
+                case PadroesNFSe.SIGCORP_SIGISS:
+                case PadroesNFSe.SIMPLISS:
+                case PadroesNFSe.SMARAPD:
+                    versaoXML = "2.03";
+                    break;
+
             }
 
             return versaoXML;

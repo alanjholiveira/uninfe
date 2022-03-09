@@ -39,6 +39,10 @@ namespace NFe.Components.SystemPro
                             case 4314134:
                                 systemProService = new HPauloBento.NfseService_Homolog();
                                 break;
+
+                            case 4304408:
+                                systemProService = new HCanelaRS.NfseService_Homolog();
+                                break;
                         }
                     }
                     else
@@ -63,6 +67,10 @@ namespace NFe.Components.SystemPro
 
                             case 4314134:
                                 systemProService = new PPauloBento.NfseService();
+                                break;
+
+                            case 4304408:
+                                systemProService = new PCanelaRS.NfseService();
                                 break;
                         }
                     }

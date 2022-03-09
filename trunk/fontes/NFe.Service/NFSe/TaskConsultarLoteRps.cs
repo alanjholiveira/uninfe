@@ -78,6 +78,9 @@ namespace NFe.Service.NFSe
                             case 2933307: //Vitória da Conquista-BA
                             case 3201209: //Cachoeiro de Itapemirim
                             case 3506003: //Bauru-SP
+                            case 2925303: //Porto Seguro-BA
+                            case 3530805: //Mogi Mirim-SP
+                            case 3131307: //Ipatinga-MG
                                 ExecuteDLL(emp, ler.oDadosPedSitNfseRps.cMunicipio, padraoNFSe);
                                 break;
 
@@ -710,10 +713,6 @@ namespace NFe.Service.NFSe
 
             switch(padraoNFSe)
             {
-                case PadroesNFSe.PRODATA:
-                    versaoXML = "2.01";
-                    break;
-
                 case PadroesNFSe.BETHA:
                     versaoXML = "2.02";
 
@@ -723,10 +722,13 @@ namespace NFe.Service.NFSe
                     }
                     break;
 
-                case PadroesNFSe.SIGCORP_SIGISS:
-                    versaoXML = "2.03";
+                case PadroesNFSe.NOBESISTEMAS:
+                    versaoXML = "1.00";
                     break;
 
+                case PadroesNFSe.PRODATA:
+                    versaoXML = "2.01";
+                    break;
 
                 case PadroesNFSe.NOTAINTELIGENTE:
                 case PadroesNFSe.AVMB_ASTEN:
@@ -735,6 +737,7 @@ namespace NFe.Service.NFSe
                     versaoXML = "2.02";
                     break;
 
+                case PadroesNFSe.SIGCORP_SIGISS:
                 case PadroesNFSe.SIMPLISS:
                 case PadroesNFSe.SMARAPD:
                     versaoXML = "2.03";

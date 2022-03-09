@@ -458,10 +458,14 @@ namespace NFe.Components
 #if (FTP_DEBUG)
 					Console.WriteLine("Resolving host");
 #endif
-
-                    data_ipEndPoint = new IPEndPoint(Dns.GetHostEntry(server).AddressList[0], port);
-
-
+                    if (Dns.GetHostEntry(server).AddressList.Length <= 0)
+                    {
+                        data_ipEndPoint = new IPEndPoint(Dns.GetHostEntry(this.server).AddressList[0], port);                        
+                    }
+                    else
+                    {
+                        data_ipEndPoint = new IPEndPoint(Dns.GetHostEntry(server).AddressList[0], port);
+                    }
 #if (FTP_DEBUG)
 					Console.WriteLine("Connecting..");
 #endif

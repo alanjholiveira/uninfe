@@ -26,7 +26,7 @@ namespace NFe.Service
 
                 var oDadosNfe = LerXMLNFe(ConteudoXML);
 
-                AssinarValidarXMLNFe(ConteudoXML);
+                ValidarXMLDFe(ConteudoXML);
 
                 //Montar lote de nfe
                 var oFluxoNfe = new FluxoNfe();

@@ -53,8 +53,7 @@ UseRelativePaths=True
 ;----------------------------------------------------------------------------------------------------
 ;Exemplo e dll em VB6
 ;----------------------------------------------------------------------------------------------------
-Source: "..\fontes\Unimake.DFe\Interop\VB6\VB6.rar"; DestDir: "{app}\Exemplo_VB6"; Flags: ignoreversion; Tasks: exemplo_vb6
-Source: "..\..\branches\build\fontes\Unimake.DFe\Interop\VB6\System.Security.Cryptography.Xml.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\projetos\github\Unimake.DFe\source\Unimake.DFe\Interop\VB6\System.Security.Cryptography.Xml.dll"; DestDir: "{app}"; Flags: ignoreversion
 ;----------------------------------------------------------------------------------------------------
 ;Registrar
 ;----------------------------------------------------------------------------------------------------
@@ -62,27 +61,17 @@ Source: "Register_UnimakeDFe.bat"; DestDir: "{app}"; Flags: ignoreversion
 ;----------------------------------------------------------------------------------------------------
 ;.netstandard
 ;----------------------------------------------------------------------------------------------------
-Source: "..\fontes\Unimake.DFe\Compilacao\INTEROP_Release\netstandard2.0\Unimake.Business.DFe.tlb"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\fontes\Unimake.DFe\Compilacao\INTEROP_Release\netstandard2.0\Unimake.Business.DFe.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\projetos\github\Unimake.DFe\source\Unimake.DFe\Compilacao\INTEROP_Release\netstandard2.0\Unimake.Business.DFe.dll"; DestDir: "{app}"; Flags: ignoreversion
 ;----------------------------------------------------------------------------------------------------
 ;DLLs net472
 ;----------------------------------------------------------------------------------------------------
-Source: "..\fontes\Unimake.DFe\Compilacao\INTEROP_Release\net472\Newtonsoft.Json.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\fontes\Unimake.DFe\Compilacao\INTEROP_Release\net472\System.Security.AccessControl.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\fontes\Unimake.DFe\Compilacao\INTEROP_Release\net472\System.Security.Permissions.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\fontes\Unimake.DFe\Compilacao\INTEROP_Release\net472\System.Security.Principal.Windows.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\fontes\Unimake.DFe\Compilacao\INTEROP_Release\net472\Unimake.Security.Platform.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\fontes\Unimake.DFe\Compilacao\INTEROP_Release\net472\Unimake.Unidanfe.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\fontes\Unimake.DFe\Compilacao\INTEROP_Release\net472\Unimake.Security.Platform.tlb"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\projetos\github\Unimake.DFe\source\Unimake.DFe\Compilacao\INTEROP_Release\net472\Unimake.Security.Platform.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 [Run]
 Filename: "{app}\Register_UnimakeDFe.bat"; Flags: runhidden; StatusMsg: "Registrando dll"
 
 [UninstallDelete]
 Type: filesandordirs; Name: "{app}\Unimake.DFe"
-
-[Tasks]
-Name: "exemplo_vb6"; Description: "Instalar exemplo em VB6"
 
 [Code]
 //incialização do setup. É sempre chamada pelo Inno ao iniciar o setup

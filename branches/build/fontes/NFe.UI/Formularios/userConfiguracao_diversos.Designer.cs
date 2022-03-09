@@ -713,6 +713,8 @@
             this.Controls.Add(this.checkBoxGravarEventosDeTerceiros);
             this.Name = "userConfiguracao_diversos";
             this.Size = new System.Drawing.Size(701, 453);
+            this.Style = MetroFramework.MetroColorStyle.Default;
+            this.Theme = MetroFramework.MetroThemeStyle.Default;
             this.grpQRCode.ResumeLayout(false);
             this.grpQRCode.PerformLayout();
             this.ResumeLayout(false);

@@ -12,6 +12,11 @@ namespace NFe.Service
     {
         public string chNFe { private get; set; } = null;
 
+        /// <summary>
+        /// Objeto com o conteúdo da nota fiscal
+        /// </summary>
+        public EnviNFe EnviNFe { get; set; }
+
         public TaskNFeRetRecepcao() => Servico = Servicos.NFePedidoSituacaoLote;
 
         public TaskNFeRetRecepcao(string arquivo)
@@ -86,6 +91,12 @@ namespace NFe.Service
                 if(dadosPedRec.mod == "65")
                 {
                     var retAutorizacao = new Unimake.Business.DFe.Servicos.NFCe.RetAutorizacao(xml, configuracao);
+
+                    if (EnviNFe != null)
+                    {
+                        retAutorizacao.EnviNFe = EnviNFe;
+                    }
+
                     retAutorizacao.Executar();
 
                     vStrXmlRetorno = retAutorizacao.RetornoWSString;
@@ -93,6 +104,12 @@ namespace NFe.Service
                 else
                 {
                     var retAutorizacao = new Unimake.Business.DFe.Servicos.NFe.RetAutorizacao(xml, configuracao);
+
+                    if(EnviNFe != null)
+                    {
+                        retAutorizacao.EnviNFe = EnviNFe;
+                    }
+
                     retAutorizacao.Executar();
 
                     vStrXmlRetorno = retAutorizacao.RetornoWSString;

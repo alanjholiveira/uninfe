@@ -109,7 +109,6 @@ namespace NFe.Service
                 case Servicos.MDFePedidoConsultaSituacao:
                 case Servicos.MDFePedidoSituacaoLote:
                 case Servicos.MDFeEnviarLote:
-                case Servicos.MDFeEnviarLoteSinc:
                 case Servicos.MDFeConsultaStatusServico:
                 case Servicos.MDFeRecepcaoEvento:
                 case Servicos.MDFeConsultaNaoEncerrado:
@@ -263,10 +262,6 @@ namespace NFe.Service
 
                 case Servicos.MDFeConsultaStatusServico:
                     retorna = "mdfeStatusServicoMDF";
-                    break;
-
-                case Servicos.MDFeEnviarLoteSinc:
-                    retorna = "mdfeRecepcao";
                     break;
 
                 case Servicos.MDFeEnviarLote:
@@ -1912,31 +1907,6 @@ namespace NFe.Service
 
                 #endregion MANAUS_AM
 
-                #region JOINVILLE_SC
-
-                case PadroesNFSe.JOINVILLE_SC:
-                    switch(servico)
-                    {
-                        case Servicos.NFSeRecepcionarLoteRps:
-                            retorna = "RecepcionarLoteRps";
-                            break;
-
-                        case Servicos.NFSeCancelar:
-                            retorna = "CancelarNfse";
-                            break;
-
-                        case Servicos.NFSeConsultarLoteRps:
-                            retorna = "ConsultarLoteRps";
-                            break;
-
-                        case Servicos.NFSeConsultarPorRps:
-                            retorna = "ConsultarNfsePorRps";
-                            break;
-                    }
-                    break;
-
-                #endregion JOINVILLE_SC
-
                 #region EMBRAS
 
                 case PadroesNFSe.EMBRAS:
@@ -2394,7 +2364,7 @@ namespace NFe.Service
                             break;
 
                         case Servicos.NFSeCancelar:
-                            retorna = "CancelaNota";
+                            retorna = "CancelarNfse";
                             break;
 
                         case Servicos.NFSeRecepcionarLoteRps:
@@ -2675,7 +2645,7 @@ namespace NFe.Service
                 conteudoXML.LoadXml(File.ReadAllText(NomeArquivoXML, System.Text.Encoding.UTF8));
             }
 
-            AssinarValidarXMLNFe(conteudoXML);
+            ValidarXMLDFe(conteudoXML);
 
             var sw = File.CreateText(NomeArquivoXML);
             sw.Write(conteudoXML.OuterXml);
@@ -2695,7 +2665,7 @@ namespace NFe.Service
         /// Autor: Wandrey Mundin Ferreira
         /// Data: 03/04/2009
         /// </remarks>
-        public void AssinarValidarXMLNFe(XmlDocument conteudoXML)
+        public void ValidarXMLDFe(XmlDocument conteudoXML)
         {
             var emp = Empresas.FindEmpresaByThread();
 
@@ -2740,64 +2710,22 @@ namespace NFe.Service
                     Functions.DeletarArquivo(Empresas.Configuracoes[emp].PastaXmlErro + "\\" + Path.GetFileName(NomeArquivoXML));
                 }
 
-                switch(conteudoXML.DocumentElement.Name)
+                #region Assinar e validar o XML para manter uma compatibilidade antes de usar a DLL do UNINFE. Wandrey 09/02/2022
+
+                try
                 {
-                    case "MDFe": //MDFe já realiza os processos de assinatura e validação na DLL do UniNFe, e não pode ser diferente, ou gera erro de assinatura.
-                    case "CTe": //CTe já realiza os processos de assinatura e validação na DLL do UniNFe, e não pode ser diferente, ou gera erro de assinatura.
-                        break;
+                    XmlDocument xmlDoc = new XmlDocument();
+                    xmlDoc.LoadXml(conteudoXML.OuterXml);
 
-                    default:
-                        //Assinar o arquivo XML
-                        var assDig = new AssinaturaDigital();
-                        assDig.AssinarNew(conteudoXML, emp, Convert.ToInt32(dadosNFe.cUF));
-
-                        #region Adicionar a tag do QrCode no NFCe
-                        if(!string.IsNullOrEmpty(Empresas.Configuracoes[emp].IdentificadorCSC) && dadosNFe.mod == "65")
-                        {
-                            if(Empresas.Configuracoes[emp].URLConsultaDFe == null)
-                            {
-                                if(!File.Exists(Path.Combine(Application.StartupPath, "sefaz.inc")))
-                                {
-                                    throw new Exception("Não foi possível localizar o arquivo SEFAZ.INC na pasta de execução do UniNFe, por favor, reinstale o aplicativo.");
-                                }
-                                else
-                                {
-                                    throw new Exception("Não foi possível localizar o link do QRCode no arquivo SEFAZ.INC.");
-                                }
-                            }
-
-                            var qrCode = new QRCodeNFCe(conteudoXML);
-
-                            string url;
-
-                            if(dadosNFe.versao == "4.00")
-                            {
-                                url = Empresas.Configuracoes[emp].AmbienteCodigo == (int)TipoAmbiente.taHomologacao ? Empresas.Configuracoes[emp].URLConsultaDFe.UrlNFCeH_400 : Empresas.Configuracoes[emp].URLConsultaDFe.UrlNFCe_400;
-                            }
-                            else
-                            {
-                                url = Empresas.Configuracoes[emp].AmbienteCodigo == (int)TipoAmbiente.taHomologacao ? Empresas.Configuracoes[emp].URLConsultaDFe.UrlNFCeH : Empresas.Configuracoes[emp].URLConsultaDFe.UrlNFCe;
-                            }
-
-                            var linkUFManual = Empresas.Configuracoes[emp].AmbienteCodigo == (int)TipoAmbiente.taHomologacao ? Empresas.Configuracoes[emp].URLConsultaDFe.UrlNFCeMH : Empresas.Configuracoes[emp].URLConsultaDFe.UrlNFCeM;
-
-                            qrCode.GerarLinkConsulta(url, Empresas.Configuracoes[emp].IdentificadorCSC, Empresas.Configuracoes[emp].TokenCSC, linkUFManual);
-                        }
-                        #endregion Adicionar a tag do QrCode no NFCe
-
-                        if(Empresas.Configuracoes[emp].AmbienteCodigo == 2)
-                        {
-                            var validar = new ValidarXML(conteudoXML, Convert.ToInt32(dadosNFe.cUF), false);
-                            var cResultadoValidacao = validar.ValidarArqXML(conteudoXML, NomeArquivoXML);
-                            if(cResultadoValidacao != "")
-                            {
-                                //Registrar o erro da validação do schema para o sistema ERP
-                                throw new Exception(cResultadoValidacao);
-                            }
-                        }
-
-                        break;
+                    ValidarXMLNew validarXMLNew = new ValidarXMLNew();
+                    validarXMLNew.Validar(xmlDoc, false, NomeArquivoXML);
                 }
+                catch (Exception ex)
+                {
+                    throw (ex);
+                }
+
+                #endregion
 
                 //Validações gerais
                 ValidacoesGeraisXMLNFe(dadosNFe);
@@ -3327,7 +3255,9 @@ namespace NFe.Service
                         cMunicipio == 4101408 ||
                         cMunicipio == 3550407 ||
                         cMunicipio == 4310207 ||
-                        cMunicipio == 1502400 ||
+                        cMunicipio == 1502400 || 
+                        cMunicipio == 4301057 ||
+                        cMunicipio == 4115804 ||
                         cMunicipio == 3550803)
                     {
                         retorno = false;
@@ -3357,9 +3287,7 @@ namespace NFe.Service
                 case PadroesNFSe.NA_INFORMATICA:
                 case PadroesNFSe.BSITBR:
                 case PadroesNFSe.METROPOLIS:
-                case PadroesNFSe.BAURU_SP:
                 case PadroesNFSe.SOFTPLAN:
-                case PadroesNFSe.JOINVILLE_SC:
                 case PadroesNFSe.ADM_SISTEMAS:
                 case PadroesNFSe.SIMPLE:
                 case PadroesNFSe.WEBFISCO_TECNOLOGIA:
@@ -3407,7 +3335,6 @@ namespace NFe.Service
                 case PadroesNFSe.PAULISTANA:
                 case PadroesNFSe.NA_INFORMATICA:
                 case PadroesNFSe.BSITBR:
-                case PadroesNFSe.JOINVILLE_SC:
                 case PadroesNFSe.ADM_SISTEMAS:
                 case PadroesNFSe.IIBRASIL:
                     invocar = true;

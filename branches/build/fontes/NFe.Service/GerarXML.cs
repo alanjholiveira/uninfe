@@ -214,20 +214,6 @@ namespace NFe.Service
 
                 Empresas.Configuracoes[EmpIndex].CriarSubPastaEnviado();
 
-                if(oDadosNfe.mod != "58" && oDadosNfe.mod != "57")
-                {
-                    //Salvar o XML assinado na pasta EmProcessamento
-                    var arqEmProcessamento = Empresas.Configuracoes[EmpIndex].PastaXmlEnviado + "\\" + PastaEnviados.EmProcessamento.ToString() + "\\" + Path.GetFileName(arquivosXMLDFe[i].NomeArquivoXML);
-                    var sw = File.CreateText(arqEmProcessamento);
-                    sw.Write(arquivosXMLDFe[i].ConteudoXML.OuterXml);
-                    sw.Close();
-
-                    if(File.Exists(arqEmProcessamento))
-                    {
-                        File.Delete(arquivosXMLDFe[i].NomeArquivoXML);
-                    }
-                }
-
                 //Atualiza o arquivo de controle de fluxo
                 oFluxoNfe.AtualizarTag(oDadosNfe.chavenfe, FluxoNfe.ElementoEditavel.idLote, numeroLote.ToString("000000000000000"));
 
@@ -1764,13 +1750,22 @@ namespace NFe.Service
         /// <param name="nomeArqInut">Nome arquivo XML de Inutilização</param>
         /// <param name="strRetInut">Conteúdo retornado pela SEFAZ com o protocolo da inutilização</param>
         /// <param name="conteudoXML">Conteúdo do XML de inutilização já assinado</param>
-        public void XmlDistInut(XmlDocument conteudoXML, string strRetInut, string nomeArqInut)
+        /// <param name="dataInut">Data que ocorreu a inutilização</param>
+        public void XmlDistInut(XmlDocument conteudoXML, string strRetInut, string nomeArqInut, DateTime dataInut)
         {
             var emp = EmpIndex;
             StreamWriter swProc = null;
 
             try
             {
+                NomeArqGerado  = Path.Combine(Empresas.Configuracoes[emp].PastaXmlEnviado, 
+                PastaEnviados.Autorizados.ToString() + "\\" +
+                    Empresas.Configuracoes[emp].DiretorioSalvarComo.ToString(dataInut) +
+                    Functions.ExtrairNomeArq(nomeArqInut, Propriedade.Extensao(Propriedade.TipoEnvio.PedInu).EnvioXML) +
+                    Propriedade.ExtRetorno.ProcInutNFe);
+
+              
+
                 var InutNFeList = conteudoXML.GetElementsByTagName("inutNFe");
                 var InutNFeNode = InutNFeList[0];
                 var strInutNFe = InutNFeNode.OuterXml;

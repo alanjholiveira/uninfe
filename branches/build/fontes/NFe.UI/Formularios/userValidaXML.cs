@@ -1,77 +1,233 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
+﻿using NFe.Certificado;
+using NFe.Components;
+using NFe.Settings;
+using NFe.Validate;
+using System;
 using System.IO;
 using System.Windows.Forms;
-
-using NFe.Settings;
-using NFe.Components;
-using NFe.Certificado;
 using System.Xml;
 
 namespace NFe.UI
 {
     public partial class userValidaXML : UserControl1
     {
+        #region Private Fields
+
+        private FileInfo arqDestino = null;
         private int Emp;
-        private FileInfo oArqDestino = null;
         private WebBrowser wb = null;
 
-        public userValidaXML()
+        #endregion Private Fields
+
+        #region Private Methods
+
+        private void btn_Validar_Click(object sender, EventArgs e)
         {
-            InitializeComponent();
+            LimparEPosicionarTC();
+
+            string arquivoXML = edtFilename.Text.Replace("\"", "");
+
+            try
+            {
+                if (arquivoXML == "" || !File.Exists(arquivoXML))
+                {
+                    textBox_resultado.Text = "Arquivo não encontrado.";
+                    return;
+                }
+
+                //Copiar o arquivo XML para temporários para assinar e depois vou validar o que está nos temporários
+                FileInfo fileInfo = new FileInfo(arquivoXML);
+                string arquivo = Path.GetTempPath() + fileInfo.Name;
+
+                arqDestino = new FileInfo(arquivo);
+
+                fileInfo.CopyTo(arquivo, true);
+
+                //Remover atributo de somente leitura que pode gerar problemas no acesso do arquivo
+                Service.TFunctions.RemoveSomenteLeitura(arquivo);
+
+                //Desviar para nova rotina, se ela não atender determinados arquivos, vamos validar da forma antiga, sem a DLL do UniNFe
+                //De futuro vamos apagar todo o conteúdo da rotina antiga.
+
+                #region Nova rotina de validação
+
+                var validarXMLNew = new ValidarXMLNew();
+
+                try
+                {
+                    if (validarXMLNew.Validar(arquivo, false))
+                    {
+                        edtTipoarquivo.Text = validarXMLNew.TipoArquivoXML;
+                        textBox_resultado.Text = "XML validado com sucesso!";
+
+                        return;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    edtTipoarquivo.Text = validarXMLNew.TipoArquivoXML;
+                    textBox_resultado.Text = ex.Message;
+
+                    return;
+                }
+
+                #endregion Nova rotina de validação
+
+                #region Rotina antiga de validação
+
+                NFe.Service.TaskValidar val = new Service.TaskValidar();
+                val.NomeArquivoXML = arqDestino.FullName;
+                val.Execute();
+                int codUF = Empresas.Configuracoes[Emp].UnidadeFederativaCodigo;
+                //Detectar o tipo do arquivo
+                PadroesNFSe padraoNFSe = Functions.PadraoNFSe(Empresas.Configuracoes[Emp].UnidadeFederativaCodigo);
+                if (padraoNFSe == PadroesNFSe.BETHA)
+                {
+                    string versao = Functions.GetAttributeXML("LoteRps", "versao", arquivo);
+                    if (versao.Equals("2.02"))
+                        codUF = 202;
+                }
+                Validate.ValidarXML validarXML = new Validate.ValidarXML(arquivo, codUF, false);
+
+                string resultValidacao = "";
+
+                XmlDocument conteudoXML = new XmlDocument();
+                try
+                {
+                    conteudoXML.Load(arquivo);
+                }
+                catch
+                {
+                    conteudoXML.LoadXml(File.ReadAllText(arquivo, System.Text.Encoding.UTF8));
+                }
+
+                textBox_resultado.Text = validarXML.TipoArqXml.cRetornoTipoArq;
+
+                if (validarXML.TipoArqXml.nRetornoTipoArq >= 1 && validarXML.TipoArqXml.nRetornoTipoArq <= SchemaXML.MaxID)
+                {
+                    edtTipoarquivo.Text = validarXML.TipoArqXml.cRetornoTipoArq;
+
+                    //Assinar o arquivo XML copiado para a pasta TEMP
+                    bool lValidar = false;
+                    AssinaturaDigital oAD = new AssinaturaDigital();
+                    try
+                    {
+                        validarXML.EncryptAssinatura(arquivo);
+                        oAD.Assinar(arquivo,
+                            Emp,
+                            Empresas.Configuracoes[Emp].UnidadeFederativaCodigo,
+                            (conteudoXML.DocumentElement.Name.Equals("Reinf") || conteudoXML.DocumentElement.Name.Equals("eSocial") ? AlgorithmType.Sha256 : AlgorithmType.Sha1));
+
+                        lValidar = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        lValidar = false;
+                        textBox_resultado.Text = "Ocorreu um erro ao tentar assinar o XML: \r\n\r\n" +
+                            validarXML.TipoArqXml.cRetornoTipoArq + "\r\n" + ex.Message;
+                    }
+
+                    if (lValidar == true)
+                    {
+                        //Validar o arquivo
+                        if (validarXML.TipoArqXml.nRetornoTipoArq >= 1 && validarXML.TipoArqXml.nRetornoTipoArq <= SchemaXML.MaxID)
+                        {
+                            ///danasa: 12/2013
+                            validarXML.ValidarArqXML(arquivo);
+                            if (string.IsNullOrEmpty(validarXML.TipoArqXml.cArquivoSchema))
+                            {
+                                textBox_resultado.Text = "XML não possui schema de validação, sendo assim não é possível validar XML";
+                            }
+                            else if (validarXML.Retorno == 0 && string.IsNullOrEmpty(resultValidacao))
+                            {
+                                textBox_resultado.Text = "Arquivo validado com sucesso!";
+                            }
+                            else if (!string.IsNullOrEmpty(resultValidacao))
+                            {
+                                textBox_resultado.Text = resultValidacao;
+                            }
+                            else
+                            {
+                                textBox_resultado.Text = "XML INCONSISTENTE!\r\n\r\n" + validarXML.RetornoString;
+                            }
+                        }
+                        else
+                        {
+                            //textBox_tipoarq.Text = validarXML.TipoArqXml.cRetornoTipoArq;
+                            textBox_resultado.Text = "XML INCONSISTENTE!\r\n\r\n" + validarXML.TipoArqXml.cRetornoTipoArq;
+                        }
+                    }
+                }
+
+                try
+                {
+                    if (wb == null)
+                    {
+                        wb = new WebBrowser();
+                        wb.Parent = metroTabPage2;
+                        wb.Dock = DockStyle.Fill;
+                        wb.DocumentCompleted += webBrowser1_DocumentCompleted;
+                    }
+                    wb.Visible = true;
+                    wb.Navigate(arquivo);
+                }
+                catch
+                {
+                    webBrowser1_DocumentCompleted(null, null);
+                }
+
+                #endregion Rotina antiga de validação
+            }
+            catch (Exception ex)
+            {
+                textBox_resultado.Text = ex.Message + "\r\n" + ex.StackTrace;
+
+                if (wb != null)
+                    wb.Visible = false;
+            }
         }
 
-        public override void UpdateControles()
+        private void cbEmpresas_SelectedIndexChanged(object sender, EventArgs e)
         {
-            base.UpdateControles();
-
-            this.cbEmpresas.SelectedIndexChanged -= cbEmpresas_SelectedIndexChanged;
-            this.cbEmpresas.DisplayMember = NFe.Components.NFeStrConstants.Nome;
-            this.cbEmpresas.ValueMember = "Key";
-            this.cbEmpresas.DataSource = Auxiliar.CarregaEmpresa(false);
-            this.cbEmpresas.SelectedIndexChanged += cbEmpresas_SelectedIndexChanged;
-
-            int posicao = uninfeDummy.xmlParams.ReadValue(this.GetType().Name, "last_empresa", 0);
-            if (posicao >= (this.cbEmpresas.DataSource as System.Collections.ArrayList).Count)
-                posicao = 0;
-
-            this.cbEmpresas.SelectedIndex = posicao;
-            cbEmpresas_SelectedIndexChanged(null, null);
-            this.btn_Validar.Enabled = false;
-
-            System.Windows.Forms.Timer t = new System.Windows.Forms.Timer();
-            t.Interval = 50;
-            t.Tick += (sender, e) =>
+            Emp = -1;
+            try
             {
-                ((System.Windows.Forms.Timer)sender).Stop();
-                ((System.Windows.Forms.Timer)sender).Dispose();
+                if (cbEmpresas.SelectedValue != null)
+                {
+                    var list = (cbEmpresas.DataSource as System.Collections.ArrayList)[cbEmpresas.SelectedIndex] as NFe.Components.ComboElem;
+                    Emp = Empresas.FindConfEmpresaIndex(list.Valor, NFe.Components.EnumHelper.StringToEnum<TipoAplicativo>(list.Servico));
 
-                edtFilename.Focus();
-            };
-            t.Start();
+                    uninfeDummy.xmlParams.WriteValue(GetType().Name, "last_empresa", cbEmpresas.SelectedIndex);
+                    uninfeDummy.xmlParams.Save();
+                }
+            }
+            catch (Exception ex)
+            {
+                MetroFramework.MetroMessageBox.Show(uninfeDummy.mainForm, ex.Message, "");
+            }
+            finally
+            {
+                edtFilename.Enabled =
+                    btn_Validar.Enabled = Emp >= 0;
+            }
         }
 
         private void edtFilename_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            if (e.Button == MouseButtons.Left)
             {
                 MetroFramework.Controls.MetroTextBox control = (MetroFramework.Controls.MetroTextBox)sender;
                 int x = control.ClientRectangle.Width - control.Icon.Size.Width;
                 if (e.Location.X >= x)
                 {
-                    string path = uninfeDummy.xmlParams.ReadValue(this.GetType().Name, "path", "");
+                    string path = uninfeDummy.xmlParams.ReadValue(GetType().Name, "path", "");
 
                     using (OpenFileDialog dlg = new OpenFileDialog())
                     {
                         dlg.RestoreDirectory = true;
                         dlg.Filter = "";
 
-                        if (Empresas.Configuracoes[this.Emp].Servico == TipoAplicativo.Nfse)
+                        if (Empresas.Configuracoes[Emp].Servico == TipoAplicativo.Nfse)
                         {
                             dlg.Filter += "Arquivos de NFSe|*" + Propriedade.Extensao(Propriedade.TipoEnvio.EnvLoteRps).EnvioXML +
                                 ";*" + Propriedade.Extensao(Propriedade.TipoEnvio.PedCanNFSe).EnvioXML +
@@ -86,30 +242,25 @@ namespace NFe.UI
                         }
                         else
                         {
-                            dlg.Filter = "Todos os arquivos|*" + Propriedade.Extensao(Propriedade.TipoEnvio.NFe).EnvioXML +
-                                        ";*" + Propriedade.Extensao(Propriedade.TipoEnvio.CTe).EnvioXML +
-                                        ";*" + Propriedade.Extensao(Propriedade.TipoEnvio.EnvCancelamento).EnvioXML +
-                                        ";*" + Propriedade.Extensao(Propriedade.TipoEnvio.EnvCCe).EnvioXML +
-                                        ";*" + Propriedade.Extensao(Propriedade.TipoEnvio.EnvManifestacao).EnvioXML +
-                                        ";*" + Propriedade.Extensao(Propriedade.TipoEnvio.EnvDFe).EnvioXML +
-                                        ";*" + Propriedade.Extensao(Propriedade.TipoEnvio.EnvDFeCTe).EnvioXML +
-                                        ";*" + Propriedade.Extensao(Propriedade.TipoEnvio.PedEve).EnvioXML +
-                                        ";*" + Propriedade.Extensao(Propriedade.TipoEnvio.PedInu).EnvioXML +
-                                        ";*" + Propriedade.Extensao(Propriedade.TipoEnvio.PedSit).EnvioXML;
+                            dlg.Filter = "Todos os arquivos|*.xml";
+
                             dlg.Filter += string.Format("|Arquivos da NFe/NFCe (*.*{0})|*{0}", Propriedade.Extensao(Propriedade.TipoEnvio.NFe).EnvioXML);
                             dlg.Filter += string.Format("|Arquivos de CTe (*.*{0})|*{0}", Propriedade.Extensao(Propriedade.TipoEnvio.CTe).EnvioXML);
                             dlg.Filter += string.Format("|Arquivos de DFe (*.*{0})|*{0}", Propriedade.Extensao(Propriedade.TipoEnvio.EnvDFe).EnvioXML);
                             dlg.Filter += string.Format("|Arquivos de DFe (*.*{0})|*{0}", Propriedade.Extensao(Propriedade.TipoEnvio.EnvDFeCTe).EnvioXML);
                             dlg.Filter += string.Format("|Arquivos de MDFe (*.*{0})|*{0}", Propriedade.Extensao(Propriedade.TipoEnvio.MDFe).EnvioXML);
+
                             dlg.Filter += string.Format("|Arquivos de eventos (*.*{0},*.*{1},*.*{2},*.*{3})|*{0};*{1};*{2};*{3}",
                                 Propriedade.Extensao(Propriedade.TipoEnvio.EnvCCe).EnvioXML,
                                 Propriedade.Extensao(Propriedade.TipoEnvio.PedEve).EnvioXML,
                                 Propriedade.Extensao(Propriedade.TipoEnvio.EnvCancelamento).EnvioXML,
                                 Propriedade.Extensao(Propriedade.TipoEnvio.EnvManifestacao).EnvioXML);
-                            dlg.Filter += string.Format("|Arquivos do eSocial (*.*{0},*.*{1},*.*{2})|*{0};*{1};*{2}", 
+
+                            dlg.Filter += string.Format("|Arquivos do eSocial (*.*{0},*.*{1},*.*{2})|*{0};*{1};*{2}",
                                 Propriedade.Extensao(Propriedade.TipoEnvio.eSocial_evt).EnvioXML,
                                 Propriedade.Extensao(Propriedade.TipoEnvio.eSocial_consloteevt).EnvioXML,
                                 Propriedade.Extensao(Propriedade.TipoEnvio.eSocial_loteevt).EnvioXML);
+
                             dlg.Filter += string.Format("|Arquivos do EFDReinf (*.*{0},*.*{1})|*{0};*{1}",
                                 Propriedade.Extensao(Propriedade.TipoEnvio.Reinf_evt).EnvioXML,
                                 Propriedade.Extensao(Propriedade.TipoEnvio.Reinf_loteevt).EnvioXML);
@@ -122,10 +273,10 @@ namespace NFe.UI
                         {
                             if (!string.IsNullOrEmpty(dlg.FileName))
                             {
-                                uninfeDummy.xmlParams.WriteValue(this.GetType().Name, "path", Path.GetDirectoryName(dlg.FileName));
+                                uninfeDummy.xmlParams.WriteValue(GetType().Name, "path", Path.GetDirectoryName(dlg.FileName));
                                 uninfeDummy.xmlParams.Save();
 
-                                this.edtFilename.Text = dlg.FileName;
+                                edtFilename.Text = dlg.FileName;
 
                                 btn_Validar_Click(null, null);
                             }
@@ -135,203 +286,71 @@ namespace NFe.UI
             }
         }
 
-        private void cbEmpresas_SelectedIndexChanged(object sender, EventArgs e)
+        private void LimparEPosicionarTC()
         {
-            this.Emp = -1;
-            try
-            {
-                if (this.cbEmpresas.SelectedValue != null)
-                {
-                    var list = (this.cbEmpresas.DataSource as System.Collections.ArrayList)[this.cbEmpresas.SelectedIndex] as NFe.Components.ComboElem;
-                    this.Emp = Empresas.FindConfEmpresaIndex(list.Valor, NFe.Components.EnumHelper.StringToEnum<TipoAplicativo>(list.Servico));
-
-                    uninfeDummy.xmlParams.WriteValue(this.GetType().Name, "last_empresa", this.cbEmpresas.SelectedIndex);
-                    uninfeDummy.xmlParams.Save();
-                }
-            }
-            catch (Exception ex)
-            {
-                MetroFramework.MetroMessageBox.Show(uninfeDummy.mainForm, ex.Message, "");
-            }
-            finally
-            {
-                this.edtFilename.Enabled =
-                    this.btn_Validar.Enabled = this.Emp >= 0;
-            }
+            metroTabControl.SelectedIndex = 0;
+            textBox_resultado.Clear();
+            edtTipoarquivo.Clear();
         }
 
         private void textBox_arqxml_TextChanged(object sender, EventArgs e)
         {
             LimparEPosicionarTC();
-            this.btn_Validar.Enabled = !string.IsNullOrEmpty(this.edtFilename.Text);
+            btn_Validar.Enabled = !string.IsNullOrEmpty(edtFilename.Text);
         }
 
-        private void LimparEPosicionarTC()
+        private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
-            this.metroTabControl.SelectedIndex = 0;
-            this.textBox_resultado.Clear();
-            this.edtTipoarquivo.Clear();
+            if (arqDestino != null)
+                if (arqDestino.Exists)
+                    arqDestino.Delete();
+
+            arqDestino = null;
         }
 
-        private void btn_Validar_Click(object sender, EventArgs e)
-        {
-            LimparEPosicionarTC();
+        #endregion Private Methods
 
-            try
+        #region Public Constructors
+
+        public userValidaXML()
+        {
+            InitializeComponent();
+        }
+
+        #endregion Public Constructors
+
+        #region Public Methods
+
+        public override void UpdateControles()
+        {
+            base.UpdateControles();
+
+            cbEmpresas.SelectedIndexChanged -= cbEmpresas_SelectedIndexChanged;
+            cbEmpresas.DisplayMember = NFeStrConstants.Nome;
+            cbEmpresas.ValueMember = "Key";
+            cbEmpresas.DataSource = Auxiliar.CarregaEmpresa(false);
+            cbEmpresas.SelectedIndexChanged += cbEmpresas_SelectedIndexChanged;
+
+            int posicao = uninfeDummy.xmlParams.ReadValue(GetType().Name, "last_empresa", 0);
+            if (posicao >= (cbEmpresas.DataSource as System.Collections.ArrayList).Count)
+                posicao = 0;
+
+            cbEmpresas.SelectedIndex = posicao;
+            cbEmpresas_SelectedIndexChanged(null, null);
+            btn_Validar.Enabled = false;
+
+            Timer t = new Timer();
+            t.Interval = 50;
+            t.Tick += (sender, e) =>
             {
-                if (this.edtFilename.Text == "" || !File.Exists(this.edtFilename.Text))
-                {
-                    this.textBox_resultado.Text = "Arquivo não encontrado.";
-                    return;
-                }
+                ((Timer)sender).Stop();
+                ((Timer)sender).Dispose();
 
-                //Copiar o arquivo XML para temporários para assinar e depois vou validar o que está nos temporários
-                FileInfo oArquivo = new FileInfo(this.edtFilename.Text);
-                string cArquivo = System.IO.Path.GetTempPath() + oArquivo.Name;
-
-                oArqDestino = new FileInfo(cArquivo);
-
-                oArquivo.CopyTo(cArquivo, true);
-
-                //Remover atributo de somente leitura que pode gerar problemas no acesso do arquivo
-                NFe.Service.TFunctions.RemoveSomenteLeitura(cArquivo);
-
-                NFe.Service.TaskValidar val = new Service.TaskValidar();
-                val.NomeArquivoXML = oArqDestino.FullName;
-                val.Execute();
-                int codUF = Empresas.Configuracoes[Emp].UnidadeFederativaCodigo;
-                //Detectar o tipo do arquivo                
-                PadroesNFSe padraoNFSe = Functions.PadraoNFSe(Empresas.Configuracoes[Emp].UnidadeFederativaCodigo);
-                if (padraoNFSe == PadroesNFSe.BETHA)
-                {
-                    string versao = Functions.GetAttributeXML("LoteRps", "versao", cArquivo);
-                    if (versao.Equals("2.02"))
-                        codUF = 202;
-                }
-                Validate.ValidarXML validarXML = new Validate.ValidarXML(cArquivo, codUF, false);
-
-                string resultValidacao = "";
-
-                XmlDocument conteudoXML = new XmlDocument();
-                try
-                {
-                    conteudoXML.Load(cArquivo);
-                }
-                catch
-                {
-                    conteudoXML.LoadXml(File.ReadAllText(cArquivo, System.Text.Encoding.UTF8));
-                }
-
-                if (conteudoXML.DocumentElement.Name.Equals("CTe") ||
-                    conteudoXML.DocumentElement.Name.Equals("MDFe"))
-                {
-                    XmlDocument infModal = new XmlDocument();
-                    XmlDocument modal = new XmlDocument();
-
-                    if (conteudoXML.GetElementsByTagName("infModal")[0] != null)
-                    {
-                        foreach (XmlElement item in conteudoXML.GetElementsByTagName("infModal"))
-                        {
-                            infModal.LoadXml(item.OuterXml);
-                            modal.LoadXml(item.InnerXml);
-                        }
-
-                        Validate.ValidarXML validarModal = new Validate.ValidarXML(infModal, Empresas.Configuracoes[Emp].UnidadeFederativaCodigo, false);
-                        resultValidacao += validarModal.ValidarArqXML(modal, cArquivo);
-                    }
-                }
-
-                this.textBox_resultado.Text = validarXML.TipoArqXml.cRetornoTipoArq;
-
-                if (validarXML.TipoArqXml.nRetornoTipoArq >= 1 && validarXML.TipoArqXml.nRetornoTipoArq <= SchemaXML.MaxID)
-                {
-                    this.edtTipoarquivo.Text = validarXML.TipoArqXml.cRetornoTipoArq;
-
-                    //Assinar o arquivo XML copiado para a pasta TEMP
-                    bool lValidar = false;
-                    AssinaturaDigital oAD = new AssinaturaDigital();
-                    try
-                    {
-                        validarXML.EncryptAssinatura(cArquivo);
-                        oAD.Assinar(cArquivo,
-                            Emp,
-                            Empresas.Configuracoes[Emp].UnidadeFederativaCodigo,
-                            (conteudoXML.DocumentElement.Name.Equals("Reinf") || conteudoXML.DocumentElement.Name.Equals("eSocial") ? AlgorithmType.Sha256 : AlgorithmType.Sha1));
-
-                        lValidar = true;
-                    }
-                    catch (Exception ex)
-                    {
-                        lValidar = false;
-                        this.textBox_resultado.Text = "Ocorreu um erro ao tentar assinar o XML: \r\n\r\n" +
-                            validarXML.TipoArqXml.cRetornoTipoArq + "\r\n" + ex.Message;
-                    }
-
-                    if (lValidar == true)
-                    {
-                        //Validar o arquivo
-                        if (validarXML.TipoArqXml.nRetornoTipoArq >= 1 && validarXML.TipoArqXml.nRetornoTipoArq <= SchemaXML.MaxID)
-                        {
-                            ///danasa: 12/2013
-                            validarXML.ValidarArqXML(cArquivo);
-                            if (string.IsNullOrEmpty(validarXML.TipoArqXml.cArquivoSchema))
-                            {
-                                this.textBox_resultado.Text = "XML não possui schema de validação, sendo assim não é possível validar XML";
-                            }
-                            else if (validarXML.Retorno == 0 && string.IsNullOrEmpty(resultValidacao))
-                            {
-                                this.textBox_resultado.Text = "Arquivo validado com sucesso!";
-                            }
-                            else if (!string.IsNullOrEmpty(resultValidacao))
-                            {
-                                this.textBox_resultado.Text = resultValidacao;
-                            }
-                            else
-                            {
-                                this.textBox_resultado.Text = "XML INCONSISTENTE!\r\n\r\n" + validarXML.RetornoString;
-                            }
-                        }
-                        else
-                        {
-                            //this.textBox_tipoarq.Text = validarXML.TipoArqXml.cRetornoTipoArq;
-                            this.textBox_resultado.Text = "XML INCONSISTENTE!\r\n\r\n" + validarXML.TipoArqXml.cRetornoTipoArq;
-                        }
-                    }
-                }
-
-                try
-                {
-                    if (wb == null)
-                    {
-                        wb = new WebBrowser();
-                        wb.Parent = this.metroTabPage2;
-                        wb.Dock = DockStyle.Fill;
-                        wb.DocumentCompleted += webBrowser1_DocumentCompleted;
-                    }
-                    wb.Visible = true;
-                    wb.Navigate(cArquivo);
-                }
-                catch
-                {
-                    webBrowser1_DocumentCompleted(null, null);
-                }
-            }
-            catch (Exception ex)
-            {
-                this.textBox_resultado.Text = ex.Message + "\r\n" + ex.StackTrace;
-
-                if (wb != null)
-                    wb.Visible = false;
-            }
+                edtFilename.Focus();
+            };
+            t.Start();
         }
 
-        void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
-        {
-            if (oArqDestino != null)
-                if (oArqDestino.Exists)
-                    oArqDestino.Delete();
-
-            oArqDestino = null;
-        }
+        #endregion Public Methods
     }
 }

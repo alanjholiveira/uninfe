@@ -121,7 +121,8 @@ namespace NFe.Service
                 }
                 else if(Convert.ToInt32(dadosRec.cStat) > 200 ||
                     Convert.ToInt32(dadosRec.cStat) == 108 || //Verifica se o servidor de processamento está paralisado momentaneamente. Wandrey 13/04/2012
-                    Convert.ToInt32(dadosRec.cStat) == 109) //Verifica se o servidor de processamento está paralisado sem previsão. Wandrey 13/04/2012
+                    Convert.ToInt32(dadosRec.cStat) == 109 || //Verifica se o servidor de processamento está paralisado sem previsão. Wandrey 13/04/2012
+                    Convert.ToInt32(dadosRec.cStat) == 114) //SVC desabilitado pela SEFAZ
                 {
                     //Se o status do retorno do lote for maior que 200 ou for igual a 108 ou 109,
                     //vamos ter que excluir a nota do fluxo, porque ela foi rejeitada pelo SEFAZ

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<DiscoveryClientResultsFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Results>
-    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://ilheus.metropolisweb.com.br:9091/webservicenfse/nfse/services?xsd=1" filename="services.xsd" />
-    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.ContractReference" url="http://ilheus.metropolisweb.com.br:9091/webservicenfse/nfse/services?wsdl=1" filename="services.wsdl" />
-    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.ContractReference" url="file:///C:/Projetos/UniNFe/trunk/fontes/NFe.Components.Wsdl/NFse/WSDL/Homologacao/HIlheusBA-METROPOLIS.wsdl" filename="Nfse.wsdl" />
-  </Results>
-</DiscoveryClientResultsFile>

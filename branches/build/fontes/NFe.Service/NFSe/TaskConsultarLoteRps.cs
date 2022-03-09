@@ -71,6 +71,14 @@ namespace NFe.Service.NFSe
                             case 4217600: //Siderópolis-SC
                             case 3127701: //Governador Valadares-MG
                             case 5107909: //Sinop-MT
+                            case 4209102: //Joinville-SC
+                            case 3306305: //Volta Redonda - RJ
+                            case 3530706: //Mogi Guaçu - SP
+                            case 5105606: //Matupá-MT
+                            case 2933307: //Vitória da Conquista-BA
+                            case 3201209: //Cachoeiro de Itapemirim
+                            case 3506003: //Bauru-SP
+                            case 2925303: //Porto Seguro-BA
                                 ExecuteDLL(emp, ler.oDadosPedSitNfseRps.cMunicipio, padraoNFSe);
                                 break;
 
@@ -416,6 +424,8 @@ namespace NFe.Service.NFSe
                                             ler.oDadosPedSitNfseRps.cMunicipio == 3550407 ||
                                             ler.oDadosPedSitNfseRps.cMunicipio == 4310207 ||
                                             ler.oDadosPedSitNfseRps.cMunicipio == 1502400 ||
+                                            ler.oDadosPedSitNfseRps.cMunicipio == 4301057 ||
+                                            ler.oDadosPedSitNfseRps.cMunicipio == 4115804 ||
                                             ler.oDadosPedSitNfseRps.cMunicipio == 3550803)
 
                                         {
@@ -484,20 +494,6 @@ namespace NFe.Service.NFSe
 
                                     case PadroesNFSe.MANAUS_AM:
                                         cabecMsg = "<cabecalho versao=\"201001\"><versaoDados>V2010</versaoDados></cabecalho>";
-                                        break;
-
-                                    case PadroesNFSe.JOINVILLE_SC:
-                                        wsProxy = new WebServiceProxy(Empresas.Configuracoes[emp].X509Certificado);
-
-                                        if(ler.oDadosPedSitNfseRps.tpAmb == 2)
-                                        {
-                                            pedLoteRps = new Components.HJoinvilleSC.Servicos();
-                                        }
-                                        else
-                                        {
-                                            pedLoteRps = new Components.PJoinvilleSC.Servicos();
-                                        }
-
                                         break;
 
                                     case PadroesNFSe.EMBRAS:
@@ -715,10 +711,6 @@ namespace NFe.Service.NFSe
 
             switch(padraoNFSe)
             {
-                case PadroesNFSe.PRODATA:
-                    versaoXML = "2.01";
-                    break;
-
                 case PadroesNFSe.BETHA:
                     versaoXML = "2.02";
 
@@ -728,16 +720,30 @@ namespace NFe.Service.NFSe
                     }
                     break;
 
-                case PadroesNFSe.SIGCORP_SIGISS:
-                    versaoXML = "0.00";
+                case PadroesNFSe.NOBESISTEMAS:
+                    versaoXML = "1.00";
                     break;
 
+                case PadroesNFSe.PRODATA:
+                    versaoXML = "2.01";
+                    break;
 
                 case PadroesNFSe.NOTAINTELIGENTE:
                 case PadroesNFSe.AVMB_ASTEN:
                 case PadroesNFSe.WEBISS:
                 case PadroesNFSe.COPLAN:
                     versaoXML = "2.02";
+                    break;
+
+                case PadroesNFSe.SIGCORP_SIGISS:
+                case PadroesNFSe.SIMPLISS:
+                case PadroesNFSe.SMARAPD:
+                    versaoXML = "2.03";
+                    break;
+
+                case PadroesNFSe.PROPRIOJOINVILLESC:
+                case PadroesNFSe.EL:
+                    versaoXML = "2.04";
                     break;
             }
 

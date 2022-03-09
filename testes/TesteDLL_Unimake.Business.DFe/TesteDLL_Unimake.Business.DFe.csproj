@@ -16,7 +16,7 @@
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 		<OutputPath>bin\Debug</OutputPath>
-		<DefineConstants>TRACE;DEBUG</DefineConstants>
+		<DefineConstants>$(DefineConstants)TRACE;INTEROP;</DefineConstants>
 		<GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
 	</PropertyGroup>
 
@@ -46,6 +46,11 @@
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='INTEROP_Release|net472|AnyCPU'">
 	  <WarningsAsErrors>NU1605;CS1591</WarningsAsErrors>
 	  <NoWarn>1701;1702;CS1591</NoWarn>
+	  <DefineConstants>TRACE;INTEROP;</DefineConstants>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net472|AnyCPU'">
+	  <DefineConstants>$(DefineConstants)TRACE;</DefineConstants>
 	</PropertyGroup>
 
 	<ItemGroup>
