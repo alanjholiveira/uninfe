@@ -171,6 +171,7 @@ namespace NFe.Components
                                     cMunicipio == 3550407 ||
                                     cMunicipio == 4310207 ||
                                     cMunicipio == 1502400 ||
+                                    cMunicipio == 4301057 ||
                                     cMunicipio == 3550803)
                                     return "BasicHttpBinding_INFSEGeracao";
                                 else
@@ -205,6 +206,7 @@ namespace NFe.Components
                                     cMunicipio == 3550407 ||
                                     cMunicipio == 4310207 ||
                                     cMunicipio == 1502400 ||
+                                    cMunicipio == 4301057 ||
                                     cMunicipio == 3550803)
                                     return "BasicHttpBinding_INFSEGeracao";
                                 else
@@ -231,6 +233,7 @@ namespace NFe.Components
                                     cMunicipio == 3550407 ||
                                     cMunicipio == 4310207 ||
                                     cMunicipio == 1502400 ||
+                                    cMunicipio == 4301057 ||
                                     cMunicipio == 3550803)
 
                                     return "BasicHttpBinding_INFSEConsultas";
@@ -609,7 +612,7 @@ namespace NFe.Components
 
             StringWriter writer = new StringWriter(CultureInfo.CurrentCulture);
             CSharpCodeProvider provider = new CSharpCodeProvider();
-            provider.GenerateCodeFromNamespace(GerarGrafo(), writer, null);
+             provider.GenerateCodeFromNamespace(GerarGrafo(), writer, null);
 
             #endregion Gerar o código da classe
 

@@ -57,6 +57,19 @@ namespace MetroFramework
         public static DialogResult Show(IWin32Window owner, String message, String title, MessageBoxButtons buttons, MessageBoxIcon icon)
         { return Show(owner, message, title, buttons, icon, MessageBoxDefaultButton.Button1); }
 
+        /// <summary>
+        /// Shows a metro-styles message notification into the specified owner window.
+        /// </summary>
+        /// <param name="owner"></param>
+        /// <param name="message"></param>
+        /// <param name="title"></param>
+        /// <param name="buttons"></param>
+        /// <param name="icon"></param>
+        /// <param name="sizeFont">Tamanho da fonte do corpo da mensagem</param>
+        /// <returns></returns>
+        public static DialogResult Show(IWin32Window owner, String message, String title, MessageBoxButtons buttons, MessageBoxIcon icon, int sizeFont)
+        { return Show(owner, message, title, buttons, icon, MessageBoxDefaultButton.Button1, sizeFont); }
+
         /*
         private static MetroForm DummyForm()
         {
@@ -86,7 +99,7 @@ namespace MetroFramework
         /// <param name="defaultbutton"></param>
         /// <returns></returns>
         public static DialogResult Show(IWin32Window owner, String message, String title, MessageBoxButtons buttons, 
-            MessageBoxIcon icon, MessageBoxDefaultButton defaultbutton)
+            MessageBoxIcon icon, MessageBoxDefaultButton defaultbutton, float sizeFont = 0)
         {
             DialogResult _result = DialogResult.None;
 
@@ -146,6 +159,10 @@ namespace MetroFramework
                 _control.Padding = new Padding(0, 0, 0, 0);
                 _control.ControlBox = false;
                 _control.ShowInTaskbar = false;
+                if (sizeFont != 0)
+                {
+                    _control.Font = new System.Drawing.Font("Segoe UI Light", sizeFont, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                }
                 
 
                 //if (freeowner)

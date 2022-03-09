@@ -14,16 +14,7 @@ namespace NFe.Service
     {
         public TaskMDFeRecepcao(string arquivo)
         {
-            var emp = Empresas.FindEmpresaByThread();
-
-            if(Empresas.Configuracoes[emp].IndSincMDFe)
-            {
-                Servico = Servicos.MDFeEnviarLoteSinc;
-            }
-            else
-            {
-                Servico = Servicos.MDFeEnviarLote;
-            }
+            Servico = Servicos.MDFeEnviarLote;
 
             NomeArquivoXML = arquivo;
             ConteudoXML.PreserveWhitespace = false;
@@ -33,15 +24,7 @@ namespace NFe.Service
         public TaskMDFeRecepcao(XmlDocument conteudoXML)
         {
             var emp = Empresas.FindEmpresaByThread();
-
-            if(Empresas.Configuracoes[emp].IndSincMDFe)
-            {
-                Servico = Servicos.MDFeEnviarLoteSinc;
-            }
-            else
-            {
-                Servico = Servicos.MDFeEnviarLote;
-            }
+            Servico = Servicos.MDFeEnviarLote;
 
             ConteudoXML = conteudoXML;
             ConteudoXML.PreserveWhitespace = false;
@@ -99,15 +82,7 @@ namespace NFe.Service
 
                 vStrXmlRetorno = autorizacao.RetornoWSString;
 
-                if(Servico == Servicos.MDFeEnviarLoteSinc)
-                {
-                    Protocolo(vStrXmlRetorno);
-                }
-                else
-                {
-                    Recibo(vStrXmlRetorno, emp);
-                }
-
+                Recibo(vStrXmlRetorno, emp);
 
                 if(dadosRec.cStat == "104") //Lote processado - Envio Síncrono
                 {

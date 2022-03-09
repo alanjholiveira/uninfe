@@ -516,6 +516,24 @@ namespace NFe.Components
 
         #endregion IsConnectedToInternet()
 
+        /// <summary>
+        /// Verifica a conexão com a internet e retorna verdadeiro se conectado com sucesso
+        /// </summary>
+        /// <returns></returns>
+        public static bool HasInternetConnection()
+        {
+            try
+            {
+                var client = WebRequest.Create("http://clients3.google.com/generate_204") as HttpWebRequest;
+                var response = client.GetResponse() as HttpWebResponse;
+                return response.StatusCode == HttpStatusCode.NoContent;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         #region XmlToString()
 
         /// <summary>

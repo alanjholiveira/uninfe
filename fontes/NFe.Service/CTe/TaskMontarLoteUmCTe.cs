@@ -23,7 +23,7 @@ namespace NFe.Service
             try
             {
                 var emp = Empresas.FindEmpresaByThread();
-                AssinarValidarXMLNFe(ConteudoXML);
+                ValidarXMLDFe(ConteudoXML);
 
                 //Montar lote de nfe
                 var oFluxoNfe = new FluxoNfe();

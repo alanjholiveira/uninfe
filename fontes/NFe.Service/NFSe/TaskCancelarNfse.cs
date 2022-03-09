@@ -103,6 +103,15 @@ namespace NFe.Service.NFSe
                             case 4217600: //Siderópolis-SC
                             case 3127701: //Governador Valadares-MG
                             case 5107909: //Sinop-MT
+                            case 4209102: //Joinville-SC
+                            case 3306305: //Volta Redonda-RJ
+                            case 3530706: //Mogi Guaçu - SP
+                            case 5105606: //Matupá-MT
+                            case 3132404: //Itajubá-MG
+                            case 2933307: //Vitória da Conquista-BA
+                            case 3201209: //Cachoeiro de Itapemirim
+                            case 3506003: //Bauru-SP
+                            case 2925303: //Porto Seguro-BA
                                 ExecuteDLL(emp, oDadosPedCanNfse.cMunicipio, padraoNFSe);
                                 break;
 
@@ -525,6 +534,9 @@ namespace NFe.Service.NFSe
                                             oDadosPedCanNfse.cMunicipio == 3550407 ||
                                             oDadosPedCanNfse.cMunicipio == 4310207 ||
                                             oDadosPedCanNfse.cMunicipio == 1502400 ||
+                                            oDadosPedCanNfse.cMunicipio == 4322509 ||
+                                            oDadosPedCanNfse.cMunicipio == 4301057 ||
+                                            oDadosPedCanNfse.cMunicipio == 4115804 ||
                                             oDadosPedCanNfse.cMunicipio == 3550803)
                                         {
                                             var pronin = new Pronin((TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
@@ -738,20 +750,6 @@ namespace NFe.Service.NFSe
                                         cabecMsg = "<?xml version=\"1.0\" encoding=\"utf-8\"?><p:cabecalho versao=\"1\" xmlns:ds=\"http://www.w3.org/2000/09/xmldsig#\" xmlns:p=\"http://ws.speedgov.com.br/cabecalho_v1.xsd\" xmlns:p1=\"http://ws.speedgov.com.br/tipos_v1.xsd\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://ws.speedgov.com.br/cabecalho_v1.xsd cabecalho_v1.xsd \"><versaoDados>1</versaoDados></p:cabecalho>";
                                         break;
 
-                                    case PadroesNFSe.JOINVILLE_SC:
-                                        wsProxy = new WebServiceProxy(Empresas.Configuracoes[emp].X509Certificado);
-
-                                        if(oDadosPedCanNfse.tpAmb == 2)
-                                        {
-                                            pedCanNfse = new Components.HJoinvilleSC.Servicos();
-                                        }
-                                        else
-                                        {
-                                            pedCanNfse = new Components.PJoinvilleSC.Servicos();
-                                        }
-
-                                        break;
-
                                     case PadroesNFSe.EMBRAS:
                                         cabecMsg = "<cabecalho versao=\"2.02\" xmlns=\"http://www.abrasf.org.br/nfse.xsd\"><versaoDados>2.02</versaoDados></cabecalho>";
                                         break;
@@ -957,10 +955,6 @@ namespace NFe.Service.NFSe
 
             switch(padraoNFSe)
             {
-                case PadroesNFSe.PRODATA:
-                    versaoXML = "2.01";
-                    break;
-
                 case PadroesNFSe.BETHA:
                     versaoXML = "2.02";
 
@@ -970,8 +964,13 @@ namespace NFe.Service.NFSe
                     }
                     break;
 
-                case PadroesNFSe.SIGCORP_SIGISS:
-                    versaoXML = "0.00";
+                case PadroesNFSe.NOBESISTEMAS:
+                    versaoXML = "1.00";
+                    break;
+
+                case PadroesNFSe.PRODATA:
+                case PadroesNFSe.SONNER:
+                    versaoXML = "2.01";
                     break;
 
                 case PadroesNFSe.NOTAINTELIGENTE:
@@ -979,6 +978,16 @@ namespace NFe.Service.NFSe
                 case PadroesNFSe.WEBISS:
                 case PadroesNFSe.COPLAN:
                     versaoXML = "2.02";
+                    break;
+
+                case PadroesNFSe.SIGCORP_SIGISS:
+                case PadroesNFSe.SMARAPD:
+                    versaoXML = "2.03";
+                    break;
+
+                case PadroesNFSe.PROPRIOJOINVILLESC:
+                case PadroesNFSe.EL:
+                    versaoXML = "2.04";
                     break;
             }
 

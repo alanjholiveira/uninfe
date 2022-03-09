@@ -49,10 +49,6 @@ namespace NFe.Components.SimplISS
                                 simplissService = new EmbuDasArtesSP.p.SimplISSP(tpAmb, PastaRetorno, Usuario, SenhaWs, ProxyUser, ProxyPass, ProxyServer);
                                 break;
 
-                            case 3306305: //Volta Redonda-RJ
-                                simplissService = new VoltaRedondaRJ.p.SimplISSP(tpAmb, PastaRetorno, Usuario, SenhaWs, ProxyUser, ProxyPass, ProxyServer);
-                                break;
-
                             case 3130309: //Iguatama-MG
                                 simplissService = new IguatamaMG.p.SimplISSP(tpAmb, PastaRetorno, Usuario, SenhaWs, ProxyUser, ProxyPass, ProxyServer);
                                 break;

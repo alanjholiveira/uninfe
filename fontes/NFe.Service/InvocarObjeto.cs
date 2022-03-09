@@ -74,7 +74,6 @@ namespace NFe.Service
                 case Servicos.NFeEnviarLote:
                 case Servicos.CTeEnviarLote:
                 case Servicos.MDFeEnviarLote:
-                case Servicos.MDFeEnviarLoteSinc:
                     //XML de NFe, CTe e MDFe, na montagem do lote eu valido o XML antes, como o lote quem monta é o XML entendo que não está montando errado, sendo assim, não vou validar novamente o XML para ganhar desempenho. Wandrey 18/09/2016
                     break;
 
@@ -109,7 +108,6 @@ namespace NFe.Service
                     case Servicos.MDFePedidoConsultaSituacao:
                     case Servicos.MDFePedidoSituacaoLote:
                     case Servicos.MDFeEnviarLote:
-                    case Servicos.MDFeEnviarLoteSinc:
                     case Servicos.MDFeConsultaStatusServico:
                     case Servicos.MDFeRecepcaoEvento:
                     case Servicos.MDFeConsultaNaoEncerrado:
@@ -275,10 +273,6 @@ namespace NFe.Service
                 case Servicos.ConsultarIdentificadoresEventoseSocial:
                 case Servicos.DownloadEventoseSocial:
                     XmlRetorno = wsProxy.InvokeElement(servicoWS, metodo, new object[] { docXML.DocumentElement });
-                    break;
-
-                case Servicos.MDFeEnviarLoteSinc:
-                    XmlRetorno = wsProxy.InvokeXML(servicoWS, metodo, new object[] { TFunctions.CompressXML(docXML) });
                     break;
 
                 default:
@@ -688,121 +682,6 @@ namespace NFe.Service
                     XmlNode result = wsProxy.InvokeXML(servicoWS, metodo, new object[] { docXML });
                     strRetorno = result.OuterXml;
                     break;
-
-                #region Padrão Joinville_SC
-
-                case PadroesNFSe.JOINVILLE_SC:
-                    if (Empresas.Configuracoes[emp].AmbienteCodigo == (int)TipoAmbiente.taHomologacao)
-                    {
-                        switch (metodo)
-                        {
-                            case "RecepcionarLoteRps":
-                                XmlNode joXmlAssinatura = docXML.GetElementsByTagName("Signature")[docXML.GetElementsByTagName("Signature").Count - 1];
-                                strRetorno = SerializarObjeto((Components.HJoinvilleSC.EnviarLoteRpsResposta)wsProxy.Invoke(servicoWS, metodo, new object[] { docXML, joXmlAssinatura }));
-                                break;
-
-                            case "CancelarNfse":
-                                strRetorno = SerializarObjeto((Components.HJoinvilleSC.CancelarNfseResposta)wsProxy.Invoke(servicoWS, metodo, new object[] { docXML }));
-                                break;
-
-                            case "ConsultarLoteRps":
-                                strRetorno = SerializarObjeto((Components.HJoinvilleSC.ConsultarLoteRpsResposta)wsProxy.Invoke(
-                                    servicoWS,
-                                    metodo,
-                                    new object[] {
-                                        new Components.HJoinvilleSC.Prestador
-                                        {
-                                            CpfCnpj = new Components.HJoinvilleSC.CpfCnpj
-                                            {
-                                                Cnpj = (docXML.GetElementsByTagName("Cnpj")[0] != null ? docXML.GetElementsByTagName("Cnpj")[0].InnerText : ""),
-                                                Cpf = (docXML.GetElementsByTagName("Cpf")[0] != null ? docXML.GetElementsByTagName("Cpf")[0].InnerText : "")
-                                            },
-                                            InscricaoMunicipal = (docXML.GetElementsByTagName("InscricaoMunicipal")[0] != null ? docXML.GetElementsByTagName("InscricaoMunicipal")[0].InnerText : "")
-                                        },
-                                        docXML.GetElementsByTagName("Protocolo")[0].InnerText }));
-                                break;
-
-                            case "ConsultarNfseRps":
-                                strRetorno = SerializarObjeto((Components.HJoinvilleSC.ConsultarNfseRpsResposta)wsProxy.Invoke(
-                                    servicoWS,
-                                    metodo,
-                                    new object[] {
-                                        new Components.HJoinvilleSC.IdentificacaoRps
-                                        {
-                                            Numero = Convert.ToInt32((docXML.GetElementsByTagName("Numero")[0] != null ? docXML.GetElementsByTagName("Numero")[0].InnerText : "0")),
-                                            Serie = (docXML.GetElementsByTagName("Serie")[0] != null ? docXML.GetElementsByTagName("Serie")[0].InnerText : ""),
-                                            Tipo = Convert.ToInt32((docXML.GetElementsByTagName("Tipo")[0] != null ? docXML.GetElementsByTagName("Tipo")[0].InnerText : "0"))
-                                        },
-                                        new Components.HJoinvilleSC.Prestador
-                                        {
-                                            CpfCnpj = new Components.HJoinvilleSC.CpfCnpj
-                                            {
-                                                Cnpj = (docXML.GetElementsByTagName("Cnpj")[0] != null ? docXML.GetElementsByTagName("Cnpj")[0].InnerText : ""),
-                                                Cpf = (docXML.GetElementsByTagName("Cpf")[0] != null ? docXML.GetElementsByTagName("Cpf")[0].InnerText : "")
-                                            },
-                                            InscricaoMunicipal = (docXML.GetElementsByTagName("InscricaoMunicipal")[0] != null ? docXML.GetElementsByTagName("InscricaoMunicipal")[0].InnerText : "")
-                                        }
-                                    }));
-                                break;
-                        }
-                    }
-                    else
-                        switch (metodo)
-                        {
-                            case "RecepcionarLoteRps":
-                                XmlNode joXmlAssinatura = docXML.GetElementsByTagName("Signature")[docXML.GetElementsByTagName("Signature").Count - 1];
-
-                                strRetorno = SerializarObjeto((Components.PJoinvilleSC.EnviarLoteRpsResposta)wsProxy.Invoke(servicoWS, metodo, new object[] { docXML, joXmlAssinatura }));
-                                break;
-
-                            case "CancelarNfse":
-                                strRetorno = SerializarObjeto((Components.PJoinvilleSC.CancelarNfseResposta)wsProxy.Invoke(servicoWS, metodo, new object[] { docXML }));
-                                break;
-
-                            case "ConsultarLoteRps":
-                                strRetorno = SerializarObjeto((Components.PJoinvilleSC.ConsultarLoteRpsResposta)wsProxy.Invoke(
-                                    servicoWS,
-                                    metodo,
-                                    new object[] {
-                                        new Components.PJoinvilleSC.Prestador
-                                        {
-                                            CpfCnpj = new Components.PJoinvilleSC.CpfCnpj
-                                            {
-                                                Cnpj = (docXML.GetElementsByTagName("Cnpj")[0] != null ? docXML.GetElementsByTagName("Cnpj")[0].InnerText : ""),
-                                                Cpf = (docXML.GetElementsByTagName("Cpf")[0] != null ? docXML.GetElementsByTagName("Cpf")[0].InnerText : "")
-                                            },
-                                            InscricaoMunicipal = (docXML.GetElementsByTagName("InscricaoMunicipal")[0] != null ? docXML.GetElementsByTagName("InscricaoMunicipal")[0].InnerText : "")
-                                        },
-                                        docXML.GetElementsByTagName("Protocolo")[0].InnerText }));
-                                break;
-
-                            case "ConsultarNfseRps":
-                                strRetorno = SerializarObjeto((Components.PJoinvilleSC.ConsultarNfseRpsResposta)wsProxy.Invoke(
-                                    servicoWS,
-                                    metodo,
-                                    new object[] {
-                                        new Components.PJoinvilleSC.IdentificacaoRps
-                                        {
-                                            Numero = Convert.ToInt32((docXML.GetElementsByTagName("Numero")[0] != null ? docXML.GetElementsByTagName("Numero")[0].InnerText : "0")),
-                                            Serie = (docXML.GetElementsByTagName("Serie")[0] != null ? docXML.GetElementsByTagName("Serie")[0].InnerText : ""),
-                                            Tipo = Convert.ToInt32((docXML.GetElementsByTagName("Tipo")[0] != null ? docXML.GetElementsByTagName("Tipo")[0].InnerText : "0"))
-                                        },
-                                        new Components.PJoinvilleSC.Prestador
-                                        {
-                                            CpfCnpj = new Components.PJoinvilleSC.CpfCnpj
-                                            {
-                                                Cnpj = (docXML.GetElementsByTagName("Cnpj")[0] != null ? docXML.GetElementsByTagName("Cnpj")[0].InnerText : ""),
-                                                Cpf = (docXML.GetElementsByTagName("Cpf")[0] != null ? docXML.GetElementsByTagName("Cpf")[0].InnerText : "")
-                                            },
-                                            InscricaoMunicipal = (docXML.GetElementsByTagName("InscricaoMunicipal")[0] != null ? docXML.GetElementsByTagName("InscricaoMunicipal")[0].InnerText : "")
-                                        }
-                                    }));
-                                break;
-                        }
-
-                    break;
-
-                #endregion Padrão Joinville_SC
 
                 case PadroesNFSe.PUBLIC_SOFT:
                     strRetorno = wsProxy.InvokeStr(servicoWS, metodo, new object[] { docXML.OuterXml, cabecMsg.ToString() });

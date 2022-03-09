@@ -388,7 +388,7 @@ namespace NFe.Components
         /// <summary>
         /// Envia os lotes de MDFe para os webservices Sincrono
         /// </summary>
-        MDFeEnviarLoteSinc,
+        MDFeEnviarSinc,
 
         /// <summary>
         /// Montar lote de um MDFe
@@ -808,10 +808,9 @@ namespace NFe.Components
         SIGCORP_SIGISS_203,
 
         /// <summary>
-        /// Padrão SmaraPD
-        /// Prefeitura de Sertãozinho - SP
+        /// Padrão SMARAPD
         /// </summary>
-        [Description("SmaraPD")]
+        [Description("SMARAPD")]
         SMARAPD,
 
         /// <summary>
@@ -903,6 +902,12 @@ namespace NFe.Components
         /// </summary>
         [Description("Gov-Digital")]
         GOVDIGITAL,
+
+        /// <summary>
+        /// Padrao Sonner (antigo GOV-Digital)
+        /// </summary>
+        [Description("SONNER")]
+        SONNER,
 
         /// <summary>
         /// Padrão Equiplano
@@ -1078,12 +1083,6 @@ namespace NFe.Components
         MARINGA_PR,
 
         /// <summary>
-        /// Padrão utilizado pela prefeitura de Bauru-SP
-        /// </summary>
-        [Description("BAURU_SP")]
-        BAURU_SP,
-
-        /// <summary>
         /// Padrão utilizado pela prefeitura de Jaboatão dos Guararapes-PE
         /// </summary>
         [Description("TINUS")]
@@ -1114,9 +1113,10 @@ namespace NFe.Components
         MANAUS_AM,
 
         /// <summary>
-        /// Padrão utilizado pela prefeitura de Joinville-SC
+        /// Próprio Joinville SC 
         /// </summary>
-        JOINVILLE_SC,
+        [Description("Próprio Joinville SC")]
+        PROPRIOJOINVILLESC,
 
         /// <summary>
         /// Padrão utilizado pela prefeitura de Pelotas-RS
@@ -1227,7 +1227,13 @@ namespace NFe.Components
         /// Padrão GeisWeb
         /// </summary>
         [Description("GEISWEB")]
-        GEISWEB
+        GEISWEB,
+
+        /// <summary>
+        /// NobeSistemas - Software de gestão integrada
+        /// </summary>
+        [Description("NOBESISTEMAS")]
+        NOBESISTEMAS
 
         ///***ATENÇÃO***
         ///o nome deste enum tem que coincidir com o nome da url, pq faço um "IndexOf" deste enum para pegar o padrao
@@ -1332,7 +1338,8 @@ namespace NFe.Components
         FalhaEnvioXmlWS = 2,
         CertificadoVencido = 3,
         FalhaEnvioXmlNFeWS = 5,
-        CertificadoNaoEncontrado = 6
+        CertificadoNaoEncontrado = 6,
+        ValidarXML = 7
     }
 
     #endregion Erros Padrões

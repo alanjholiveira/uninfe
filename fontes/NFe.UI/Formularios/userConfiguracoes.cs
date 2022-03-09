@@ -659,16 +659,31 @@ namespace NFe.UI
                     ///
                     bool grava = DadosMudaramDaEmpresa(true);
 
+                
+
                     if (!EmpresaValidada)
                         return;
 
                     if (grava)
                     {
-                        currentEmpresa.RemoveEndSlash();
+                        var oe = Empresas.FindConfEmpresa(currentEmpresa.CNPJ, servicoCurrent);
+
+                        if (currentEmpresa.DiasLimpeza > 0 && (oe == null || currentEmpresa.DiasLimpeza != oe.DiasLimpeza))
+                        {
+                            string mensagem = "Ao informar \"Quantos dias devem ser mantidos os arquivos na pasta temporário e retorno?\" você está permitindo o UniNFe apagar os arquivos destas pastas. " +
+                                "Verifique se informou corretamente as pastas abaixo para evitar perda de dados importantes:\r\n";
+                            mensagem += "Pasta XML com Erro: " + currentEmpresa.PastaXmlErro + "\r\n";
+                            mensagem += "Pasta de retorno: " + currentEmpresa.PastaXmlRetorno + "\r\n";
+                            mensagem += "Tem certeza que deseja salvar esta configuração?";
+
+                            if (MetroFramework.MetroMessageBox.Show(uninfeDummy.mainForm, mensagem, "Atenção!", MessageBoxButtons.YesNo, MessageBoxIcon.Question, 10) != DialogResult.Yes)
+                            {
+                                return;
+                            }
+                        }
 
                         if (servicoCurrent != currentEmpresa.Servico)
                         {
-                            var oe = Empresas.FindConfEmpresa(currentEmpresa.CNPJ, servicoCurrent);
                             if (oe != null)
                                 Empresas.Configuracoes.Remove(oe);
                         }
