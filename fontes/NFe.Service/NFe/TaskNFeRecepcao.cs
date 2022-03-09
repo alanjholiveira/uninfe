@@ -11,7 +11,7 @@ using Unimake.Security.Exceptions;
 
 namespace NFe.Service
 {
-    public class TaskNFeRecepcao: TaskAbst
+    public class TaskNFeRecepcao : TaskAbst
     {
         public TaskNFeRecepcao(string arquivo)
         {
@@ -68,7 +68,7 @@ namespace NFe.Service
                     CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado
                 };
 
-                if(ConfiguracaoApp.Proxy)
+                if (ConfiguracaoApp.Proxy)
                 {
                     configuracao.HasProxy = true;
                     configuracao.ProxyAutoDetect = ConfiguracaoApp.DetectarConfiguracaoProxyAuto;
@@ -78,9 +78,9 @@ namespace NFe.Service
 
                 EnviNFe EnviNFe = null;
 
-                if(ler.oDadosNfe.mod == "65")
+                if (ler.oDadosNfe.mod == "65")
                 {
-                    if(string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].IdentificadorCSC.Trim()) || string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].TokenCSC))
+                    if (string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].IdentificadorCSC.Trim()) || string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].TokenCSC))
                     {
                         throw new Exception("Para autorizar NFC-e é obrigatório informar nas configurações do UniNFe os campos CSC e IDToken do CSC.");
                     }
@@ -111,7 +111,7 @@ namespace NFe.Service
 
                 SalvarArquivoEmProcessamento(emp);
 
-                if(ler.oDadosNfe.indSinc)
+                if (ler.oDadosNfe.indSinc)
                 {
                     Protocolo(vStrXmlRetorno);
                 }
@@ -124,15 +124,15 @@ namespace NFe.Service
 
                 #region Parte que trata o retorno do lote, ou seja, o número do recibo ou protocolo
 
-                if(dadosRec.cStat == "104") //Lote processado - Processo da NFe Síncrono - Wandrey 13/03/2014
+                if (dadosRec.cStat == "104")
                 {
                     FinalizarNFeSincrono(vStrXmlRetorno, emp, ler.oDadosNfe.chavenfe);
 
                     oGerarXML.XmlRetorno(Propriedade.Extensao(Propriedade.TipoEnvio.EnvLot).EnvioXML, Propriedade.Extensao(Propriedade.TipoEnvio.PedRec).RetornoXML, vStrXmlRetorno);
                 }
-                else if(dadosRec.cStat == "103") //Lote recebido com sucesso - Processo da NFe Assíncrono
+                else if (dadosRec.cStat == "103") //Lote recebido com sucesso - Processo da NFe Assíncrono
                 {
-                    if(dadosRec.tMed > 0)
+                    if (dadosRec.tMed > 0)
                     {
                         Thread.Sleep(dadosRec.tMed * 1000);
                     }
@@ -150,15 +150,15 @@ namespace NFe.Service
 
                         nfeRetRecepcao.Execute();
                     }
-                    catch(ExceptionEnvioXML)
+                    catch (ExceptionEnvioXML)
                     {
                         throw;
                     }
-                    catch(ExceptionSemInternet)
+                    catch (ExceptionSemInternet)
                     {
                         throw;
                     }
-                    catch(Exception)
+                    catch (Exception)
                     {
                         throw;
                     }
@@ -169,11 +169,12 @@ namespace NFe.Service
                         oFluxoNfe.AtualizarTagRec(idLote, dadosRec.nRec);
                     }
                 }
-                else if(Convert.ToInt32(dadosRec.cStat) > 200 ||
+                else if (Convert.ToInt32(dadosRec.cStat) > 200 ||
                     Convert.ToInt32(dadosRec.cStat) == 108 || //Verifica se o servidor de processamento está paralisado momentaneamente. Wandrey 13/04/2012
-                    Convert.ToInt32(dadosRec.cStat) == 109) //Verifica se o servidor de processamento está paralisado sem previsão. Wandrey 13/04/2012
+                    Convert.ToInt32(dadosRec.cStat) == 109 || //Verifica se o servidor de processamento está paralisado sem previsão. Wandrey 13/04/2012
+                    Convert.ToInt32(dadosRec.cStat) == 114)   //SVC Desativado para o estado em questão.
                 {
-                    if(ler.oDadosNfe.indSinc)
+                    if (ler.oDadosNfe.indSinc)
                     {
                         // OPS!!! Processo sincrono rejeição da SEFAZ, temos que gravar o XML para o ERP, pois no processo síncrono isso não pode ser feito dentro do método Invocar
                         oGerarXML.XmlRetorno(Propriedade.Extensao(Propriedade.TipoEnvio.EnvLot).EnvioXML, Propriedade.Extensao(Propriedade.TipoEnvio.PedRec).RetornoXML, vStrXmlRetorno);
@@ -192,19 +193,19 @@ namespace NFe.Service
                 //Deleta o arquivo de lote
                 Functions.DeletarArquivo(NomeArquivoXML);
             }
-            catch(ExceptionEnvioXML ex)
+            catch (ExceptionEnvioXML ex)
             {
                 TrataException(ex, ler.oDadosNfe);
             }
-            catch(ExceptionSemInternet ex)
+            catch (ExceptionSemInternet ex)
             {
                 TrataException(ex, ler.oDadosNfe);
             }
-            catch(ValidarXMLException ex)
+            catch (ValidarXMLException ex)
             {
                 SalvarArquivoErroValidacao(emp, ex);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 TrataException(ex, ler.oDadosNfe);
             }
@@ -221,7 +222,7 @@ namespace NFe.Service
             {
                 var nodeListNFe = ConteudoXML.GetElementsByTagName("NFe");
 
-                foreach(var nodeNFe in nodeListNFe)
+                foreach (var nodeNFe in nodeListNFe)
                 {
                     var xmlElementNFe = (XmlElement)nodeNFe;
                     var chaveNFe = ((XmlElement)xmlElementNFe.GetElementsByTagName("infNFe")[0]).GetAttribute("Id");
@@ -253,7 +254,7 @@ namespace NFe.Service
             {
                 //new FluxoNfe().ExcluirNfeFluxo(dadosNFe.chavenfe);
 
-                if(dadosNFe.indSinc)
+                if (dadosNFe.indSinc)
                 {
                     TFunctions.GravarArqErroServico(NomeArquivoXML, Propriedade.ExtEnvio.EnvLot, Propriedade.ExtRetorno.ProRec_ERR, ex);
                 }
@@ -287,7 +288,7 @@ namespace NFe.Service
 
             var retEnviNFeList = xml.GetElementsByTagName("retEnviNFe");
 
-            foreach(XmlNode retEnviNFeNode in retEnviNFeList)
+            foreach (XmlNode retEnviNFeNode in retEnviNFeList)
             {
                 var retEnviNFeElemento = (XmlElement)retEnviNFeNode;
 
@@ -295,19 +296,19 @@ namespace NFe.Service
 
                 var infRecList = xml.GetElementsByTagName("infRec");
 
-                foreach(XmlNode infRecNode in infRecList)
+                foreach (XmlNode infRecNode in infRecList)
                 {
                     var infRecElemento = (XmlElement)infRecNode;
 
                     dadosRec.nRec = infRecElemento.GetElementsByTagName(TpcnResources.nRec.ToString())[0].InnerText;
                     dadosRec.tMed = Convert.ToInt32(infRecElemento.GetElementsByTagName(TpcnResources.tMed.ToString())[0].InnerText);
 
-                    if(dadosRec.tMed > 15)
+                    if (dadosRec.tMed > 15)
                     {
                         dadosRec.tMed = 15;
                     }
 
-                    if(dadosRec.tMed <= 0)
+                    if (dadosRec.tMed <= 0)
                     {
                         dadosRec.tMed = Empresas.Configuracoes[emp].TempoConsulta;
                     }
@@ -334,13 +335,13 @@ namespace NFe.Service
 
             var retEnviNFeList = xml.GetElementsByTagName(xml.FirstChild.Name);
 
-            foreach(XmlNode retEnviNFeNode in retEnviNFeList)
+            foreach (XmlNode retEnviNFeNode in retEnviNFeList)
             {
                 var retEnviNFeElemento = (XmlElement)retEnviNFeNode;
 
                 dadosRec.cStat = retEnviNFeElemento.GetElementsByTagName(TpcnResources.cStat.ToString())[0].InnerText;
 
-                if(retEnviNFeElemento.GetElementsByTagName(TpcnResources.nRec.ToString())[0] != null)
+                if (retEnviNFeElemento.GetElementsByTagName(TpcnResources.nRec.ToString())[0] != null)
                 {
                     dadosRec.nRec = retEnviNFeElemento.GetElementsByTagName(TpcnResources.nRec.ToString())[0].InnerText;
                 }
@@ -384,7 +385,7 @@ namespace NFe.Service
 
             var nodeListNFe = ConteudoXML.GetElementsByTagName("NFe");
 
-            foreach(var nodeNFe in nodeListNFe)
+            foreach (var nodeNFe in nodeListNFe)
             {
                 var xmlElementNFe = (XmlElement)nodeNFe;
                 var chaveNFe = ((XmlElement)xmlElementNFe.GetElementsByTagName("infNFe")[0]).GetAttribute("Id");
@@ -397,7 +398,7 @@ namespace NFe.Service
                 sw.Write("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + xmlElementNFe.OuterXml);
                 sw.Close();
 
-                if(File.Exists(arqEmProcessamento))
+                if (File.Exists(arqEmProcessamento))
                 {
                     File.Delete(Empresas.Configuracoes[emp].PastaXmlEnvio + "\\temp\\" + nomeArqNFe);
                     File.Delete(Empresas.Configuracoes[emp].PastaXmlEmLote + "\\temp\\" + nomeArqNFe);

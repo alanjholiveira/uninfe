@@ -1699,10 +1699,6 @@
     <EmbeddedResource Include="NFse\WSDL\Producao\PTeresinaPI-DSFLoteRps.WSDL" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="NFse\WSDL\Homologacao\HBelemPA-DSFLoteRps.wsdl" />
-    <EmbeddedResource Include="NFse\WSDL\Producao\PBelemPA-DSFLoteRps.wsdl" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="NFe\schemas\DFe\distDFeInt_v1.00.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -3539,8 +3535,6 @@
     <EmbeddedResource Include="NFse\WSDL\Producao\PSalvadorDoSulRS-ConsultaNFSePorRPS.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Producao\PSalvadorDoSulRS-ConsultaNFSeServicosPrestados.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Producao\PSalvadorDoSulRS-EnvioLoteRPSSincrono.wsdl" />
-    <EmbeddedResource Include="NFse\WSDL\Homologacao\HBalneario-SIMPLISS.wsdl" />
-    <EmbeddedResource Include="NFse\WSDL\Producao\PBalneario-SIMPLISS.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Homologacao\HPrudenteMorais-WebISS.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Producao\PPrudenteMorais-WebISS.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Homologacao\HABASE.wsdl" />
@@ -4149,8 +4143,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="NFse\WSDL\Producao\PPiracicabaSP-SIMPLISS.wsdl" />
-    <EmbeddedResource Include="NFse\WSDL\Homologacao\HMogiMirim-SIGCORP_SIGISS_203.wsdl" />
-    <EmbeddedResource Include="NFse\WSDL\Producao\PMogiMirim-SIGCORP_SIGISS_203.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Producao\PCarazinhoRS-DBSELLER.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Homologacao\HCarazinhoRS-DBSELLER.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Producao\PLimeiraSP-IIBrasil.wsdl" />
@@ -4572,8 +4564,6 @@
     <EmbeddedResource Include="NFse\WSDL\Homologacao\HTerraDeAreiaRSConsultaSequenciaLoteNotaRPS.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Homologacao\HTerraDeAreiaRSEnvioLoteRPSSincrono.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Homologacao\HIlheusBA-METROPOLIS.wsdl" />
-    <EmbeddedResource Include="NFse\WSDL\Homologacao\HIpatingaMG-PORTALFACIL_ACTCON.wsdl" />
-    <EmbeddedResource Include="NFse\WSDL\Producao\PIpatingaMG-PORTALFACIL_ACTCON.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Producao\PThemaCancelamento.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Producao\PMageRJ-MODERNIZACAO_PUBLICA.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Homologacao\HMageRJ-MODERNIZACAO_PUBLICA.wsdl" />
@@ -4603,6 +4593,10 @@
     <EmbeddedResource Include="NFse\WSDL\Producao\PCanelaRS-SystemPro.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Homologacao\HCanelaRS-SystemPro.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Producao\PMedianeiraPR-PRONIN.wsdl" />
+    <EmbeddedResource Include="NFse\WSDL\Homologacao\HBalnearioCamboriuSC-PUBLICA.wsdl" />
+    <EmbeddedResource Include="NFse\WSDL\Producao\PBalnearioCamboriuSC-PUBLICA.wsdl" />
+    <EmbeddedResource Include="NFse\WSDL\Homologacao\HBelemPA-DSFLoteRps.wsdl" />
+    <EmbeddedResource Include="NFse\WSDL\Producao\PBelemPA-DSFLoteRps.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="NFse\WSDL\Producao\PCamacariBA.wsdl">

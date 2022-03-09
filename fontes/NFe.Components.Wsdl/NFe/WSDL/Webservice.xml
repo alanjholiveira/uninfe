@@ -216,7 +216,7 @@
       <CteRecepcaoOS>wsdl\producao\SVRS\PSVRScterecepcaoos.wsdl</CteRecepcaoOS>
     </LocalProducao>
   </Estado>
-  <Estado ID="23" Nome="Ceará" UF="CE" SVC="teSVCRS">
+  <Estado ID="23" Nome="Ceará" UF="CE" SVC="teSVCAN">
     <LocalHomologacao>
       <NFeInutilizacao>wsdl\homologacao\CE\HCENfeInutilizacao.wsdl</NFeInutilizacao>
       <NFeConsulta>wsdl\homologacao\CE\HCENfeConsulta.wsdl</NFeConsulta>
@@ -752,7 +752,7 @@
       <CteRecepcaoOS>wsdl\producao\MG\PMGCteRecepcaoOS.wsdl</CteRecepcaoOS>
     </LocalProducao>
   </Estado>
-  <Estado ID="15" Nome="Pará" UF="PA" SVC="teSVCRS">
+  <Estado ID="15" Nome="Pará" UF="PA" SVC="teSVCAN">
     <LocalHomologacao>
       <NFeInutilizacao>wsdl\homologacao\SVRS\HSVRSNfeInutilizacao.wsdl</NFeInutilizacao>
       <NFeConsulta>wsdl\homologacao\SVRS\HSVRSNfeConsulta.wsdl</NFeConsulta>
@@ -968,7 +968,7 @@
       <CteRecepcaoOS></CteRecepcaoOS>
     </LocalProducao>
   </Estado>
-  <Estado ID="22" Nome="Piaui" UF="PI" SVC="teSVCRS">
+  <Estado ID="22" Nome="Piaui" UF="PI" SVC="teSVCAN">
     <LocalHomologacao>
       <NFeInutilizacao>wsdl\homologacao\SVRS\HSVRSNfeInutilizacao.wsdl</NFeInutilizacao>
       <NFeConsulta>wsdl\homologacao\SVRS\HSVRSNfeConsulta.wsdl</NFeConsulta>

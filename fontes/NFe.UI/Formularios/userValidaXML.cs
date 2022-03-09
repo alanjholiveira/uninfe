@@ -242,30 +242,25 @@ namespace NFe.UI
                         }
                         else
                         {
-                            dlg.Filter = "Todos os arquivos|*" + Propriedade.Extensao(Propriedade.TipoEnvio.NFe).EnvioXML +
-                                        ";*" + Propriedade.Extensao(Propriedade.TipoEnvio.CTe).EnvioXML +
-                                        ";*" + Propriedade.Extensao(Propriedade.TipoEnvio.EnvCancelamento).EnvioXML +
-                                        ";*" + Propriedade.Extensao(Propriedade.TipoEnvio.EnvCCe).EnvioXML +
-                                        ";*" + Propriedade.Extensao(Propriedade.TipoEnvio.EnvManifestacao).EnvioXML +
-                                        ";*" + Propriedade.Extensao(Propriedade.TipoEnvio.EnvDFe).EnvioXML +
-                                        ";*" + Propriedade.Extensao(Propriedade.TipoEnvio.EnvDFeCTe).EnvioXML +
-                                        ";*" + Propriedade.Extensao(Propriedade.TipoEnvio.PedEve).EnvioXML +
-                                        ";*" + Propriedade.Extensao(Propriedade.TipoEnvio.PedInu).EnvioXML +
-                                        ";*" + Propriedade.Extensao(Propriedade.TipoEnvio.PedSit).EnvioXML;
+                            dlg.Filter = "Todos os arquivos|*.xml";
+
                             dlg.Filter += string.Format("|Arquivos da NFe/NFCe (*.*{0})|*{0}", Propriedade.Extensao(Propriedade.TipoEnvio.NFe).EnvioXML);
                             dlg.Filter += string.Format("|Arquivos de CTe (*.*{0})|*{0}", Propriedade.Extensao(Propriedade.TipoEnvio.CTe).EnvioXML);
                             dlg.Filter += string.Format("|Arquivos de DFe (*.*{0})|*{0}", Propriedade.Extensao(Propriedade.TipoEnvio.EnvDFe).EnvioXML);
                             dlg.Filter += string.Format("|Arquivos de DFe (*.*{0})|*{0}", Propriedade.Extensao(Propriedade.TipoEnvio.EnvDFeCTe).EnvioXML);
                             dlg.Filter += string.Format("|Arquivos de MDFe (*.*{0})|*{0}", Propriedade.Extensao(Propriedade.TipoEnvio.MDFe).EnvioXML);
+
                             dlg.Filter += string.Format("|Arquivos de eventos (*.*{0},*.*{1},*.*{2},*.*{3})|*{0};*{1};*{2};*{3}",
                                 Propriedade.Extensao(Propriedade.TipoEnvio.EnvCCe).EnvioXML,
                                 Propriedade.Extensao(Propriedade.TipoEnvio.PedEve).EnvioXML,
                                 Propriedade.Extensao(Propriedade.TipoEnvio.EnvCancelamento).EnvioXML,
                                 Propriedade.Extensao(Propriedade.TipoEnvio.EnvManifestacao).EnvioXML);
+
                             dlg.Filter += string.Format("|Arquivos do eSocial (*.*{0},*.*{1},*.*{2})|*{0};*{1};*{2}",
                                 Propriedade.Extensao(Propriedade.TipoEnvio.eSocial_evt).EnvioXML,
                                 Propriedade.Extensao(Propriedade.TipoEnvio.eSocial_consloteevt).EnvioXML,
                                 Propriedade.Extensao(Propriedade.TipoEnvio.eSocial_loteevt).EnvioXML);
+
                             dlg.Filter += string.Format("|Arquivos do EFDReinf (*.*{0},*.*{1})|*{0};*{1}",
                                 Propriedade.Extensao(Propriedade.TipoEnvio.Reinf_evt).EnvioXML,
                                 Propriedade.Extensao(Propriedade.TipoEnvio.Reinf_loteevt).EnvioXML);

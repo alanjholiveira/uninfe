@@ -1227,7 +1227,13 @@ namespace NFe.Components
         /// Padrão GeisWeb
         /// </summary>
         [Description("GEISWEB")]
-        GEISWEB
+        GEISWEB,
+
+        /// <summary>
+        /// NobeSistemas - Software de gestão integrada
+        /// </summary>
+        [Description("NOBESISTEMAS")]
+        NOBESISTEMAS
 
         ///***ATENÇÃO***
         ///o nome deste enum tem que coincidir com o nome da url, pq faço um "IndexOf" deste enum para pegar o padrao
