@@ -43,6 +43,7 @@ namespace NFe.Service.NFSe
                 {
                     case PadroesNFSe.BETHA:
                     case PadroesNFSe.SIMPLISS:
+                    case PadroesNFSe.TRIBUTUS:
                         ExecuteDLL(emp, dadosXML.cMunicipio, padraoNFSe);
                         break;
                     default:
@@ -218,6 +219,10 @@ namespace NFe.Service.NFSe
 
                 case PadroesNFSe.SONNER:
                     versaoXML = "2.01";
+                    break;
+
+                case PadroesNFSe.TRIBUTUS:
+                    versaoXML = "2.04";
                     break;
             }
 

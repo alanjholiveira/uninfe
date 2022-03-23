@@ -568,9 +568,8 @@ namespace NFe.UI.Formularios
                            ufCod == 3306305 /*Volta Redonda-RJ*/||
                            ufCod == 3506003 /*Bauru-SP*/||
                            ufCod == 3203205 /*Linhares-ES*/||
-                           ufCod == 4214805 /*Rio do Sul-SC*/;
-
-
+                           ufCod == 4214805 /*Rio do Sul-SC*/||
+                           ufCod == 4101408 /*Apucarana-PR*/;
 
 
             lbl_UsuarioWS.Visible = txtUsuarioWS.Visible = lbl_SenhaWS.Visible = txtSenhaWS.Visible = visible;
@@ -610,6 +609,16 @@ namespace NFe.UI.Formularios
                     lblClientSecret.Visible = true;
                     txtClienteID.Visible = true;
                     txtClientSecret.Visible = true;
+                }
+                // Se o município for Palmares, temos que demonstrar o campo ClientID.
+                else if (edtCodMun.Text.Equals("2610004"))
+                {
+                    //lblClienteID.Visible = true;
+                    //txtClienteID.Visible = true;
+                    //lblClientSecret.Visible = true;
+                    //txtClientSecret.Visible = true;
+                    lbl_SenhaWS.Visible = true;
+                    txtSenhaWS.Visible = true;
                 }
                 else
                 {

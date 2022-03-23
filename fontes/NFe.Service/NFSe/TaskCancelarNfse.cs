@@ -89,6 +89,7 @@ namespace NFe.Service.NFSe
                     case PadroesNFSe.AVMB_ASTEN:
                     case PadroesNFSe.BETHA:
                     case PadroesNFSe.NOTAINTELIGENTE:
+                    case PadroesNFSe.TRIBUTUS:
                         ExecuteDLL(emp, oDadosPedCanNfse.cMunicipio, padraoNFSe);
                         break;
 
@@ -112,6 +113,8 @@ namespace NFe.Service.NFSe
                             case 3201209: //Cachoeiro de Itapemirim
                             case 3506003: //Bauru-SP
                             case 2925303: //Porto Seguro-BA
+                            case 3131307: //Ipatinga-MG
+                            case 3106200: //Belo Horizonte-MG
                                 ExecuteDLL(emp, oDadosPedCanNfse.cMunicipio, padraoNFSe);
                                 break;
 
@@ -530,7 +533,6 @@ namespace NFe.Service.NFSe
                                             oDadosPedCanNfse.cMunicipio == 3501301 ||
                                             oDadosPedCanNfse.cMunicipio == 4300109 ||
                                             oDadosPedCanNfse.cMunicipio == 4124053 ||
-                                            oDadosPedCanNfse.cMunicipio == 4101408 ||
                                             oDadosPedCanNfse.cMunicipio == 3550407 ||
                                             oDadosPedCanNfse.cMunicipio == 4310207 ||
                                             oDadosPedCanNfse.cMunicipio == 1502400 ||
@@ -965,6 +967,7 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadroesNFSe.NOBESISTEMAS:
+                case PadroesNFSe.BHISS:
                     versaoXML = "1.00";
                     break;
 
@@ -987,6 +990,7 @@ namespace NFe.Service.NFSe
 
                 case PadroesNFSe.PROPRIOJOINVILLESC:
                 case PadroesNFSe.EL:
+                case PadroesNFSe.TRIBUTUS:
                     versaoXML = "2.04";
                     break;
             }

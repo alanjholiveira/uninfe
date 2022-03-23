@@ -274,7 +274,6 @@
     <Compile Include="Pronin\MirassolSP\p\ProninP.cs" />
     <Compile Include="Pronin\CacapavaDoSulRS\h\ProninH.cs" />
     <Compile Include="Pronin\CacapavaDoSulRS\p\ProninP.cs" />
-    <Compile Include="Pronin\ApucaranaPR\p\ProninP.cs" />
     <Compile Include="Pronin\PicadaCafeRS\p\ProninP.cs" />
     <Compile Include="Pronin\SantaTerezinhaItaipuPR\p\ProninP.cs" />
     <Compile Include="Pronin\CastanhalPA\p\ProninP.cs" />
@@ -1436,11 +1435,6 @@
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
     <Compile Include="Web References\PAgudoRS\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.map</DependentUpon>
-    </Compile>
-    <Compile Include="Web References\PApucaranaPR\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
@@ -5026,17 +5020,6 @@
     <None Include="Web References\PAgudoRS\Services0.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Web References\PApucaranaPR\NFSeIntegracao.wsdl" />
-    <None Include="Web References\PApucaranaPR\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Web References\PApucaranaPR\Services.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Web References\PApucaranaPR\Services0.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Web References\PAraguariMG\NfseServiceImplAragService.wsdl" />
     <None Include="Web References\PAraguariMG\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
@@ -8022,17 +8005,6 @@
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>NFe_Components_PAndradasMG_NfseServiceImpleAndradasService</CachedSettingsPropName>
-    </WebReferenceUrl>
-    <WebReferenceUrl Include="C:\projetos\uninfe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Producao\PApucaranaPR-PRONIN.WSDL">
-      <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\PApucaranaPR\</RelPath>
-      <UpdateFromURL>C:\projetos\uninfe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Producao\PApucaranaPR-PRONIN.WSDL</UpdateFromURL>
-      <ServiceLocationURL>
-      </ServiceLocationURL>
-      <CachedDynamicPropName>
-      </CachedDynamicPropName>
-      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>NFe_Components_PApucaranaPR_NFSeIntegracao</CachedSettingsPropName>
     </WebReferenceUrl>
     <WebReferenceUrl Include="C:\Projetos\UniNFe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Producao\PAraguariMG-GOVDIGITAL.wsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
