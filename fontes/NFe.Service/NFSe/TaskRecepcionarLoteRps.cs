@@ -77,6 +77,7 @@ namespace NFe.Service.NFSe
                     case PadroesNFSe.PRODATA:
                     case PadroesNFSe.BETHA:
                     case PadroesNFSe.AVMB_ASTEN:
+                    case PadroesNFSe.TRIBUTUS:
                         ExecuteDLL(emp, oDadosEnvLoteRps.cMunicipio, padraoNFSe);
                         break;
 
@@ -102,6 +103,7 @@ namespace NFe.Service.NFSe
                             case 2925303: //Porto Seguro-BA
                             case 3530805: //Mogi Mirim-SP
                             case 3131307: //Ipatinga-MG
+                            case 3106200: //Belo Horizonte-MG
                                 ExecuteDLL(emp, oDadosEnvLoteRps.cMunicipio, padraoNFSe);
                                 break;
 
@@ -626,7 +628,6 @@ namespace NFe.Service.NFSe
                                             oDadosEnvLoteRps.cMunicipio == 3501301 ||
                                             oDadosEnvLoteRps.cMunicipio == 4300109 ||
                                             oDadosEnvLoteRps.cMunicipio == 4124053 ||
-                                            oDadosEnvLoteRps.cMunicipio == 4101408 ||
                                             oDadosEnvLoteRps.cMunicipio == 3550407 ||
                                             oDadosEnvLoteRps.cMunicipio == 1502400 ||
                                             oDadosEnvLoteRps.cMunicipio == 4322509 ||
@@ -1126,6 +1127,8 @@ namespace NFe.Service.NFSe
                 case PadroesNFSe.SONNER:
                 case PadroesNFSe.EL:
                 case PadroesNFSe.SMARAPD:
+                case PadroesNFSe.BHISS:
+                case PadroesNFSe.TRIBUTUS:
                     switch (doc.DocumentElement.Name)
                     {
                         case "EnviarLoteRpsSincronoEnvio":
@@ -1141,9 +1144,23 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadroesNFSe.SIGCORP_SIGISS:
-                    result = Unimake.Business.DFe.Servicos.Servico.NFSeGerarNfse;
+                    switch (doc.DocumentElement.Name)
+                    {
+                        case "EnviarLoteRpsSincronoEnvio":
+                            result = Unimake.Business.DFe.Servicos.Servico.NFSeRecepcionarLoteRpsSincrono;
+                            break;
+                        case "EnviarLoteRpsEnvio":
+                            result = Unimake.Business.DFe.Servicos.Servico.NFSeRecepcionarLoteRps;
+                            break;
+                        case "GerarNfseEnvio":
+                            result = Unimake.Business.DFe.Servicos.Servico.NFSeGerarNfse;
+                            break;
+                        case "GerarNota":
+                            result = Unimake.Business.DFe.Servicos.Servico.NFSeGerarNfse;
+                            break;
+                    }
                     break;
-                                      
+
                 case PadroesNFSe.NOBESISTEMAS:
                     result = Unimake.Business.DFe.Servicos.Servico.NFSeRecepcionarLoteRps;
                     break;
@@ -1191,6 +1208,7 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadroesNFSe.NOBESISTEMAS:
+                case PadroesNFSe.BHISS:
                     versaoXML = "1.00";
                     break;
 
@@ -1213,6 +1231,7 @@ namespace NFe.Service.NFSe
 
                 case PadroesNFSe.PROPRIOJOINVILLESC:
                 case PadroesNFSe.EL:
+                case PadroesNFSe.TRIBUTUS:
                     versaoXML = "2.04";
                     break;
 

@@ -784,10 +784,6 @@
     <EmbeddedResource Include="NFe\WSDL\Homologacao\MDFe\HMDFeRetRecepcao.wsdl" />
     <EmbeddedResource Include="NFe\WSDL\Homologacao\MDFe\HMDFeStatusServico.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Homologacao\HNovaSantaRitaRS-Dueto.wsdl" />
-    <EmbeddedResource Include="NFse\WSDL\Homologacao\HBeloHorizonteMG-BHISS.wsdl">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="NFse\WSDL\Producao\PBeloHorizonteMG-BHISS.wsdl" />
     <EmbeddedResource Include="NFse\schemas\NFSe\WEBISS\servico_cancelar_nfse_envio.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -3513,6 +3509,15 @@
     <EmbeddedResource Include="NFse\schemas\NFSe\ACTCON\nfse_v204.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="NFe\schemas\MDFe\evAlteracaoPagtoServMDFe_v3.00.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NFe\schemas\MDFe\evConfirmaServMDFe_v3.00.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NFe\schemas\MDFe\evPagtoOperMDFe_v3.00.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <None Include="NFse\schemas\NFSe\BSITBR\xmldsig-core-schema20020212.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -4355,7 +4360,6 @@
     <EmbeddedResource Include="NFse\WSDL\Homologacao\HPaveramaRS-EnvioLoteRPSSincrono.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Homologacao\HPaveramaRS-ConsultaSequenciaLoteNotaRPS.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Producao\PPaveramaRS-ConsultaSequenciaLoteNotaRPS.wsdl" />
-    <EmbeddedResource Include="NFse\WSDL\Producao\PApucaranaPR-PRONIN.WSDL" />
     <EmbeddedResource Include="NFse\WSDL\Homologacao\HSaoPedroDaAldeira-MODERNIZACAO_PUBLICA.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Producao\PSaoPedroDaAldeira-MODERNIZACAO_PUBLICA.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Producao\PFeiradeSantanaBA_WebISS.wsdl" />

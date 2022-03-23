@@ -49,6 +49,7 @@ namespace NFe.Service.NFSe
                 {
                     case PadroesNFSe.BETHA:
                     case PadroesNFSe.AVMB_ASTEN:
+                    case PadroesNFSe.TRIBUTUS:
                         ExecuteDLL(emp, ler.oDadosPedSitNfseRps.cMunicipio, padraoNFSe);
                         break;
 
@@ -68,6 +69,7 @@ namespace NFe.Service.NFSe
                             case 2925303: //Porto Seguro-BA
                             case 3530805: //Mogi Mirim-SP
                             case 3131307: //Ipatinga-MG
+                            case 3106200: //Belo Horizonte-MG
                                 ExecuteDLL(emp, ler.oDadosPedSitNfseRps.cMunicipio, padraoNFSe);
                                 break;
 
@@ -418,7 +420,6 @@ namespace NFe.Service.NFSe
                                             ler.oDadosPedSitNfseRps.cMunicipio == 3501301 ||
                                             ler.oDadosPedSitNfseRps.cMunicipio == 4300109 ||
                                             ler.oDadosPedSitNfseRps.cMunicipio == 4124053 ||
-                                            ler.oDadosPedSitNfseRps.cMunicipio == 4101408 ||
                                             ler.oDadosPedSitNfseRps.cMunicipio == 3550407 ||
                                             ler.oDadosPedSitNfseRps.cMunicipio == 4310207 ||
                                             ler.oDadosPedSitNfseRps.cMunicipio == 1502400 ||
@@ -680,6 +681,7 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadroesNFSe.NOBESISTEMAS:
+                case PadroesNFSe.BHISS:
                     versaoXML = "1.00";
                     break;
 
@@ -701,6 +703,7 @@ namespace NFe.Service.NFSe
 
                 case PadroesNFSe.PROPRIOJOINVILLESC:
                 case PadroesNFSe.EL:
+                case PadroesNFSe.TRIBUTUS:
                     versaoXML = "2.04";
                     break;
 
