@@ -80,9 +80,12 @@ namespace NFe.Service
 
                 if (ler.oDadosNfe.mod == "65")
                 {
-                    if (string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].IdentificadorCSC.Trim()) || string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].TokenCSC))
+                    if (ConteudoXML.GetElementsByTagName("qrCode").Count == 0)
                     {
-                        throw new Exception("Para autorizar NFC-e é obrigatório informar nas configurações do UniNFe os campos CSC e IDToken do CSC.");
+                        if (string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].IdentificadorCSC.Trim()) || string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].TokenCSC))
+                        {
+                            throw new Exception("Para autorizar NFC-e é obrigatório informar nas configurações do UniNFe os campos CSC e IDToken do CSC.");
+                        }
                     }
 
                     configuracao.CSC = Empresas.Configuracoes[emp].IdentificadorCSC;
@@ -139,7 +142,7 @@ namespace NFe.Service
 
                     try
                     {
-                        var xmlPedRec = oGerarXML.XmlPedRecNFe(dadosRec.nRec, ler.oDadosNfe.versao, ler.oDadosNfe.mod, emp);
+                        XmlDocument xmlPedRec = oGerarXML.XmlPedRecNFe(dadosRec.nRec, ler.oDadosNfe.versao, ler.oDadosNfe.mod, emp);
 
                         var nfeRetRecepcao = new TaskNFeRetRecepcao(xmlPedRec)
                         {
@@ -220,7 +223,7 @@ namespace NFe.Service
         {
             try
             {
-                var nodeListNFe = ConteudoXML.GetElementsByTagName("NFe");
+                XmlNodeList nodeListNFe = ConteudoXML.GetElementsByTagName("NFe");
 
                 foreach (var nodeNFe in nodeListNFe)
                 {
@@ -286,7 +289,7 @@ namespace NFe.Service
             var xml = new XmlDocument();
             xml.Load(Functions.StringXmlToStream(strXml));
 
-            var retEnviNFeList = xml.GetElementsByTagName("retEnviNFe");
+            XmlNodeList retEnviNFeList = xml.GetElementsByTagName("retEnviNFe");
 
             foreach (XmlNode retEnviNFeNode in retEnviNFeList)
             {
@@ -294,7 +297,7 @@ namespace NFe.Service
 
                 dadosRec.cStat = retEnviNFeElemento.GetElementsByTagName(TpcnResources.cStat.ToString())[0].InnerText;
 
-                var infRecList = xml.GetElementsByTagName("infRec");
+                XmlNodeList infRecList = xml.GetElementsByTagName("infRec");
 
                 foreach (XmlNode infRecNode in infRecList)
                 {
@@ -333,7 +336,7 @@ namespace NFe.Service
             var xml = new XmlDocument();
             xml.Load(Functions.StringXmlToStream(strXml));
 
-            var retEnviNFeList = xml.GetElementsByTagName(xml.FirstChild.Name);
+            XmlNodeList retEnviNFeList = xml.GetElementsByTagName(xml.FirstChild.Name);
 
             foreach (XmlNode retEnviNFeNode in retEnviNFeList)
             {
@@ -362,7 +365,7 @@ namespace NFe.Service
             var xml = new XmlDocument();
             xml.Load(Functions.StringXmlToStream(xmlRetorno));
 
-            var protNFe = xml.GetElementsByTagName("protNFe");
+            XmlNodeList protNFe = xml.GetElementsByTagName("protNFe");
 
             var fluxoNFe = new FluxoNfe();
 
@@ -383,7 +386,7 @@ namespace NFe.Service
         {
             Empresas.Configuracoes[emp].CriarSubPastaEnviado();
 
-            var nodeListNFe = ConteudoXML.GetElementsByTagName("NFe");
+            XmlNodeList nodeListNFe = ConteudoXML.GetElementsByTagName("NFe");
 
             foreach (var nodeNFe in nodeListNFe)
             {
@@ -394,7 +397,7 @@ namespace NFe.Service
                 var nomeArqNFe = fluxoNFe.LerTag(chaveNFe, FluxoNfe.ElementoFixo.ArqNFe);
                 var arqEmProcessamento = Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" + PastaEnviados.EmProcessamento.ToString() + "\\" + nomeArqNFe;
 
-                var sw = File.CreateText(arqEmProcessamento);
+                StreamWriter sw = File.CreateText(arqEmProcessamento);
                 sw.Write("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + xmlElementNFe.OuterXml);
                 sw.Close();
 

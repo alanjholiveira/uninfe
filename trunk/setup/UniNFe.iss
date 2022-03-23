@@ -57,12 +57,16 @@ Source: ..\fontes\uninfe\bin\Release\NFe.Settings.dll; DestDir: {app}; Flags: ig
 Source: ..\fontes\uninfe\bin\Release\NFe.Threadings.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\fontes\uninfe\bin\Release\NFe.UI.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\fontes\uninfe\bin\Release\NFe.Validate.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\fontes\uninfe\bin\Release\System.CodeDom.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\fontes\uninfe\bin\Release\System.Security.AccessControl.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\fontes\uninfe\bin\Release\System.Security.Cryptography.Xml.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\fontes\uninfe\bin\Release\System.Security.Permissions.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\fontes\uninfe\bin\Release\System.Security.Principal.Windows.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\fontes\uninfe\bin\Release\Unimake.Business.DFe.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\fontes\uninfe\bin\Release\Unimake.Cryptography.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\fontes\uninfe\bin\Release\Unimake.SAT.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\fontes\uninfe\bin\Release\Unimake.Utils.dll; DestDir: {app}; Flags: ignoreversion
+
 
 Source: ..\fontes\uninfe\bin\release\uninfe.exe; DestDir: {app}; Flags: ignoreversion
 Source: ..\fontes\uninfe\bin\release\uninfeservico.exe; DestDir: {app}; Flags: ignoreversion

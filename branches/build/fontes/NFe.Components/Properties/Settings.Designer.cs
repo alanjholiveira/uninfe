@@ -2648,16 +2648,6 @@ namespace NFe.Components.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://cetil.apucarana.pr.gov.br/NFSe.Portal.Integracao/Services.svc")]
-        public string NFe_Components_PApucaranaPR_NFSeIntegracao {
-            get {
-                return ((string)(this["NFe_Components_PApucaranaPR_NFSeIntegracao"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
         [global::System.Configuration.DefaultSettingValueAttribute("http://www2.tinus.com.br/csp/testeoli/WSNFSE.CancelarNfse.cls")]
         public string NFe_Components_HOlindaPE_TINUS_CancelarNfse_CancelarNfse {
             get {

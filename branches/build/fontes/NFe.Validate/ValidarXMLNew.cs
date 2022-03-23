@@ -332,6 +332,19 @@ namespace NFe.Validate
 
                 var jaValidou = false;
 
+                #region Adicionar o responsável técnico no XML da NFe, NFCe, CTe e MDFe
+
+                var respTecnico = new RespTecnico(Empresas.Configuracoes[emp].RespTecCNPJ,
+                    Empresas.Configuracoes[emp].RespTecXContato,
+                    Empresas.Configuracoes[emp].RespTecEmail,
+                    Empresas.Configuracoes[emp].RespTecTelefone,
+                    Empresas.Configuracoes[emp].RespTecIdCSRT,
+                    Empresas.Configuracoes[emp].RespTecCSRT);
+
+                respTecnico.AdicionarResponsavelTecnico(xmlDoc);
+
+                #endregion
+
                 switch (tipoXML)
                 {
                     #region XML da NFe

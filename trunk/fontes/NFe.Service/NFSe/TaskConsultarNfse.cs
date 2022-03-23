@@ -69,6 +69,7 @@ namespace NFe.Service.NFSe
                     case PadroesNFSe.PRODATA:
                     case PadroesNFSe.BETHA:
                     case PadroesNFSe.AVMB_ASTEN:
+                    case PadroesNFSe.TRIBUTUS:
                         ExecuteDLL(emp, oDadosPedSitNfse.cMunicipio, padraoNFSe);
                         break;
 
@@ -91,6 +92,7 @@ namespace NFe.Service.NFSe
                             case 2925303: //Porto Seguro-BA
                             case 3530805: //Mogi Mirim-SP
                             case 3131307: //Ipatinga-MG
+                            case 3106200: //Belo Horizonte-MG
                                 ExecuteDLL(emp, oDadosPedSitNfse.cMunicipio, padraoNFSe);
                                 break;
 
@@ -455,7 +457,6 @@ namespace NFe.Service.NFSe
                                             oDadosPedSitNfse.cMunicipio == 3501301 ||
                                             oDadosPedSitNfse.cMunicipio == 4300109 ||
                                             oDadosPedSitNfse.cMunicipio == 4124053 ||
-                                            oDadosPedSitNfse.cMunicipio == 4101408 ||
                                             oDadosPedSitNfse.cMunicipio == 3550407 ||
                                             oDadosPedSitNfse.cMunicipio == 4310207 ||
                                             oDadosPedSitNfse.cMunicipio == 1502400 ||
@@ -813,6 +814,7 @@ namespace NFe.Service.NFSe
 
                 case PadroesNFSe.SONNER:
                 case PadroesNFSe.SMARAPD:
+                case PadroesNFSe.TRIBUTUS:
                     switch (doc.DocumentElement.Name)
                     {
                         case "ConsultarNfseServicoPrestadoEnvio":
@@ -839,6 +841,18 @@ namespace NFe.Service.NFSe
                     if(versaoXML == "2.02")
                     {
                         result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarNfseFaixa;
+                    }
+                    break;
+
+                case PadroesNFSe.BHISS:
+                    switch (doc.DocumentElement.Name)
+                    {
+                        case "ConsultarNfseFaixaEnvio":
+                            result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarNfseFaixa;
+                            break;
+                        case "ConsultarNfseEnvio":
+                            result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarNfse;
+                            break;
                     }
                     break;
             }
@@ -878,6 +892,7 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadroesNFSe.NOBESISTEMAS:
+                case PadroesNFSe.BHISS:
                     versaoXML = "1.00";
                     break;
 
@@ -897,6 +912,9 @@ namespace NFe.Service.NFSe
                     versaoXML = "2.03";
                     break;
 
+                case PadroesNFSe.TRIBUTUS:
+                    versaoXML = "2.04";
+                    break;
             }
 
             return versaoXML;

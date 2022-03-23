@@ -57,12 +57,15 @@ Source: ..\fontes\uninfe\bin\x86\Release46_x86\NFe.Settings.dll; DestDir: {app};
 Source: ..\fontes\uninfe\bin\x86\Release46_x86\NFe.Threadings.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\fontes\uninfe\bin\x86\Release46_x86\NFe.UI.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\fontes\uninfe\bin\x86\Release46_x86\NFe.Validate.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\fontes\uninfe\bin\x86\Release46_x86\System.CodeDom.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\fontes\uninfe\bin\x86\Release46_x86\System.Security.AccessControl.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\fontes\uninfe\bin\x86\Release46_x86\System.Security.Cryptography.Xml.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\fontes\uninfe\bin\x86\Release46_x86\System.Security.Permissions.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\fontes\uninfe\bin\x86\Release46_x86\System.Security.Principal.Windows.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\fontes\uninfe\bin\x86\Release46_x86\Unimake.Business.DFe.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\fontes\uninfe\bin\x86\Release46_x86\Unimake.Cryptography.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\fontes\uninfe\bin\x86\Release46_x86\Unimake.SAT.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\fontes\uninfe\bin\x86\Release46_x86\Unimake.Utils.dll; DestDir: {app}; Flags: ignoreversion
 
 Source: ..\fontes\uninfe\bin\x86\Release46_x86\uninfe.exe; DestDir: {app}; Flags: ignoreversion
 Source: ..\fontes\uninfe\bin\x86\Release46_x86\uninfeservico.exe; DestDir: {app}; Flags: ignoreversion

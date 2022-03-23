@@ -416,6 +416,7 @@ namespace NFe.Validate
                     else if(TipoArqXml.TagAssinatura == "eSocial")
                     {
                         oAD.Assinar(Arquivo, emp, Empresas.Configuracoes[emp].UnidadeFederativaCodigo, AlgorithmType.Sha256, false);
+                        conteudoXML.Load(Arquivo);
                     }
                     else if(TipoArqXml.TagAssinatura == "Reinf")
                     {

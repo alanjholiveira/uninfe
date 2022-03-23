@@ -39,7 +39,8 @@ namespace NFSe.Components
                 Proxy = Proxy
             })
             {
-                if (Cidade == 8357 || Cidade == 4218202) //Timbo-SC
+                #region Timbo-SC
+                if (Cidade == 8357 || Cidade == 4218202) //Produção
                 {
                     var base64 = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{Usuario}:{Senha}"));
 
@@ -49,8 +50,10 @@ namespace NFSe.Components
                         {"f1", file}           //Endereço físico do arquivo
                     }, $"Authorization: Basic {base64}");
                 }
+                #endregion Timbo-SC
 
-                else if ((Cidade == 74934 || Cidade == 4104808) && tpAmb == TipoAmbiente.taProducao) //Cascavel-PR - Produção
+                #region Cascavel-PR
+                else if ((Cidade == 74934 || Cidade == 4104808) && tpAmb == TipoAmbiente.taProducao) //Produção
                 {
                     var base64 = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{Usuario}:{Senha}"));
 
@@ -60,7 +63,7 @@ namespace NFSe.Components
                         {"f1", file}           //Endereço físico do arquivo
                     }, $"Authorization: Basic {base64}");
                 }
-                else if ((Cidade == 74934 || Cidade == 4104808) && tpAmb == TipoAmbiente.taHomologacao) //Cascavel-PR - Homologação
+                else if ((Cidade == 74934 || Cidade == 4104808) && tpAmb == TipoAmbiente.taHomologacao) //Homologação
                 {
                     var base64 = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{Usuario}:{Senha}"));
 
@@ -70,8 +73,10 @@ namespace NFSe.Components
                         {"f1", file}           //Endereço físico do arquivo
                     }, $"Authorization: Basic {base64}");
                 }
+                #endregion Cascavel-PR
 
-                else if (Cidade == 7583 || Cidade == 4109401) // Guarapuava-PR
+                #region Guarapuava-PR
+                else if (Cidade == 7583 || Cidade == 4109401) //Produção
                 {
                     var base64 = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{Usuario}:{Senha}"));
 
@@ -81,7 +86,10 @@ namespace NFSe.Components
                         {"f1", file}           //Endereço físico do arquivo
                     }, $"Authorization: Basic {base64}");
                 }
-                else if ((Cidade == 5453 || Cidade == 4119152) && tpAmb == TipoAmbiente.taProducao) //Pinhais-PR - Produção
+                #endregion Guarapuava-PR
+
+                #region Pinhais-PR
+                else if ((Cidade == 5453 || Cidade == 4119152) && tpAmb == TipoAmbiente.taProducao) //Produção
                 {
                     var base64 = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{Usuario}:{Senha}"));
 
@@ -91,7 +99,7 @@ namespace NFSe.Components
                         {"f1", file}           //Endereço físico do arquivo
                     }, $"Authorization: Basic {base64}");
                 }
-                else if ((Cidade == 5453 || Cidade == 4119152) && tpAmb == TipoAmbiente.taHomologacao) //Pinhais-PR - Homologação
+                else if ((Cidade == 5453 || Cidade == 4119152) && tpAmb == TipoAmbiente.taHomologacao) //Homologação
                 {
                     var base64 = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{Usuario}:{Senha}"));
 
@@ -101,7 +109,10 @@ namespace NFSe.Components
                         {"f1", file}           //Endereço físico do arquivo
                     }, $"Authorization: Basic {base64}");
                 }
-                else if (Cidade == 8291 || Cidade == 4214805) // Rio do Sul
+                #endregion Pinhais-PR
+
+                #region Rio do Sul-SC
+                else if (Cidade == 8291 || Cidade == 4214805) //Produção
                 {
                     var base64 = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{Usuario}:{Senha}"));
 
@@ -111,6 +122,36 @@ namespace NFSe.Components
                         { "f1", file}           //Endereço físico do arquivo
                     }, $"Authorization: Basic {base64}");
                 }
+                #endregion Rio do Sul-SC
+
+                #region Apucarana-PR
+                else if ((Cidade == 7425 || Cidade == 4101408) && tpAmb == TipoAmbiente.taProducao) //Produção
+                {
+                    var base64 = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{Usuario}:{Senha}"));
+
+                    // informe 1 para retorno em xml
+                    result = post.PostForm("https://apucarana.atende.net/atende.php?pg=rest&service=WNERestServiceNFSe&cidade=padrao", new Dictionary<string, string>
+                    {
+                        {"f1", file}           //Endereço físico do arquivo
+                    }, $"Authorization: Basic {base64}");
+                }
+                #endregion Apucarana-PR
+
+                #region Palhoça-SC
+
+                else if ((Cidade == 8233 || Cidade == 4211900) && tpAmb == TipoAmbiente.taProducao) //Produção
+                {
+                    var base64 = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{Usuario}:{Senha}"));
+
+                    // informe 1 para retorno em xml
+                    result = post.PostForm("https://ws-palhoca.atende.net:7443/atende.php?pg=rest&service=WNERestServiceNFSe&cidade=padrao", new Dictionary<string, string>
+                    {
+                        {"f1", file}           //Endereço físico do arquivo
+                    }, $"Authorization: Basic {base64}");
+                }
+
+                #endregion Palhoça-SC
+
                 else
                 {
                     // informe 1 para retorno em xml
@@ -249,6 +290,9 @@ namespace NFSe.Components
 
                 case 4214805: //Rio do Sul-SC
                     return 8291;
+
+                case 4101408: //Apucarana-PR
+                    return 7425;
             }
 
             return 0;

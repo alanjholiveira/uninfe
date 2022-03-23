@@ -776,9 +776,6 @@
     <Setting Name="NFe_Components_PColatinaES_RpsServiceService" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">http://es-colatina-pm-nfs.cloud.el.com.br:80/RpsService</Value>
     </Setting>
-    <Setting Name="NFe_Components_PApucaranaPR_NFSeIntegracao" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://cetil.apucarana.pr.gov.br/NFSe.Portal.Integracao/Services.svc</Value>
-    </Setting>
     <Setting Name="NFe_Components_HOlindaPE_TINUS_CancelarNfse_CancelarNfse" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">http://www2.tinus.com.br/csp/testeoli/WSNFSE.CancelarNfse.cls</Value>
     </Setting>

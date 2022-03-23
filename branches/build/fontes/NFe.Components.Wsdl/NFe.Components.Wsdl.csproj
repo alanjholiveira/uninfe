@@ -784,10 +784,6 @@
     <EmbeddedResource Include="NFe\WSDL\Homologacao\MDFe\HMDFeRetRecepcao.wsdl" />
     <EmbeddedResource Include="NFe\WSDL\Homologacao\MDFe\HMDFeStatusServico.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Homologacao\HNovaSantaRitaRS-Dueto.wsdl" />
-    <EmbeddedResource Include="NFse\WSDL\Homologacao\HBeloHorizonteMG-BHISS.wsdl">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="NFse\WSDL\Producao\PBeloHorizonteMG-BHISS.wsdl" />
     <EmbeddedResource Include="NFse\schemas\NFSe\WEBISS\servico_cancelar_nfse_envio.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -1697,10 +1693,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="NFse\WSDL\Producao\PTeresinaPI-DSFLoteRps.WSDL" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="NFse\WSDL\Homologacao\HBelemPA-DSFLoteRps.wsdl" />
-    <EmbeddedResource Include="NFse\WSDL\Producao\PBelemPA-DSFLoteRps.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="NFe\schemas\DFe\distDFeInt_v1.00.xsd">
@@ -3538,6 +3530,15 @@
     <EmbeddedResource Include="NFse\schemas\NFSe\ACTCON\nfse_v204.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="NFe\schemas\MDFe\evAlteracaoPagtoServMDFe_v3.00.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NFe\schemas\MDFe\evConfirmaServMDFe_v3.00.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NFe\schemas\MDFe\evPagtoOperMDFe_v3.00.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <None Include="NFse\schemas\NFSe\BSITBR\xmldsig-core-schema20020212.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -4384,7 +4385,6 @@
     <EmbeddedResource Include="NFse\WSDL\Homologacao\HPaveramaRS-EnvioLoteRPSSincrono.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Homologacao\HPaveramaRS-ConsultaSequenciaLoteNotaRPS.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Producao\PPaveramaRS-ConsultaSequenciaLoteNotaRPS.wsdl" />
-    <EmbeddedResource Include="NFse\WSDL\Producao\PApucaranaPR-PRONIN.WSDL" />
     <EmbeddedResource Include="NFse\WSDL\Homologacao\HSaoPedroDaAldeira-MODERNIZACAO_PUBLICA.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Producao\PSaoPedroDaAldeira-MODERNIZACAO_PUBLICA.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Producao\PFeiradeSantanaBA_WebISS.wsdl" />
@@ -4593,8 +4593,6 @@
     <EmbeddedResource Include="NFse\WSDL\Homologacao\HTerraDeAreiaRSConsultaSequenciaLoteNotaRPS.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Homologacao\HTerraDeAreiaRSEnvioLoteRPSSincrono.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Homologacao\HIlheusBA-METROPOLIS.wsdl" />
-    <EmbeddedResource Include="NFse\WSDL\Homologacao\HIpatingaMG-PORTALFACIL_ACTCON.wsdl" />
-    <EmbeddedResource Include="NFse\WSDL\Producao\PIpatingaMG-PORTALFACIL_ACTCON.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Producao\PThemaCancelamento.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Producao\PMageRJ-MODERNIZACAO_PUBLICA.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Homologacao\HMageRJ-MODERNIZACAO_PUBLICA.wsdl" />
@@ -4624,6 +4622,8 @@
     <EmbeddedResource Include="NFse\WSDL\Producao\PCanelaRS-SystemPro.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Homologacao\HCanelaRS-SystemPro.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Producao\PMedianeiraPR-PRONIN.wsdl" />
+    <EmbeddedResource Include="NFse\WSDL\Homologacao\HBelemPA-DSFLoteRps.wsdl" />
+    <EmbeddedResource Include="NFse\WSDL\Producao\PBelemPA-DSFLoteRps.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="NFse\WSDL\Producao\PCamacariBA.wsdl">

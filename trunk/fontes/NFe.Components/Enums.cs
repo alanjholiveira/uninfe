@@ -1233,7 +1233,13 @@ namespace NFe.Components
         /// NobeSistemas - Software de gestão integrada
         /// </summary>
         [Description("NOBESISTEMAS")]
-        NOBESISTEMAS
+        NOBESISTEMAS,
+
+        /// <summary>
+        /// TRIBUTUS - Gestão integrada
+        /// </summary>
+        [Description("TRIBUTUS")]
+        TRIBUTUS
 
         ///***ATENÇÃO***
         ///o nome deste enum tem que coincidir com o nome da url, pq faço um "IndexOf" deste enum para pegar o padrao
