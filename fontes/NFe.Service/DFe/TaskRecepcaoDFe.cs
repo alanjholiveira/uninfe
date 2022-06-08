@@ -1,19 +1,20 @@
-﻿using NFe.Certificado;
-using NFe.Components;
+﻿using NFe.Components;
 using NFe.Settings;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Xml;
+using Unimake.Business.DFe.Servicos;
+using Unimake.Business.DFe.Servicos.NFe;
+using Unimake.Business.DFe.Xml.NFe;
 
 namespace NFe.Service
 {
     public class TaskDFeRecepcao : TaskAbst
     {
-        private string ExtEnvioDFe { get; set; }
-        private string ExtEnvioDFeTXT { get; set; }
-        private string ExtRetornoDFe { get; set; }
-        private string ExtRetEnvDFe_ERR { get; set; }
+        protected string ExtEnvioDFe { get; set; }
+        protected string ExtEnvioDFeTXT { get; set; }
+        protected string ExtRetornoDFe { get; set; }
+        protected string ExtRetEnvDFe_ERR { get; set; }
 
         public TaskDFeRecepcao(string arquivo)
         {
@@ -28,83 +29,119 @@ namespace NFe.Service
 
         public override void Execute()
         {
-            switch (Servico)
-            {
-                case Servicos.DFeEnviar:
-                    ExtEnvioDFe = Propriedade.Extensao(Propriedade.TipoEnvio.EnvDFe).EnvioXML;
-                    ExtEnvioDFeTXT = Propriedade.Extensao(Propriedade.TipoEnvio.EnvDFe).EnvioTXT;
-                    ExtRetornoDFe = Propriedade.Extensao(Propriedade.TipoEnvio.EnvDFe).RetornoXML;
-                    ExtRetEnvDFe_ERR = Propriedade.ExtRetorno.retEnvDFe_ERR;
-                    break;
-
-                case Servicos.CTeDistribuicaoDFe:
-                    ExtEnvioDFe = Propriedade.Extensao(Propriedade.TipoEnvio.EnvDFeCTe).EnvioXML;
-                    ExtEnvioDFeTXT = Propriedade.Extensao(Propriedade.TipoEnvio.EnvDFeCTe).EnvioTXT;
-                    ExtRetornoDFe = Propriedade.Extensao(Propriedade.TipoEnvio.EnvDFeCTe).RetornoXML;
-                    ExtRetEnvDFe_ERR = Propriedade.ExtRetorno.retEnvDFeCTe_ERR;
-                    break;
-            }
-
-            int emp = Empresas.FindEmpresaByThread();
-            distDFeInt _distDFeInt = new distDFeInt();
+            var emp = Empresas.FindEmpresaByThread();
+            ExtEnvioDFe = Propriedade.Extensao(Propriedade.TipoEnvio.EnvDFe).EnvioXML;
+            ExtEnvioDFeTXT = Propriedade.Extensao(Propriedade.TipoEnvio.EnvDFe).EnvioTXT;
+            ExtRetornoDFe = Propriedade.Extensao(Propriedade.TipoEnvio.EnvDFe).RetornoXML;
+            ExtRetEnvDFe_ERR = Propriedade.ExtRetorno.retEnvDFe_ERR;
 
             try
             {
-                if (!this.vXmlNfeDadosMsgEhXML)
+                if (!vXmlNfeDadosMsgEhXML)
                 {
-                    ///versao|1.00
-                    ///tpAmb|1
-                    ///cUFAutor|35
-                    ///CNPJ|
-                    /// ou
-                    ///CPF|
-                    ///ultNSU|123456789012345
-                    /// ou
-                    ///NSU|123456789012345
-                    List<string> cLinhas = Functions.LerArquivo(NomeArquivoXML);
-                    Functions.PopulateClasse(_distDFeInt, cLinhas);
+                    // -------------------------------------------
+                    // Estrutura do TXT
+                    // -------------------------------------------
+                    // versao|1.00
+                    // tpAmb|1
+                    // cUFAutor|35
+                    // CNPJ|
+                    //  ou
+                    // CPF|
+                    // ultNSU|123456789012345
+                    //  ou
+                    // NSU|123456789012345
+                    //  ou
+                    // chNFe|41170706117473000150550010000463191912756548
+                    // -------------------------------------------
+                    var cLinhas = Functions.LerArquivo(NomeArquivoXML);
 
-                    string f = Path.GetFileNameWithoutExtension(NomeArquivoXML) + ".xml";
+                    var xml = new DistDFeInt();
+
+                    foreach (var item in cLinhas)
+                    {
+                        var conteudo = item.Split("|".ToCharArray());
+                        var nomeTag = conteudo[0].ToLower();
+                        var conteudoTag = conteudo[1];
+
+                        switch (nomeTag)
+                        {
+                            case "versao":
+                                xml.Versao = conteudoTag;
+                                break;
+
+                            case "tpamb":
+                                xml.TpAmb = (Unimake.Business.DFe.Servicos.TipoAmbiente)Convert.ToInt32(conteudoTag);
+                                break;
+
+                            case "cufautor":
+                                xml.CUFAutor = (UFBrasil)Convert.ToInt32(conteudoTag);
+                                break;
+
+                            case "cnpj":
+                                xml.CNPJ = conteudoTag;
+                                break;
+
+                            case "cpf":
+                                xml.CPF = conteudoTag;
+                                break;
+
+                            case "ultnsu":
+                                xml.DistNSU = new DistNSU
+                                {
+                                    UltNSU = conteudoTag
+                                };
+                                break;
+
+                            case "nsu":
+                                xml.ConsNSU = new ConsNSU
+                                {
+                                    NSU = conteudoTag
+                                };
+                                break;
+
+                            case "chnfe":
+                                xml.ConsChNFe = new ConsChNFe
+                                {
+                                    ChNFe = conteudoTag
+                                };
+                                break;
+                        }
+                    };
+
+                    var fileXML = Path.GetFileNameWithoutExtension(NomeArquivoXML) + ".xml";
 
                     if (NomeArquivoXML.IndexOf(Empresas.Configuracoes[emp].PastaValidar, StringComparison.InvariantCultureIgnoreCase) >= 0)
                     {
-                        f = Path.Combine(Empresas.Configuracoes[emp].PastaValidar, f);
+                        fileXML = Path.Combine(Empresas.Configuracoes[emp].PastaValidar, fileXML);
                     }
-                    // Gerar o XML de envio de DFe a partir do TXT gerado pelo ERP
-                    oGerarXML.RecepcaoDFe(f, _distDFeInt);
+
+                    oGerarXML.RecepcaoDFe(fileXML, xml.GerarXML().OuterXml);
                 }
                 else
                 {
-                    XmlNodeList consdistDFeIntList = ConteudoXML.GetElementsByTagName("distDFeInt");
+                    var xml = Unimake.Business.DFe.Utility.XMLUtility.Deserializar<DistDFeInt>(ConteudoXML);
 
-                    foreach (XmlNode consdistDFeIntNode in consdistDFeIntList)
+                    var configuracao = new Configuracao
                     {
-                        XmlElement consdistDFeIntElemento = (XmlElement)consdistDFeIntNode;
-                        Functions.PopulateClasse(_distDFeInt, consdistDFeIntElemento);
+                        TipoDFe = TipoDFe.NFe,
+                        TipoAmbiente = xml.TpAmb,
+                        CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado
+                    };
+
+                    if (ConfiguracaoApp.Proxy)
+                    {
+                        configuracao.HasProxy = true;
+                        configuracao.ProxyAutoDetect = ConfiguracaoApp.DetectarConfiguracaoProxyAuto;
+                        configuracao.ProxyUser = ConfiguracaoApp.ProxyUsuario;
+                        configuracao.ProxyPassword = ConfiguracaoApp.ProxySenha;
                     }
 
-                    //Definir o objeto do WebService
-                    WebServiceProxy wsProxy = ConfiguracaoApp.DefinirWS(Servico,
-                        emp,
-                        991,
-                        _distDFeInt.tpAmb, 0);
+                    var distribuicaoDFe = new DistribuicaoDFe(xml, configuracao);
+                    distribuicaoDFe.Executar();
 
-                    System.Net.SecurityProtocolType securityProtocolType = WebServiceProxy.DefinirProtocoloSeguranca(991, _distDFeInt.tpAmb, 1, Servico);
-
-                    object oConsNFDestEvento = wsProxy.CriarObjeto(wsProxy.NomeClasseWS);
-
-                    new AssinaturaDigital().CarregarPIN(emp, NomeArquivoXML, Servico);
-
-                    //Invocar o método que envia o XML para o SEFAZ
-                    oInvocarObj.Invocar(wsProxy,
-                                        oConsNFDestEvento,
-                                        wsProxy.NomeMetodoWS[0],
-                                        null,
-                                        this,
-                                        ExtEnvioDFe,
-                                        ExtRetornoDFe,
-                                        true,
-                                        securityProtocolType);
+                    vStrXmlRetorno = distribuicaoDFe.RetornoWSString;
+                    XmlRetorno(ExtEnvioDFe, ExtRetornoDFe);
 
                     LeRetornoDFe(emp, ConteudoXML);
                 }
@@ -126,18 +163,18 @@ namespace NFe.Service
             }
         }
 
-        private void LeRetornoDFe(int emp, XmlDocument doc)
+        protected void LeRetornoDFe(int emp, XmlDocument doc)
         {
             try
             {
                 ///
                 /// pega o nome base dos arquivos a serem gravados
                 ///
-                string fileRetorno2 = Functions.ExtrairNomeArq(NomeArquivoXML, ExtEnvioDFe);
+                var fileRetorno2 = Functions.ExtrairNomeArq(NomeArquivoXML, ExtEnvioDFe);
                 ///
                 /// pega o nome do arquivo de retorno
                 ///
-                string fileRetorno = Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno,
+                var fileRetorno = Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno,
                                                   fileRetorno2 + ExtRetornoDFe);
 
                 //File.Copy(@"C:\Users\wandrey\Downloads\10432020000195-dist-dfecte.xml", fileRetorno, true);
@@ -149,24 +186,30 @@ namespace NFe.Service
                 ///
                 /// cria a pasta para comportar as notas e eventos retornados já descompactados
                 ///
-                string folderTerceiros = Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno, "dfe");
+                var folderTerceiros = Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno, "dfe");
                 if (!Directory.Exists(folderTerceiros))
+                {
                     Directory.CreateDirectory(folderTerceiros);
+                }
 
                 ///
                 /// exclui todos os arquivos que foram envolvidos no retorno
                 ///
                 foreach (var item in Directory.GetFiles(folderTerceiros, fileRetorno2 + "-*.xml", SearchOption.TopDirectoryOnly))
+                {
                     if (!Functions.FileInUse(item))
+                    {
                         File.Delete(item);
+                    }
+                }
 
                 doc.Load(fileRetorno);
-                XmlNodeList envEventoList = doc.GetElementsByTagName("retDistDFeInt");
+                var envEventoList = doc.GetElementsByTagName("retDistDFeInt");
                 foreach (XmlNode ret1Node in envEventoList)
                 {
-                    XmlElement ret1Elemento = (XmlElement)ret1Node;
+                    var ret1Elemento = (XmlElement)ret1Node;
 
-                    XmlNodeList ret1List = ret1Elemento.GetElementsByTagName("loteDistDFeInt");
+                    var ret1List = ret1Elemento.GetElementsByTagName("loteDistDFeInt");
                     foreach (XmlNode ret in ret1List)
                     {
                         ExtraiDFe(ret, "docZip", folderTerceiros, fileRetorno2, emp, fileRetorno);
@@ -187,19 +230,19 @@ namespace NFe.Service
 
         private void ExtraiDFe(XmlNode ret, string tagNameDoc, string folderTerceiros, string fileRetorno2, int emp, string fileRetorno)
         {
-            for (int n = 0; n < ret.ChildNodes.Count; ++n)
+            for (var n = 0; n < ret.ChildNodes.Count; ++n)
             {
                 if (ret.ChildNodes[n].Name.Equals(tagNameDoc))
                 {
-                    string FileToFtp = "";
-                    string NSU = ret.ChildNodes[n].Attributes[TpcnResources.NSU.ToString()].Value;
+                    var FileToFtp = "";
+                    var NSU = ret.ChildNodes[n].Attributes[TpcnResources.NSU.ToString()].Value;
 
                     ///
                     /// descompacta o conteudo
                     ///
-                    string xmlRes = TFunctions.Decompress(ret.ChildNodes[n].InnerText);
+                    var xmlRes = TFunctions.Decompress(ret.ChildNodes[n].InnerText);
 
-                    XmlDocument docXML = new XmlDocument();
+                    var docXML = new XmlDocument();
                     docXML.Load(Functions.StringXmlToStreamUTF8(xmlRes));
 
                     if (string.IsNullOrEmpty(xmlRes))
@@ -216,23 +259,31 @@ namespace NFe.Service
                         }
                         else if (ret.ChildNodes[n].Attributes["schema"].InnerText.StartsWith("procEventoNFe"))
                         {
-                            string chNFe = Functions.LerTag(((XmlElement)((XmlElement)docXML.GetElementsByTagName("evento")[0]).GetElementsByTagName("infEvento")[0]), "chNFe", false);
-                            string tpEvento = Functions.LerTag(((XmlElement)((XmlElement)docXML.GetElementsByTagName("evento")[0]).GetElementsByTagName("infEvento")[0]), "tpEvento", false);
-                            string nSeqEvento = Functions.LerTag(((XmlElement)((XmlElement)docXML.GetElementsByTagName("evento")[0]).GetElementsByTagName("infEvento")[0]), "nSeqEvento", false);
+                            var chNFe = Functions.LerTag(((XmlElement)((XmlElement)docXML.GetElementsByTagName("evento")[0]).GetElementsByTagName("infEvento")[0]), "chNFe", false);
+                            var tpEvento = Functions.LerTag(((XmlElement)((XmlElement)docXML.GetElementsByTagName("evento")[0]).GetElementsByTagName("infEvento")[0]), "tpEvento", false);
+                            var nSeqEvento = Functions.LerTag(((XmlElement)((XmlElement)docXML.GetElementsByTagName("evento")[0]).GetElementsByTagName("infEvento")[0]), "nSeqEvento", false);
 
                             if (Empresas.Configuracoes[emp].ArqNSU)
+                            {
                                 FileToFtp = Path.Combine(folderTerceiros, fileRetorno2 + "-" + NSU + Propriedade.ExtRetorno.ProcEventoNFe);
+                            }
                             else
+                            {
                                 FileToFtp = Path.Combine(folderTerceiros, chNFe + "_" + tpEvento + "_" + nSeqEvento.PadLeft(2, '0') + Propriedade.ExtRetorno.ProcEventoNFe);
+                            }
                         }
                         else if (ret.ChildNodes[n].Attributes["schema"].InnerText.StartsWith("procNFe"))
                         {
-                            string chave = ((XmlElement)docXML.GetElementsByTagName("infNFe")[0]).GetAttribute("Id").Substring(3, 44);
+                            var chave = ((XmlElement)docXML.GetElementsByTagName("infNFe")[0]).GetAttribute("Id").Substring(3, 44);
 
                             if (Empresas.Configuracoes[emp].ArqNSU)
+                            {
                                 FileToFtp = Path.Combine(folderTerceiros, fileRetorno2 + "-" + NSU + Propriedade.ExtRetorno.ProcNFe);
+                            }
                             else
+                            {
                                 FileToFtp = Path.Combine(folderTerceiros, chave + Propriedade.ExtRetorno.ProcNFe);
+                            }
                         }
                         else if (ret.ChildNodes[n].Attributes["schema"].InnerText.StartsWith("resNFe"))
                         {
@@ -245,36 +296,48 @@ namespace NFe.Service
 
                         else if (ret.ChildNodes[n].Attributes["schema"].InnerText.StartsWith("procEventoCTe"))
                         {
-                            string chCTe = Functions.LerTag(((XmlElement)((XmlElement)docXML.GetElementsByTagName("eventoCTe")[0]).GetElementsByTagName("infEvento")[0]), "chCTe", false);
-                            string tpEvento = Functions.LerTag(((XmlElement)((XmlElement)docXML.GetElementsByTagName("eventoCTe")[0]).GetElementsByTagName("infEvento")[0]), "tpEvento", false);
-                            string nSeqEvento = Functions.LerTag(((XmlElement)((XmlElement)docXML.GetElementsByTagName("eventoCTe")[0]).GetElementsByTagName("infEvento")[0]), "nSeqEvento", false);
+                            var chCTe = Functions.LerTag(((XmlElement)((XmlElement)docXML.GetElementsByTagName("eventoCTe")[0]).GetElementsByTagName("infEvento")[0]), "chCTe", false);
+                            var tpEvento = Functions.LerTag(((XmlElement)((XmlElement)docXML.GetElementsByTagName("eventoCTe")[0]).GetElementsByTagName("infEvento")[0]), "tpEvento", false);
+                            var nSeqEvento = Functions.LerTag(((XmlElement)((XmlElement)docXML.GetElementsByTagName("eventoCTe")[0]).GetElementsByTagName("infEvento")[0]), "nSeqEvento", false);
 
                             if (Empresas.Configuracoes[emp].ArqNSU)
+                            {
                                 FileToFtp = Path.Combine(folderTerceiros, fileRetorno2 + "-" + NSU + Propriedade.ExtRetorno.ProcEventoCTe);
+                            }
                             else
+                            {
                                 FileToFtp = Path.Combine(folderTerceiros, chCTe + "_" + tpEvento + "_" + nSeqEvento.PadLeft(2, '0') + Propriedade.ExtRetorno.ProcEventoCTe);
+                            }
                         }
                         else if (ret.ChildNodes[n].Attributes["schema"].InnerText.StartsWith("procCTe"))
                         {
-                            string chave = ((XmlElement)docXML.GetElementsByTagName("infCte")[0]).GetAttribute("Id").Substring(3, 44);
+                            var chave = ((XmlElement)docXML.GetElementsByTagName("infCte")[0]).GetAttribute("Id").Substring(3, 44);
 
                             if (Empresas.Configuracoes[emp].ArqNSU)
+                            {
                                 FileToFtp = Path.Combine(folderTerceiros, fileRetorno2 + "-" + NSU + Propriedade.ExtRetorno.ProcCTe);
+                            }
                             else
+                            {
                                 FileToFtp = Path.Combine(folderTerceiros, chave + Propriedade.ExtRetorno.ProcCTe);
+                            }
                         }
 
                         #endregion CTe
 
                         else
+                        {
                             Auxiliar.WriteLog("LerRetornoDFe:  Nao foi possivel ler o schema", false);
+                        }
 
                         if (FileToFtp != "")
                         {
                             if (!File.Exists(FileToFtp))
+                            {
                                 File.WriteAllText(FileToFtp, xmlRes);
+                            }
 
-                            string vFolder = Empresas.Configuracoes[emp].FTPPastaRetornos;
+                            var vFolder = Empresas.Configuracoes[emp].FTPPastaRetornos;
                             if (!string.IsNullOrEmpty(vFolder))
                             {
                                 try
@@ -284,7 +347,7 @@ namespace NFe.Service
                                 catch (Exception ex)
                                 {
                                     ///
-                                    /// grava um arquivo de erro com extensao "FTP" para diferenciar dos arquivos de erro
+                                    /// grava um arquivo de erro com extensão "FTP" para diferenciar dos arquivos de erro
                                     oAux.GravarArqErroERP(Path.ChangeExtension(fileRetorno, ".ftp"), ex.Message);
                                 }
                             }
@@ -293,15 +356,18 @@ namespace NFe.Service
                 }
             }
         }
-
-        private void WriteLogError(Exception ex)
+        protected void WriteLogError(Exception ex)
         {
             string extRet;
 
             if (vXmlNfeDadosMsgEhXML)
+            {
                 extRet = ExtEnvioDFe;
+            }
             else
+            {
                 extRet = ExtEnvioDFeTXT;
+            }
 
             try
             {

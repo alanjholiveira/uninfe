@@ -57,10 +57,6 @@ namespace NFe.Components.SimplISS
                                 simplissService = new AndiraPR.p.SimplISSP(tpAmb, PastaRetorno, Usuario, SenhaWs, ProxyUser, ProxyPass, ProxyServer);
                                 break;
 
-                            case 4202008: // Balneário Camboriú-SC
-                                simplissService = new BalnearioCamboriu.p.SimplISSP(tpAmb, PastaRetorno, Usuario, SenhaWs, ProxyUser, ProxyPass, ProxyServer);
-                                break;
-
                             case 3148103: // Patrocínio-MG
                                 simplissService = new PatrocinioMG.p.SimplISSP(tpAmb, PastaRetorno, Usuario, SenhaWs, ProxyUser, ProxyPass, ProxyServer);
                                 break;

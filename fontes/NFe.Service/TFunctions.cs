@@ -69,15 +69,8 @@ namespace NFe.Service
         /// <param name="erroPadrao">Informe o erro padrão do UniNFe</param>
         public static void GravarArqErroServico(string arquivo, string finalArqEnvio, string finalArqErro, Exception exception, ErroPadrao erroPadrao, bool moveArqErro, string nomeArqRetorno = "")
         {
-            var erroMessage = MontaStringErro(exception.Message, exception.StackTrace, exception.Source, exception.GetType().ToString(), exception.TargetSite.ToString(), exception.GetHashCode().ToString(), erroPadrao);
-
-            while(exception.InnerException != null)
-            {
-                exception = exception.InnerException;
-                erroMessage += "\r\n\r\n";
-                erroMessage += MontaStringErro(exception.Message, exception.StackTrace, exception.Source, exception.GetType().ToString(), exception.TargetSite.ToString(), exception.GetHashCode().ToString(), erroPadrao);
-            }
-
+            var ex = exception.GetLastException();
+            var erroMessage = MontaStringErro(ex.Message, ex.StackTrace, ex.Source, ex.GetType().ToString(), ex.TargetSite.ToString(), ex.GetHashCode().ToString(), erroPadrao);
             GravarArqErroServico(arquivo, finalArqEnvio, finalArqErro, erroMessage, moveArqErro, nomeArqRetorno);
         }
 

@@ -54,6 +54,7 @@ namespace NFe.Service.NFSe
                 switch (oDadosPedSitLoteRps.cMunicipio)
                 {
                     case 3106200: //Belo Horizonte-MG
+                    case 3550308: //São Paulo-SP
                         ExecuteDLL(emp, oDadosPedSitLoteRps.cMunicipio, padraoNFSe);
                         break;
 
@@ -192,20 +193,6 @@ namespace NFe.Service.NFSe
                             case PadroesNFSe.CONAM:
                                 throw new NFe.Components.Exceptions.ServicoInexistenteException();
 
-                            case PadroesNFSe.PAULISTANA:
-                                wsProxy = new WebServiceProxy(Empresas.Configuracoes[emp].X509Certificado);
-
-                                if (oDadosPedSitLoteRps.tpAmb == 1)
-                                {
-                                    pedSitLoteRps = new NFe.Components.PSaoPauloSP.LoteNFe();
-                                }
-                                else
-                                {
-                                    throw new Exception("Município de São Paulo-SP não dispõe de ambiente de homologação para envio de NFS-e em teste.");
-                                }
-
-                                break;
-
                             case PadroesNFSe.MEMORY:
 
                                 #region Memory
@@ -259,7 +246,6 @@ namespace NFe.Service.NFSe
                                     oDadosPedSitLoteRps.cMunicipio == 3542404 ||
                                     oDadosPedSitLoteRps.cMunicipio == 5005707 ||
                                     oDadosPedSitLoteRps.cMunicipio == 4314423 ||
-                                    oDadosPedSitLoteRps.cMunicipio == 3511102 ||
                                     oDadosPedSitLoteRps.cMunicipio == 3535804 ||
                                     oDadosPedSitLoteRps.cMunicipio == 4306932 ||
                                     oDadosPedSitLoteRps.cMunicipio == 4322400 ||
@@ -437,7 +423,7 @@ namespace NFe.Service.NFSe
             var finalArqEnvio = Propriedade.Extensao(Propriedade.TipoEnvio.PedSitLoteRps).EnvioXML;
             var finalArqRetorno = Propriedade.Extensao(Propriedade.TipoEnvio.PedSitLoteRps).RetornoXML;
             var versaoXML = DefinirVersaoXML(municipio, conteudoXML, padraoNFSe);
-            var servico = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarSituacaoLoteRps;
+            var servico = DefinirServico(municipio, conteudoXML);
 
             Functions.DeletarArquivo(Empresas.Configuracoes[emp].PastaXmlRetorno + "\\" + Functions.ExtrairNomeArq(NomeArquivoXML, finalArqEnvio) + Functions.ExtractExtension(finalArqRetorno) + ".err");
 
@@ -451,10 +437,22 @@ namespace NFe.Service.NFSe
                 SchemaVersao = versaoXML
             };
 
-            var consultarSituacaoLoteRps = new Unimake.Business.DFe.Servicos.NFSe.ConsultarSituacaoLoteRps(conteudoXML, configuracao);
-            consultarSituacaoLoteRps.Executar();
+            switch (servico)
+            {
+                case Unimake.Business.DFe.Servicos.Servico.NFSeConsultaInformacoesLote:
+                    var consultaInformacoesLote = new Unimake.Business.DFe.Servicos.NFSe.ConsultaInformacoesLote(conteudoXML, configuracao);
+                    consultaInformacoesLote.Executar();
 
-            vStrXmlRetorno = consultarSituacaoLoteRps.RetornoWSString;
+                    vStrXmlRetorno = consultaInformacoesLote.RetornoWSString;
+                    break;
+
+                case Unimake.Business.DFe.Servicos.Servico.NFSeConsultarSituacaoLoteRps:
+                    var consultarSituacaoLoteRps = new Unimake.Business.DFe.Servicos.NFSe.ConsultarSituacaoLoteRps(conteudoXML, configuracao);
+                    consultarSituacaoLoteRps.Executar();
+
+                    vStrXmlRetorno = consultarSituacaoLoteRps.RetornoWSString;
+                    break;
+            }
 
             XmlRetorno(finalArqEnvio, finalArqRetorno);
 
@@ -466,6 +464,22 @@ namespace NFe.Service.NFSe
             {
                 new GerarXML(emp).XmlParaFTP(emp, filenameFTP);
             }
+        }
+
+        private Unimake.Business.DFe.Servicos.Servico DefinirServico(int municipio, XmlDocument doc)
+        {
+            var result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarSituacaoLoteRps;
+
+            var padraoNFSe = Functions.PadraoNFSe(municipio);
+
+            switch (padraoNFSe)
+            {
+                case PadroesNFSe.PAULISTANA:
+                    result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultaInformacoesLote;
+                    break;
+            }
+
+            return result;
         }
 
         /// <summary>
@@ -483,6 +497,10 @@ namespace NFe.Service.NFSe
             {
                 case PadroesNFSe.BHISS:
                     versaoXML = "1.00";
+                    break;
+
+                case PadroesNFSe.PAULISTANA:
+                    versaoXML = "2.00";
                     break;
             }
 

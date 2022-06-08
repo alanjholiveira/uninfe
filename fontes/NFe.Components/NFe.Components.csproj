@@ -168,6 +168,9 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="Unimake.Utils, Version=2022.5.24.1615, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unimake.Utils.20220524.1615.17\lib\netstandard2.0\Unimake.Utils.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
@@ -214,6 +217,8 @@
     <Compile Include="Fiorilli\AguasDeLindoiaSP\h\FiorilliH.cs" />
     <Compile Include="Fiorilli\AguasDeLindoiaSP\p\FiorilliP.cs" />
     <Compile Include="Fiorilli\AssisSP\p\FiorilliP.cs" />
+    <Compile Include="Fiorilli\CatanduvaSP\h\FiorilliH.cs" />
+    <Compile Include="Fiorilli\CatanduvaSP\p\FiorilliP.cs" />
     <Compile Include="Fiorilli\CorumbaMS\h\FiorilliH.cs" />
     <Compile Include="Fiorilli\CorumbaMS\p\FiorilliP.cs" />
     <Compile Include="Fiorilli\DuartinaSP\h\FiorilliH.cs" />
@@ -224,6 +229,10 @@
     <Compile Include="Fiorilli\GarcaSP\p\FiorilliP.cs" />
     <Compile Include="Fiorilli\ItaitubaPA\h\FiorilliH.cs" />
     <Compile Include="Fiorilli\ItaitubaPA\p\FiorilliP.cs" />
+    <Compile Include="Fiorilli\RibasDoRioPardoMS\h\FiorilliH.cs" />
+    <Compile Include="Fiorilli\RibasDoRioPardoMS\p\FiorilliP.cs" />
+    <Compile Include="Fiorilli\SenadorCanedoGO\h\FiorilliH.cs" />
+    <Compile Include="Fiorilli\SenadorCanedoGO\p\FiorilliP.cs" />
     <Compile Include="Fiorilli\JiParanaRO\h\FiorilliH.cs" />
     <Compile Include="Fiorilli\JiParanaRO\p\FiorilliP.cs" />
     <Compile Include="Fiorilli\MacapaAP\h\FiorilliH.cs" />
@@ -251,6 +260,10 @@
     <Compile Include="GeisWeb\ItatingaSP\h\GeisWebH.cs" />
     <Compile Include="GeisWeb\ItatingaSP\p\GeisWebP.cs" />
     <Compile Include="GetRequest.cs" />
+    <Compile Include="GIAP\Giap.cs" />
+    <Compile Include="GIAP\GiapBase.cs" />
+    <Compile Include="GIAP\SaoCarlosSP.cs" />
+    <Compile Include="GIAP\BragancaPaulistaSP.cs" />
     <Compile Include="Interface\IEmiteNFSeAGILI .cs" />
     <Compile Include="Interface\IEmiteNFSeSOFTPLAN.cs" />
     <Compile Include="Interface\IGetRequest.cs" />
@@ -285,8 +298,6 @@
     <Compile Include="Pronin\UruguaianaRS\h\ProninH.cs" />
     <Compile Include="Pronin\PatoBrancoPR\h\ProninH.cs" />
     <Compile Include="Pronin\PatoBrancoPR\p\ProninP.cs" />
-    <Compile Include="Pronin\CatanduvaSP\h\ProninH.cs" />
-    <Compile Include="Pronin\CatanduvaSP\p\ProninP.cs" />
     <Compile Include="Pronin\RegenteFeijoSP\h\ProninH.cs" />
     <Compile Include="Pronin\RegenteFeijoSP\p\ProninP.cs" />
     <Compile Include="Pronin\NaviraiMS\h\ProninH.cs" />
@@ -302,14 +313,18 @@
     <Compile Include="Pronin\VeraCruzRS\p\ProninP.cs" />
     <Compile Include="Pronin\ViamaoRS\h\ProninH.cs" />
     <Compile Include="Pronin\ViamaoRS\p\ProninP.cs" />
+    <Compile Include="RLZ_INFORMATICA\VotuporangaSP\h\Rlz_InformaticaH.cs" />
+    <Compile Include="RLZ_INFORMATICA\VotuporangaSP\p\Rlz_InformaticaP.cs" />
     <Compile Include="RLZ_INFORMATICA\JalesSP\h\Rlz_InformaticaH.cs" />
     <Compile Include="RLZ_INFORMATICA\JalesSP\p\Rlz_InformaticaP.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_PROPRIOJOINVILLESC.cs" />
     <Compile Include="Schemas\SchemaXMLNFSe_GEISWEB.cs" />
     <Compile Include="Schemas\SchemaXMLNFSe_IIBRASIL.cs" />
     <Compile Include="Schemas\SchemaXMLNFSe_INDAIATUBA_SP.cs" />
     <Compile Include="Schemas\SchemaXMLNFSe_CECAM.cs" />
     <Compile Include="Schemas\SchemaXMLNFSe_MEGASOFT.cs" />
     <Compile Include="Schemas\SchemaXMLNFSe_D2TI.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_PAULISTANA.cs" />
     <Compile Include="Schemas\SchemaXMLNFSe_RLZ_informatica_02.cs" />
     <Compile Include="Schemas\SchemaXMLNFSe_PUBLIC_SOFT.cs" />
     <Compile Include="Schemas\SchemaXMLNFSe_ADM_SISTEMAS.cs" />
@@ -317,6 +332,7 @@
     <Compile Include="Schemas\SchemaXMLNFSe_MODERNIZACAO_PUBLICA.cs" />
     <Compile Include="Schemas\SchemaXMLNFSe_CENTI.cs" />
     <Compile Include="Schemas\SchemaXMLNFSe_SMARAPD_203.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_GIAP.cs" />
     <Compile Include="Schemas\SchemaXMLNFSe_SYSMAR.cs" />
     <Compile Include="Schemas\SchemaXMLNFSe_SMARAPD_204.cs" />
     <Compile Include="Schemas\SchemaXMLNFSe_SISPMJP﻿.cs" />
@@ -435,7 +451,7 @@
     <Compile Include="Schemas\SchemaXMLNFSe_BSITBR.cs" />
     <Compile Include="Schemas\SchemaXMLNFSe_LEXSOM.cs" />
     <Compile Include="Schemas\SchemaXMLNFSe_NOTAINTELIGENTE.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_CAMACARI_BA.cs" />
+    <Compile Include="Schemas\SchemaXMLNFSe_PRODEB.cs" />
     <Compile Include="Schemas\SchemaXMLNFSe_NA_INFORMATICA.cs" />
     <Compile Include="Schemas\SchemaXMLNFSe_METROPOLIS.cs" />
     <Compile Include="Schemas\SchemaXMLNFSe_PORTALFACIL_ACTCON.cs" />
@@ -470,7 +486,6 @@
     <Compile Include="Schemas\SchemaXMLNFSe_PRONIN.cs" />
     <Compile Include="Schemas\SchemaXMLNFSe_PORTOVELHENSE.cs" />
     <Compile Include="Schemas\SchemaXMLNFSe_SALVADOR_BA.cs" />
-    <Compile Include="Schemas\SchemaXMLNFSe_PAULISTANA.cs" />
     <Compile Include="Schemas\SchemaXMLNFSe_WebISS.cs" />
     <Compile Include="Schemas\SchemaXMLNFSe_DUETO.cs" />
     <Compile Include="Schemas\SchemaXMLNFSe_GIF.cs" />
@@ -514,8 +529,6 @@
     <Compile Include="SimplISS\PiracicabaSP\p\SimplISSP.cs" />
     <Compile Include="SimplISS\PresidentePrudenteSP\h\SimplISSH.cs" />
     <Compile Include="SimplISS\PresidentePrudenteSP\p\SimplISSP.cs" />
-    <Compile Include="SimplISS\BalnearioCamboriu\h\SimplISSH.cs" />
-    <Compile Include="SimplISS\BalnearioCamboriu\p\SimplISSP.cs" />
     <Compile Include="SimplISS\SimplISS.cs" />
     <Compile Include="SimplISS\SimplISSBase.cs" />
     <Compile Include="Criptografia.cs" />
@@ -764,11 +777,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
-    <Compile Include="Web References\br.com.simplissweb.wsbalneariocamboriu.p\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.map</DependentUpon>
-    </Compile>
     <Compile Include="Web References\br.com.simplissweb.wshomologacao.h\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -894,6 +902,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
+    <Compile Include="Web References\HCaceresMT\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
     <Compile Include="Web References\HCampinasDoSul\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -905,6 +918,11 @@
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
     <Compile Include="Web References\HCanelaRS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\HCatanduvaSP\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
@@ -1134,6 +1152,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
+    <Compile Include="Web References\HRibasDoRioPardoMS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
     <Compile Include="Web References\HSaoJoseRibamarMA_TINUS_CancelarNfse\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1225,11 +1248,6 @@
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
     <Compile Include="Web References\HCampoNovoDoParecisMT\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.map</DependentUpon>
-    </Compile>
-    <Compile Include="Web References\HCatanduvaSP\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
@@ -1419,6 +1437,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
+    <Compile Include="Web References\HVotuporangaSP\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
     <Compile Include="Web References\HWebfiscoTecnologia\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1454,6 +1477,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
+    <Compile Include="Web References\PCaceresMT\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
     <Compile Include="Web References\PCampinasDoSul\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1470,6 +1498,11 @@
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
     <Compile Include="Web References\PCastanhalPA\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\PCatanduvaSP\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
@@ -1550,6 +1583,11 @@
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
     <Compile Include="Web References\PIpojucaPE_TINUS_RecepcionarLoteRps\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\PItabiraMG\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
@@ -1639,6 +1677,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
+    <Compile Include="Web References\PRibasDoRioPardoMS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
     <Compile Include="Web References\PSantaTerezinhaItaipuPR\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1710,6 +1753,11 @@
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
     <Compile Include="Web References\PViamaoRS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\PVotuporangaSP\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
@@ -1965,11 +2013,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
-    <Compile Include="Web References\PCatanduvaSP\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.map</DependentUpon>
-    </Compile>
     <Compile Include="Web References\PCoronelFabricianoMG\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -2036,11 +2079,6 @@
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
     <Compile Include="Web References\PIconhaES\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.map</DependentUpon>
-    </Compile>
-    <Compile Include="Web References\PItabiraMG\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
@@ -2165,11 +2203,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
-    <Compile Include="Web References\PSaoPauloSP\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.map</DependentUpon>
-    </Compile>
     <Compile Include="Web References\PSaoRoqueSP\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -2233,7 +2266,6 @@
     <Compile Include="MsgErro.cs" />
     <Compile Include="Municipio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Proxy.cs" />
     <Compile Include="WebServiceProxy.cs" />
     <Compile Include="XMLIniFile.cs" />
   </ItemGroup>
@@ -3036,45 +3068,6 @@
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Web References\br.com.simplissweb.wsbalneariocamboriu.p\CancelarNfseResposta.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\br.com.simplissweb.wsbalneariocamboriu.p\ConsultarLoteRpsResposta.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\br.com.simplissweb.wsbalneariocamboriu.p\ConsultarNfseResposta.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\br.com.simplissweb.wsbalneariocamboriu.p\ConsultarNfseRpsResposta.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\br.com.simplissweb.wsbalneariocamboriu.p\ConsultarSituacaoLoteRpsResposta.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\br.com.simplissweb.wsbalneariocamboriu.p\EnviarLoteRpsResposta.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\br.com.simplissweb.wsbalneariocamboriu.p\GerarNovaNfseResposta.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\br.com.simplissweb.wsbalneariocamboriu.p\nfseservice.wsdl" />
-    <None Include="Web References\br.com.simplissweb.wsbalneariocamboriu.p\nfseservice.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Web References\br.com.simplissweb.wsbalneariocamboriu.p\NfseService0.wsdl" />
-    <None Include="Web References\br.com.simplissweb.wsbalneariocamboriu.p\nfseservice0.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Web References\br.com.simplissweb.wsbalneariocamboriu.p\nfseservice1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Web References\br.com.simplissweb.wsbalneariocamboriu.p\nfseservice2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Web References\br.com.simplissweb.wsbalneariocamboriu.p\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
     <None Include="Web References\br.com.simplissweb.wshomologacao.h\CancelarNfseResposta.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
@@ -3724,6 +3717,11 @@
     <None Include="Web References\HBlumenauSC\ConsultarNfseServicoPrestadoResposta.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
+    <None Include="Web References\HCaceresMT\nfse.wsdl" />
+    <None Include="Web References\HCaceresMT\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <None Include="Web References\HCampinasDoSul\NfseService_Homolog.wsdl" />
     <None Include="Web References\HCampinasDoSul\NfseService_Homolog.xsd">
       <SubType>Designer</SubType>
@@ -3774,6 +3772,41 @@
     <None Include="Web References\HCanelaRS\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\HCatanduvaSP\CancelarNfseResposta.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\HCatanduvaSP\ConsultarLoteRpsResposta.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\HCatanduvaSP\ConsultarNfseFaixaResposta.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\HCatanduvaSP\ConsultarNfseRpsResposta.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\HCatanduvaSP\ConsultarNfseServicoPrestadoResposta.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\HCatanduvaSP\ConsultarNfseServicoTomadoResposta.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\HCatanduvaSP\EnviarLoteRpsResposta.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\HCatanduvaSP\EnviarLoteRpsSincronoResposta.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\HCatanduvaSP\GerarNfseResposta.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\HCatanduvaSP\IssWebWS.wsdl" />
+    <None Include="Web References\HCatanduvaSP\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\HCatanduvaSP\SubstituirNfseResposta.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
     </None>
     <None Include="Web References\HDivinopolisMG\NfseServiceImplDivService.wsdl" />
     <None Include="Web References\HDivinopolisMG\Reference.map">
@@ -4268,6 +4301,41 @@
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Web References\HRibasDoRioPardoMS\CancelarNfseResposta.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\HRibasDoRioPardoMS\ConsultarLoteRpsResposta.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\HRibasDoRioPardoMS\ConsultarNfseFaixaResposta.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\HRibasDoRioPardoMS\ConsultarNfseRpsResposta.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\HRibasDoRioPardoMS\ConsultarNfseServicoPrestadoResposta.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\HRibasDoRioPardoMS\ConsultarNfseServicoTomadoResposta.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\HRibasDoRioPardoMS\EnviarLoteRpsResposta.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\HRibasDoRioPardoMS\EnviarLoteRpsSincronoResposta.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\HRibasDoRioPardoMS\GerarNfseResposta.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\HRibasDoRioPardoMS\IssWebWS.wsdl" />
+    <None Include="Web References\HRibasDoRioPardoMS\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\HRibasDoRioPardoMS\SubstituirNfseResposta.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
     <None Include="Web References\HSaoJoseRibamarMA_TINUS_CancelarNfse\CancelarNfseResposta.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
@@ -4440,17 +4508,6 @@
     <None Include="Web References\HCampoNovoDoParecisMT\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Web References\HCatanduvaSP\NFSeIntegracao.wsdl" />
-    <None Include="Web References\HCatanduvaSP\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Web References\HCatanduvaSP\Services.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Web References\HCatanduvaSP\Services0.xsd">
-      <SubType>Designer</SubType>
     </None>
     <None Include="Web References\HCoronelFabricianoMG\NfseServiceImplCoronelFabricianoService.wsdl" />
     <None Include="Web References\HCoronelFabricianoMG\Reference.map">
@@ -4958,6 +5015,14 @@
     <None Include="Web References\HViamaoRS\Services0.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Web References\HVotuporangaSP\HVotuporangaSP-RLZ_INFORMATICA.wsdl" />
+    <None Include="Web References\HVotuporangaSP\Nota.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\HVotuporangaSP\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <None Include="Web References\HWebfiscoTecnologia\EnvNfe.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
@@ -5071,6 +5136,11 @@
     <None Include="Web References\PBarraDeSaoFranciscoES\situacaoLoteRps.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
+    <None Include="Web References\PCaceresMT\nfse.wsdl" />
+    <None Include="Web References\PCaceresMT\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <None Include="Web References\PCampinasDoSul\NfseService.wsdl" />
     <None Include="Web References\PCampinasDoSul\NfseService.xsd">
       <SubType>Designer</SubType>
@@ -5132,6 +5202,41 @@
     </None>
     <None Include="Web References\PCastanhalPA\Services0.xsd">
       <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\PCatanduvaSP\CancelarNfseResposta1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\PCatanduvaSP\ConsultarLoteRpsResposta1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\PCatanduvaSP\ConsultarNfseFaixaResposta1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\PCatanduvaSP\ConsultarNfseRpsResposta1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\PCatanduvaSP\ConsultarNfseServicoPrestadoResposta1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\PCatanduvaSP\ConsultarNfseServicoTomadoResposta1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\PCatanduvaSP\EnviarLoteRpsResposta1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\PCatanduvaSP\EnviarLoteRpsSincronoResposta1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\PCatanduvaSP\GerarNfseResposta1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\PCatanduvaSP\IssWebWS.wsdl" />
+    <None Include="Web References\PCatanduvaSP\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\PCatanduvaSP\SubstituirNfseResposta1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
     </None>
     <None Include="Web References\PColatinaES\cnae.datasource">
       <DependentUpon>Reference.map</DependentUpon>
@@ -5287,6 +5392,17 @@
     <None Include="Web References\PIpojucaPE_TINUS_RecepcionarLoteRps\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\PItabiraMG\NFSeIntegracao.wsdl" />
+    <None Include="Web References\PItabiraMG\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\PItabiraMG\Services.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\PItabiraMG\Services0.xsd">
+      <SubType>Designer</SubType>
     </None>
     <None Include="Web References\PItatingaSP\PItatingaSP-GeisWeb.wsdl" />
     <None Include="Web References\PItatingaSP\Reference.map">
@@ -5530,6 +5646,41 @@
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Web References\PRibasDoRioPardoMS\CancelarNfseResposta.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\PRibasDoRioPardoMS\ConsultarLoteRpsResposta.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\PRibasDoRioPardoMS\ConsultarNfseFaixaResposta.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\PRibasDoRioPardoMS\ConsultarNfseRpsResposta.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\PRibasDoRioPardoMS\ConsultarNfseServicoPrestadoResposta.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\PRibasDoRioPardoMS\ConsultarNfseServicoTomadoResposta.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\PRibasDoRioPardoMS\EnviarLoteRpsResposta.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\PRibasDoRioPardoMS\EnviarLoteRpsSincronoResposta.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\PRibasDoRioPardoMS\GerarNfseResposta.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\PRibasDoRioPardoMS\IssWebWS.wsdl" />
+    <None Include="Web References\PRibasDoRioPardoMS\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\PRibasDoRioPardoMS\SubstituirNfseResposta.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
     <None Include="Web References\PSantaTerezinhaItaipuPR\NFSeIntegracao.wsdl" />
     <None Include="Web References\PSantaTerezinhaItaipuPR\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
@@ -5650,19 +5801,39 @@
     <None Include="Web References\PSaoSebastiaoDaGramaSP\Services0.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Web References\PSenadorCanedoGO\companyIntegrationDTO.datasource">
+    <None Include="Web References\PSenadorCanedoGO\CancelarNfseResposta.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
-    <None Include="Web References\PSenadorCanedoGO\nfseWS.wsdl" />
-    <None Include="Web References\PSenadorCanedoGO\nfseWS0.wsdl" />
-    <None Include="Web References\PSenadorCanedoGO\personIntegrationDTO.datasource">
+    <None Include="Web References\PSenadorCanedoGO\ConsultarLoteRpsResposta.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
+    <None Include="Web References\PSenadorCanedoGO\ConsultarNfseFaixaResposta.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\PSenadorCanedoGO\ConsultarNfseRpsResposta.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\PSenadorCanedoGO\ConsultarNfseServicoPrestadoResposta.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\PSenadorCanedoGO\ConsultarNfseServicoTomadoResposta.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\PSenadorCanedoGO\EnviarLoteRpsResposta.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\PSenadorCanedoGO\EnviarLoteRpsSincronoResposta.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\PSenadorCanedoGO\GerarNfseResposta.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\PSenadorCanedoGO\IssWebWS.wsdl" />
     <None Include="Web References\PSenadorCanedoGO\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Web References\PSenadorCanedoGO\userNFSEDTO.datasource">
+    <None Include="Web References\PSenadorCanedoGO\SubstituirNfseResposta.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
     <None Include="Web References\PSerafinaCorreaRS\CancelarNfseResposta.datasource">
@@ -5764,6 +5935,14 @@
     </None>
     <None Include="Web References\PViamaoRS\Services0.xsd">
       <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\PVotuporangaSP\Nota.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\PVotuporangaSP\PVotuporangaSP-RLZ_INFORMATICA.wsdl" />
+    <None Include="Web References\PVotuporangaSP\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Web References\WSLoandaPR\CancelarNfseResposta1.datasource">
       <DependentUpon>Reference.map</DependentUpon>
@@ -6426,17 +6605,6 @@
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Web References\PCatanduvaSP\NFSeIntegracao.wsdl" />
-    <None Include="Web References\PCatanduvaSP\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Web References\PCatanduvaSP\Services.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Web References\PCatanduvaSP\Services0.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Web References\PCoronelFabricianoMG\NfseServiceImplCoronelFabricianoService.wsdl" />
     <None Include="Web References\PCoronelFabricianoMG\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
@@ -6626,17 +6794,6 @@
     </None>
     <None Include="Web References\PIconhaES\situacaoLoteRps.datasource">
       <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\PItabiraMG\NFSeIntegracao.wsdl" />
-    <None Include="Web References\PItabiraMG\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Web References\PItabiraMG\Services.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Web References\PItabiraMG\Services0.xsd">
-      <SubType>Designer</SubType>
     </None>
     <None Include="Web References\PItaitubaPA\CancelarNfseResposta.datasource">
       <DependentUpon>Reference.map</DependentUpon>
@@ -7043,11 +7200,6 @@
     <None Include="Web References\PSaoJoaoParaisoMG\situacaoLoteRps.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
-    <None Include="Web References\PSaoPauloSP\PSaoPauloSP-PAULISTANA.wsdl" />
-    <None Include="Web References\PSaoPauloSP\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
     <None Include="Web References\PSaoRoqueSP\NfseServiceImplSaoRoqueService.wsdl" />
     <None Include="Web References\PSaoRoqueSP\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
@@ -7313,6 +7465,17 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>NFe_Components_HBlumenauSC_NfseService</CachedSettingsPropName>
     </WebReferenceUrl>
+    <WebReferenceUrl Include="C:\Projetos\UniNFe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Homologacao\HCaceresMT-RLZ_INFORMATICA.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\HCaceresMT\</RelPath>
+      <UpdateFromURL>C:\Projetos\UniNFe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Homologacao\HCaceresMT-RLZ_INFORMATICA.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>NFe_Components_HCaceresMT_NfseWSService</CachedSettingsPropName>
+    </WebReferenceUrl>
     <WebReferenceUrl Include="C:\projetos\uninfe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Homologacao\HCampinasDoSulRS-SystemPro.wsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\HCampinasDoSul\</RelPath>
@@ -7346,16 +7509,16 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>NFe_Components_HCanelaRS_NfseService_Homolog</CachedSettingsPropName>
     </WebReferenceUrl>
-    <WebReferenceUrl Include="C:\Projetos\uninfe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Homologacao\HCatanduvaSP-PRONIN.wsdl">
+    <WebReferenceUrl Include="C:\Projetos\UniNFe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Homologacao\HCatanduvaSP-FIORILLI.wsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\HCatanduvaSP\</RelPath>
-      <UpdateFromURL>C:\Projetos\uninfe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Homologacao\HCatanduvaSP-PRONIN.wsdl</UpdateFromURL>
+      <UpdateFromURL>C:\Projetos\UniNFe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Homologacao\HCatanduvaSP-FIORILLI.wsdl</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>NFe_Components_HCatanduvaSP_NFSeIntegracao</CachedSettingsPropName>
+      <CachedSettingsPropName>NFe_Components_HCatanduvaSP_IssWebWS</CachedSettingsPropName>
     </WebReferenceUrl>
     <WebReferenceUrl Include="C:\projetos\uninfe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Homologacao\HCuritibaPR-EGoverne.wsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
@@ -7378,6 +7541,17 @@
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>NFe_Components_HDivinopolisMG_NfseServiceImplDivService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="C:\Projetos\UniNFe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Homologacao\HErechimRS-SystemPro.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\br.gov.rs.erechim.nfse.www.h\</RelPath>
+      <UpdateFromURL>C:\Projetos\UniNFe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Homologacao\HErechimRS-SystemPro.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>NFe_Components_br_gov_rs_erechim_nfse_www_h_NfseService_Homolog</CachedSettingsPropName>
     </WebReferenceUrl>
     <WebReferenceUrl Include="C:\projetos\uninfe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Homologacao\HGaranhunsPE_TINUS_CancelarNfse.wsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
@@ -7852,6 +8026,17 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>NFe_Components_HPotirendabaSPPotirendabaSP_IssWebWS</CachedSettingsPropName>
     </WebReferenceUrl>
+    <WebReferenceUrl Include="C:\Projetos\UniNFe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Homologacao\HRibasDoRioPardoMS-Fiorilli.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\HRibasDoRioPardoMS\</RelPath>
+      <UpdateFromURL>C:\Projetos\UniNFe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Homologacao\HRibasDoRioPardoMS-Fiorilli.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>NFe_Components_HRibasDoRioPardoMS_IssWebWS</CachedSettingsPropName>
+    </WebReferenceUrl>
     <WebReferenceUrl Include="C:\Projetos\UniNFe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Homologacao\HRioPedrasSP-FIORILLI.wsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\HRioPedrasSP\</RelPath>
@@ -7972,6 +8157,17 @@
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>NFe_Components_HUruguaianaRS_NFSeIntegracao</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="C:\Projetos\UniNFe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Homologacao\HVotuporangaSP-RLZ_INFORMATICA.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\HVotuporangaSP\</RelPath>
+      <UpdateFromURL>C:\Projetos\UniNFe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Homologacao\HVotuporangaSP-RLZ_INFORMATICA.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>NFe_Components_HVotuporangaSP_Webservice_Prefeitura</CachedSettingsPropName>
     </WebReferenceUrl>
     <WebReferenceUrl Include="C:\Projetos\UniNFe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Homologacao\HWebFiscoTecnologia.wsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
@@ -8149,6 +8345,17 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>NFe_Components_PCacapavaDoSulRS_NFSeIntegracao</CachedSettingsPropName>
     </WebReferenceUrl>
+    <WebReferenceUrl Include="C:\Projetos\UniNFe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Producao\PCaceresMT-RLZ_INFORMATICA.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\PCaceresMT\</RelPath>
+      <UpdateFromURL>C:\Projetos\UniNFe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Producao\PCaceresMT-RLZ_INFORMATICA.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>NFe_Components_PCaceresMT_NfseWSService</CachedSettingsPropName>
+    </WebReferenceUrl>
     <WebReferenceUrl Include="C:\projetos\uninfe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Producao\PCampinasDoSulRS-SystemPro.wsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\PCampinasDoSul\</RelPath>
@@ -8193,16 +8400,16 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>NFe_Components_PCastanhalPA_NFSeIntegracao</CachedSettingsPropName>
     </WebReferenceUrl>
-    <WebReferenceUrl Include="C:\Projetos\uninfe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Producao\PCatanduvaSP-PRONIN.wsdl">
+    <WebReferenceUrl Include="C:\Projetos\UniNFe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Producao\PCatanduvaSP-FIORILLI.wsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\PCatanduvaSP\</RelPath>
-      <UpdateFromURL>C:\Projetos\uninfe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Producao\PCatanduvaSP-PRONIN.wsdl</UpdateFromURL>
+      <UpdateFromURL>C:\Projetos\UniNFe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Producao\PCatanduvaSP-FIORILLI.wsdl</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>NFe_Components_PCatanduvaSP_NFSeIntegracao</CachedSettingsPropName>
+      <CachedSettingsPropName>NFe_Components_PCatanduvaSP1_IssWebWS</CachedSettingsPropName>
     </WebReferenceUrl>
     <WebReferenceUrl Include="C:\projetos\uninfe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Producao\PColatinaES-EL.wsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
@@ -8413,6 +8620,17 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>NFe_Components_PIpojucaPE_TINUS_RecepcionarLoteRps_RecepcionarLoteRps</CachedSettingsPropName>
     </WebReferenceUrl>
+    <WebReferenceUrl Include="C:\Projetos\UniNFe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Producao\PItabiraMG-PRONIN.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\PItabiraMG\</RelPath>
+      <UpdateFromURL>C:\Projetos\UniNFe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Producao\PItabiraMG-PRONIN.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>NFe_Components_PItabiraMG_NFSeIntegracao</CachedSettingsPropName>
+    </WebReferenceUrl>
     <WebReferenceUrl Include="C:\Projetos\UniNFe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Producao\PItaitubaPA-FIORILLI.wsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\PItaitubaPA\</RelPath>
@@ -8544,6 +8762,39 @@
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>NFe_Components_PMedianeiraPR_NFSeIntegracao</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="C:\Projetos\UniNFe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Producao\PRibasDoRioPardoMS-Fiorilli.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\PRibasDoRioPardoMS\</RelPath>
+      <UpdateFromURL>C:\Projetos\UniNFe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Producao\PRibasDoRioPardoMS-Fiorilli.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>NFe_Components_PRibasDoRioPardoMS_IssWebWS</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="C:\Projetos\UniNFe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Producao\PSenadorCanedoGO-FIORILLI.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\PSenadorCanedoGO\</RelPath>
+      <UpdateFromURL>C:\Projetos\UniNFe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Producao\PSenadorCanedoGO-FIORILLI.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>NFe_Components_PSenadorCanedoGO_IssWebWS</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="C:\Projetos\UniNFe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Producao\PVotuporangaSP-RLZ_INFORMATICA.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\PVotuporangaSP\</RelPath>
+      <UpdateFromURL>C:\Projetos\UniNFe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Producao\PVotuporangaSP-RLZ_INFORMATICA.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>NFe_Components_PVotuporangaSP_Webservice_Prefeitura</CachedSettingsPropName>
     </WebReferenceUrl>
     <WebReferenceUrl Include="D:\Projetos\UniNFe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Homologacao\HPauloBentoRS-SystemPro.wsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
@@ -8875,17 +9126,6 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>NFe_Components_PSaoPedro_NFSeIntegracao</CachedSettingsPropName>
     </WebReferenceUrl>
-    <WebReferenceUrl Include="C:\projetos\uninfe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Producao\PSenadorCanedoGO-BSITBR.wsdl">
-      <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\PSenadorCanedoGO\</RelPath>
-      <UpdateFromURL>C:\projetos\uninfe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Producao\PSenadorCanedoGO-BSITBR.wsdl</UpdateFromURL>
-      <ServiceLocationURL>
-      </ServiceLocationURL>
-      <CachedDynamicPropName>
-      </CachedDynamicPropName>
-      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>NFe_Components_PSenadorCanedoGO_nfseWS</CachedSettingsPropName>
-    </WebReferenceUrl>
     <WebReferenceUrl Include="C:\projetos\uninfe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Producao\PSerafinaCorreaRS-FIORILLI.wsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\PSerafinaCorreaRS\</RelPath>
@@ -9006,17 +9246,6 @@
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>NFe_Components_PPotirendabaSPPotirendabaSP_IssWebWS</CachedSettingsPropName>
-    </WebReferenceUrl>
-    <WebReferenceUrl Include="C:\projetos\uninfe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Producao\PSaoPauloSP-PAULISTANA.wsdl">
-      <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\PSaoPauloSP\</RelPath>
-      <UpdateFromURL>C:\projetos\uninfe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Producao\PSaoPauloSP-PAULISTANA.wsdl</UpdateFromURL>
-      <ServiceLocationURL>
-      </ServiceLocationURL>
-      <CachedDynamicPropName>
-      </CachedDynamicPropName>
-      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>NFe_Components_PSaoPauloSP_LoteNFe</CachedSettingsPropName>
     </WebReferenceUrl>
     <WebReferenceUrl Include="C:\projetos\uninfe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Homologacao\HAvareSP-FIORILLI.wsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
@@ -10294,17 +10523,6 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>NFe_Components_HItabiraMG_NFSeIntegracao</CachedSettingsPropName>
     </WebReferenceUrl>
-    <WebReferenceUrl Include="http://servicosweb.itabira.mg.gov.br:90/NFSe.Portal.Integracao/Services.svc%3fwsdl">
-      <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\PItabiraMG\</RelPath>
-      <UpdateFromURL>http://servicosweb.itabira.mg.gov.br:90/NFSe.Portal.Integracao/Services.svc%3fwsdl</UpdateFromURL>
-      <ServiceLocationURL>
-      </ServiceLocationURL>
-      <CachedDynamicPropName>
-      </CachedDynamicPropName>
-      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>NFe_Components_PItabiraMG_NFSeIntegracao</CachedSettingsPropName>
-    </WebReferenceUrl>
     <WebReferenceUrl Include="http://testeiss.londrina.pr.gov.br/ws/v1_03/sigiss_ws.php%3fwsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\br.gov.pr.londrina.testeiss.h\</RelPath>
@@ -10326,17 +10544,6 @@
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>NFe_Components_br_com_simplissweb_wsandira_p_NfseService</CachedSettingsPropName>
-    </WebReferenceUrl>
-    <WebReferenceUrl Include="http://wsbalneariocamboriu.simplissweb.com.br/nfseservice.svc%3fwsdl">
-      <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\br.com.simplissweb.wsbalneariocamboriu.p\</RelPath>
-      <UpdateFromURL>http://wsbalneariocamboriu.simplissweb.com.br/nfseservice.svc%3fwsdl</UpdateFromURL>
-      <ServiceLocationURL>
-      </ServiceLocationURL>
-      <CachedDynamicPropName>
-      </CachedDynamicPropName>
-      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>NFe_Components_br_com_simplissweb_wsbalneariocamboriu_p_NfseService</CachedSettingsPropName>
     </WebReferenceUrl>
     <WebReferenceUrl Include="http://wshomologacao.simplissweb.com.br/nfseservice.svc%3fwsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
@@ -10767,17 +10974,6 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>NFe_Components_br_gov_rs_erechim_nfse_www_p_NfseService</CachedSettingsPropName>
     </WebReferenceUrl>
-    <WebReferenceUrl Include="https://www.nfse.erechim.rs.gov.br:8182/NfseService_Homolog/NfseService_Homolog%3fwsdl">
-      <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\br.gov.rs.erechim.nfse.www.h\</RelPath>
-      <UpdateFromURL>https://www.nfse.erechim.rs.gov.br:8182/NfseService_Homolog/NfseService_Homolog%3fwsdl</UpdateFromURL>
-      <ServiceLocationURL>
-      </ServiceLocationURL>
-      <CachedDynamicPropName>
-      </CachedDynamicPropName>
-      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>NFe_Components_br_gov_rs_erechim_nfse_www_h_NfseService_Homolog</CachedSettingsPropName>
-    </WebReferenceUrl>
     <WebReferenceUrl Include="Z:\UniNFe\trunk\fontes\NFe.Components.Wsdl\NFse\WSDL\Homologacao\HBaraoDeCotegipeRS-SystemPro.wsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\HBaraoDeCotegipeRS\</RelPath>
@@ -10950,6 +11146,9 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="unimake.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

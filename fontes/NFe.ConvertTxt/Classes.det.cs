@@ -13,6 +13,7 @@ namespace NFe.ConvertTxt
         public Prod Prod;
         public Imposto Imposto;
         public impostoDevol impostoDevol;
+        public ObsItem ObsItem;
         public string infAdProd;
 
         public Det()
@@ -20,6 +21,7 @@ namespace NFe.ConvertTxt
             Prod = new Prod();
             Imposto = new Imposto();
             impostoDevol = new impostoDevol();
+            ObsItem = new ObsItem();
         }
     }
 

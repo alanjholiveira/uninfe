@@ -59,7 +59,7 @@ namespace NFe.UI.Formularios
                     IWebProxy proxy = null;
 
                     if (ConfiguracaoApp.Proxy)
-                        proxy = Proxy.DefinirProxy(ConfiguracaoApp.ProxyServidor, 
+                        proxy = Unimake.Net.Utility.GetProxy(ConfiguracaoApp.ProxyServidor, 
                             ConfiguracaoApp.ProxyUsuario, 
                             ConfiguracaoApp.ProxySenha, 
                             ConfiguracaoApp.ProxyPorta, 

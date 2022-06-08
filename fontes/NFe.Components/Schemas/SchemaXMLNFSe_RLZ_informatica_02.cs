@@ -83,6 +83,21 @@ namespace NFSe.Components
 
             #endregion XML de Consulta de NFSe por Rps
 
+            #region XML para Gerar NFse
+
+            SchemaXML.InfSchemas.Add("NFSE-RLZ_INFORMATICA_02-GerarNfseEnvio", new InfSchema()
+            {
+                Tag = "GerarNfseEnvio",
+                ID = SchemaXML.InfSchemas.Count + 1,
+                ArquivoXSD = "NFSe\\RLZ_INFORMATICA_02\\XSDRLZ_Informatica_02.xsd",
+                Descricao = "XML de Lote RPS - Sincrono",
+                TagAssinatura = "Rps",
+                TagAtributoId = "InfDeclaracaoPrestacaoServico",
+                TargetNameSpace = "http://www.abrasf.org.br/nfse.xsd"
+            });
+
+            #endregion XML para Gerar NFse
+
             #endregion 2.02
         }
     }

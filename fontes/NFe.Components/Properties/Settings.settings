@@ -2,9 +2,6 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="NFe.Components.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="NFe_Components_br_gov_rs_erechim_nfse_www_h_NfseService_Homolog" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">https://www.nfse.erechim.rs.gov.br:8182/NfseService_Homolog/NfseService_Homolog</Value>
-    </Setting>
     <Setting Name="NFe_Components_br_gov_rs_erechim_nfse_www_p_NfseService" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">https://www.nfse.erechim.rs.gov.br:8182/NfseService/NfseService</Value>
     </Setting>
@@ -140,9 +137,6 @@
     <Setting Name="NFe_Components_br_com_sigiss_testeriogrande_h_WebService_SigISS" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">https://testeriogrande.sigiss.com.br:443/testeriogrande/ws/sigiss_ws.php</Value>
     </Setting>
-    <Setting Name="NFe_Components_PSaoPauloSP_LoteNFe" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">https://nfe.prefeitura.sp.gov.br/ws/lotenfe.asmx</Value>
-    </Setting>
     <Setting Name="NFe_Components_br_com_simplissweb_wsiguatama_p_NfseService" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">http://wsiguatama.simplissweb.com.br/nfseservice.svc</Value>
     </Setting>
@@ -172,9 +166,6 @@
     </Setting>
     <Setting Name="NFe_Components_com_dyndnsserver_pmassis2_p_IssWebWS" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">https://nfsews.assis.sp.gov.br/IssWeb-ejb/IssWebWS/IssWebWS</Value>
-    </Setting>
-    <Setting Name="NFe_Components_br_com_simplissweb_wsbalneariocamboriu_p_NfseService" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://wsbalneariocamboriu.simplissweb.com.br/nfseservice.svc</Value>
     </Setting>
     <Setting Name="NFe_Components_br_com_betha_egov_h_NfseWSService" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">http://e-gov.betha.com.br/e-nota-contribuinte-test-ws/nfseWS</Value>
@@ -217,9 +208,6 @@
     </Setting>
     <Setting Name="NFe_Components_PMacapaAP_IssWebWS" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">http://ws.macapa.ap.gov.br</Value>
-    </Setting>
-    <Setting Name="NFe_Components_PItabiraMG_NFSeIntegracao" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://servicosweb.itabira.mg.gov.br:90/NFSe.Portal.Integracao/Services.svc</Value>
     </Setting>
     <Setting Name="NFe_Components_HItabiraMG_NFSeIntegracao" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">http://servicosweb.itabira.mg.gov.br:90/NFSe.Portal.Integracao.Teste/Services.svc</Value>
@@ -490,12 +478,6 @@
     </Setting>
     <Setting Name="NFe_Components_PVianaES_RpsServiceService" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">http://es-viana-pm-nfs.cloud.el.com.br:80/RpsService</Value>
-    </Setting>
-    <Setting Name="NFe_Components_HCatanduvaSP_NFSeIntegracao" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://nfse.catanduva.sp.gov.br/NFSe.Portal.Integracao.Teste/Services.svc</Value>
-    </Setting>
-    <Setting Name="NFe_Components_PCatanduvaSP_NFSeIntegracao" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://nfse.catanduva.sp.gov.br/NFSe.Portal.Integracao/Services.svc</Value>
     </Setting>
     <Setting Name="NFe_Components_PJalesSP_Webservice_Prefeitura" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">http://cidadaoonline.jales.sp.gov.br/amfphp/services/RLZ/webservice/server.php</Value>
@@ -839,9 +821,6 @@
     <Setting Name="NFe_Components_HPocosdeCaldasMG_NfseServiceImplPocosService" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">https://ws.homolog.nfe-cidades.com.br/ws/pocos</Value>
     </Setting>
-    <Setting Name="NFe_Components_PSenadorCanedoGO_nfseWS" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://gestaopublica.canedo.bsit-br.com.br/integracao/services/nfseWS</Value>
-    </Setting>
     <Setting Name="NFe_Components_HSaoPedroSP_NFSeIntegracao" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">http://200.159.89.202:8091/NFSe.Portal.Integracao.Teste/Services.svc</Value>
     </Setting>
@@ -921,10 +900,10 @@
       <Value Profile="(Default)">https://www.gp.srv.br/tributario_juscimeira/servlet/anfse_web_service</Value>
     </Setting>
     <Setting Name="NFe_Components_HGeisWeb_GeisWebService" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">https://www.geisweb.net.br:443/homologacao/modelo/webservice/GeisWebServiceImpl.php</Value>
+      <Value Profile="(Default)">http://geisweb.net.br/modelo/webservice/GeisWebServiceImpl.php</Value>
     </Setting>
     <Setting Name="NFe_Components_PItatingaSP_GeisWebService" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">https://www.geisweb.net.br:443/producao/itatinga/webservice/GeisWebServiceImpl.php</Value>
+      <Value Profile="(Default)">http://geisweb.net.br/itatinga/webservice/GeisWebServiceImpl.php</Value>
     </Setting>
     <Setting Name="NFe_Components_Castanhal_NFSeIntegracao" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">http://transparencia.castanhal.pa.gov.br:8086/NFSe.Portal.Integracao/Services.svc</Value>
@@ -1024,6 +1003,39 @@
     </Setting>
     <Setting Name="NFe_Components_PMedianeiraPR_NFSeIntegracao" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">http://nfse2.medianeira.pr.gov.br/NFSe.Portal.Integracao/Services.svc</Value>
+    </Setting>
+    <Setting Name="NFe_Components_PCatanduvaSP1_IssWebWS" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://catanduva.sp.gov.br:58080/IssWeb-ejb/IssWebWS/IssWebWS</Value>
+    </Setting>
+    <Setting Name="NFe_Components_HCatanduvaSP_IssWebWS" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://fi1.fiorilli.com.br:5663/IssWeb-ejb/IssWebWS/IssWebWS</Value>
+    </Setting>
+    <Setting Name="NFe_Components_HCaceresMT_NfseWSService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://caceres.prefeitura.rlz.com.br/api/webservice/nfse</Value>
+    </Setting>
+    <Setting Name="NFe_Components_PCaceresMT_NfseWSService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://177.4.174.14:800/webservice/nfse</Value>
+    </Setting>
+    <Setting Name="NFe_Components_PItabiraMG_NFSeIntegracao" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://itabira.govbr.cloud/NFSe.Portal.Integracao/Services.svc</Value>
+    </Setting>
+    <Setting Name="NFe_Components_PSenadorCanedoGO_IssWebWS" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://45.65.223.34:5661/IssWeb-ejb/IssWebWS/IssWebWS</Value>
+    </Setting>
+    <Setting Name="NFe_Components_PVotuporangaSP_Webservice_Prefeitura" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://web.votuporanga.sp.gov.br:443/amfphp/services/RLZ/webservice/server.php</Value>
+    </Setting>
+    <Setting Name="NFe_Components_HVotuporangaSP_Webservice_Prefeitura" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://votuporanga.prefeitura.rlz.com.br/webservices/nfse/server.php</Value>
+    </Setting>
+    <Setting Name="NFe_Components_br_gov_rs_erechim_nfse_www_h_NfseService_Homolog" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://www.nfse.erechim.rs.gov.br:8183/NfseService_Homolog/NfseService_Homolog</Value>
+    </Setting>
+    <Setting Name="NFe_Components_PRibasDoRioPardoMS_IssWebWS" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://pmribas.rcmsuporte.com.br:8080/IssWeb-ejb/IssWebWS/IssWebWS</Value>
+    </Setting>
+    <Setting Name="NFe_Components_HRibasDoRioPardoMS_IssWebWS" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://fi1.fiorilli.com.br:5663/IssWeb-ejb/IssWebWS/IssWebWS</Value>
     </Setting>
   </Settings>
 </SettingsFile>

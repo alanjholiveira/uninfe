@@ -183,7 +183,7 @@ namespace NFe.Components.GovDigital
 
                 WebServiceProxy wsp = new WebServiceProxy(Certificate as X509Certificate2);
 
-                wsp.SetProp(govDigitalService, "Proxy", Components.Proxy.DefinirProxy(ProxyServer, ProxyUser, ProxyPass, 8080));
+                wsp.SetProp(govDigitalService, "Proxy", Unimake.Net.Utility.GetProxy(ProxyServer, ProxyUser, ProxyPass, 8080));
             }
         }
 

@@ -35,21 +35,21 @@ namespace NFe.Settings
         /// <returns></returns>
         public static void CanRun(Empresa empresaX)
         {
-            if(Empresas.Configuracoes == null || Empresas.Configuracoes.Count == 0)
+            if (Empresas.Configuracoes == null || Empresas.Configuracoes.Count == 0)
             {
                 return;
             }
 
             //se no diretório de envio existir o arquivo "nome da máquina.locked" o diretório já está sendo atendido por alguma instancia do UniNFe
 
-            foreach(var emp in Empresas.Configuracoes)
+            foreach (var emp in Empresas.Configuracoes)
             {
-                if(empresaX != null && (!empresaX.CNPJ.Equals(emp.CNPJ) || !empresaX.Servico.Equals(emp.Servico)))
+                if (empresaX != null && (!empresaX.CNPJ.Equals(emp.CNPJ) || !empresaX.Servico.Equals(emp.Servico)))
                 {
                     continue;
                 }
 
-                if(string.IsNullOrEmpty(emp.PastaBase))
+                if (string.IsNullOrEmpty(emp.PastaBase))
                 {
                     throw new Components.Exceptions.ProblemaExecucaoUniNFe("Pasta de envio da empresa '" + emp.Nome + "' não está definida.");
                 }
@@ -57,7 +57,7 @@ namespace NFe.Settings
                 {
                     var dir = emp.PastaBase;
 
-                    if(!Directory.Exists(dir))
+                    if (!Directory.Exists(dir))
                     {
                         throw new Components.Exceptions.ProblemaExecucaoUniNFe("Pasta de envio da empresa '" + emp.Nome + "' não existe.");
                     }
@@ -75,7 +75,7 @@ namespace NFe.Settings
                                         where !x.Name.Equals(fileName, StringComparison.InvariantCultureIgnoreCase)
                                         select x.FullName).FirstOrDefault();
 
-                        if(Propriedade.NomeAplicacao.ToLower() == "uninfeservico" && string.IsNullOrEmpty(fileLock))
+                        if (Propriedade.NomeAplicacao.ToLower() == "uninfeservico" && string.IsNullOrEmpty(fileLock))
                         {
                             var filename2 = string.Format("{0}-{1}.lock", "UniNFe", Environment.MachineName);
                             fileLock = (from x in
@@ -85,7 +85,7 @@ namespace NFe.Settings
                                         select x.FullName).FirstOrDefault();
                         }
 
-                        if(!string.IsNullOrEmpty(fileLock))
+                        if (!string.IsNullOrEmpty(fileLock))
                         {
                             throw new Components.Exceptions.AppJaExecutando("Já existe uma instância do UniNFe em Execução que atende a conjunto de pastas: " +
                                 dir + " (*Incluindo subdiretórios).\r\n\r\n" +
@@ -102,12 +102,12 @@ namespace NFe.Settings
         /// </summary>
         public static void CreateLockFile(bool clearIfExist = false)
         {
-            if(Empresas.Configuracoes == null || Empresas.Configuracoes.Count == 0)
+            if (Empresas.Configuracoes == null || Empresas.Configuracoes.Count == 0)
             {
                 return;
             }
 
-            if(clearIfExist)
+            if (clearIfExist)
             {
                 ClearLockFiles(false);
             }
@@ -115,14 +115,14 @@ namespace NFe.Settings
             var diretorios = (from d in Empresas.Configuracoes
                               select d.PastaBase);
 
-            foreach(var dir in diretorios)
+            foreach (var dir in diretorios)
             {
-                if(!string.IsNullOrEmpty(dir) && Directory.Exists(dir))
+                if (!string.IsNullOrEmpty(dir) && Directory.Exists(dir))
                 {
                     var file = string.Format("{0}\\{1}-{2}.lock", dir, Propriedade.NomeAplicacao, Environment.MachineName);
                     var fi = new FileInfo(file);
 
-                    using(var sw = new StreamWriter(file, false)
+                    using (var sw = new StreamWriter(file, false)
                     {
                         AutoFlush = true
                     })
@@ -152,16 +152,16 @@ namespace NFe.Settings
             Empresas.ExisteErroDiretorio = false;
             Empresas.CriarPasta(true);
 
-            if(File.Exists(Propriedade.NomeArqEmpresas))
+            if (File.Exists(Propriedade.NomeArqEmpresas))
             {
                 var nomeArq2 = Propriedade.PastaExecutavel + "\\UniNfeEmpresa2.xml";
                 var nomeArq3 = Propriedade.PastaExecutavel + "\\UniNfeEmpresa3.xml";
 
                 #region Testar arquivo de empresa, se erro vai buscar os backups
 
-                if(!AbrirArqEmpresa(nomeArq2))
+                if (!AbrirArqEmpresa(nomeArq2))
                 {
-                    if(!AbrirArqEmpresa(nomeArq3))
+                    if (!AbrirArqEmpresa(nomeArq3))
                     {
                         AbrirArqEmpresa();
                     }
@@ -182,21 +182,21 @@ namespace NFe.Settings
 
                 try
                 {
-                    if(new FileInfo(Propriedade.NomeArqEmpresas).Length > 0)
+                    if (new FileInfo(Propriedade.NomeArqEmpresas).Length > 0)
                     {
-                        if(!File.Exists(nomeArq2))
+                        if (!File.Exists(nomeArq2))
                         {
                             File.Copy(Propriedade.NomeArqEmpresas, nomeArq2, true);
                         }
 
-                        if(!File.Exists(nomeArq3))
+                        if (!File.Exists(nomeArq3))
                         {
                             File.Copy(Propriedade.NomeArqEmpresas, nomeArq3, true);
                         }
                     }
 
                     var b1 = axml.Descendants(NFeStrConstants.Registro);
-                    foreach(var item in b1)
+                    foreach (var item in b1)
                     {
                         var empresa = new Empresa
                         {
@@ -204,7 +204,7 @@ namespace NFe.Settings
                             Nome = item.Element(NFeStrConstants.Nome).Value.Trim(),
                             Servico = Propriedade.TipoAplicativo
                         };
-                        if(item.Attribute(NFeStrConstants.Servico) != null)
+                        if (item.Attribute(NFeStrConstants.Servico) != null)
                         {
                             empresa.Servico = (TipoAplicativo)Convert.ToInt16(item.Attribute(NFeStrConstants.Servico).Value.Trim());
                         }
@@ -216,11 +216,11 @@ namespace NFe.Settings
                         {
                             var tipoerro = 0;
                             var rc = empresa.BuscaConfiguracao(ref tipoerro);
-                            switch(tipoerro)
+                            switch (tipoerro)
                             {
                                 case 0:
                                     var uf = GetUF(empresa.UnidadeFederativaCodigo);
-                                    if(uf != null)
+                                    if (uf != null)
                                     {
                                         empresa.URLConsultaDFe = ConfiguracaoApp.CarregarURLConsultaDFe(uf);
                                     }
@@ -233,7 +233,7 @@ namespace NFe.Settings
                                     throw new Exception(rc);
                             }
                         }
-                        catch(Exception ex)
+                        catch (Exception ex)
                         {
                             try
                             {
@@ -248,17 +248,17 @@ namespace NFe.Settings
                             }
                             catch { }
                         }
-                        if(!erro)
+                        if (!erro)
                         {
                             ///
                             /// mesmo com erro, adicionar a lista para que o usuário possa altera-la
                             empresa.ChecaCaminhoDiretorio();
 
-                            if(!string.IsNullOrEmpty(Empresas.ErroCaminhoDiretorio) && Empresas.ExisteErroDiretorio)
+                            if (!string.IsNullOrEmpty(Empresas.ErroCaminhoDiretorio) && Empresas.ExisteErroDiretorio)
                             {
                                 try
                                 {
-                                    if(cArqErro == null)
+                                    if (cArqErro == null)
                                     {
                                         cArqErro = CriaArquivoDeErro(empresa);
                                     }
@@ -278,15 +278,15 @@ namespace NFe.Settings
 
             }
 
-            if(!Empresas.ExisteErroDiretorio)
+            if (!Empresas.ExisteErroDiretorio)
             {
                 Empresas.CriarPasta(false);
             }
 
             //Carregar PIN do A3 para que o usuário não precise digitar
-            for(int i = 0; i < Empresas.Configuracoes.Count; i++)
+            for (int i = 0; i < Empresas.Configuracoes.Count; i++)
             {
-                if(!string.IsNullOrWhiteSpace(Empresas.Configuracoes[i].CertificadoPIN) && !Empresas.Configuracoes[i].CertificadoPINCarregado)
+                if (!string.IsNullOrWhiteSpace(Empresas.Configuracoes[i].CertificadoPIN) && !Empresas.Configuracoes[i].CertificadoPINCarregado)
                 {
                     try
                     {
@@ -313,7 +313,7 @@ namespace NFe.Settings
             }
             catch
             {
-                if(!string.IsNullOrWhiteSpace(nomeArq))
+                if (!string.IsNullOrWhiteSpace(nomeArq))
                 {
                     CopiarSalvaEmpresa(nomeArq);
                 }
@@ -324,7 +324,7 @@ namespace NFe.Settings
 
         private static void CopiarSalvaEmpresa(string nomeArq)
         {
-            if(File.Exists(nomeArq) && new FileInfo(nomeArq).Length > 0)
+            if (File.Exists(nomeArq) && new FileInfo(nomeArq).Length > 0)
             {
                 try
                 {
@@ -337,7 +337,7 @@ namespace NFe.Settings
 
         public static string GetUF(int codigoUnidade)
         {
-            if(codigoUnidade < 100)    //desconsidera empresa que é só NFS-e
+            if (codigoUnidade < 100)    //desconsidera empresa que é só NFS-e
             {
                 try
                 {
@@ -353,7 +353,7 @@ namespace NFe.Settings
         {
             string cArqErro;
 
-            if(string.IsNullOrEmpty(empresa.PastaXmlRetorno))
+            if (string.IsNullOrEmpty(empresa.PastaXmlRetorno))
             {
                 cArqErro = Path.Combine(Propriedade.PastaGeralRetorno, string.Format(Propriedade.NomeArqERRUniNFe, DateTime.Now.ToString("yyyyMMddTHHmmss")));
             }
@@ -362,7 +362,7 @@ namespace NFe.Settings
                 cArqErro = Path.Combine(empresa.PastaXmlRetorno, string.Format(Propriedade.NomeArqERRUniNFe, DateTime.Now.ToString("yyyyMMddTHHmmss")));
             }
 
-            if(!Directory.Exists(Path.GetDirectoryName(cArqErro)))
+            if (!Directory.Exists(Path.GetDirectoryName(cArqErro)))
             {
                 cArqErro = Path.Combine(Propriedade.PastaLog, Path.GetFileName(cArqErro));
             }
@@ -375,14 +375,14 @@ namespace NFe.Settings
         /// </summary>
         public static bool ClearLockFiles(bool confirm = true)
         {
-            if(Empresas.Configuracoes == null || Empresas.Configuracoes.Count == 0)
+            if (Empresas.Configuracoes == null || Empresas.Configuracoes.Count == 0)
             {
                 return true;
             }
 
             var result = false;
 
-            if(confirm && MessageBox.Show("Exclui os arquivos de \".lock\" configurados para esta instância?\r\nA aplicação será encerrada ao terminar a exclusão dos arquivos.\r\n\r\n\tTem certeza que deseja continuar? ", "Arquivos de .lock", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+            if (confirm && MessageBox.Show("Exclui os arquivos de \".lock\" configurados para esta instância?\r\nA aplicação será encerrada ao terminar a exclusão dos arquivos.\r\n\r\n\tTem certeza que deseja continuar? ", "Arquivos de .lock", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
             {
                 return false;
             }
@@ -391,20 +391,20 @@ namespace NFe.Settings
             {
                 Cursor.Current = Cursors.WaitCursor;
 
-                foreach(var empresa in Empresas.Configuracoes)
+                foreach (var empresa in Empresas.Configuracoes)
                 {
                     empresa.DeleteLockFile();
                 }
-                if(confirm)
+                if (confirm)
                 {
                     MessageBox.Show("Arquivos de \".lock\" excluídos com sucesso.", "Aviso!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
                 result = true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                if(confirm)
+                if (confirm)
                 {
                     MessageBox.Show(ex.Message, "Erro!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -424,31 +424,31 @@ namespace NFe.Settings
         /// <date>29/09/2009</date>
         public static void CriarPasta(bool onlygeral)
         {
-            if(onlygeral)
+            if (onlygeral)
             {
-                if(!Directory.Exists(Propriedade.PastaGeral))
+                if (!Directory.Exists(Propriedade.PastaGeral))
                 {
                     Directory.CreateDirectory(Propriedade.PastaGeral);
                 }
 
-                if(!Directory.Exists(Propriedade.PastaGeralRetorno))
+                if (!Directory.Exists(Propriedade.PastaGeralRetorno))
                 {
                     Directory.CreateDirectory(Propriedade.PastaGeralRetorno);
                 }
 
-                if(!Directory.Exists(Propriedade.PastaGeralTemporaria))
+                if (!Directory.Exists(Propriedade.PastaGeralTemporaria))
                 {
                     Directory.CreateDirectory(Propriedade.PastaGeralTemporaria);
                 }
 
-                if(!Directory.Exists(Propriedade.PastaLog))
+                if (!Directory.Exists(Propriedade.PastaLog))
                 {
                     Directory.CreateDirectory(Propriedade.PastaLog);
                 }
             }
             else
             {
-                foreach(var empresa in Empresas.Configuracoes)
+                foreach (var empresa in Empresas.Configuracoes)
                 {
                     empresa.CriarPastasDaEmpresa();
                 }
@@ -467,7 +467,7 @@ namespace NFe.Settings
         /// </remarks>
         private static void CriarSubPastaEnviado()
         {
-            for(var i = 0; i < Empresas.Configuracoes.Count; i++)
+            for (var i = 0; i < Empresas.Configuracoes.Count; i++)
             {
                 Empresas.Configuracoes[i].CriarSubPastaEnviado();
             }
@@ -489,7 +489,7 @@ namespace NFe.Settings
         public static X509Certificate2 ResetCertificado(int index)
         {
             var empresa = Empresas.Configuracoes[index];
-            if(empresa.UsaCertificado)
+            if (empresa.UsaCertificado)
             {
                 empresa.X509Certificado.Reset();
 
@@ -504,7 +504,7 @@ namespace NFe.Settings
                 store.Open(OpenFlags.ReadOnly | OpenFlags.OpenExistingOnly);
                 var collection = store.Certificates;
                 X509Certificate2Collection collection1;
-                if(!string.IsNullOrEmpty(empresa.CertificadoDigitalThumbPrint))
+                if (!string.IsNullOrEmpty(empresa.CertificadoDigitalThumbPrint))
                 {
                     collection1 = collection.Find(X509FindType.FindByThumbprint, empresa.CertificadoDigitalThumbPrint, false);
                 }
@@ -513,10 +513,10 @@ namespace NFe.Settings
                     collection1 = collection.Find(X509FindType.FindBySubjectDistinguishedName, empresa.Certificado, false);
                 }
 
-                for(var i = 0; i < collection1.Count; i++)
+                for (var i = 0; i < collection1.Count; i++)
                 {
                     //Verificar a validade do certificado
-                    if(DateTime.Compare(DateTime.Now, collection1[i].NotAfter) == -1)
+                    if (DateTime.Compare(DateTime.Now, collection1[i].NotAfter) == -1)
                     {
                         empresa.X509Certificado = collection1[i];
                         break;
@@ -524,7 +524,7 @@ namespace NFe.Settings
                 }
 
                 //Se não encontrou nenhum certificado com validade correta, vou pegar o primeiro certificado, porem vai travar na hora de tentar enviar a nota fiscal, por conta da validade. Wandrey 06/04/2011
-                if(empresa.X509Certificado == null && collection1.Count > 0)
+                if (empresa.X509Certificado == null && collection1.Count > 0)
                 {
                     empresa.X509Certificado = collection1[0];
                 }
@@ -545,9 +545,9 @@ namespace NFe.Settings
         public static Empresa FindConfEmpresa(string cnpj, TipoAplicativo servico)
         {
             Empresa retorna = null;
-            foreach(var empresa in Empresas.Configuracoes)
+            foreach (var empresa in Empresas.Configuracoes)
             {
-                if(empresa.CNPJ.Equals(cnpj) && empresa.Servico.Equals(servico))
+                if (empresa.CNPJ.Equals(cnpj) && empresa.Servico.Equals(servico))
                 {
                     retorna = empresa;
                     break;
@@ -568,11 +568,11 @@ namespace NFe.Settings
         {
             var retorna = -1;
 
-            for(var i = 0; i < Empresas.Configuracoes.Count; i++)
+            for (var i = 0; i < Empresas.Configuracoes.Count; i++)
             {
                 var empresa = Empresas.Configuracoes[i];
 
-                if(empresa.CNPJ.Equals(cnpj) && empresa.Servico.Equals(servico))
+                if (empresa.CNPJ.Equals(cnpj) && empresa.Servico.Equals(servico))
                 {
                     retorna = i;
                     break;
@@ -588,6 +588,47 @@ namespace NFe.Settings
         /// <returns></returns>
         public static int FindEmpresaByThread() => Convert.ToInt32(Thread.CurrentThread.Name);
 
+        /// <summary>
+        /// Localiza o código da empresa com base no nome pasta envio
+        /// </summary>
+        /// <param name="arquivo">Pasta + nome do arquivo que está sendo enviado</param>
+        /// <returns>Retorna o código da empresa</returns>
+        public static int FindEmpresaByFolder(string arquivo)
+        {
+            FileInfo fi = new FileInfo(arquivo);
+
+            int empresa = -1;
+
+            try
+            {
+                var fullName = ConfiguracaoApp.RemoveEndSlash(fi.Directory.FullName.ToLower());
+
+                /// "EndsWith" é para pegar apenas se terminar com, já que nas empresas pode ter um nome 'temp' no meio das definicoes das pastas
+                if (fullName.EndsWith("\\temp"))
+                {
+                    /// exclui o 'arquivo' temp.
+                    fullName = Path.GetDirectoryName(fullName);
+                }
+
+                for (int i = 0; i < Empresas.Configuracoes.Count; i++)
+                {
+                    if (fullName == Empresas.Configuracoes[i].PastaXmlEnvio.ToLower() ||
+                        fullName == Empresas.Configuracoes[i].PastaXmlEmLote.ToLower() ||
+                        fullName == Empresas.Configuracoes[i].PastaValidar.ToLower() ||
+                        fullName == Empresas.Configuracoes[i].PastaContingencia.ToLower())
+                    {
+                        empresa = i;
+                        break;
+                    }
+                }
+            }
+            catch
+            {
+            }
+
+            return empresa;
+        }
+
         #region Valid()
         /// <summary>
         /// Retorna se o indice da coleção que foi pesquisado é valido ou não
@@ -601,7 +642,7 @@ namespace NFe.Settings
         public static bool Valid(int index)
         {
             var retorna = true;
-            if(index.Equals(-1))
+            if (index.Equals(-1))
             {
                 retorna = false;
             }
@@ -623,7 +664,7 @@ namespace NFe.Settings
         public static bool Valid(Empresa empresa)
         {
             var retorna = true;
-            if(empresa.Equals(null))
+            if (empresa.Equals(null))
             {
                 retorna = false;
             }
@@ -636,20 +677,20 @@ namespace NFe.Settings
         public static void VerificaPasta(Empresa empresa, XmlElement configElemento, string tagName, string descricao, bool isObrigatoria)
         {
             var node = configElemento.GetElementsByTagName(tagName)[0];
-            if(node != null)
+            if (node != null)
             {
-                if(!isObrigatoria && node.InnerText.Trim() == "")
+                if (!isObrigatoria && node.InnerText.Trim() == "")
                 {
                     return;
                 }
 
-                if(isObrigatoria && node.InnerText.Trim() == "")
+                if (isObrigatoria && node.InnerText.Trim() == "")
                 {
                     Empresas.ExisteErroDiretorio = true;
                     ErroCaminhoDiretorio += "Empresa: " + empresa.Nome + "   : \"" + descricao + "\"\r\n";
                 }
                 else
-                    if(!Directory.Exists(node.InnerText.Trim()) && node.InnerText.Trim() != "")
+                    if (!Directory.Exists(node.InnerText.Trim()) && node.InnerText.Trim() != "")
                 {
                     Empresas.ExisteErroDiretorio = true;
                     ErroCaminhoDiretorio += "Empresa: " + empresa.Nome + "   Pasta: " + node.InnerText.Trim() + "\r\n";
@@ -657,7 +698,7 @@ namespace NFe.Settings
             }
             else
             {
-                if(isObrigatoria)
+                if (isObrigatoria)
                 {
                     Empresas.ExisteErroDiretorio = true;
                     ErroCaminhoDiretorio += "Empresa: " + empresa.Nome + "   : \"" + descricao + "\"\r\n";
@@ -671,7 +712,7 @@ namespace NFe.Settings
         {
             get
             {
-                if(Configuracoes == null)
+                if (Configuracoes == null)
                 {
                     return 0;
                 }
@@ -686,7 +727,7 @@ namespace NFe.Settings
         {
             get
             {
-                if(Configuracoes == null)
+                if (Configuracoes == null)
                 {
                     return 0;
                 }

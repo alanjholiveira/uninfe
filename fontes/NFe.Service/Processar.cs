@@ -2004,7 +2004,7 @@ namespace NFe.Service
             if(ConfiguracaoApp.ChecarConexaoInternet)
             {
     //            if(!Functions.IsConnectedToInternet())
-                if (!Functions.HasInternetConnection()) 
+                if (!Functions.HasInternetConnection(ConfiguracaoApp.Proxy, ConfiguracaoApp.ProxyServidor, ConfiguracaoApp.ProxyUsuario, ConfiguracaoApp.ProxySenha, ConfiguracaoApp.ProxyPorta, ConfiguracaoApp.DetectarConfiguracaoProxyAuto))
                 {
                     throw new ExceptionSemInternet(ErroPadrao.FalhaInternet);
                 }
@@ -2281,7 +2281,7 @@ namespace NFe.Service
 
             if(ConfiguracaoApp.Proxy)
             {
-                result = Proxy.DefinirProxy(ConfiguracaoApp.ProxyServidor,
+                result = Unimake.Net.Utility.GetProxy(ConfiguracaoApp.ProxyServidor,
                     ConfiguracaoApp.ProxyUsuario,
                     ConfiguracaoApp.ProxySenha,
                     ConfiguracaoApp.ProxyPorta,

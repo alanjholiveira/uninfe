@@ -6,9 +6,9 @@ using System.IO;
 using System.Text;
 using System.Threading;
 using System.Xml;
-using Unimake.Business.DFe.Xml.CTe;
-using Unimake.Business.DFe.Xml.MDFe;
-using Unimake.Business.DFe.Xml.NFe;
+using XmlCTe = Unimake.Business.DFe.Xml.CTe;
+using XmlMDFe = Unimake.Business.DFe.Xml.MDFe;
+using XmlNFe = Unimake.Business.DFe.Xml.NFe;
 
 namespace NFe.Service
 {
@@ -692,7 +692,7 @@ namespace NFe.Service
         /// <returns>Retorna uma sting com o XML de consulta situação da NFe (-ped-sit.xml)</returns>
         private string ConsultaNFe(int tpAmb, int tpEmis, string chNFe, string versao)
         {
-            var xml = new ConsSitNFe
+            var xml = new XmlNFe.ConsSitNFe
             {
                 ChNFe = chNFe,
                 TpAmb = (Unimake.Business.DFe.Servicos.TipoAmbiente)tpAmb,
@@ -722,7 +722,7 @@ namespace NFe.Service
         private string ConsultaCTe(int tpAmb, int tpEmis, string chCTe, string versao)
         {
 
-            var xml = new ConsSitCTe
+            var xml = new XmlCTe.ConsSitCTe
             {
                 ChCTe = chCTe,
                 TpAmb = (Unimake.Business.DFe.Servicos.TipoAmbiente)tpAmb,
@@ -751,7 +751,7 @@ namespace NFe.Service
         /// <returns>Retorna uma sting com o XML de consulta situação da MDFe (-ped-sit.xml)</returns>
         private string ConsultaMDFe(int tpAmb, int tpEmis, string chMDFe, string versao)
         {
-            var xml = new ConsSitMDFe
+            var xml = new XmlMDFe.ConsSitMDFe
             {
                 ChMDFe = chMDFe,
                 TpAmb = (Unimake.Business.DFe.Servicos.TipoAmbiente)tpAmb,
@@ -798,7 +798,7 @@ namespace NFe.Service
             var xml = new Unimake.Business.DFe.Xml.NFe.ConsCad
             {
                 Versao = versao,
-                InfCons = new InfCons()
+                InfCons = new XmlNFe.InfCons()
                 {
                     CNPJ = cnpj,
                     IE = ie,
@@ -848,10 +848,10 @@ namespace NFe.Service
 
         public void Inutilizacao(string pFinalArqEnvio, int tpAmb, int tpEmis, int cUF, int ano, string CNPJ, int mod, int serie, int nNFIni, int nNFFin, string xJust, string versao)
         {
-            var xml = new InutNFe
+            var xml = new XmlNFe.InutNFe
             {
                 Versao = versao,
-                InfInut = new InutNFeInfInut
+                InfInut = new XmlNFe.InutNFeInfInut
                 {
                     Ano = ano.ToString("00"),
                     CNPJ = CNPJ.Trim(),
@@ -922,7 +922,7 @@ namespace NFe.Service
         /// <param name="versao">Versão do schema do XML</param>
         public void StatusServicoNFCe(string pArquivo, int tpAmb, int tpEmis, int cUF, string versao)
         {
-            var xml = new ConsStatServ
+            var xml = new XmlNFe.ConsStatServ
             {                
                 CUF = (Unimake.Business.DFe.Servicos.UFBrasil)cUF,
                 TpAmb = (Unimake.Business.DFe.Servicos.TipoAmbiente)tpAmb,
@@ -953,7 +953,7 @@ namespace NFe.Service
         /// <param name="versao">Versão do schema do XML</param>
         public void StatusServicoNFe(string pArquivo, int tpAmb, int tpEmis, int cUF, string versao)
         {
-            var xml = new ConsStatServ
+            var xml = new XmlNFe.ConsStatServ
             {
                 CUF = (Unimake.Business.DFe.Servicos.UFBrasil)cUF,
                 TpAmb = (Unimake.Business.DFe.Servicos.TipoAmbiente)tpAmb,
@@ -986,7 +986,7 @@ namespace NFe.Service
         /// <param name="versao">Versão do schema do XML</param>
         public void StatusServicoCTe(string pArquivo, int tpAmb, int tpEmis, int cUF, string versao)
         {
-            var xml = new ConsStatServCte
+            var xml = new XmlCTe.ConsStatServCte
             {
                 TpAmb = (Unimake.Business.DFe.Servicos.TipoAmbiente)tpAmb,
                 Versao = versao
@@ -1020,7 +1020,7 @@ namespace NFe.Service
         /// <param name="versao">Versão do schema do XML</param>
         public void StatusServicoMDFe(string pArquivo, int tpAmb, int tpEmis, int cUF, string versao)
         {
-            var xml = new ConsStatServMDFe
+            var xml = new XmlMDFe.ConsStatServMDFe
             {
                 TpAmb = (Unimake.Business.DFe.Servicos.TipoAmbiente)tpAmb,
                 Versao = versao
@@ -1911,7 +1911,7 @@ namespace NFe.Service
         /// <returns>Retorna a string do XML a ser gravado</returns>
         public XmlDocument XmlPedRecNFe(string recibo, string versao, string mod, int emp)
         {
-            var xml = new ConsReciNFe
+            var xml = new XmlNFe.ConsReciNFe
             {
                 NRec = recibo,
                 TpAmb = (Unimake.Business.DFe.Servicos.TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
@@ -1939,7 +1939,7 @@ namespace NFe.Service
         /// <returns>Retorna a string do XML a ser gravado</returns>
         public XmlDocument XmlPedRecCTe(string recibo, string versao, int emp)
         {
-            var xml = new ConsReciCTe
+            var xml = new XmlCTe.ConsReciCTe
             {
                 NRec = recibo,
                 TpAmb = (Unimake.Business.DFe.Servicos.TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
@@ -1962,7 +1962,7 @@ namespace NFe.Service
         /// <returns>Retorna a string do XML a ser gravado</returns>
         public XmlDocument XmlPedRecMDFe(string recibo, string versao, int emp)
         {
-            var xml = new ConsReciMDFe
+            var xml = new XmlMDFe.ConsReciMDFe
             {
                 NRec = recibo,
                 TpAmb = (Unimake.Business.DFe.Servicos.TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
@@ -2497,42 +2497,12 @@ namespace NFe.Service
 
         #region GerarRecepcaoDFe
 
-        public void RecepcaoDFe(string arquivo, distDFeInt value)
+        public void RecepcaoDFe(string arquivo, string value)
         {
-            var doc = new XmlDocument();
-            doc.InsertBefore(doc.CreateXmlDeclaration("1.0", "UTF-8", ""), doc.DocumentElement);
-            XmlNode envEvento = doc.CreateElement("distDFeInt");
-            envEvento.Attributes.Append(CriaAttribute(doc, NFe.Components.TpcnResources.versao.ToString(), string.IsNullOrEmpty(value.versao) ? NFe.ConvertTxt.versoes.VersaoXMLEnvDFe : value.versao));
-            envEvento.Attributes.Append(CriaAttribute(doc, NFe.Components.TpcnResources.xmlns.ToString(), NFeStrConstants.NAME_SPACE_NFE));
-            envEvento.AppendChild(CriaElemento(doc, NFe.Components.TpcnResources.tpAmb.ToString(), value.tpAmb.ToString()));
-            envEvento.AppendChild(CriaElemento(doc, NFe.Components.TpcnResources.cUFAutor.ToString(), value.cUFAutor.ToString()));
-            if(!string.IsNullOrEmpty(value.CNPJ))
-            {
-                envEvento.AppendChild(CriaElemento(doc, NFe.Components.TpcnResources.CNPJ.ToString(), value.CNPJ.ToString()));
-            }
-            else
-            {
-                envEvento.AppendChild(CriaElemento(doc, NFe.Components.TpcnResources.CPF.ToString(), value.CPF.ToString()));
-            }
-
-            if(!string.IsNullOrEmpty(value.ultNSU))
-            {
-                XmlNode nodeEvento1 = doc.CreateElement("distNSU");
-                nodeEvento1.AppendChild(CriaElemento(doc, NFe.Components.TpcnResources.ultNSU.ToString(), value.ultNSU.PadLeft(15, '0')));
-                envEvento.AppendChild(nodeEvento1);
-            }
-            else
-            {
-                XmlNode nodeEvento2 = doc.CreateElement("consNSU");
-                nodeEvento2.AppendChild(CriaElemento(doc, NFe.Components.TpcnResources.NSU.ToString(), value.NSU.PadLeft(15, '0')));
-                envEvento.AppendChild(nodeEvento2);
-            }
-            doc.AppendChild(envEvento);
-
-            GravarArquivoParaEnvio(arquivo, doc.OuterXml, true);
+            GravarArquivoParaEnvio(arquivo, value, true);
         }
 
-        #endregion GerarRecepcaoDFe
+        #endregion 
 
         #region XmlDistEvento
 

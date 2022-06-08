@@ -142,7 +142,8 @@ namespace NFe.Components
             try
             {
                 Download(updateProgressAction);
-                System.Diagnostics.Process.Start(localArq, "/SILENT /DIR=" + pastaInstalar);
+                string parametros = "/SILENT /DIR=" + "\"" + pastaInstalar + "\"";
+                System.Diagnostics.Process.Start(localArq, parametros);
             }
             catch (IOException)
             {

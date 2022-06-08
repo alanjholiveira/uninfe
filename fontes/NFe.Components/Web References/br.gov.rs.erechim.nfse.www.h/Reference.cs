@@ -14,20 +14,22 @@
 #pragma warning disable 1591
 
 namespace NFe.Components.br.gov.rs.erechim.nfse.www.h {
-    using System;
-    using System.Web.Services;
     using System.Diagnostics;
-    using System.Web.Services.Protocols;
+    using System;
     using System.Xml.Serialization;
     using System.ComponentModel;
+    using System.Web.Services.Protocols;
+    using System.Web.Services;
     
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Web.Services.WebServiceBindingAttribute(Name="NfseService_HomologPortBinding", Namespace="http://NFSe.wsservices.systempro.com.br/")]
     public partial class NfseService_Homolog : System.Web.Services.Protocols.SoapHttpClientProtocol {
+        
+        private System.Threading.SendOrPostCallback GerarNfseOperationCompleted;
         
         private System.Threading.SendOrPostCallback CancelarNfseOperationCompleted;
         
@@ -36,8 +38,6 @@ namespace NFe.Components.br.gov.rs.erechim.nfse.www.h {
         private System.Threading.SendOrPostCallback ConsultarNfseFaixaOperationCompleted;
         
         private System.Threading.SendOrPostCallback EnviarLoteRpsSincronoOperationCompleted;
-        
-        private System.Threading.SendOrPostCallback GerarNfseOperationCompleted;
         
         private bool useDefaultCredentialsSetExplicitly;
         
@@ -78,6 +78,9 @@ namespace NFe.Components.br.gov.rs.erechim.nfse.www.h {
         }
         
         /// <remarks/>
+        public event GerarNfseCompletedEventHandler GerarNfseCompleted;
+        
+        /// <remarks/>
         public event CancelarNfseCompletedEventHandler CancelarNfseCompleted;
         
         /// <remarks/>
@@ -90,7 +93,36 @@ namespace NFe.Components.br.gov.rs.erechim.nfse.www.h {
         public event EnviarLoteRpsSincronoCompletedEventHandler EnviarLoteRpsSincronoCompleted;
         
         /// <remarks/>
-        public event GerarNfseCompletedEventHandler GerarNfseCompleted;
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", RequestNamespace="http://NFSe.wsservices.systempro.com.br/", ResponseNamespace="http://NFSe.wsservices.systempro.com.br/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute("return", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string GerarNfse([System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)] string nfseCabecMsg, [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)] string nfseDadosMsg) {
+            object[] results = this.Invoke("GerarNfse", new object[] {
+                        nfseCabecMsg,
+                        nfseDadosMsg});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GerarNfseAsync(string nfseCabecMsg, string nfseDadosMsg) {
+            this.GerarNfseAsync(nfseCabecMsg, nfseDadosMsg, null);
+        }
+        
+        /// <remarks/>
+        public void GerarNfseAsync(string nfseCabecMsg, string nfseDadosMsg, object userState) {
+            if ((this.GerarNfseOperationCompleted == null)) {
+                this.GerarNfseOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGerarNfseOperationCompleted);
+            }
+            this.InvokeAsync("GerarNfse", new object[] {
+                        nfseCabecMsg,
+                        nfseDadosMsg}, this.GerarNfseOperationCompleted, userState);
+        }
+        
+        private void OnGerarNfseOperationCompleted(object arg) {
+            if ((this.GerarNfseCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GerarNfseCompleted(this, new GerarNfseCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", RequestNamespace="http://NFSe.wsservices.systempro.com.br/", ResponseNamespace="http://NFSe.wsservices.systempro.com.br/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -221,38 +253,6 @@ namespace NFe.Components.br.gov.rs.erechim.nfse.www.h {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", RequestNamespace="http://NFSe.wsservices.systempro.com.br/", ResponseNamespace="http://NFSe.wsservices.systempro.com.br/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        [return: System.Xml.Serialization.XmlElementAttribute("return", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string GerarNfse([System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)] string nfseCabecMsg, [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)] string nfseDadosMsg) {
-            object[] results = this.Invoke("GerarNfse", new object[] {
-                        nfseCabecMsg,
-                        nfseDadosMsg});
-            return ((string)(results[0]));
-        }
-        
-        /// <remarks/>
-        public void GerarNfseAsync(string nfseCabecMsg, string nfseDadosMsg) {
-            this.GerarNfseAsync(nfseCabecMsg, nfseDadosMsg, null);
-        }
-        
-        /// <remarks/>
-        public void GerarNfseAsync(string nfseCabecMsg, string nfseDadosMsg, object userState) {
-            if ((this.GerarNfseOperationCompleted == null)) {
-                this.GerarNfseOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGerarNfseOperationCompleted);
-            }
-            this.InvokeAsync("GerarNfse", new object[] {
-                        nfseCabecMsg,
-                        nfseDadosMsg}, this.GerarNfseOperationCompleted, userState);
-        }
-        
-        private void OnGerarNfseOperationCompleted(object arg) {
-            if ((this.GerarNfseCompleted != null)) {
-                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.GerarNfseCompleted(this, new GerarNfseCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-            }
-        }
-        
-        /// <remarks/>
         public new void CancelAsync(object userState) {
             base.CancelAsync(userState);
         }
@@ -272,11 +272,37 @@ namespace NFe.Components.br.gov.rs.erechim.nfse.www.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
+    public delegate void GerarNfseCompletedEventHandler(object sender, GerarNfseCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GerarNfseCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GerarNfseCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
     public delegate void CancelarNfseCompletedEventHandler(object sender, CancelarNfseCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class CancelarNfseCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -298,11 +324,11 @@ namespace NFe.Components.br.gov.rs.erechim.nfse.www.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
     public delegate void SubstituirNfseCompletedEventHandler(object sender, SubstituirNfseCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class SubstituirNfseCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -324,11 +350,11 @@ namespace NFe.Components.br.gov.rs.erechim.nfse.www.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
     public delegate void ConsultarNfseFaixaCompletedEventHandler(object sender, ConsultarNfseFaixaCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class ConsultarNfseFaixaCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -350,11 +376,11 @@ namespace NFe.Components.br.gov.rs.erechim.nfse.www.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
     public delegate void EnviarLoteRpsSincronoCompletedEventHandler(object sender, EnviarLoteRpsSincronoCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class EnviarLoteRpsSincronoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -362,32 +388,6 @@ namespace NFe.Components.br.gov.rs.erechim.nfse.www.h {
         private object[] results;
         
         internal EnviarLoteRpsSincronoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
-        }
-        
-        /// <remarks/>
-        public string Result {
-            get {
-                this.RaiseExceptionIfNecessary();
-                return ((string)(this.results[0]));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
-    public delegate void GerarNfseCompletedEventHandler(object sender, GerarNfseCompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class GerarNfseCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-        
-        private object[] results;
-        
-        internal GerarNfseCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }

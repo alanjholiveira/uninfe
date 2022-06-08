@@ -7,7 +7,7 @@ using System.Threading;
 using System.Xml;
 using Unimake.Business.DFe.Servicos;
 using Unimake.Business.DFe.Xml.NFe;
-using Unimake.Security.Exceptions;
+using Unimake.Exceptions;
 
 namespace NFe.Service
 {
@@ -384,28 +384,42 @@ namespace NFe.Service
         /// <param name="emp">Codigo da empresa</param>
         private void SalvarArquivoEmProcessamento(int emp)
         {
-            Empresas.Configuracoes[emp].CriarSubPastaEnviado();
-
-            XmlNodeList nodeListNFe = ConteudoXML.GetElementsByTagName("NFe");
-
-            foreach (var nodeNFe in nodeListNFe)
+            string msgLog = "";
+            try
             {
-                var xmlElementNFe = (XmlElement)nodeNFe;
-                var chaveNFe = ((XmlElement)xmlElementNFe.GetElementsByTagName("infNFe")[0]).GetAttribute("Id");
+                Empresas.Configuracoes[emp].CriarSubPastaEnviado();
 
-                var fluxoNFe = new FluxoNfe();
-                var nomeArqNFe = fluxoNFe.LerTag(chaveNFe, FluxoNfe.ElementoFixo.ArqNFe);
-                var arqEmProcessamento = Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" + PastaEnviados.EmProcessamento.ToString() + "\\" + nomeArqNFe;
+                XmlNodeList nodeListNFe = ConteudoXML.GetElementsByTagName("NFe");
 
-                StreamWriter sw = File.CreateText(arqEmProcessamento);
-                sw.Write("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + xmlElementNFe.OuterXml);
-                sw.Close();
-
-                if (File.Exists(arqEmProcessamento))
+                foreach (var nodeNFe in nodeListNFe)
                 {
-                    File.Delete(Empresas.Configuracoes[emp].PastaXmlEnvio + "\\temp\\" + nomeArqNFe);
-                    File.Delete(Empresas.Configuracoes[emp].PastaXmlEmLote + "\\temp\\" + nomeArqNFe);
+                    var xmlElementNFe = (XmlElement)nodeNFe;
+                    var chaveNFe = ((XmlElement)xmlElementNFe.GetElementsByTagName("infNFe")[0]).GetAttribute("Id");
+
+                    var fluxoNFe = new FluxoNfe();
+                    var nomeArqNFe = fluxoNFe.LerTag(chaveNFe, FluxoNfe.ElementoFixo.ArqNFe);
+                    var arqEmProcessamento = Empresas.Configuracoes[emp].PastaXmlEnviado + "\\" + PastaEnviados.EmProcessamento.ToString() + "\\" + nomeArqNFe;
+
+                    msgLog += "\r\n arqEmProcessamento = " + arqEmProcessamento;
+                    msgLog += "\r\n nomeArqNFe = " + nomeArqNFe;
+                    msgLog += "\r\n chaveNFe = " + chaveNFe;
+                    msgLog += "\r\n NomeArqXML = " + NomeArquivoXML;
+
+                    StreamWriter sw = File.CreateText(arqEmProcessamento);
+                    sw.Write("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + xmlElementNFe.OuterXml);
+                    sw.Close();
+
+                    if (File.Exists(arqEmProcessamento))
+                    {
+                        File.Delete(Empresas.Configuracoes[emp].PastaXmlEnvio + "\\temp\\" + nomeArqNFe);
+                        File.Delete(Empresas.Configuracoes[emp].PastaXmlEmLote + "\\temp\\" + nomeArqNFe);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Auxiliar.WriteLog(ex.Message+"\r\n" + msgLog, true);
+                throw (ex);
             }
         }
     }
