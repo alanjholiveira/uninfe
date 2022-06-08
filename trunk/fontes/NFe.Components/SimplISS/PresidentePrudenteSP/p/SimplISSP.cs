@@ -59,14 +59,37 @@ namespace NFe.Components.SimplISS.PresidentePrudenteSP.p
         #endregion
 
         #region Métodos
+
         public override void EmiteNF(string file)
         {
-            GerarNovaNfseEnvio envio = DeserializarObjeto<GerarNovaNfseEnvio>(file);              
-            string strResult = SerializarObjeto(Service.GerarNfse(envio, DadosConexao));
+            XmlDocument doc = new XmlDocument();
+            doc.Load(file);
+            string strResult = string.Empty;
+            switch (doc.DocumentElement.Name)
+            {
+                case "GerarNfseEnvio":
+                    strResult = GerarNfse(file);
+                    break;
+
+                case "EnviarLoteRpsEnvio":
+                    strResult = RecepcionarLoteRps(file);
+                    break;
+            }
 
             GerarRetorno(file, strResult, Propriedade.Extensao(Propriedade.TipoEnvio.EnvLoteRps).EnvioXML,
-                                          Propriedade.Extensao(Propriedade.TipoEnvio.EnvLoteRps).RetornoXML);
+                              Propriedade.Extensao(Propriedade.TipoEnvio.EnvLoteRps).RetornoXML);
+        }
 
+        private string GerarNfse(string file)
+        {
+            GerarNovaNfseEnvio envio = DeserializarObjeto<GerarNovaNfseEnvio>(file);
+            return SerializarObjeto(Service.GerarNfse(envio, DadosConexao));
+        }
+
+        private string RecepcionarLoteRps(string file)
+        {
+            EnviarLoteRpsEnvio envio = DeserializarObjeto<EnviarLoteRpsEnvio>(file);
+            return SerializarObjeto(Service.RecepcionarLoteRps(envio, DadosConexao));
         }
 
         public override void CancelarNfse(string file)

@@ -76,6 +76,8 @@
             this.button26 = new System.Windows.Forms.Button();
             this.button27 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.BtnConfirmaServMDFe = new System.Windows.Forms.Button();
+            this.BtnEventoAlteracaoPgtoServMDFe = new System.Windows.Forms.Button();
             this.button56 = new System.Windows.Forms.Button();
             this.button45 = new System.Windows.Forms.Button();
             this.button42 = new System.Windows.Forms.Button();
@@ -97,8 +99,9 @@
             this.button60 = new System.Windows.Forms.Button();
             this.button48 = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.button61 = new System.Windows.Forms.Button();
             this.button62 = new System.Windows.Forms.Button();
+            this.button61 = new System.Windows.Forms.Button();
+            this.BtnGerarXmlNFSePaulistana = new System.Windows.Forms.Button();
             this.groupBoxNFe.SuspendLayout();
             this.groupBoxNFCe.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -692,6 +695,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.BtnConfirmaServMDFe);
+            this.groupBox2.Controls.Add(this.BtnEventoAlteracaoPgtoServMDFe);
             this.groupBox2.Controls.Add(this.button56);
             this.groupBox2.Controls.Add(this.button45);
             this.groupBox2.Controls.Add(this.button42);
@@ -704,10 +709,34 @@
             this.groupBox2.Controls.Add(this.button25);
             this.groupBox2.Location = new System.Drawing.Point(827, 13);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(261, 472);
+            this.groupBox2.Size = new System.Drawing.Size(261, 576);
             this.groupBox2.TabIndex = 18;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Serviços MDFe";
+            // 
+            // BtnConfirmaServMDFe
+            // 
+            this.BtnConfirmaServMDFe.BackColor = System.Drawing.SystemColors.Control;
+            this.BtnConfirmaServMDFe.Location = new System.Drawing.Point(4, 506);
+            this.BtnConfirmaServMDFe.Margin = new System.Windows.Forms.Padding(2);
+            this.BtnConfirmaServMDFe.Name = "BtnConfirmaServMDFe";
+            this.BtnConfirmaServMDFe.Size = new System.Drawing.Size(247, 32);
+            this.BtnConfirmaServMDFe.TabIndex = 28;
+            this.BtnConfirmaServMDFe.Text = "Evento Confirmação do Serviço de Transporte";
+            this.BtnConfirmaServMDFe.UseVisualStyleBackColor = false;
+            this.BtnConfirmaServMDFe.Click += new System.EventHandler(this.BtnConfirmaServMDFe_Click);
+            // 
+            // BtnEventoAlteracaoPgtoServMDFe
+            // 
+            this.BtnEventoAlteracaoPgtoServMDFe.BackColor = System.Drawing.SystemColors.Control;
+            this.BtnEventoAlteracaoPgtoServMDFe.Location = new System.Drawing.Point(5, 468);
+            this.BtnEventoAlteracaoPgtoServMDFe.Margin = new System.Windows.Forms.Padding(2);
+            this.BtnEventoAlteracaoPgtoServMDFe.Name = "BtnEventoAlteracaoPgtoServMDFe";
+            this.BtnEventoAlteracaoPgtoServMDFe.Size = new System.Drawing.Size(247, 32);
+            this.BtnEventoAlteracaoPgtoServMDFe.TabIndex = 27;
+            this.BtnEventoAlteracaoPgtoServMDFe.Text = "Evento Alteração Pagamento Serviço MDFe";
+            this.BtnEventoAlteracaoPgtoServMDFe.UseVisualStyleBackColor = false;
+            this.BtnEventoAlteracaoPgtoServMDFe.Click += new System.EventHandler(this.BtnEventoAlteracaoPgtoServMDFe_Click);
             // 
             // button56
             // 
@@ -959,21 +988,10 @@
             this.groupBox4.Controls.Add(this.button61);
             this.groupBox4.Location = new System.Drawing.Point(294, 419);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(259, 308);
+            this.groupBox4.Size = new System.Drawing.Size(259, 103);
             this.groupBox4.TabIndex = 27;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Serviços NFe (Continuação)";
-            // 
-            // button61
-            // 
-            this.button61.BackColor = System.Drawing.SystemColors.Control;
-            this.button61.Location = new System.Drawing.Point(7, 19);
-            this.button61.Name = "button61";
-            this.button61.Size = new System.Drawing.Size(246, 32);
-            this.button61.TabIndex = 26;
-            this.button61.Text = "Evento Prorrogação ICMS";
-            this.button61.UseVisualStyleBackColor = false;
-            this.button61.Click += new System.EventHandler(this.button61_Click);
             // 
             // button62
             // 
@@ -986,11 +1004,34 @@
             this.button62.UseVisualStyleBackColor = false;
             this.button62.Click += new System.EventHandler(this.button62_Click);
             // 
+            // button61
+            // 
+            this.button61.BackColor = System.Drawing.SystemColors.Control;
+            this.button61.Location = new System.Drawing.Point(7, 19);
+            this.button61.Name = "button61";
+            this.button61.Size = new System.Drawing.Size(246, 32);
+            this.button61.TabIndex = 26;
+            this.button61.Text = "Evento Prorrogação ICMS";
+            this.button61.UseVisualStyleBackColor = false;
+            this.button61.Click += new System.EventHandler(this.button61_Click);
+            // 
+            // BtnGerarXmlNFSePaulistana
+            // 
+            this.BtnGerarXmlNFSePaulistana.BackColor = System.Drawing.SystemColors.Control;
+            this.BtnGerarXmlNFSePaulistana.Location = new System.Drawing.Point(298, 647);
+            this.BtnGerarXmlNFSePaulistana.Name = "BtnGerarXmlNFSePaulistana";
+            this.BtnGerarXmlNFSePaulistana.Size = new System.Drawing.Size(246, 32);
+            this.BtnGerarXmlNFSePaulistana.TabIndex = 26;
+            this.BtnGerarXmlNFSePaulistana.Text = "Gerar XML NFSe Paulistana";
+            this.BtnGerarXmlNFSePaulistana.UseVisualStyleBackColor = false;
+            this.BtnGerarXmlNFSePaulistana.Click += new System.EventHandler(this.BtnGerarXmlNFSePaulistana_Click);
+            // 
             // FormTestarNFe
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1375, 740);
+            this.Controls.Add(this.BtnGerarXmlNFSePaulistana);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.button48);
             this.Controls.Add(this.groupBox3);
@@ -1086,6 +1127,9 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button button61;
         private System.Windows.Forms.Button button62;
+        private System.Windows.Forms.Button BtnEventoAlteracaoPgtoServMDFe;
+        private System.Windows.Forms.Button BtnConfirmaServMDFe;
+        private System.Windows.Forms.Button BtnGerarXmlNFSePaulistana;
     }
 }
 

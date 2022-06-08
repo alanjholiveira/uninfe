@@ -112,6 +112,10 @@ namespace NFe.Validate
                                     }
                                     rpsElement.GetElementsByTagName(Assinatura)[0].InnerText = sh1;
                                 }
+                                else
+                                {
+                                    throw new Exception("Tag assinatura do XML de envio não contém a quantidade de caracteres descrito no manual da prefeitura.");
+                                }
                             }
                         }
                         if(!found)
@@ -145,6 +149,10 @@ namespace NFe.Validate
                                                     detalheElement.GetElementsByTagName(AssinaturaCancelamento)[0].InnerText);
 
                                     detalheElement.GetElementsByTagName(AssinaturaCancelamento)[0].InnerText = sh1;
+                                }
+                                else
+                                {
+                                    throw new Exception("Tag assinatura do XML de cancelamento não contém 20 caracteres.");
                                 }
                             }
                         }

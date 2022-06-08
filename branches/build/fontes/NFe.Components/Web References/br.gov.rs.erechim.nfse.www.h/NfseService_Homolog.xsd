@@ -10,17 +10,6 @@
   <xs:element name="GerarNfseResponse" type="tns:GerarNfseResponse" />
   <xs:element name="SubstituirNfse" type="tns:SubstituirNfse" />
   <xs:element name="SubstituirNfseResponse" type="tns:SubstituirNfseResponse" />
-  <xs:complexType name="EnviarLoteRpsSincrono">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="nfseCabecMsg" type="xs:string" />
-      <xs:element minOccurs="0" name="nfseDadosMsg" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="EnviarLoteRpsSincronoResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="return" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
   <xs:complexType name="ConsultarNfseFaixa">
     <xs:sequence>
       <xs:element minOccurs="0" name="nfseCabecMsg" type="xs:string" />
@@ -61,6 +50,17 @@
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="SubstituirNfseResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EnviarLoteRpsSincrono">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="nfseCabecMsg" type="xs:string" />
+      <xs:element minOccurs="0" name="nfseDadosMsg" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EnviarLoteRpsSincronoResponse">
     <xs:sequence>
       <xs:element minOccurs="0" name="return" type="xs:string" />
     </xs:sequence>

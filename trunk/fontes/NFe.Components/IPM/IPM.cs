@@ -40,7 +40,7 @@ namespace NFSe.Components
             })
             {
                 #region Timbo-SC
-                if (Cidade == 8357 || Cidade == 4218202) //Produção
+                if ((Cidade == 8357 || Cidade == 4218202) && tpAmb == TipoAmbiente.taProducao) //Produção
                 {
                     var base64 = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{Usuario}:{Senha}"));
 
@@ -50,6 +50,18 @@ namespace NFSe.Components
                         {"f1", file}           //Endereço físico do arquivo
                     }, $"Authorization: Basic {base64}");
                 }
+
+                else if ((Cidade == 8357 || Cidade == 4218202) && tpAmb == TipoAmbiente.taHomologacao) //Homologação
+                {
+                    var base64 = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{Usuario}:{Senha}"));
+
+                    // informe 1 para retorno em xml
+                    result = post.PostForm("https://homologacao.atende.net/atende.php?pg=rest&service=WNERestServiceNFSe&cidade=integracoes", new Dictionary<string, string>
+                    {
+                        {"f1", file}           //Endereço físico do arquivo
+                    }, $"Authorization: Basic {base64}");
+                }
+
                 #endregion Timbo-SC
 
                 #region Cascavel-PR
@@ -151,6 +163,21 @@ namespace NFSe.Components
                 }
 
                 #endregion Palhoça-SC
+
+                #region Gravataí - RS
+
+                else if ((Cidade == 8683 || Cidade == 4309209) && tpAmb == TipoAmbiente.taProducao) //Produção
+                {
+                    var base64 = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{Usuario}:{Senha}"));
+
+                    // informe 1 para retorno em xml
+                    result = post.PostForm("https://ws-gravatai.atende.net:7443/atende.php?pg=rest&service=WNERestServiceNFSe&cidade=padrao", new Dictionary<string, string>
+                    {
+                        {"f1", file}           //Endereço físico do arquivo
+                    }, $"Authorization: Basic {base64}");
+                }
+
+                #endregion Gravataí - RS
 
                 else
                 {
@@ -293,6 +320,15 @@ namespace NFSe.Components
 
                 case 4101408: //Apucarana-PR
                     return 7425;
+
+                case 4108809: //Guaíra-PR
+                    return 7571;
+
+                case 4214706: //Rio dos Cedros-SC
+                    return 8289;
+
+                case 4212809: //Balneário Piçarras-SC
+                    return 8251;
             }
 
             return 0;

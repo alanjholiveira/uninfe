@@ -985,10 +985,10 @@ namespace NFe.Components
         MEMORY,
 
         /// <summary>
-        /// Prefeitura de Camaçari - BA
+        /// Padrão PRODEB - Tecnologia, Informação e Segurança.
         /// </summary>
-        [Description("Camaçari-BA")]
-        CAMACARI_BA,
+        [Description("PRODEB")]
+        PRODEB,
 
         /// <summary>
         /// Padrão N&A Informática
@@ -1239,7 +1239,25 @@ namespace NFe.Components
         /// TRIBUTUS - Gestão integrada
         /// </summary>
         [Description("TRIBUTUS")]
-        TRIBUTUS
+        TRIBUTUS,
+
+        /// <summary>
+        /// Padrão GIAP
+        /// </summary>
+        [Description("GIAP")]
+        GIAP,
+
+        /// <summary>
+        /// Digifred - Soluções em Tecnologia para a Gestão Pública
+        /// </summary>
+        [Description("DIGIFRED")]
+        DIGIFRED,
+
+        /// <summary>
+        /// VERSATEC - Tecnologia, Educação e Comunicação
+        /// </summary>
+        [Description("VERSATEC")]
+        VERSATEC
 
         ///***ATENÇÃO***
         ///o nome deste enum tem que coincidir com o nome da url, pq faço um "IndexOf" deste enum para pegar o padrao

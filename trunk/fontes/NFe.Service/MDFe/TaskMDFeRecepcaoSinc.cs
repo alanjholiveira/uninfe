@@ -6,7 +6,7 @@ using System.IO;
 using System.Xml;
 using Unimake.Business.DFe.Servicos;
 using Unimake.Business.DFe.Xml.MDFe;
-using Unimake.Security.Exceptions;
+using Unimake.Exceptions;
 
 namespace NFe.Service
 {

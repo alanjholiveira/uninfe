@@ -62,6 +62,10 @@ Source: "Register_UnimakeDFe.bat"; DestDir: "{app}"; Flags: ignoreversion
 ;.netstandard
 ;----------------------------------------------------------------------------------------------------
 Source: "C:\projetos\github\Unimake.DFe\source\Unimake.DFe\Compilacao\INTEROP_Release\netstandard2.0\Unimake.Business.DFe.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\projetos\github\Unimake.DFe\source\Unimake.DFe\Compilacao\INTEROP_Release\netstandard2.0\Unimake.Utils.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\projetos\github\Unimake.DFe\source\Unimake.DFe\Compilacao\INTEROP_Release\netstandard2.0\Unimake.Cryptography.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\projetos\github\Unimake.DFe\source\Unimake.DFe\Compilacao\INTEROP_Release\netstandard2.0\Unimake.Extensions.dll"; DestDir: "{app}"; Flags: ignoreversion
+
 ;----------------------------------------------------------------------------------------------------
 ;DLLs net472
 ;----------------------------------------------------------------------------------------------------

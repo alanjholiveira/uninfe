@@ -53,8 +53,8 @@ namespace NFe.Components.Info
             }
 
             //danasa 22/7/2011
-            //pega a data da ultima modificacao do 'uninfe.exe' diretamente porque pode ser que esteja sendo executado o servico
-            //então, precisamos dos dados do uninfe.exe e não do servico
+            //pega a data da ultima modificação do 'uninfe.exe' diretamente porque pode ser que esteja sendo executado o serviço
+            //então, precisamos dos dados do uninfe.exe e não do serviço
             string dtUltModif;
             URLws item;
             string tipo = "";
@@ -122,11 +122,10 @@ namespace NFe.Components.Info
                 Functions.GravaTxtXml(oXmlGravar, "PastaExecutavel", Propriedade.PastaExecutavel);
                 Functions.GravaTxtXml(oXmlGravar, "NomeComputador", Environment.MachineName);
                 Functions.GravaTxtXml(oXmlGravar, "UsuarioComputador", Environment.UserName);
-                //danasa 22/7/2011
                 Functions.GravaTxtXml(oXmlGravar, "ExecutandoPeloServico", Propriedade.ServicoRodando.ToString());
-                Functions.GravaTxtXml(oXmlGravar, "ConexaoInternet", Functions.IsConnectedToInternet().ToString());
+                Functions.GravaTxtXml(oXmlGravar, "ConexaoInternet", Functions.HasInternetConnection(ConfiguracaoApp.Proxy, ConfiguracaoApp.ProxyServidor, ConfiguracaoApp.ProxyUsuario, ConfiguracaoApp.ProxySenha, ConfiguracaoApp.ProxyPorta, ConfiguracaoApp.DetectarConfiguracaoProxyAuto).ToString());               
 
-                if(isXml) ((XmlWriter)oXmlGravar).WriteEndElement(); //DadosUniNfe
+                if (isXml) ((XmlWriter)oXmlGravar).WriteEndElement(); //DadosUniNfe
 
                 //Dados das configurações do aplicativo
                 if(isXml) ((XmlWriter)oXmlGravar).WriteStartElement(NFeStrConstants.nfe_configuracoes);

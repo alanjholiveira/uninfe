@@ -147,7 +147,6 @@ namespace NFe.Certificado
                 else
                 {
                     var lists = conteudoXML.GetElementsByTagName(tagAssinatura);
-                    XmlNode listRPS = null;
 
                     foreach (XmlNode nodes in lists)
                     {

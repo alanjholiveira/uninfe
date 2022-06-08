@@ -66,6 +66,7 @@ Source: ..\fontes\uninfe\bin\x86\Release46_x86\Unimake.Business.DFe.dll; DestDir
 Source: ..\fontes\uninfe\bin\x86\Release46_x86\Unimake.Cryptography.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\fontes\uninfe\bin\x86\Release46_x86\Unimake.SAT.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\fontes\uninfe\bin\x86\Release46_x86\Unimake.Utils.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\fontes\uninfe\bin\x86\Release46_x86\Unimake.Extensions.dll; DestDir: {app}; Flags: ignoreversion
 
 Source: ..\fontes\uninfe\bin\x86\Release46_x86\uninfe.exe; DestDir: {app}; Flags: ignoreversion
 Source: ..\fontes\uninfe\bin\x86\Release46_x86\uninfeservico.exe; DestDir: {app}; Flags: ignoreversion

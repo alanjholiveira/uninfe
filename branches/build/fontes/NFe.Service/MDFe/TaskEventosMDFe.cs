@@ -17,12 +17,6 @@ namespace NFe.Service
             ConteudoXML.Load(arquivo);
         }
 
-        #region Classe com os dados do XML do registro de eventos
-
-        private DadosenvEvento dadosEnvEvento;
-
-        #endregion Classe com os dados do XML do registro de eventos
-
         #region Execute
 
         public override void Execute()
@@ -31,19 +25,13 @@ namespace NFe.Service
 
             try
             {
-                dadosEnvEvento = new DadosenvEvento();
-                EnvEvento(emp, dadosEnvEvento);
-                ValidaEvento(emp, dadosEnvEvento);
-
                 var xml = new EventoMDFe();
                 xml = Unimake.Business.DFe.Utility.XMLUtility.Deserializar<EventoMDFe>(ConteudoXML);
-
-                var tpEmis = dadosEnvEvento.eventos[0].tpEmis;
 
                 var configuracao = new Configuracao
                 {
                     TipoDFe = TipoDFe.MDFe,
-                    TipoEmissao = (Unimake.Business.DFe.Servicos.TipoEmissao)tpEmis,
+                    TipoEmissao = (Unimake.Business.DFe.Servicos.TipoEmissao.Normal),
                     CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado
                 };
 

@@ -56,7 +56,6 @@ namespace NFe.Service.NFSe
                     case PadroesNFSe.BETHA:
                     case PadroesNFSe.NOTAINTELIGENTE:
                     case PadroesNFSe.AVMB_ASTEN:
-                    case PadroesNFSe.TRIBUTUS:
                         ExecuteDLL(emp, ler.oDadosPedSitNfseRps.cMunicipio, padraoNFSe);
                         break;
 
@@ -80,8 +79,15 @@ namespace NFe.Service.NFSe
                             case 3201209: //Cachoeiro de Itapemirim
                             case 3506003: //Bauru-SP
                             case 2925303: //Porto Seguro-BA
+                            case 3530805: //Mogi Mirim-SP
                             case 3131307: //Ipatinga-MG
                             case 3106200: //Belo Horizonte-MG
+                            case 2610004: //Palmares-PE
+                            case 3550308: //São Paulo-SP
+                            case 3552205: //Sorocaba-SP
+                            case 4310009: //Ibirubá-RS
+                            case 3523107: //Itaquaquecetuba-SP
+                            case 3115300: //Cataguases-MG
                                 ExecuteDLL(emp, ler.oDadosPedSitNfseRps.cMunicipio, padraoNFSe);
                                 break;
 
@@ -263,11 +269,7 @@ namespace NFe.Service.NFSe
                                         break;
 
                                     case PadroesNFSe.RLZ_INFORMATICA_02:
-                                        if(ler.oDadosPedSitNfseRps.cMunicipio == 5107958)
-                                        {
-                                            cabecMsg = "<cabecalho><versaoDados>2.02</versaoDados></cabecalho>";
-                                        }
-
+                                        cabecMsg = "<cabecalho><versaoDados>2.02</versaoDados></cabecalho>";
                                         break;
 
                                     case PadroesNFSe.PORTALFACIL_ACTCON_202:
@@ -299,19 +301,6 @@ namespace NFe.Service.NFSe
                                         cabecMsg = "<cabecalho xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" versao=\"1\" xmlns=\"http://www.abrasf.org.br/ABRASF/arquivos/nfse.xsd\"><versaoDados>1</versaoDados></cabecalho>";
                                         break;
 
-                                    case PadroesNFSe.PAULISTANA:
-                                        wsProxy = new WebServiceProxy(Empresas.Configuracoes[emp].X509Certificado);
-
-                                        if(ler.oDadosPedSitNfseRps.tpAmb == 1)
-                                        {
-                                            pedLoteRps = new NFe.Components.PSaoPauloSP.LoteNFe();
-                                        }
-                                        else
-                                        {
-                                            throw new Exception("Município de São Paulo-SP não dispõe de ambiente de homologação para envio de NFS-e em teste.");
-                                        }
-                                        break;
-
                                     case PadroesNFSe.MEMORY:
 
                                         #region Memory
@@ -330,7 +319,7 @@ namespace NFe.Service.NFSe
 
                                     #endregion Memory
 
-                                    case PadroesNFSe.CAMACARI_BA:
+                                    case PadroesNFSe.PRODEB:
                                         cabecMsg = "<cabecalho><versaoDados>2.01</versaoDados><versao>2.01</versao></cabecalho>";
                                         break;
 
@@ -375,10 +364,6 @@ namespace NFe.Service.NFSe
                                                     pedLoteRps = new Components.PJaraguaGO.nfseWS();
                                                     break;
 
-                                                case 5220454:
-                                                    pedLoteRps = new Components.PSenadorCanedoGO.nfseWS();
-                                                    break;
-
                                                 case 3507506:
                                                     pedLoteRps = new Components.PBotucatuSP.nfseWS();
                                                     break;
@@ -415,7 +400,6 @@ namespace NFe.Service.NFSe
                                             ler.oDadosPedSitNfseRps.cMunicipio == 3542404 ||
                                             ler.oDadosPedSitNfseRps.cMunicipio == 5005707 ||
                                             ler.oDadosPedSitNfseRps.cMunicipio == 4314423 ||
-                                            ler.oDadosPedSitNfseRps.cMunicipio == 3511102 ||
                                             ler.oDadosPedSitNfseRps.cMunicipio == 3535804 ||
                                             ler.oDadosPedSitNfseRps.cMunicipio == 4306932 ||
                                             ler.oDadosPedSitNfseRps.cMunicipio == 4322400 ||
@@ -652,7 +636,8 @@ namespace NFe.Service.NFSe
                 TipoAmbiente = (Unimake.Business.DFe.Servicos.TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
                 CodigoMunicipio = municipio,
                 Servico = servico,
-                SchemaVersao = versaoXML
+                SchemaVersao = versaoXML,
+                MunicipioToken = Empresas.Configuracoes[emp].SenhaWS
             };
 
             switch(servico)
@@ -669,6 +654,13 @@ namespace NFe.Service.NFSe
                     consultarLoteRps.Executar();
 
                     vStrXmlRetorno = consultarLoteRps.RetornoWSString;
+                    break;
+
+                case Unimake.Business.DFe.Servicos.Servico.NFSeConsultaLote:
+                    var consultaLote = new Unimake.Business.DFe.Servicos.NFSe.ConsultaLote(conteudoXML, configuracao);
+                    consultaLote.Executar();
+
+                    vStrXmlRetorno = consultaLote.RetornoWSString;
                     break;
             }
 
@@ -705,6 +697,9 @@ namespace NFe.Service.NFSe
                     }
                     break;
 
+                case PadroesNFSe.PAULISTANA:
+                    result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultaLote;
+                    break;
             }
 
             return result;
@@ -737,20 +732,27 @@ namespace NFe.Service.NFSe
                     versaoXML = "1.00";
                     break;
 
+                case PadroesNFSe.PAULISTANA:
+                case PadroesNFSe.DIGIFRED:
+                    versaoXML = "2.00";
+                    break;
+
                 case PadroesNFSe.PRODATA:
                     versaoXML = "2.01";
                     break;
-
+                              
                 case PadroesNFSe.NOTAINTELIGENTE:
                 case PadroesNFSe.AVMB_ASTEN:
                 case PadroesNFSe.WEBISS:
                 case PadroesNFSe.COPLAN:
+                case PadroesNFSe.VERSATEC:
                     versaoXML = "2.02";
                     break;
 
                 case PadroesNFSe.SIGCORP_SIGISS:
                 case PadroesNFSe.SIMPLISS:
                 case PadroesNFSe.SMARAPD:
+                case PadroesNFSe.DSF:
                     versaoXML = "2.03";
                     break;
 

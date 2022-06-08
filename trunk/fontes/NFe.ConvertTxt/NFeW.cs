@@ -1,5 +1,4 @@
 ﻿using NFe.Components;
-using NFe.Components;
 using NFe.Settings;
 using System;
 using System.Collections.Generic;
@@ -943,6 +942,8 @@ namespace NFe.ConvertTxt
 
                 nodeCurrent = rootDet;
                 wCampo(det.infAdProd, TpcnTipoCampo.tcStr, TpcnResources.infAdProd, ObOp.Opcional);
+
+                GerarDetObsItem(det.ObsItem, rootDet);
             }
         }
 
@@ -1286,11 +1287,7 @@ namespace NFe.ConvertTxt
                             wCampo(imposto.ICMS.vBCST, TpcnTipoCampo.tcDec2, TpcnResources.vBCST);
                             wCampo(imposto.ICMS.pICMSST, nDecimaisPerc, TpcnResources.pICMSST);
                             wCampo(imposto.ICMS.vICMSST, TpcnTipoCampo.tcDec2, TpcnResources.vICMSST);
-                            if(imposto.ICMS.ICMSPart10 == 1)
-                            {
-                                wCampo(imposto.ICMS.pBCOp, nDecimaisPerc, TpcnResources.pBCOp);
-                                wCampo(imposto.ICMS.UFST, TpcnTipoCampo.tcStr, TpcnResources.UFST);
-                            }
+
                             if(nfe.infNFe.Versao >= 4
                                 && imposto.ICMS.vBCFCPST + imposto.ICMS.pFCPST + imposto.ICMS.vFCPST > 0)
                             {
@@ -1299,7 +1296,13 @@ namespace NFe.ConvertTxt
                                 wCampo(imposto.ICMS.vFCPST, TpcnTipoCampo.tcDec2, TpcnResources.vFCPST);//, ObOp.Opcional);
                             }
 
-                            if(imposto.ICMS.vICMSSTDeson > 0)
+                            if (imposto.ICMS.ICMSPart10 == 1)
+                            {
+                                wCampo(imposto.ICMS.pBCOp, nDecimaisPerc, TpcnResources.pBCOp);
+                                wCampo(imposto.ICMS.UFST, TpcnTipoCampo.tcStr, TpcnResources.UFST);
+                            }
+
+                            if (imposto.ICMS.vICMSSTDeson > 0)
                             {
                                 wCampo(imposto.ICMS.vICMSSTDeson, TpcnTipoCampo.tcDec2, TpcnResources.vICMSSTDeson, ObOp.Opcional);
                                 wCampo(imposto.ICMS.motDesICMSST, TpcnTipoCampo.tcInt, TpcnResources.motDesICMSST, ObOp.Opcional);
@@ -2302,6 +2305,7 @@ namespace NFe.ConvertTxt
 
                     wCampo(procRef.nProc, TpcnTipoCampo.tcStr, TpcnResources.nProc);
                     wCampo(procRef.indProc, TpcnTipoCampo.tcStr, TpcnResources.indProc);
+                    wCampo(procRef.tpAto, TpcnTipoCampo.tcStr, TpcnResources.tpAto);
                 }
             }
         }
@@ -2488,6 +2492,44 @@ namespace NFe.ConvertTxt
                         wCampo(refNFe.refECF.nECF, TpcnTipoCampo.tcInt, TpcnResources.nECF, ObOp.Obrigatorio, 3);
                         wCampo(refNFe.refECF.nCOO, TpcnTipoCampo.tcInt, TpcnResources.nCOO, ObOp.Obrigatorio);
                     }
+                }
+            }
+        }
+
+        /// <summary>
+        /// GerarObsItem
+        /// </summary>
+        /// <param name="ObsItem"></param>
+        /// <param name="root"></param>
+        private void GerarDetObsItem(ObsItem ObsItem, XmlElement root)
+        {
+            if (ObsItem.ObsCont.xCampo != null ||
+                ObsItem.ObsFisco.xCampo != null)
+            {
+                XmlElement nodeobsItem = doc.CreateElement("obsItem");
+                root.AppendChild(nodeobsItem);
+                nodeCurrent = nodeobsItem;
+
+                if (ObsItem.ObsCont.xCampo != null)
+                {
+                    XmlElement nodeobsCont = doc.CreateElement("obsCont");
+                    XmlAttribute xmlItem = doc.CreateAttribute(TpcnResources.xCampo.ToString());
+                    xmlItem.Value = ObsItem.ObsCont.xCampo;
+                    nodeobsCont.Attributes.Append(xmlItem);
+                    nodeobsItem.AppendChild(nodeobsCont);
+                    nodeCurrent = nodeobsCont;
+                    wCampo(ObsItem.ObsCont.xTexto, TpcnTipoCampo.tcStr, TpcnResources.xTexto);
+                }
+
+                if (ObsItem.ObsFisco.xCampo != null)
+                {
+                    XmlElement nodeobsFisco = doc.CreateElement("obsFisco");
+                    XmlAttribute xmlItem = doc.CreateAttribute(TpcnResources.xCampo.ToString());
+                    xmlItem.Value = ObsItem.ObsFisco.xCampo;
+                    nodeobsFisco.Attributes.Append(xmlItem);
+                    nodeobsItem.AppendChild(nodeobsFisco);
+                    nodeCurrent = nodeobsFisco;
+                    wCampo(ObsItem.ObsFisco.xTexto, TpcnTipoCampo.tcStr, TpcnResources.xTexto);
                 }
             }
         }

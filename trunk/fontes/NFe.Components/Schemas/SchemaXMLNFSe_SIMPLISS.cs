@@ -97,8 +97,23 @@ namespace NFSe.Components
             });
             #endregion
 
+            #region XML de lote RPS
+            SchemaXML.InfSchemas.Add("NFSE-SIMPLISS-EnviarLoteRpsEnvio", new InfSchema()
+            {
+                Tag = "EnviarLoteRpsEnvio",
+                ID = SchemaXML.InfSchemas.Count + 1,
+                ArquivoXSD = "",
+                Descricao = "XML de Lote RPS",
+                TagAssinatura = "Rps",
+                TagAtributoId = "InfRps",
+                TagLoteAssinatura = "EnviarLoteRpsEnvio",
+                TagLoteAtributoId = "LoteRps",
+                TargetNameSpace = "http://www.sistema.com.br/Nfse/arquivos/nfse_3.xsd"
+            });
+            #endregion
+
             #region Blumenau - SC
-                      
+
             #region XML de Cancelamento de NFS-e
 
             SchemaXML.InfSchemas.Add("NFSE-SIMPLISS-4202404-CancelarNfseEnvio", new InfSchema()

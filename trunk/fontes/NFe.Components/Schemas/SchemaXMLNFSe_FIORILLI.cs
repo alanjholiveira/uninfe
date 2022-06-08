@@ -24,10 +24,10 @@ namespace NFSe.Components
             {
                 Tag = "CancelarNfseEnvio",
                 ID = SchemaXML.InfSchemas.Count + 1,
-                ArquivoXSD = "NFSe\\FIORILLI\\nfse_v201.xsd",
+                ArquivoXSD = "",
                 Descricao = "XML de Cancelamento da NFS-e",
-                TagAssinatura = "Pedido",
-                TagAtributoId = "InfPedidoCancelamento",
+                TagAssinatura = "",
+                TagAtributoId = "",
                 TargetNameSpace = "http://www.abrasf.org.br/nfse.xsd"
             });
             #endregion
@@ -77,10 +77,10 @@ namespace NFSe.Components
             {
                 Tag = "GerarNfseEnvio",
                 ID = SchemaXML.InfSchemas.Count + 1,
-                ArquivoXSD = "NFSe\\FIORILLI\\nfse_v201.xsd",
+                ArquivoXSD = "",
                 Descricao = "XML de Lote RPS",
-                TagLoteAtributoId = "InfDeclaracaoPrestacaoServico",
-                TagLoteAssinatura = "Rps",
+                TagLoteAtributoId = "",
+                TagLoteAssinatura = "",
                 TargetNameSpace = "http://www.abrasf.org.br/nfse.xsd"
             });
             #endregion
@@ -90,12 +90,12 @@ namespace NFSe.Components
             {
                 Tag = "EnviarLoteRpsSincronoEnvio",
                 ID = SchemaXML.InfSchemas.Count + 1,
-                ArquivoXSD = "NFSe\\FIORILLI\\nfse_v201.xsd",
+                ArquivoXSD = "",
                 Descricao = "XML de Lote RPS",
-                TagAssinatura = "Rps",
-                TagAtributoId = "InfDeclaracaoPrestacaoServico",
-                TagLoteAssinatura = "EnviarLoteRpsSincronoEnvio",
-                TagLoteAtributoId = "LoteRps",
+                TagAssinatura = "",
+                TagAtributoId = "",
+                TagLoteAssinatura = "",
+                TagLoteAtributoId = "",
                 TargetNameSpace = "http://www.abrasf.org.br/nfse.xsd"
             });
             #endregion

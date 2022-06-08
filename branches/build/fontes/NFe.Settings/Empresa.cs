@@ -617,7 +617,10 @@ namespace NFe.Settings
                     if(t.UnidadeFederativaCodigo.Equals(4205407))
                     {
                         var result = t.RecuperarConfiguracaoNFSeSoftplan(t.CNPJ);
+                        ClientID = result.ClientID;
                         ClientSecret = result.ClientSecret;
+                        TokenNFse = result.TokenNFse;
+                        TokenNFSeExpire = result.TokenNFSeExpire;
                     }
 
                     CriarPastasDaEmpresa();

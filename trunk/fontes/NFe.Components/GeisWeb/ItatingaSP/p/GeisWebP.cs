@@ -1,8 +1,10 @@
-﻿using NFe.Components.Abstract;
+﻿using System;
+using NFe.Components.Abstract;
 using NFe.Components.PItatingaSP;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml;
+using System.Text;
 
 namespace NFe.Components.GeisWeb.ItatingaSP.p
 {
@@ -38,8 +40,7 @@ namespace NFe.Components.GeisWeb.ItatingaSP.p
             doc.Load(file);
 
             GeisWebService Service = new GeisWebService();
-            Service.ClientCertificates.Add(Certificado);
-            string strResult = Service.EnviaLoteRps(doc.OuterXml);
+            string strResult = Service.EnviaLoteRPS(doc.OuterXml);
 
             GerarRetorno(file,
                 strResult,
@@ -53,8 +54,7 @@ namespace NFe.Components.GeisWeb.ItatingaSP.p
             doc.Load(file);
 
             GeisWebService Service = new GeisWebService();
-            Service.ClientCertificates.Add(Certificado);
-            string strResult = Service.CancelaNfse(doc.OuterXml);
+            string strResult = Service.CancelaNota(doc.OuterXml);
 
             GerarRetorno(file,
                 strResult,
@@ -69,29 +69,17 @@ namespace NFe.Components.GeisWeb.ItatingaSP.p
             doc.Load(file);
 
             GeisWebService Service = new GeisWebService();
-            Service.ClientCertificates.Add(Certificado);
-            string strResult = Service.ConsultaLoteRps(doc.OuterXml);
+            string strResult = Service.ConsultaNota(doc.OuterXml);
 
             GerarRetorno(file,
                 strResult,
                 Propriedade.Extensao(Propriedade.TipoEnvio.PedLoteRps).EnvioXML,
-                Propriedade.Extensao(Propriedade.TipoEnvio.PedLoteRps).RetornoXML);
+                Propriedade.Extensao(Propriedade.TipoEnvio.PedLoteRps).RetornoXML, Encoding.UTF8);
         }
 
         public override void ConsultarNfse(string file)
         {
-            XmlDocument doc = new XmlDocument();
-            doc.Load(file);
-
-            GeisWebService Service = new GeisWebService();
-            Service.ClientCertificates.Add(Certificado);
-            string strResult = Service.ConsultaNfse(doc.OuterXml);
-            strResult = strResult.Replace("&", "&amp;");
-
-            GerarRetorno(file,
-                strResult,
-                Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSe).EnvioXML,
-                Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSe).RetornoXML);
+            throw new System.NotImplementedException();
         }
 
         public override void ConsultarSituacaoLoteRps(string file)

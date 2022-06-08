@@ -88,13 +88,20 @@ namespace NFe.Threadings
         private void ProcessFiles()
         {
             bool pastaGeral = false;
+            int emp = 0;
             foreach (var item in Directorys)
             {
                 string directory = item;
                 if (directory.ToLower().EndsWith("\\geral"))
                     pastaGeral = true;
+
+                if (!pastaGeral)
+                {
+                    emp = Empresas.FindEmpresaByFolder(item);
+                }
             }
-            int emp = (pastaGeral ? -1 : Empresas.FindEmpresaByThread());
+            emp = (pastaGeral ? -1 : emp);
+
 
             string arqTemp = "";
 
@@ -202,8 +209,11 @@ namespace NFe.Threadings
                     if (emp >= 0)
                     {
                         if (fi.Name.ToLower().IndexOf(Propriedade.Extensao(Propriedade.TipoEnvio.AltCon).EnvioXML) >= 0 ||
-                            fi.Name.ToLower().IndexOf(Propriedade.Extensao(Propriedade.TipoEnvio.AltCon).EnvioTXT) >= 0)
+                            fi.Name.ToLower().IndexOf(Propriedade.Extensao(Propriedade.TipoEnvio.AltCon).EnvioTXT) >= 0 ||
+                            Empresas.Configuracoes[emp].Servico == TipoAplicativo.SAT)
+                        {
                             Empresas.Configuracoes[emp].CriarFilaProcesamento = true;
+                        }
 
                         if (Empresas.Configuracoes[emp].X509Certificado.IsA3() || Empresas.Configuracoes[emp].CriarFilaProcesamento)
                         {

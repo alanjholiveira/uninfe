@@ -14,29 +14,30 @@
 #pragma warning disable 1591
 
 namespace NFe.Components.HGeisWeb {
-    using System;
-    using System.Web.Services;
     using System.Diagnostics;
-    using System.Web.Services.Protocols;
+    using System;
     using System.Xml.Serialization;
     using System.ComponentModel;
+    using System.Web.Services.Protocols;
+    using System.Web.Services;
     
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Web.Services.WebServiceBindingAttribute(Name="GeisWebServiceBinding", Namespace="urn:https://www.geisweb.net.br/homologacao/modelo/webservice/GeisWebServiceImpl.p" +
-        "hp")]
+    [System.Web.Services.WebServiceBindingAttribute(Name="GeisWebServiceBinding", Namespace="urn:http://www.geisweb.net.br/modelo/webservice")]
     public partial class GeisWebService : System.Web.Services.Protocols.SoapHttpClientProtocol {
         
-        private System.Threading.SendOrPostCallback ConsultaLoteRpsOperationCompleted;
+        private System.Threading.SendOrPostCallback ConsultaNotaGeisOperationCompleted;
         
-        private System.Threading.SendOrPostCallback ConsultaNfseOperationCompleted;
+        private System.Threading.SendOrPostCallback EnviaLoteRPSOperationCompleted;
         
-        private System.Threading.SendOrPostCallback EnviaLoteRpsOperationCompleted;
+        private System.Threading.SendOrPostCallback ConsultaNotaOperationCompleted;
         
-        private System.Threading.SendOrPostCallback CancelaNfseOperationCompleted;
+        private System.Threading.SendOrPostCallback CancelaNotaOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback ConsultaUltNFSeOperationCompleted;
         
         private bool useDefaultCredentialsSetExplicitly;
         
@@ -77,146 +78,167 @@ namespace NFe.Components.HGeisWeb {
         }
         
         /// <remarks/>
-        public event ConsultaLoteRpsCompletedEventHandler ConsultaLoteRpsCompleted;
+        public event ConsultaNotaGeisCompletedEventHandler ConsultaNotaGeisCompleted;
         
         /// <remarks/>
-        public event ConsultaNfseCompletedEventHandler ConsultaNfseCompleted;
+        public event EnviaLoteRPSCompletedEventHandler EnviaLoteRPSCompleted;
         
         /// <remarks/>
-        public event EnviaLoteRpsCompletedEventHandler EnviaLoteRpsCompleted;
+        public event ConsultaNotaCompletedEventHandler ConsultaNotaCompleted;
         
         /// <remarks/>
-        public event CancelaNfseCompletedEventHandler CancelaNfseCompleted;
+        public event CancelaNotaCompletedEventHandler CancelaNotaCompleted;
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapRpcMethodAttribute("urn:https://www.geisweb.net.br/homologacao/modelo/webservice/GeisWebServiceImpl.p" +
-            "hp#ConsultaLoteRps", RequestNamespace="urn:https://www.geisweb.net.br/homologacao/modelo/webservice/GeisWebServiceImpl.p" +
-            "hp", ResponseNamespace="urn:https://www.geisweb.net.br/homologacao/modelo/webservice/GeisWebServiceImpl.p" +
-            "hp")]
-        [return: System.Xml.Serialization.SoapElementAttribute("ConsultaLoteRpsResposta")]
-        public string ConsultaLoteRps([System.Xml.Serialization.SoapElementAttribute("ConsultaLoteRps")] string ConsultaLoteRps1) {
-            object[] results = this.Invoke("ConsultaLoteRps", new object[] {
-                        ConsultaLoteRps1});
+        public event ConsultaUltNFSeCompletedEventHandler ConsultaUltNFSeCompleted;
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapRpcMethodAttribute("urn:http://www.geisweb.net.br/modelo/webservice#ConsultaNotaGeis", RequestNamespace="urn:http://www.geisweb.net.br/modelo/webservice", ResponseNamespace="urn:http://www.geisweb.net.br/modelo/webservice")]
+        [return: System.Xml.Serialization.SoapElementAttribute("MsgConsultaNota")]
+        public string ConsultaNotaGeis(string ConsultaNota) {
+            object[] results = this.Invoke("ConsultaNotaGeis", new object[] {
+                        ConsultaNota});
             return ((string)(results[0]));
         }
         
         /// <remarks/>
-        public void ConsultaLoteRpsAsync(string ConsultaLoteRps1) {
-            this.ConsultaLoteRpsAsync(ConsultaLoteRps1, null);
+        public void ConsultaNotaGeisAsync(string ConsultaNota) {
+            this.ConsultaNotaGeisAsync(ConsultaNota, null);
         }
         
         /// <remarks/>
-        public void ConsultaLoteRpsAsync(string ConsultaLoteRps1, object userState) {
-            if ((this.ConsultaLoteRpsOperationCompleted == null)) {
-                this.ConsultaLoteRpsOperationCompleted = new System.Threading.SendOrPostCallback(this.OnConsultaLoteRpsOperationCompleted);
+        public void ConsultaNotaGeisAsync(string ConsultaNota, object userState) {
+            if ((this.ConsultaNotaGeisOperationCompleted == null)) {
+                this.ConsultaNotaGeisOperationCompleted = new System.Threading.SendOrPostCallback(this.OnConsultaNotaGeisOperationCompleted);
             }
-            this.InvokeAsync("ConsultaLoteRps", new object[] {
-                        ConsultaLoteRps1}, this.ConsultaLoteRpsOperationCompleted, userState);
+            this.InvokeAsync("ConsultaNotaGeis", new object[] {
+                        ConsultaNota}, this.ConsultaNotaGeisOperationCompleted, userState);
         }
         
-        private void OnConsultaLoteRpsOperationCompleted(object arg) {
-            if ((this.ConsultaLoteRpsCompleted != null)) {
+        private void OnConsultaNotaGeisOperationCompleted(object arg) {
+            if ((this.ConsultaNotaGeisCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.ConsultaLoteRpsCompleted(this, new ConsultaLoteRpsCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+                this.ConsultaNotaGeisCompleted(this, new ConsultaNotaGeisCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapRpcMethodAttribute("urn:https://www.geisweb.net.br/homologacao/modelo/webservice/GeisWebServiceImpl.p" +
-            "hp#ConsultaNfse", RequestNamespace="urn:https://www.geisweb.net.br/homologacao/modelo/webservice/GeisWebServiceImpl.p" +
-            "hp", ResponseNamespace="urn:https://www.geisweb.net.br/homologacao/modelo/webservice/GeisWebServiceImpl.p" +
-            "hp")]
-        [return: System.Xml.Serialization.SoapElementAttribute("ConsultaNfseResposta")]
-        public string ConsultaNfse([System.Xml.Serialization.SoapElementAttribute("ConsultaNfse")] string ConsultaNfse1) {
-            object[] results = this.Invoke("ConsultaNfse", new object[] {
-                        ConsultaNfse1});
+        [System.Web.Services.Protocols.SoapRpcMethodAttribute("urn:http://www.geisweb.net.br/modelo/webservice#EnviaLoteRPS", RequestNamespace="urn:http://www.geisweb.net.br/modelo/webservice", ResponseNamespace="urn:http://www.geisweb.net.br/modelo/webservice")]
+        [return: System.Xml.Serialization.SoapElementAttribute("Msg")]
+        public string EnviaLoteRPS([System.Xml.Serialization.SoapElementAttribute("EnviaLoteRPS")] string EnviaLoteRPS1) {
+            object[] results = this.Invoke("EnviaLoteRPS", new object[] {
+                        EnviaLoteRPS1});
             return ((string)(results[0]));
         }
         
         /// <remarks/>
-        public void ConsultaNfseAsync(string ConsultaNfse1) {
-            this.ConsultaNfseAsync(ConsultaNfse1, null);
+        public void EnviaLoteRPSAsync(string EnviaLoteRPS1) {
+            this.EnviaLoteRPSAsync(EnviaLoteRPS1, null);
         }
         
         /// <remarks/>
-        public void ConsultaNfseAsync(string ConsultaNfse1, object userState) {
-            if ((this.ConsultaNfseOperationCompleted == null)) {
-                this.ConsultaNfseOperationCompleted = new System.Threading.SendOrPostCallback(this.OnConsultaNfseOperationCompleted);
+        public void EnviaLoteRPSAsync(string EnviaLoteRPS1, object userState) {
+            if ((this.EnviaLoteRPSOperationCompleted == null)) {
+                this.EnviaLoteRPSOperationCompleted = new System.Threading.SendOrPostCallback(this.OnEnviaLoteRPSOperationCompleted);
             }
-            this.InvokeAsync("ConsultaNfse", new object[] {
-                        ConsultaNfse1}, this.ConsultaNfseOperationCompleted, userState);
+            this.InvokeAsync("EnviaLoteRPS", new object[] {
+                        EnviaLoteRPS1}, this.EnviaLoteRPSOperationCompleted, userState);
         }
         
-        private void OnConsultaNfseOperationCompleted(object arg) {
-            if ((this.ConsultaNfseCompleted != null)) {
+        private void OnEnviaLoteRPSOperationCompleted(object arg) {
+            if ((this.EnviaLoteRPSCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.ConsultaNfseCompleted(this, new ConsultaNfseCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+                this.EnviaLoteRPSCompleted(this, new EnviaLoteRPSCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapRpcMethodAttribute("urn:https://www.geisweb.net.br/homologacao/modelo/webservice/GeisWebServiceImpl.p" +
-            "hp#EnviaLoteRps", RequestNamespace="urn:https://www.geisweb.net.br/homologacao/modelo/webservice/GeisWebServiceImpl.p" +
-            "hp", ResponseNamespace="urn:https://www.geisweb.net.br/homologacao/modelo/webservice/GeisWebServiceImpl.p" +
-            "hp")]
-        [return: System.Xml.Serialization.SoapElementAttribute("EnviaLoteRpsResposta")]
-        public string EnviaLoteRps([System.Xml.Serialization.SoapElementAttribute("EnviaLoteRps")] string EnviaLoteRps1) {
-            object[] results = this.Invoke("EnviaLoteRps", new object[] {
-                        EnviaLoteRps1});
+        [System.Web.Services.Protocols.SoapRpcMethodAttribute("urn:http://www.geisweb.net.br/modelo/webservice#ConsultaNota", RequestNamespace="urn:http://www.geisweb.net.br/modelo/webservice", ResponseNamespace="urn:http://www.geisweb.net.br/modelo/webservice")]
+        [return: System.Xml.Serialization.SoapElementAttribute("MsgConsultaNota")]
+        public string ConsultaNota([System.Xml.Serialization.SoapElementAttribute("ConsultaNota")] string ConsultaNota1) {
+            object[] results = this.Invoke("ConsultaNota", new object[] {
+                        ConsultaNota1});
             return ((string)(results[0]));
         }
         
         /// <remarks/>
-        public void EnviaLoteRpsAsync(string EnviaLoteRps1) {
-            this.EnviaLoteRpsAsync(EnviaLoteRps1, null);
+        public void ConsultaNotaAsync(string ConsultaNota1) {
+            this.ConsultaNotaAsync(ConsultaNota1, null);
         }
         
         /// <remarks/>
-        public void EnviaLoteRpsAsync(string EnviaLoteRps1, object userState) {
-            if ((this.EnviaLoteRpsOperationCompleted == null)) {
-                this.EnviaLoteRpsOperationCompleted = new System.Threading.SendOrPostCallback(this.OnEnviaLoteRpsOperationCompleted);
+        public void ConsultaNotaAsync(string ConsultaNota1, object userState) {
+            if ((this.ConsultaNotaOperationCompleted == null)) {
+                this.ConsultaNotaOperationCompleted = new System.Threading.SendOrPostCallback(this.OnConsultaNotaOperationCompleted);
             }
-            this.InvokeAsync("EnviaLoteRps", new object[] {
-                        EnviaLoteRps1}, this.EnviaLoteRpsOperationCompleted, userState);
+            this.InvokeAsync("ConsultaNota", new object[] {
+                        ConsultaNota1}, this.ConsultaNotaOperationCompleted, userState);
         }
         
-        private void OnEnviaLoteRpsOperationCompleted(object arg) {
-            if ((this.EnviaLoteRpsCompleted != null)) {
+        private void OnConsultaNotaOperationCompleted(object arg) {
+            if ((this.ConsultaNotaCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.EnviaLoteRpsCompleted(this, new EnviaLoteRpsCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+                this.ConsultaNotaCompleted(this, new ConsultaNotaCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapRpcMethodAttribute("urn:https://www.geisweb.net.br/homologacao/modelo/webservice/GeisWebServiceImpl.p" +
-            "hp#CancelaNfse", RequestNamespace="urn:https://www.geisweb.net.br/homologacao/modelo/webservice/GeisWebServiceImpl.p" +
-            "hp", ResponseNamespace="urn:https://www.geisweb.net.br/homologacao/modelo/webservice/GeisWebServiceImpl.p" +
-            "hp")]
-        [return: System.Xml.Serialization.SoapElementAttribute("CancelaNfseResposta")]
-        public string CancelaNfse([System.Xml.Serialization.SoapElementAttribute("CancelaNfse")] string CancelaNfse1) {
-            object[] results = this.Invoke("CancelaNfse", new object[] {
-                        CancelaNfse1});
+        [System.Web.Services.Protocols.SoapRpcMethodAttribute("urn:http://www.geisweb.net.br/modelo/webservice#CancelaNota", RequestNamespace="urn:http://www.geisweb.net.br/modelo/webservice", ResponseNamespace="urn:http://www.geisweb.net.br/modelo/webservice")]
+        [return: System.Xml.Serialization.SoapElementAttribute("MsgCancelaNota")]
+        public string CancelaNota([System.Xml.Serialization.SoapElementAttribute("CancelaNota")] string CancelaNota1) {
+            object[] results = this.Invoke("CancelaNota", new object[] {
+                        CancelaNota1});
             return ((string)(results[0]));
         }
         
         /// <remarks/>
-        public void CancelaNfseAsync(string CancelaNfse1) {
-            this.CancelaNfseAsync(CancelaNfse1, null);
+        public void CancelaNotaAsync(string CancelaNota1) {
+            this.CancelaNotaAsync(CancelaNota1, null);
         }
         
         /// <remarks/>
-        public void CancelaNfseAsync(string CancelaNfse1, object userState) {
-            if ((this.CancelaNfseOperationCompleted == null)) {
-                this.CancelaNfseOperationCompleted = new System.Threading.SendOrPostCallback(this.OnCancelaNfseOperationCompleted);
+        public void CancelaNotaAsync(string CancelaNota1, object userState) {
+            if ((this.CancelaNotaOperationCompleted == null)) {
+                this.CancelaNotaOperationCompleted = new System.Threading.SendOrPostCallback(this.OnCancelaNotaOperationCompleted);
             }
-            this.InvokeAsync("CancelaNfse", new object[] {
-                        CancelaNfse1}, this.CancelaNfseOperationCompleted, userState);
+            this.InvokeAsync("CancelaNota", new object[] {
+                        CancelaNota1}, this.CancelaNotaOperationCompleted, userState);
         }
         
-        private void OnCancelaNfseOperationCompleted(object arg) {
-            if ((this.CancelaNfseCompleted != null)) {
+        private void OnCancelaNotaOperationCompleted(object arg) {
+            if ((this.CancelaNotaCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.CancelaNfseCompleted(this, new CancelaNfseCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+                this.CancelaNotaCompleted(this, new CancelaNotaCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapRpcMethodAttribute("urn:http://www.geisweb.net.br/modelo/webservice#ConsultaUltNFSe", RequestNamespace="urn:http://www.geisweb.net.br/modelo/webservice", ResponseNamespace="urn:http://www.geisweb.net.br/modelo/webservice")]
+        [return: System.Xml.Serialization.SoapElementAttribute("MsgConsultaUltNFSe")]
+        public string ConsultaUltNFSe([System.Xml.Serialization.SoapElementAttribute("ConsultaUltNFSe")] string ConsultaUltNFSe1) {
+            object[] results = this.Invoke("ConsultaUltNFSe", new object[] {
+                        ConsultaUltNFSe1});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ConsultaUltNFSeAsync(string ConsultaUltNFSe1) {
+            this.ConsultaUltNFSeAsync(ConsultaUltNFSe1, null);
+        }
+        
+        /// <remarks/>
+        public void ConsultaUltNFSeAsync(string ConsultaUltNFSe1, object userState) {
+            if ((this.ConsultaUltNFSeOperationCompleted == null)) {
+                this.ConsultaUltNFSeOperationCompleted = new System.Threading.SendOrPostCallback(this.OnConsultaUltNFSeOperationCompleted);
+            }
+            this.InvokeAsync("ConsultaUltNFSe", new object[] {
+                        ConsultaUltNFSe1}, this.ConsultaUltNFSeOperationCompleted, userState);
+        }
+        
+        private void OnConsultaUltNFSeOperationCompleted(object arg) {
+            if ((this.ConsultaUltNFSeCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ConsultaUltNFSeCompleted(this, new ConsultaUltNFSeCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -240,18 +262,18 @@ namespace NFe.Components.HGeisWeb {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
-    public delegate void ConsultaLoteRpsCompletedEventHandler(object sender, ConsultaLoteRpsCompletedEventArgs e);
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
+    public delegate void ConsultaNotaGeisCompletedEventHandler(object sender, ConsultaNotaGeisCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class ConsultaLoteRpsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    public partial class ConsultaNotaGeisCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
         
-        internal ConsultaLoteRpsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+        internal ConsultaNotaGeisCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
@@ -266,18 +288,18 @@ namespace NFe.Components.HGeisWeb {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
-    public delegate void ConsultaNfseCompletedEventHandler(object sender, ConsultaNfseCompletedEventArgs e);
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
+    public delegate void EnviaLoteRPSCompletedEventHandler(object sender, EnviaLoteRPSCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class ConsultaNfseCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    public partial class EnviaLoteRPSCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
         
-        internal ConsultaNfseCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+        internal EnviaLoteRPSCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
@@ -292,18 +314,18 @@ namespace NFe.Components.HGeisWeb {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
-    public delegate void EnviaLoteRpsCompletedEventHandler(object sender, EnviaLoteRpsCompletedEventArgs e);
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
+    public delegate void ConsultaNotaCompletedEventHandler(object sender, ConsultaNotaCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class EnviaLoteRpsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    public partial class ConsultaNotaCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
         
-        internal EnviaLoteRpsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+        internal ConsultaNotaCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
@@ -318,18 +340,44 @@ namespace NFe.Components.HGeisWeb {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
-    public delegate void CancelaNfseCompletedEventHandler(object sender, CancelaNfseCompletedEventArgs e);
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
+    public delegate void CancelaNotaCompletedEventHandler(object sender, CancelaNotaCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class CancelaNfseCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    public partial class CancelaNotaCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
         
-        internal CancelaNfseCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+        internal CancelaNotaCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
+    public delegate void ConsultaUltNFSeCompletedEventHandler(object sender, ConsultaUltNFSeCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ConsultaUltNFSeCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ConsultaUltNFSeCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }

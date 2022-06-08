@@ -380,6 +380,7 @@ namespace NFe.Components
         toma,
         tpAmb,
         tpArma,
+        tpAto,
         tpAutor,
         tpCar,
         tpComb,

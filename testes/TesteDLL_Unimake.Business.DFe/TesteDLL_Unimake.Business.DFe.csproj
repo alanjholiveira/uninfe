@@ -16,7 +16,7 @@
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 		<OutputPath>bin\Debug</OutputPath>
-		<DefineConstants>$(DefineConstants)TRACE;INTEROP;</DefineConstants>
+		<DefineConstants>$(DefineConstants)TRACE;</DefineConstants>
 		<GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
 	</PropertyGroup>
 
@@ -61,7 +61,7 @@
 	  <PackageReference Include="Microsoft.VisualBasic" Version="10.3.0" />
 	  <PackageReference Include="Microsoft_VisualStudio_QualityTools_UnitTestFramework.STW" Version="12.0.21005.1" />
 	  <PackageReference Include="NETStandard.Library" Version="2.0.3" />
-	  <PackageReference Include="Unimake.Unidanfe" Version="20210604.1735.36" />
+	  <PackageReference Include="Unimake.Unidanfe" Version="20220513.1041.21" />
 	</ItemGroup>
 
 	<ItemGroup>

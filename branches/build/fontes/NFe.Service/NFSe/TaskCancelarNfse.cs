@@ -9,6 +9,7 @@ using NFe.Components.EL;
 using NFe.Components.Elotech;
 using NFe.Components.Fiorilli;
 using NFe.Components.GeisWeb;
+using NFe.Components.GIAP;
 using NFe.Components.GovDigital;
 using NFe.Components.Memory;
 using NFe.Components.Metropolis;
@@ -89,7 +90,6 @@ namespace NFe.Service.NFSe
                     case PadroesNFSe.AVMB_ASTEN:
                     case PadroesNFSe.BETHA:
                     case PadroesNFSe.NOTAINTELIGENTE:
-                    case PadroesNFSe.TRIBUTUS:
                         ExecuteDLL(emp, oDadosPedCanNfse.cMunicipio, padraoNFSe);
                         break;
 
@@ -113,8 +113,16 @@ namespace NFe.Service.NFSe
                             case 3201209: //Cachoeiro de Itapemirim
                             case 3506003: //Bauru-SP
                             case 2925303: //Porto Seguro-BA
+                            case 3530805: //Mogi Mirim-SP
                             case 3131307: //Ipatinga-MG
                             case 3106200: //Belo Horizonte-MG
+                            case 2610004: //Palmares-PE
+                            case 3550308: //São Paulo-SP
+                            case 3552205: //Sorocaba-SP
+                            case 4310009: //Ibirubá-RS
+                            case 3168606: //Teófilo Otoni-MG
+                            case 3523107: //Itaquaquecetuba-SP
+                            case 3115300: //Cataguases-MG
                                 ExecuteDLL(emp, oDadosPedCanNfse.cMunicipio, padraoNFSe);
                                 break;
 
@@ -148,10 +156,10 @@ namespace NFe.Service.NFSe
 
                                         if(ConfiguracaoApp.Proxy)
                                         {
-                                            ipm.Proxy = Proxy.DefinirProxy(ConfiguracaoApp.ProxyServidor, ConfiguracaoApp.ProxyUsuario, ConfiguracaoApp.ProxySenha, ConfiguracaoApp.ProxyPorta);
+                                            ipm.Proxy = Unimake.Net.Utility.GetProxy(ConfiguracaoApp.ProxyServidor, ConfiguracaoApp.ProxyUsuario, ConfiguracaoApp.ProxySenha, ConfiguracaoApp.ProxyPorta);
                                         }
 
-                                        if(oDadosPedCanNfse.cMunicipio == 4215000)
+                                        if(oDadosPedCanNfse.cMunicipio == 4215000 || oDadosPedCanNfse.cMunicipio == 4303103)
                                         {
                                             var adIPM = new AssinaturaDigital();
                                             //adIPM.Assinar(NomeArquivoXML, emp, oDadosEnvLoteRps.cMunicipio);
@@ -189,21 +197,6 @@ namespace NFe.Service.NFSe
 
                                     case PadroesNFSe.WEBISS_202:
                                         cabecMsg = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><cabecalho xmlns=\"http://www.abrasf.org.br/nfse.xsd\" versao=\"2.02\"><versaoDados>2.02</versaoDados></cabecalho>";
-                                        break;
-
-                                    case PadroesNFSe.PAULISTANA:
-                                        wsProxy = new WebServiceProxy(Empresas.Configuracoes[emp].X509Certificado);
-
-                                        if(oDadosPedCanNfse.tpAmb == 1)
-                                        {
-                                            pedCanNfse = new NFe.Components.PSaoPauloSP.LoteNFe();
-                                        }
-                                        else
-                                        {
-                                            throw new Exception("Município de São Paulo-SP não dispõe de ambiente de homologação para envio de NFS-e em teste.");
-                                        }
-
-                                        EncryptAssinatura();
                                         break;
 
                                     case PadroesNFSe.DSF:
@@ -394,11 +387,6 @@ namespace NFe.Service.NFSe
                                                     pedCanNfse = new Components.PJaraguaGO.nfseWS();
                                                     break;
 
-                                                case 5220454:
-                                                    pedCanNfse = new Components.PSenadorCanedoGO.nfseWS();
-                                                    break;
-
-
                                                 case 3507506:
                                                     pedCanNfse = new Components.PBotucatuSP.nfseWS();
                                                     break;
@@ -424,11 +412,7 @@ namespace NFe.Service.NFSe
                                         break;
 
                                     case PadroesNFSe.RLZ_INFORMATICA_02:
-                                        if(oDadosPedCanNfse.cMunicipio == 5107958)
-                                        {
-                                            cabecMsg = "<cabecalho><versaoDados>2.02</versaoDados></cabecalho>";
-                                        }
-
+                                        cabecMsg = "<cabecalho><versaoDados>2.02</versaoDados></cabecalho>";
                                         break;
 
                                     case PadroesNFSe.PORTALFACIL_ACTCON_202:
@@ -497,7 +481,7 @@ namespace NFe.Service.NFSe
 
                                     #endregion Memory
 
-                                    case PadroesNFSe.CAMACARI_BA:
+                                    case PadroesNFSe.PRODEB:
                                         cabecMsg = "<cabecalho><versaoDados>2.01</versaoDados><versao>2.01</versao></cabecalho>";
                                         break;
 
@@ -525,7 +509,6 @@ namespace NFe.Service.NFSe
                                             oDadosPedCanNfse.cMunicipio == 3542404 ||
                                             oDadosPedCanNfse.cMunicipio == 5005707 ||
                                             oDadosPedCanNfse.cMunicipio == 4314423 ||
-                                            oDadosPedCanNfse.cMunicipio == 3511102 ||
                                             oDadosPedCanNfse.cMunicipio == 3535804 ||
                                             oDadosPedCanNfse.cMunicipio == 4306932 ||
                                             oDadosPedCanNfse.cMunicipio == 4322400 ||
@@ -650,7 +633,7 @@ namespace NFe.Service.NFSe
 
                                         if(ConfiguracaoApp.Proxy)
                                         {
-                                            softplan.Proxy = Proxy.DefinirProxy(ConfiguracaoApp.ProxyServidor, ConfiguracaoApp.ProxyUsuario, ConfiguracaoApp.ProxySenha, ConfiguracaoApp.ProxyPorta);
+                                            softplan.Proxy = Unimake.Net.Utility.GetProxy(ConfiguracaoApp.ProxyServidor, ConfiguracaoApp.ProxyUsuario, ConfiguracaoApp.ProxySenha, ConfiguracaoApp.ProxyPorta);
                                         }
 
                                         var softplanAss = new AssinaturaDigital();
@@ -673,6 +656,24 @@ namespace NFe.Service.NFSe
 
                                     #endregion SOFTPLAN
 
+                                    #region GIAP
+
+                                    case PadroesNFSe.GIAP:
+                                        var giap = new Giap((TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
+                                                                        Empresas.Configuracoes[emp].PastaXmlRetorno,
+                                                                        oDadosPedCanNfse.cMunicipio,
+                                                                        Empresas.Configuracoes[emp].SenhaWS);
+
+                                        if (ConfiguracaoApp.Proxy)
+                                        {
+                                            giap.Proxy = Unimake.Net.Utility.GetProxy(ConfiguracaoApp.ProxyServidor, ConfiguracaoApp.ProxyUsuario, ConfiguracaoApp.ProxySenha, ConfiguracaoApp.ProxyPorta);
+                                        }
+
+                                        giap.CancelarNfse(NomeArquivoXML);
+                                        break;
+
+                                    #endregion GIAP
+
                                     #region CENTI
 
                                     case PadroesNFSe.CENTI:
@@ -694,7 +695,7 @@ namespace NFe.Service.NFSe
 
                                         if(ConfiguracaoApp.Proxy)
                                         {
-                                            centi.Proxy = Proxy.DefinirProxy(ConfiguracaoApp.ProxyServidor, ConfiguracaoApp.ProxyUsuario, ConfiguracaoApp.ProxySenha, ConfiguracaoApp.ProxyPorta);
+                                            centi.Proxy = Unimake.Net.Utility.GetProxy(ConfiguracaoApp.ProxyServidor, ConfiguracaoApp.ProxyUsuario, ConfiguracaoApp.ProxySenha, ConfiguracaoApp.ProxyPorta);
                                         }
                                         centi.CancelarNfse(NomeArquivoXML);
                                         break;
@@ -725,7 +726,7 @@ namespace NFe.Service.NFSe
 
                                         if(ConfiguracaoApp.Proxy)
                                         {
-                                            agili.Proxy = Proxy.DefinirProxy(ConfiguracaoApp.ProxyServidor, ConfiguracaoApp.ProxyUsuario, ConfiguracaoApp.ProxySenha, ConfiguracaoApp.ProxyPorta);
+                                            agili.Proxy = Unimake.Net.Utility.GetProxy(ConfiguracaoApp.ProxyServidor, ConfiguracaoApp.ProxyUsuario, ConfiguracaoApp.ProxySenha, ConfiguracaoApp.ProxyPorta);
                                         }
 
                                         var AgiliAss = new AssinaturaDigital();
@@ -908,11 +909,16 @@ namespace NFe.Service.NFSe
         /// <param name="padraoNFSe">Padrão do munípio para NFSe</param>
         private void ExecuteDLL(int emp, int municipio, PadroesNFSe padraoNFSe)
         {
+            if (padraoNFSe == PadroesNFSe.PAULISTANA)
+            {
+                EncryptAssinatura();
+            }
             var conteudoXML = new XmlDocument();
             conteudoXML.Load(NomeArquivoXML);
 
             var finalArqEnvio = Propriedade.Extensao(Propriedade.TipoEnvio.PedCanNFSe).EnvioXML;
             var finalArqRetorno = Propriedade.Extensao(Propriedade.TipoEnvio.PedCanNFSe).RetornoXML;
+            var servico = DefinirServico(municipio, conteudoXML);
             var versaoXML = DefinirVersaoXML(municipio, conteudoXML, padraoNFSe);
 
             Functions.DeletarArquivo(Empresas.Configuracoes[emp].PastaXmlRetorno + "\\" + Functions.ExtrairNomeArq(NomeArquivoXML, finalArqEnvio) + Functions.ExtractExtension(finalArqRetorno) + ".err");
@@ -923,14 +929,25 @@ namespace NFe.Service.NFSe
                 CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado,
                 TipoAmbiente = (Unimake.Business.DFe.Servicos.TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
                 CodigoMunicipio = municipio,
-                Servico = Unimake.Business.DFe.Servicos.Servico.NFSeCancelarNfse,
-                SchemaVersao = versaoXML
+                Servico = servico,
+                SchemaVersao = versaoXML,
+                MunicipioToken = Empresas.Configuracoes[emp].SenhaWS
             };
 
-            var cancelarNfse = new Unimake.Business.DFe.Servicos.NFSe.CancelarNfse(conteudoXML, configuracao);
-            cancelarNfse.Executar();
+            switch (servico)
+            {
+                case Unimake.Business.DFe.Servicos.Servico.NFSeCancelarNfse:
+                    var cancelarNfse = new Unimake.Business.DFe.Servicos.NFSe.CancelarNfse(conteudoXML, configuracao);
+                    cancelarNfse.Executar();
+                    vStrXmlRetorno = cancelarNfse.RetornoWSString;
+                    break;
 
-            vStrXmlRetorno = cancelarNfse.RetornoWSString;
+                case Unimake.Business.DFe.Servicos.Servico.NFSeCancelamentoNfe:
+                    var cancelamentoNfe = new Unimake.Business.DFe.Servicos.NFSe.CancelamentoNfe(conteudoXML, configuracao);
+                    cancelamentoNfe.Executar();
+                    vStrXmlRetorno = cancelamentoNfe.RetornoWSString;
+                    break;
+            }
 
             XmlRetorno(finalArqEnvio, finalArqRetorno);
 
@@ -942,6 +959,29 @@ namespace NFe.Service.NFSe
             {
                 new GerarXML(emp).XmlParaFTP(emp, filenameFTP);
             }
+        }
+
+        /// <summary>
+        /// Define qual o tipo de serviço de envio de NFSe será utilizado. Envio em lote sincrono, Envio em lote assincrono ou envio de uma única NFSe síncrono.
+        /// </summary>
+        /// <param name="municipio">Código do município para onde será enviado o XML</param>
+        /// <param name="doc">Conteúdo do XML da NFSe</param>
+        /// <param name="padraoNFSe">Padrão do munípio para NFSe</param>
+        /// <returns>Retorna o tipo de serviço de envio da NFSe da prefeitura será utilizado</returns>
+        private Unimake.Business.DFe.Servicos.Servico DefinirServico(int municipio, XmlDocument doc)
+        {
+            var result = Unimake.Business.DFe.Servicos.Servico.NFSeCancelarNfse;
+
+            var padraoNFSe = Functions.PadraoNFSe(municipio);
+
+            switch (padraoNFSe)
+            {
+                case PadroesNFSe.PAULISTANA:
+                    result = Unimake.Business.DFe.Servicos.Servico.NFSeCancelamentoNfe;
+                    break;
+            }
+
+            return result;
         }
 
         /// <summary>
@@ -971,6 +1011,11 @@ namespace NFe.Service.NFSe
                     versaoXML = "1.00";
                     break;
 
+                case PadroesNFSe.PAULISTANA:
+                case PadroesNFSe.DIGIFRED:
+                    versaoXML = "2.00";
+                    break;
+
                 case PadroesNFSe.PRODATA:
                 case PadroesNFSe.SONNER:
                     versaoXML = "2.01";
@@ -980,11 +1025,13 @@ namespace NFe.Service.NFSe
                 case PadroesNFSe.AVMB_ASTEN:
                 case PadroesNFSe.WEBISS:
                 case PadroesNFSe.COPLAN:
+                case PadroesNFSe.VERSATEC:
                     versaoXML = "2.02";
                     break;
 
                 case PadroesNFSe.SIGCORP_SIGISS:
                 case PadroesNFSe.SMARAPD:
+                case PadroesNFSe.DSF:
                     versaoXML = "2.03";
                     break;
 

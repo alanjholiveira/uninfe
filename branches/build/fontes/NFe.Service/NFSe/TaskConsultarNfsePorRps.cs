@@ -13,6 +13,7 @@ using NFe.Components.Pronin;
 using NFe.Components.Simple;
 using NFe.Components.SimplISS;
 using NFe.Components.Tinus;
+using NFe.Components.GeisWeb;
 using NFe.Settings;
 using NFSe.Components;
 using System;
@@ -49,7 +50,6 @@ namespace NFe.Service.NFSe
                 {
                     case PadroesNFSe.BETHA:
                     case PadroesNFSe.AVMB_ASTEN:
-                    case PadroesNFSe.TRIBUTUS:
                         ExecuteDLL(emp, ler.oDadosPedSitNfseRps.cMunicipio, padraoNFSe);
                         break;
 
@@ -67,8 +67,15 @@ namespace NFe.Service.NFSe
                             case 3201209: //Cachoeiro de Itapemirim
                             case 3506003: //Bauru-SP
                             case 2925303: //Porto Seguro-BA
+                            case 3530805: //Mogi Mirim-SP
                             case 3131307: //Ipatinga-MG
                             case 3106200: //Belo Horizonte-MG
+                            case 2610004: //Palmares-PE
+                            case 3552205: //Sorocaba-SP
+                            case 4310009: //Ibirubá-RS
+                            case 3168606: //Teófilo Otoni-MG
+                            case 3523107: //Itaquaquecetuba-SP
+                            case 3115300: //Cataguases-MG
                                 ExecuteDLL(emp, ler.oDadosPedSitNfseRps.cMunicipio, padraoNFSe);
                                 break;
 
@@ -122,7 +129,7 @@ namespace NFe.Service.NFSe
 
                                         if (ConfiguracaoApp.Proxy)
                                         {
-                                            ipm.Proxy = Proxy.DefinirProxy(ConfiguracaoApp.ProxyServidor, ConfiguracaoApp.ProxyUsuario, ConfiguracaoApp.ProxySenha, ConfiguracaoApp.ProxyPorta);
+                                            ipm.Proxy = Unimake.Net.Utility.GetProxy(ConfiguracaoApp.ProxyServidor, ConfiguracaoApp.ProxyUsuario, ConfiguracaoApp.ProxySenha, ConfiguracaoApp.ProxyPorta);
                                         }
 
                                         ipm.ConsultarNfsePorRps(NomeArquivoXML);
@@ -250,16 +257,24 @@ namespace NFe.Service.NFSe
                                         govdig.ConsultarNfsePorRps(NomeArquivoXML);
                                         break;
 
+                                    case PadroesNFSe.GEISWEB:
+                                        var geisWeb = new GeisWeb((TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
+                                            Empresas.Configuracoes[emp].PastaXmlRetorno,
+                                            ler.oDadosPedSitNfseRps.cMunicipio,
+                                            ConfiguracaoApp.ProxyUsuario,
+                                            ConfiguracaoApp.ProxySenha,
+                                            ConfiguracaoApp.ProxyServidor,
+                                            Empresas.Configuracoes[emp].X509Certificado);
+
+                                        geisWeb.ConsultarNfsePorRps(NomeArquivoXML);
+                                        break;
+
                                     case PadroesNFSe.EQUIPLANO:
                                         cabecMsg = "1";
                                         break;
 
                                     case PadroesNFSe.RLZ_INFORMATICA_02:
-                                        if (ler.oDadosPedSitNfseRps.cMunicipio == 5107958)
-                                        {
-                                            cabecMsg = "<cabecalho><versaoDados>2.02</versaoDados></cabecalho>";
-                                        }
-
+                                        cabecMsg = "<cabecalho><versaoDados>2.02</versaoDados></cabecalho>";
                                         break;
 
                                     case PadroesNFSe.PORTALFACIL_ACTCON_202:
@@ -293,20 +308,6 @@ namespace NFe.Service.NFSe
 
                                     case PadroesNFSe.CONAM:
                                         throw new NFe.Components.Exceptions.ServicoInexistenteException();
-
-                                    case PadroesNFSe.PAULISTANA:
-                                        wsProxy = new WebServiceProxy(Empresas.Configuracoes[emp].X509Certificado);
-
-                                        if (ler.oDadosPedSitNfseRps.tpAmb == 1)
-                                        {
-                                            pedLoteRps = new NFe.Components.PSaoPauloSP.LoteNFe();
-                                        }
-                                        else
-                                        {
-                                            throw new Exception("Município de São Paulo-SP não dispõe de ambiente de homologação para envio de NFS-e em teste.");
-                                        }
-
-                                        break;
 
                                     case PadroesNFSe.METROPOLIS:
 
@@ -346,7 +347,7 @@ namespace NFe.Service.NFSe
 
                                     #endregion Memory
 
-                                    case PadroesNFSe.CAMACARI_BA:
+                                    case PadroesNFSe.PRODEB:
                                         cabecMsg = "<cabecalho><versaoDados>2.01</versaoDados><versao>2.01</versao></cabecalho>";
                                         break;
 
@@ -369,10 +370,6 @@ namespace NFe.Service.NFSe
                                             {
                                                 case 5211800:
                                                     pedLoteRps = new Components.PJaraguaGO.nfseWS();
-                                                    break;
-
-                                                case 5220454:
-                                                    pedLoteRps = new Components.PSenadorCanedoGO.nfseWS();
                                                     break;
 
                                                 case 3507506:
@@ -411,7 +408,6 @@ namespace NFe.Service.NFSe
                                             ler.oDadosPedSitNfseRps.cMunicipio == 3542404 ||
                                             ler.oDadosPedSitNfseRps.cMunicipio == 5005707 ||
                                             ler.oDadosPedSitNfseRps.cMunicipio == 4314423 ||
-                                            ler.oDadosPedSitNfseRps.cMunicipio == 3511102 ||
                                             ler.oDadosPedSitNfseRps.cMunicipio == 3535804 ||
                                             ler.oDadosPedSitNfseRps.cMunicipio == 4306932 ||
                                             ler.oDadosPedSitNfseRps.cMunicipio == 4322400 ||
@@ -637,7 +633,8 @@ namespace NFe.Service.NFSe
                 TipoAmbiente = (Unimake.Business.DFe.Servicos.TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
                 CodigoMunicipio = municipio,
                 Servico = servico,
-                SchemaVersao = versaoXML
+                SchemaVersao = versaoXML,
+                MunicipioToken = Empresas.Configuracoes[emp].SenhaWS
             };
 
             var consultarNfsePorRps = new Unimake.Business.DFe.Servicos.NFSe.ConsultarNfsePorRps(conteudoXML, configuracao);
@@ -684,6 +681,10 @@ namespace NFe.Service.NFSe
                     versaoXML = "1.00";
                     break;
 
+                case PadroesNFSe.DIGIFRED:
+                    versaoXML = "2.00";
+                    break;
+
                 case PadroesNFSe.SONNER:
                     versaoXML = "2.01";
                     break;
@@ -691,11 +692,14 @@ namespace NFe.Service.NFSe
                 case PadroesNFSe.AVMB_ASTEN:
                 case PadroesNFSe.WEBISS:
                 case PadroesNFSe.COPLAN:
+                case PadroesNFSe.VERSATEC:
                     versaoXML = "2.02";
                     break;
 
+                case PadroesNFSe.SIGCORP_SIGISS:
                 case PadroesNFSe.SIMPLISS:
                 case PadroesNFSe.SMARAPD:
+                case PadroesNFSe.DSF:
                     versaoXML = "2.03";
                     break;
 

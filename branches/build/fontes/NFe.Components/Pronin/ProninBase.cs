@@ -66,10 +66,6 @@ namespace NFe.Components.Pronin
                                 proninService = new PicadaCafe.h.ProninH(tpAmb, PastaRetorno, UsuarioProxy, SenhaProxy, DomainProxy, Certificado);
                                 break;
 
-                            case 3511102: //Catanduva-SP
-                                proninService = new Catanduva.h.ProninH(tpAmb, PastaRetorno, UsuarioProxy, SenhaProxy, DomainProxy, Certificado);
-                                break;
-
                             case 3535804: //Paranapanema-SP
                                 proninService = new ParanapanemaSP.h.ProninH(tpAmb, PastaRetorno, UsuarioProxy, SenhaProxy, DomainProxy, Certificado);
                                 break;
@@ -164,10 +160,6 @@ namespace NFe.Components.Pronin
 
                             case 4314423://Picada Café-RS
                                 proninService = new PicadaCafe.p.ProninP(tpAmb, PastaRetorno, UsuarioProxy, SenhaProxy, DomainProxy, Certificado);
-                                break;
-
-                            case 3511102: //Catanduva-SP 
-                                proninService = new Catanduva.p.ProninP(tpAmb, PastaRetorno, UsuarioProxy, SenhaProxy, DomainProxy, Certificado);
                                 break;
 
                             case 3535804: //Paranapanema-SP

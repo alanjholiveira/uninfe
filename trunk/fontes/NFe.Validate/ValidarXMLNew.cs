@@ -81,17 +81,30 @@ namespace NFe.Validate
             {
                 if (retornoArquivo)
                 {
-                    if (!Directory.Exists(Empresas.Configuracoes[emp].PastaValidado))
+                    if (arquivoXML.ToLower().Contains(Empresas.Configuracoes[emp].PastaXmlEmLote.ToLower()))
                     {
-                        Directory.CreateDirectory(Empresas.Configuracoes[emp].PastaValidado);
+                        //Gravar XML assinado
+                        var SW_2 = File.CreateText(arquivoXML);
+                        SW_2.Write(xmlSalvar.OuterXml);
+                        SW_2.Close();
+                    }
+                    else
+                    {
+                        string pasta = Empresas.Configuracoes[emp].PastaValidado;
+                        
+                        if (!Directory.Exists(pasta))
+                        {
+                            Directory.CreateDirectory(pasta);
+                        }
+
+                        var arquivoNovo = Path.Combine(pasta, Path.GetFileName(arquivoXML));
+
+                        //Gravar XML assinado e validado na subpasta "Validados"
+                        var SW_2 = File.CreateText(arquivoNovo);
+                        SW_2.Write(xmlSalvar.OuterXml);
+                        SW_2.Close();
                     }
 
-                    var arquivoNovo = Empresas.Configuracoes[emp].PastaValidado + "\\" + Path.GetFileName(arquivoXML);
-
-                    //Gravar XML assinado e validado na subpasta "Validados"
-                    var SW_2 = File.CreateText(arquivoNovo);
-                    SW_2.Write(xmlSalvar.OuterXml);
-                    SW_2.Close();
 
                     GravarXMLRetornoValidacao(arquivoXML, "1", "XML assinado e validado com sucesso.");
                 }
@@ -105,7 +118,7 @@ namespace NFe.Validate
                 #region Validar o XML geral
 
                 configuracao.SchemaArquivo = configuracao.SchemasEspecificos["1"].SchemaArquivo; //De qualquer modal o xml de validação da parte geral é o mesmo, então vou pegar do número 1, pq tanto faz.
-                Validar(tipoXML, configuracao, validarSchema, retornoArquivo, xmlSalvar, arquivoXML, xmlDoc, emp);
+                Validar(tipoXML, configuracao, validarSchema, false, xmlSalvar, arquivoXML, xmlDoc, emp);
 
                 #endregion Validar o XML geral
 
@@ -147,7 +160,7 @@ namespace NFe.Validate
 
             configuracao.SchemaArquivo = configuracao.SchemasEspecificos[tpEvento].SchemaArquivo;
 
-            Validar(tipoXML, configuracao, validarSchema, retornoArquivo, xmlSalvar, arquivoXML, xmlDoc, emp);
+            Validar(tipoXML, configuracao, validarSchema, false, xmlSalvar, arquivoXML, xmlDoc, emp);
 
             #endregion Validar o XML Geral
 
@@ -186,7 +199,7 @@ namespace NFe.Validate
 
             configuracao.SchemaArquivo = configuracao.SchemasEspecificos[tpEvento].SchemaArquivo;
 
-            Validar(tipoXML, configuracao, validarSchema, retornoArquivo, xmlSalvar, arquivoXML, xmlDoc, emp);
+            Validar(tipoXML, configuracao, validarSchema, false, xmlSalvar, arquivoXML, xmlDoc, emp);
 
             #endregion Validar o XML Geral
 
@@ -225,7 +238,7 @@ namespace NFe.Validate
 
             configuracao.SchemaArquivo = configuracao.SchemasEspecificos[tpEvento].SchemaArquivo;
 
-            Validar(tipoXML, configuracao, validarSchema, retornoArquivo, xmlSalvar, arquivoXML, xmlDoc, emp);
+            Validar(tipoXML, configuracao, validarSchema, false, xmlSalvar, arquivoXML, xmlDoc, emp);
 
             #endregion Validar o XML Geral
 
@@ -264,7 +277,7 @@ namespace NFe.Validate
             #region Validar o XML geral
 
             configuracao.SchemaArquivo = configuracao.SchemasEspecificos[modal.ToString()].SchemaArquivo; //De qualquer modal o xml de validação da parte geral é o mesmo, então vou pegar do número 1, pq tanto faz.
-            Validar(tipoXML, configuracao, validarSchema, retornoArquivo, xmlSalvar, arquivoXML, xmlDoc, emp);
+            Validar(tipoXML, configuracao, validarSchema, false, xmlSalvar, arquivoXML, xmlDoc, emp);
 
             #endregion Validar o XML geral
 
@@ -724,9 +737,11 @@ namespace NFe.Validate
                     Validar(tipoXML, configuracao, validarSchema, retornoArquivo, xmlSalvar, arquivoXML, xmlDoc, emp);
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex)            
             {
-                var erro = ex.Message;
+                var exception = ex.GetLastException();
+
+                var erro = exception.Message;
                 if (retornoArquivo)
                 {
                     GravarXMLRetornoValidacao(arquivoXML, "3", erro);

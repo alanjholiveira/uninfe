@@ -1,6 +1,5 @@
 ﻿using NFe.Certificado;
 using NFe.Components;
-using NFe.Components.QRCode;
 using NFe.Settings;
 using NFe.Validate;
 using System;
@@ -707,51 +706,6 @@ namespace NFe.Service
 
                 #endregion WEBISS
 
-                #region PAULISTANA
-
-                case PadroesNFSe.PAULISTANA:
-                    switch(servico)
-                    {
-                        case Servicos.NFSeConsultarLoteRps:
-                            retorna = "ConsultaLote";
-                            break;
-
-                        case Servicos.NFSeConsultar:
-                            retorna = "ConsultaNFeEmitidas";
-                            break;
-
-                        case Servicos.NFSeConsultarPorRps:
-                            retorna = "ConsultaNFe";
-                            break;
-
-                        case Servicos.NFSeConsultarSituacaoLoteRps:
-                            retorna = "ConsultaInformacoesLote";
-                            break;
-
-                        case Servicos.NFSeCancelar:
-                            retorna = "CancelamentoNFe";
-                            break;
-
-                        case Servicos.NFSeRecepcionarLoteRps:
-                            if(Empresas.Configuracoes[Empresas.FindEmpresaByThread()].AmbienteCodigo == (int)NFe.Components.TipoAmbiente.taHomologacao)
-                            {
-                                retorna = "TesteEnvioLoteRPS";
-                            }
-                            else
-                            {
-                                retorna = "EnvioLoteRPS";
-                            }
-
-                            break;
-
-                        case Servicos.NFSeConsultarNFSeRecebidas:
-                            retorna = "ConsultaNFeRecebidas";
-                            break;
-                    }
-                    break;
-
-                #endregion PAULISTANA
-
                 #region SALVADOR_BA
 
                 case PadroesNFSe.SALVADOR_BA:
@@ -1075,7 +1029,8 @@ namespace NFe.Service
                                 cMunicipio.Equals(3304003) ||
                                 cMunicipio.Equals(2611606) ||
                                 cMunicipio.Equals(3300100) ||
-                                cMunicipio.Equals(3302403))
+                                cMunicipio.Equals(3302403) ||
+                                cMunicipio.Equals(3501608))
                             {
                                 retorna = "ConsultarLoteRps";
                             }
@@ -1103,7 +1058,8 @@ namespace NFe.Service
                                 cMunicipio.Equals(3304003) ||
                                 cMunicipio.Equals(2611606) ||
                                 cMunicipio.Equals(3300100) ||
-                                cMunicipio.Equals(3302403))
+                                cMunicipio.Equals(3302403) ||
+                                cMunicipio.Equals(3501608))
                             {
                                 retorna = "ConsultarNfsePorRps";
                             }
@@ -1119,7 +1075,8 @@ namespace NFe.Service
                                 cMunicipio.Equals(3304003) ||
                                 cMunicipio.Equals(2611606) ||
                                 cMunicipio.Equals(3300100) ||
-                                cMunicipio.Equals(3302403))
+                                cMunicipio.Equals(3302403) ||
+                                cMunicipio.Equals(3501608))
                             {
                                 retorna = "ConsultarSituacaoLoteRps";
                             }
@@ -1515,9 +1472,9 @@ namespace NFe.Service
 
                 #endregion NOTA INTELIGENTE
 
-                #region CAMACARI_BA
+                #region PRODEB
 
-                case PadroesNFSe.CAMACARI_BA:
+                case PadroesNFSe.PRODEB:
                     switch(servico)
                     {
                         case Servicos.NFSeRecepcionarLoteRps:
@@ -1526,6 +1483,10 @@ namespace NFe.Service
 
                         case Servicos.NFSeRecepcionarLoteRpsSincrono:
                             retorna = "RecepcionarLoteRpsSincrono";
+                            break;
+
+                        case Servicos.NFSeGerarNfse:
+                            retorna = "GerarNfse";
                             break;
 
                         case Servicos.NFSeCancelar:
@@ -1546,7 +1507,7 @@ namespace NFe.Service
                     }
                     break;
 
-                #endregion CAMACARI_BA
+                #endregion PRODEB
 
                 #region ACTCON
 
@@ -2718,7 +2679,19 @@ namespace NFe.Service
                     xmlDoc.LoadXml(conteudoXML.OuterXml);
 
                     ValidarXMLNew validarXMLNew = new ValidarXMLNew();
-                    validarXMLNew.Validar(xmlDoc, false, NomeArquivoXML);
+
+                    switch (Servico)
+                    {
+                        case Servicos.CTeAssinarValidarEnvioEmLote:
+                        case Servicos.NFeAssinarValidarEnvioEmLote:
+                            validarXMLNew.Validar(xmlDoc, true, NomeArquivoXML);
+                            conteudoXML.Load(NomeArquivoXML);
+                            break;
+
+                        default:
+                            validarXMLNew.Validar(xmlDoc, false, NomeArquivoXML);
+                            break;
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -2734,6 +2707,8 @@ namespace NFe.Service
             }
             catch(Exception ex)
             {
+                var exception = ex.GetLastException();
+
                 try
                 {
                     var extFinal = Propriedade.Extensao(Propriedade.TipoEnvio.NFe).EnvioXML;
@@ -2753,7 +2728,7 @@ namespace NFe.Service
                             break;
                     }
 
-                    TFunctions.GravarArqErroServico(NomeArquivoXML, extFinal, extErro, ex);
+                    TFunctions.GravarArqErroServico(NomeArquivoXML, extFinal, extErro, exception);
                 }
                 catch(Exception exx)
                 {
@@ -2843,6 +2818,10 @@ namespace NFe.Service
                             //Retorno somente falso mas sem exception para não fazer nada. Wandrey 09/06/2009
                             gException = booValido = false;
                             break;
+                    }
+                    if(dadosNFe.tpEmis == "3")
+                    {
+                        throw new Exception("O tipo de emissão 3 passou a ser de uso exclusivo da SEFAZ para emissão da NF-e/NFC-e em regime especial.");
                     }
                     break;
             }
@@ -3244,7 +3223,6 @@ namespace NFe.Service
                         cMunicipio == 3542404 ||
                         cMunicipio == 5005707 ||
                         cMunicipio == 4314423 ||
-                        cMunicipio == 3511102 ||
                         cMunicipio == 3535804 ||
                         cMunicipio == 4306932 ||
                         cMunicipio == 4322400 ||
@@ -3281,12 +3259,12 @@ namespace NFe.Service
                 case PadroesNFSe.CONAM:
                 case PadroesNFSe.SIMPLISS:
                 case PadroesNFSe.RLZ_INFORMATICA:
-                case PadroesNFSe.PAULISTANA:
                 case PadroesNFSe.NOTAINTELIGENTE:
                 case PadroesNFSe.NA_INFORMATICA:
                 case PadroesNFSe.BSITBR:
                 case PadroesNFSe.METROPOLIS:
                 case PadroesNFSe.SOFTPLAN:
+                case PadroesNFSe.GIAP:
                 case PadroesNFSe.ADM_SISTEMAS:
                 case PadroesNFSe.SIMPLE:
                 case PadroesNFSe.WEBFISCO_TECNOLOGIA:
@@ -3331,7 +3309,6 @@ namespace NFe.Service
             switch(padrao)
             {
                 case PadroesNFSe.NOTAINTELIGENTE:
-                case PadroesNFSe.PAULISTANA:
                 case PadroesNFSe.NA_INFORMATICA:
                 case PadroesNFSe.BSITBR:
                 case PadroesNFSe.ADM_SISTEMAS:
@@ -3395,7 +3372,8 @@ namespace NFe.Service
                 case PadroesNFSe.PUBLICA:
                 case PadroesNFSe.RLZ_INFORMATICA_02:
                 case PadroesNFSe.ABACO_204:
-                    if(servico == Servicos.NFSeRecepcionarLoteRps)
+                case PadroesNFSe.PRODEB:
+                    if (servico == Servicos.NFSeRecepcionarLoteRps)
                     {
                         switch(doc.DocumentElement.Name)
                         {
@@ -3557,25 +3535,6 @@ namespace NFe.Service
 
                             case "p:GerarNfseEnvio":
                                 result = Servicos.NFSeGerarNfse;
-                                break;
-
-                            default:
-                                break;
-                        }
-                    }
-                    break;
-
-                case PadroesNFSe.CAMACARI_BA:
-                    if(servico == Servicos.NFSeRecepcionarLoteRps)
-                    {
-                        switch(doc.DocumentElement.Name)
-                        {
-                            case "EnviarLoteRpsSincronoEnvio":
-                                result = Servicos.NFSeRecepcionarLoteRpsSincrono;
-                                break;
-
-                            case "EnviarLoteRpsEnvio":
-                                result = Servicos.NFSeRecepcionarLoteRps;
                                 break;
 
                             default:

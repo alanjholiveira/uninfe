@@ -94,6 +94,18 @@ namespace NFe.Components.Fiorilli
                                 fiorilliService = new CanaaDosCarajas.h.FiorilliH(tpAmb, PastaRetorno, Usuario, SenhaWs, ProxyUser, ProxyPass, ProxyServer, Certificado);
                                 break;
 
+                            case 3511102://Catanduva-SP
+                                fiorilliService = new CatanduvaSP.h.FiorilliH(tpAmb, PastaRetorno, Usuario, SenhaWs, ProxyUser, ProxyPass, ProxyServer, Certificado);
+                                break;
+
+                            case 5220454://Senador Canedo-GO
+                                fiorilliService = new SenadorCanedoGO.h.FiorilliH(tpAmb, PastaRetorno, Usuario, SenhaWs, ProxyUser, ProxyPass, ProxyServer, Certificado);
+                                break;
+
+                            case 5007109://Senador Canedo-GO
+                                fiorilliService = new RibasDoRioPardoMS.h.FiorilliH(tpAmb, PastaRetorno, Usuario, SenhaWs, ProxyUser, ProxyPass, ProxyServer, Certificado);
+                                break;
+
                             default:
                                 throw new Exceptions.ServicoInexistenteException();
                         }
@@ -182,6 +194,18 @@ namespace NFe.Components.Fiorilli
 
                             case 1100122://Ji-Paraná-RO
                                 fiorilliService = new JiParanaRO.p.FiorilliP(tpAmb, PastaRetorno, Usuario, SenhaWs, ProxyUser, ProxyPass, ProxyServer, Certificado);
+                                break;
+
+                            case 3511102://Catanduva-SP
+                                fiorilliService = new CatanduvaSP.p.FiorilliP(tpAmb, PastaRetorno, Usuario, SenhaWs, ProxyUser, ProxyPass, ProxyServer, Certificado);
+                                break;
+
+                            case 5220454://Senador Canedo-GO
+                                fiorilliService = new PSenadorCanedoGO.p.FiorilliP(tpAmb, PastaRetorno, Usuario, SenhaWs, ProxyUser, ProxyPass, ProxyServer, Certificado);
+                                break;
+
+                            case 5007109://Senador Canedo-GO
+                                fiorilliService = new RibasDoRioPardoMS.p.FiorilliP(tpAmb, PastaRetorno, Usuario, SenhaWs, ProxyUser, ProxyPass, ProxyServer, Certificado);
                                 break;
 
                             default:

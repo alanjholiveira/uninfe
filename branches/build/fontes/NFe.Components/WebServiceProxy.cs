@@ -159,7 +159,6 @@ namespace NFe.Components
                                     cMunicipio == 3542404 ||
                                     cMunicipio == 5005707 ||
                                     cMunicipio == 4314423 ||
-                                    cMunicipio == 3511102 ||
                                     cMunicipio == 3535804 ||
                                     cMunicipio == 4306932 ||
                                     cMunicipio == 4322400 ||
@@ -195,7 +194,6 @@ namespace NFe.Components
                                     cMunicipio == 3542404 ||
                                     cMunicipio == 5005707 ||
                                     cMunicipio == 4314423 ||
-                                    cMunicipio == 3511102 ||
                                     cMunicipio == 3535804 || 
                                     cMunicipio == 4306932 ||
                                     cMunicipio == 4322400 ||
@@ -223,7 +221,6 @@ namespace NFe.Components
                                     cMunicipio == 4308904 ||
                                     cMunicipio == 5005707 ||
                                     cMunicipio == 4314423 ||
-                                    cMunicipio == 3511102 ||
                                     cMunicipio == 3535804 ||
                                     cMunicipio == 4306932 ||
                                     cMunicipio == 4322400 ||

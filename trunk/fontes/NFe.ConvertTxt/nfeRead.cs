@@ -446,6 +446,7 @@ namespace NFe.ConvertTxt
                             procRef procrefInfo = new procRef();
                             procrefInfo.nProc = this.readValue(noder, TpcnResources.nProc);
                             procrefInfo.indProc = this.readValue(noder, TpcnResources.indProc);
+                            procrefInfo.tpAto = this.readValue(noder, TpcnResources.tpAto);
                             nfe.InfAdic.procRef.Add(procrefInfo);
                         }
                         break;
@@ -994,6 +995,10 @@ namespace NFe.ConvertTxt
                         detInfo.Imposto.ICMS.pICMSEfet = this.readDouble(nodedetImpostoICMS_, TpcnResources.pICMSEfet);
                         detInfo.Imposto.ICMS.vICMSEfet = this.readDouble(nodedetImpostoICMS_, TpcnResources.vICMSEfet);
                         detInfo.Imposto.ICMS.vICMSSubstituto = this.readDouble(nodedetImpostoICMS_, TpcnResources.vICMSSubstituto);
+
+                        detInfo.Imposto.ICMS.vBCFCPST = this.readDouble(nodedetImpostoICMS_, TpcnResources.vBCFCPST);
+                        detInfo.Imposto.ICMS.pFCPST = this.readDouble(nodedetImpostoICMS_, TpcnResources.pFCPST);
+                        detInfo.Imposto.ICMS.vFCPST = this.readDouble(nodedetImpostoICMS_, TpcnResources.vFCPST);
                     }
                 }
                 #endregion -->Imposto->ICMS
@@ -1141,6 +1146,34 @@ namespace NFe.ConvertTxt
                 #endregion --Imposto->ISSQN
             }
             nfe.det.Add(detInfo);
+
+            #region -->prod->ObsItem
+
+            //foreach (XmlNode nodedetObsItem in ((XmlElement)nodedet).GetElementsByTagName("obsItem"))
+            //{
+            //    switch (nodedetObsItem.LocalName)
+            //    {
+            //        case "obsCont":
+            //            {
+            //                obsCont obscontInfo = new obsCont();
+            //                obscontInfo.xCampo = nodedetObsItem.Attributes[TpcnResources.xCampo.ToString()].Value;
+            //                obscontInfo.xTexto = this.readValue(nodedetObsItem, TpcnResources.xTexto);
+            //                nfe.InfAdic.obsCont.Add(obscontInfo);
+            //            }
+            //            break;
+
+            //        case "obsFisco":
+            //            {
+            //                obsFisco obsfiscoInfo = new obsFisco();
+            //                obsfiscoInfo.xCampo = nodedetObsItem.Attributes[TpcnResources.xCampo.ToString()].Value;
+            //                obsfiscoInfo.xTexto = this.readValue(nodedetObsItem, TpcnResources.xTexto);
+            //                nfe.InfAdic.obsFisco.Add(obsfiscoInfo);
+            //            }
+            //            break;
+            //    }
+            //}
+
+            #endregion -->prod->ObsItem
         }
 
         /// <summary>

@@ -14,6 +14,7 @@ namespace NFe.ConvertTxt
     {
         public string nProc;
         public string indProc;
+        public string tpAto;
     }
 
     public class protNFe
