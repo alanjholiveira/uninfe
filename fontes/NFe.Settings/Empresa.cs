@@ -260,11 +260,6 @@ namespace NFe.Settings
         [AttributeTipoAplicacao(TipoAplicativo.MDFe)]
         public bool IndSincMDFe { get; set; }
 
-        /// <summary>
-        /// URLs de Serviços da NFe, NFCe, CTe
-        /// </summary>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public EstadoURLConsultaDFe URLConsultaDFe { get; set; }
         #endregion
 
         #region Propriedades para controle da impressão do DANFE
@@ -617,7 +612,10 @@ namespace NFe.Settings
                     if(t.UnidadeFederativaCodigo.Equals(4205407))
                     {
                         var result = t.RecuperarConfiguracaoNFSeSoftplan(t.CNPJ);
+                        ClientID = result.ClientID;
                         ClientSecret = result.ClientSecret;
+                        TokenNFse = result.TokenNFse;
+                        TokenNFSeExpire = result.TokenNFSeExpire;
                     }
 
                     CriarPastasDaEmpresa();

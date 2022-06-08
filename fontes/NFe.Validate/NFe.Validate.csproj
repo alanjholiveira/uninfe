@@ -156,14 +156,17 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="Unimake.Business.DFe, Version=2022.3.22.1554, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unimake.DFe.20220322.1554.43\lib\net472\Unimake.Business.DFe.dll</HintPath>
+    <Reference Include="Unimake.Business.DFe, Version=2022.6.8.1002, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unimake.DFe.20220608.1002.55\lib\net472\Unimake.Business.DFe.dll</HintPath>
     </Reference>
-    <Reference Include="Unimake.Cryptography, Version=2022.3.22.32, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unimake.Cryptography.2022.3.22.32\lib\netstandard2.0\Unimake.Cryptography.dll</HintPath>
+    <Reference Include="Unimake.Cryptography, Version=2022.5.24.1615, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unimake.Cryptography.20220524.1615.17\lib\netstandard2.0\Unimake.Cryptography.dll</HintPath>
     </Reference>
-    <Reference Include="Unimake.Utils, Version=2022.3.22.32, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unimake.Utils.2022.3.22.32\lib\netstandard2.0\Unimake.Utils.dll</HintPath>
+    <Reference Include="Unimake.Extensions, Version=2022.5.24.1615, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unimake.Extensions.20220524.1615.17\lib\netstandard2.0\Unimake.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Unimake.Utils, Version=2022.5.24.1615, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unimake.Utils.20220524.1615.17\lib\netstandard2.0\Unimake.Utils.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>

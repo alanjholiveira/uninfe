@@ -405,7 +405,7 @@ namespace NFe.Components
             conteudoXML.Load(file);
 
             XmlElement elementos = (XmlElement)conteudoXML.GetElementsByTagName(node)[0];
-            if(elementos != null)
+            if (elementos != null)
             {
                 result = elementos.GetAttribute(attribute);
             }
@@ -501,37 +501,13 @@ namespace NFe.Components
 
         #endregion LerTag()
 
-        #region IsConnectedToInternet()
-
-        //Creating the extern function...
-        [DllImport("wininet.dll")]
-        private extern static bool InternetGetConnectedState(out int Description, int ReservedValue);
-
-        //Creating a function that uses the API function...
-        public static bool IsConnectedToInternet()
-        {
-            int Desc;
-            return InternetGetConnectedState(out Desc, 0);
-        }
-
-        #endregion IsConnectedToInternet()
-
         /// <summary>
         /// Verifica a conexão com a internet e retorna verdadeiro se conectado com sucesso
         /// </summary>
         /// <returns></returns>
-        public static bool HasInternetConnection()
+        public static bool HasInternetConnection(bool temProxy, string proxyServidor, string proxyUsuario, string proxySenha, int proxyPorta, bool proxyDetectarAutomaticamente = false)
         {
-            try
-            {
-                var client = WebRequest.Create("http://clients3.google.com/generate_204") as HttpWebRequest;
-                var response = client.GetResponse() as HttpWebResponse;
-                return response.StatusCode == HttpStatusCode.NoContent;
-            }
-            catch
-            {
-                return false;
-            }
+            return Unimake.Net.Utility.HasInternetConnection((temProxy ? Unimake.Net.Utility.GetProxy(proxyServidor, proxyUsuario, proxySenha, proxyPorta, proxyDetectarAutomaticamente) : null));
         }
 
         #region XmlToString()

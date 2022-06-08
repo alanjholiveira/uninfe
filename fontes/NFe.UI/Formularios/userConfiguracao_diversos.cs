@@ -338,7 +338,7 @@ namespace NFe.UI.Formularios
                 {
                     if (ConfiguracaoApp.Proxy)
                     {
-                        proxy = Proxy.DefinirProxy(ConfiguracaoApp.ProxyServidor,
+                        proxy = Unimake.Net.Utility.GetProxy(ConfiguracaoApp.ProxyServidor,
                             ConfiguracaoApp.ProxyUsuario,
                             ConfiguracaoApp.ProxySenha,
                             ConfiguracaoApp.ProxyPorta,
@@ -390,7 +390,7 @@ namespace NFe.UI.Formularios
                 {
                     if (ConfiguracaoApp.Proxy)
                     {
-                        proxy = Proxy.DefinirProxy(ConfiguracaoApp.ProxyServidor,
+                        proxy = Unimake.Net.Utility.GetProxy(ConfiguracaoApp.ProxyServidor,
                             ConfiguracaoApp.ProxyUsuario,
                             ConfiguracaoApp.ProxySenha,
                             ConfiguracaoApp.ProxyPorta,
@@ -568,8 +568,14 @@ namespace NFe.UI.Formularios
                            ufCod == 3506003 /*Bauru-SP*/||
                            ufCod == 3203205 /*Linhares-ES*/||
                            ufCod == 4214805 /*Rio do Sul-SC*/||
-                           ufCod == 4101408 /*Apucarana-PR*/;
-
+                           ufCod == 4101408 /*Apucarana-PR*/ ||
+                           ufCod == 4108809 /*Guaíra-PR*/||
+                           ufCod == 3523503 /*Itatinga- SP*/||
+                           ufCod == 3511102 /*Catanduva-SP*/||
+                           ufCod == 4214706 /*Rio dos Cedros-SC*/||
+                           ufCod == 5220454 /*Senador Canedo-GO*/||
+                           ufCod == 4212809 /*Balneário Piçarras-SC*/||
+                           ufCod == 5007109 /*Ribas do Rio Pardo-MS*/;
 
             lbl_UsuarioWS.Visible = txtUsuarioWS.Visible = lbl_SenhaWS.Visible = txtSenhaWS.Visible = visible;
         }
@@ -611,6 +617,26 @@ namespace NFe.UI.Formularios
                 }
                 // Se o município for Palmares, temos que demonstrar o campo ClientID.
                 else if (edtCodMun.Text.Equals("2610004"))
+                {
+                    //lblClienteID.Visible = true;
+                    //txtClienteID.Visible = true;
+                    //lblClientSecret.Visible = true;
+                    //txtClientSecret.Visible = true;
+                    lbl_SenhaWS.Visible = true;
+                    txtSenhaWS.Visible = true;
+                }
+                // Se o município for Bragança Paulista, temos que demonstrar o campo ClientID.
+                else if (edtCodMun.Text.Equals("3507605"))
+                {
+                    //lblClienteID.Visible = true;
+                    //txtClienteID.Visible = true;
+                    //lblClientSecret.Visible = true;
+                    //txtClientSecret.Visible = true;
+                    lbl_SenhaWS.Visible = true;
+                    txtSenhaWS.Visible = true;
+                }
+                // Se o município for São Carlos, temos que demonstrar o campo ClientID.
+                else if (edtCodMun.Text.Equals("3548906"))
                 {
                     //lblClienteID.Visible = true;
                     //txtClienteID.Visible = true;

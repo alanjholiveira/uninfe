@@ -3,6 +3,7 @@ using NFe.Components;
 using NFe.Settings;
 using System;
 using System.IO;
+using System.Xml;
 
 namespace NFe.Service.NFSe
 {
@@ -19,7 +20,7 @@ namespace NFe.Service.NFSe
         /// <summary>
         /// Esta herança que deve ser utilizada fora da classe para obter os valores das tag´s da consulta nfse
         /// </summary>
-        private DadosPedSitNfse dadosXML;
+        private DadosPedSitNfse oDadosPedSitNfse;
 
         #endregion Objeto com os dados do XML da consulta nfse
 
@@ -35,61 +36,52 @@ namespace NFe.Service.NFSe
                     Functions.ExtrairNomeArq(NomeArquivoXML, Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeRec).EnvioXML) + Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeRec).RetornoERR);
                 Functions.DeletarArquivo(Empresas.Configuracoes[emp].PastaXmlErro + "\\" + NomeArquivoXML);
 
-                dadosXML = new DadosPedSitNfse(emp);
+                oDadosPedSitNfse = new DadosPedSitNfse(emp);
 
                 //Criar objetos das classes dos serviços dos webservices do SEFAZ
-                var padraoNFSe = Functions.PadraoNFSe(dadosXML.cMunicipio);
-                WebServiceProxy wsProxy = null;
-                object pedConsNfseRecebidas = null;
+                var padraoNFSe = Functions.PadraoNFSe(oDadosPedSitNfse.cMunicipio);
 
-                if(IsUtilizaCompilacaoWs(padraoNFSe))
+                switch (oDadosPedSitNfse.cMunicipio)
                 {
-                    wsProxy = ConfiguracaoApp.DefinirWS(Servico, emp, dadosXML.cMunicipio, dadosXML.tpAmb, dadosXML.tpEmis, padraoNFSe, dadosXML.cMunicipio);
-                    pedConsNfseRecebidas = wsProxy.CriarObjeto(wsProxy.NomeClasseWS);
-                }
-                var cabecMsg = "";
-
-                switch(padraoNFSe)
-                {
-                    case PadroesNFSe.PAULISTANA:
-                        wsProxy = new WebServiceProxy(Empresas.Configuracoes[emp].X509Certificado);
-
-                        if(dadosXML.tpAmb == 1)
-                        {
-                            pedConsNfseRecebidas = new Components.PSaoPauloSP.LoteNFe();
-                        }
-                        else
-                        {
-                            throw new Exception("Município de São Paulo-SP não dispõe de ambiente de homologação para envio de NFS-e em teste.");
-                        }
-
+                    case 3550308: //São Paulo-SP
+                        ExecuteDLL(emp, oDadosPedSitNfse.cMunicipio, padraoNFSe);
                         break;
-                }
+                 
+                        WebServiceProxy wsProxy = null;
+                        object pedConsNfseRecebidas = null;
 
-                var securityProtocolType = WebServiceProxy.DefinirProtocoloSeguranca(dadosXML.cMunicipio, dadosXML.tpAmb, dadosXML.tpEmis, padraoNFSe, Servico);
+                        if (IsUtilizaCompilacaoWs(padraoNFSe))
+                        {
+                            wsProxy = ConfiguracaoApp.DefinirWS(Servico, emp, oDadosPedSitNfse.cMunicipio, oDadosPedSitNfse.tpAmb, oDadosPedSitNfse.tpEmis, padraoNFSe, oDadosPedSitNfse.cMunicipio);
+                            pedConsNfseRecebidas = wsProxy.CriarObjeto(wsProxy.NomeClasseWS);
+                        }
+                        var cabecMsg = "";
 
-                //Assinar o XML
-                var ad = new AssinaturaDigital();
-                ad.Assinar(NomeArquivoXML, emp, dadosXML.cMunicipio);
+                        var securityProtocolType = WebServiceProxy.DefinirProtocoloSeguranca(oDadosPedSitNfse.cMunicipio, oDadosPedSitNfse.tpAmb, oDadosPedSitNfse.tpEmis, padraoNFSe, Servico);
 
-                //Invocar o método que envia o XML para o SEFAZ
-                oInvocarObj.InvocarNFSe(wsProxy, pedConsNfseRecebidas, NomeMetodoWS(Servico, dadosXML.cMunicipio), cabecMsg, this,
-                    Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeRec).EnvioXML,
-                    Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeRec).RetornoXML,
-                    padraoNFSe, Servico, securityProtocolType);
+                        //Assinar o XML
+                        var ad = new AssinaturaDigital();
+                        ad.Assinar(NomeArquivoXML, emp, oDadosPedSitNfse.cMunicipio);
 
-                ///
-                /// grava o arquivo no FTP
-                var filenameFTP = Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno,
-                    Functions.ExtrairNomeArq(NomeArquivoXML, Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeRec).EnvioXML) +
-                    Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeRec).RetornoXML);
+                        //Invocar o método que envia o XML para o SEFAZ
+                        oInvocarObj.InvocarNFSe(wsProxy, pedConsNfseRecebidas, NomeMetodoWS(Servico, oDadosPedSitNfse.cMunicipio), cabecMsg, this,
+                            Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeRec).EnvioXML,
+                            Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeRec).RetornoXML,
+                            padraoNFSe, Servico, securityProtocolType);
 
-                if(File.Exists(filenameFTP))
-                {
-                    new GerarXML(emp).XmlParaFTP(emp, filenameFTP);
+                        ///
+                        /// grava o arquivo no FTP
+                        var filenameFTP = Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno,
+                            Functions.ExtrairNomeArq(NomeArquivoXML, Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeRec).EnvioXML) +
+                            Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeRec).RetornoXML);
+
+                        if (File.Exists(filenameFTP))
+                        {
+                            new GerarXML(emp).XmlParaFTP(emp, filenameFTP);
+                        }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 try
                 {
@@ -120,5 +112,107 @@ namespace NFe.Service.NFSe
         }
 
         #endregion Execute
+
+        /// <summary>
+        /// Executa o serviço utilizando a DLL do UniNFe.
+        /// </summary>
+        /// <param name="emp">Empresa que está enviando o XML</param>
+        /// <param name="municipio">Código do município para onde será enviado o XML</param>
+        /// <param name="padraoNFSe">Padrão do munípio para NFSe</param>
+        private void ExecuteDLL(int emp, int municipio, PadroesNFSe padraoNFSe)
+        {
+            var conteudoXML = new XmlDocument();
+            conteudoXML.Load(NomeArquivoXML);
+
+            var finalArqEnvio = Propriedade.Extensao(Propriedade.TipoEnvio.PedSitLoteRps).EnvioXML;
+            var finalArqRetorno = Propriedade.Extensao(Propriedade.TipoEnvio.PedSitLoteRps).RetornoXML;
+            var versaoXML = DefinirVersaoXML(municipio, conteudoXML, padraoNFSe);
+            var servico = DefinirServico(municipio, conteudoXML);
+
+            Functions.DeletarArquivo(Empresas.Configuracoes[emp].PastaXmlRetorno + "\\" + Functions.ExtrairNomeArq(NomeArquivoXML, finalArqEnvio) + Functions.ExtractExtension(finalArqRetorno) + ".err");
+
+            var configuracao = new Unimake.Business.DFe.Servicos.Configuracao
+            {
+                TipoDFe = Unimake.Business.DFe.Servicos.TipoDFe.NFSe,
+                CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado,
+                TipoAmbiente = (Unimake.Business.DFe.Servicos.TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
+                CodigoMunicipio = municipio,
+                Servico = servico,
+                SchemaVersao = versaoXML
+            };
+
+            switch (servico)
+            {
+                case Unimake.Business.DFe.Servicos.Servico.NFSeConsultaNFeRecebidas:
+                    var consultaNFeRecebidas = new Unimake.Business.DFe.Servicos.NFSe.ConsultaNFeRecebidas(conteudoXML, configuracao);
+                    consultaNFeRecebidas.Executar();
+
+                    vStrXmlRetorno = consultaNFeRecebidas.RetornoWSString;
+                    break;
+
+                case Unimake.Business.DFe.Servicos.Servico.NFSeConsultaNFeEmitidas:
+                    var consultaNFeEmitidas = new Unimake.Business.DFe.Servicos.NFSe.ConsultaNFeEmitidas(conteudoXML, configuracao);
+                    consultaNFeEmitidas.Executar();
+
+                    vStrXmlRetorno = consultaNFeEmitidas.RetornoWSString;
+                    break;
+            }
+
+            XmlRetorno(finalArqEnvio, finalArqRetorno);
+
+            /// grava o arquivo no FTP
+            var filenameFTP = Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno,
+                Functions.ExtrairNomeArq(NomeArquivoXML, Propriedade.Extensao(Propriedade.TipoEnvio.PedSubstNfse).EnvioXML) + Propriedade.Extensao(Propriedade.TipoEnvio.PedSubstNfse).RetornoXML);
+
+            if (File.Exists(filenameFTP))
+            {
+                new GerarXML(emp).XmlParaFTP(emp, filenameFTP);
+            }
+        }
+
+        private Unimake.Business.DFe.Servicos.Servico DefinirServico(int municipio, XmlDocument doc)
+        {
+            var result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultaNFeRecebidas;
+
+            var padraoNFSe = Functions.PadraoNFSe(municipio);
+
+            switch (padraoNFSe)
+            {
+                case PadroesNFSe.PAULISTANA:
+                    switch (doc.DocumentElement.Name)
+                    {
+                        case "ConsultaNFeEmitidas":
+                            result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultaNFeEmitidas;
+                            break;
+                        case "ConsultaNFeRecebidas":
+                            result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultaNFeRecebidas;
+                            break;
+                    }
+                    break;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Retorna a versão do XML que está sendo enviado para o município de acordo com o Padrão/Município
+        /// </summary>
+        /// <param name="codMunicipio">Código do município para onde será enviado o XML</param>
+        /// <param name="xmlDoc">Conteúdo do XML da NFSe</param>
+        /// <param name="padraoNFSe">Padrão do munípio para NFSe</param>
+        /// <returns>Retorna a versão do XML que está sendo enviado para o município de acordo com o Padrão/Município</returns>
+        private string DefinirVersaoXML(int codMunicipio, XmlDocument xmlDoc, PadroesNFSe padraoNFSe)
+        {
+            var versaoXML = "0.00";
+
+            switch (padraoNFSe)
+            {
+                case PadroesNFSe.PAULISTANA:
+                    versaoXML = "2.00";
+                    break;
+            }
+
+            return versaoXML;
+        }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using NFe.Certificado;
 using NFe.Components;
-using NFe.Components.QRCode;
 using NFe.Settings;
 using System;
 using System.Collections.Generic;
@@ -112,6 +111,10 @@ namespace NFe.Validate
                                     }
                                     rpsElement.GetElementsByTagName(Assinatura)[0].InnerText = sh1;
                                 }
+                                else
+                                {
+                                    throw new Exception("Tag assinatura do XML de envio não contém a quantidade de caracteres descrito no manual da prefeitura.");
+                                }
                             }
                         }
                         if(!found)
@@ -145,6 +148,10 @@ namespace NFe.Validate
                                                     detalheElement.GetElementsByTagName(AssinaturaCancelamento)[0].InnerText);
 
                                     detalheElement.GetElementsByTagName(AssinaturaCancelamento)[0].InnerText = sh1;
+                                }
+                                else
+                                {
+                                    throw new Exception("Tag assinatura do XML de cancelamento não contém 20 caracteres.");
                                 }
                             }
                         }
@@ -422,53 +429,6 @@ namespace NFe.Validate
                     {
                         oAD.Assinar(Arquivo, emp, Empresas.Configuracoes[emp].UnidadeFederativaCodigo, AlgorithmType.Sha256);
                     }
-                    else if(TipoArqXml.TagAssinatura == "MDFe")
-                    {
-                        var xmlMDFe = new Unimake.Business.DFe.Xml.MDFe.EnviMDFe
-                        {
-                            IdLote = "000000000000001",
-                            Versao = "3.00",
-                            MDFe = Unimake.Business.DFe.Utility.XMLUtility.Deserializar<Unimake.Business.DFe.Xml.MDFe.MDFe>(conteudoXML)
-                        };
-
-                        var configMDFe = new Unimake.Business.DFe.Servicos.Configuracao
-                        {
-                            TipoDFe = Unimake.Business.DFe.Servicos.TipoDFe.MDFe,
-                            CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado
-                        };
-
-                        var autorizacao = new Unimake.Business.DFe.Servicos.MDFe.Autorizacao(xmlMDFe, configMDFe);
-
-                        conteudoXML.LoadXml(autorizacao.ConteudoXMLAssinado.GetElementsByTagName("MDFe")[0].OuterXml);
-
-                        var sw = File.CreateText(Arquivo);
-                        sw.Write(conteudoXML.OuterXml);
-                        sw.Close();
-                    }
-                    else if(TipoArqXml.TagAssinatura == "CTe")
-                    {
-                        var xmlCTe = new Unimake.Business.DFe.Xml.CTe.EnviCTe
-                        {
-                            IdLote = "000000000000001",
-                            Versao = "3.00",
-                        };
-                        xmlCTe.CTe = new List<CTe>();
-                        xmlCTe.CTe.Add(Unimake.Business.DFe.Utility.XMLUtility.Deserializar<Unimake.Business.DFe.Xml.CTe.CTe>(conteudoXML));
-
-                        var configCTe = new Unimake.Business.DFe.Servicos.Configuracao
-                        {
-                            TipoDFe = Unimake.Business.DFe.Servicos.TipoDFe.CTe,
-                            CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado
-                        };
-
-                        var autorizacao = new Unimake.Business.DFe.Servicos.CTe.Autorizacao(xmlCTe, configCTe);
-
-                        conteudoXML.LoadXml(autorizacao.ConteudoXMLAssinado.GetElementsByTagName("CTe")[0].OuterXml);
-
-                        var sw = File.CreateText(Arquivo);
-                        sw.Write(conteudoXML.OuterXml);
-                        sw.Close();
-                    }
                     else
                     {
                         oAD.Assinar(conteudoXML, Arquivo, emp, Empresas.Configuracoes[emp].UnidadeFederativaCodigo);
@@ -494,47 +454,6 @@ namespace NFe.Validate
 
             if(Assinou)
             {
-                #region Adicionar a tag do qrCode na NFCe
-
-                if(Arquivo.EndsWith(Propriedade.Extensao(Propriedade.TipoEnvio.NFe).EnvioXML, StringComparison.InvariantCultureIgnoreCase))
-                {
-                    if(!string.IsNullOrEmpty(Empresas.Configuracoes[emp].IdentificadorCSC))
-                    {
-                        conteudoXML.Load(Arquivo);
-
-                        var qrCode = new QRCodeNFCe(conteudoXML);
-
-                        string url;
-                        var versao = string.Empty;
-                        if(((XmlElement)conteudoXML.GetElementsByTagName(conteudoXML.DocumentElement.Name)[0]).Attributes[TpcnResources.versao.ToString()] != null)
-                        {
-                            versao = ((XmlElement)conteudoXML.GetElementsByTagName(conteudoXML.DocumentElement.Name)[0]).Attributes[TpcnResources.versao.ToString()].Value;
-                        }
-                        else if(((XmlElement)conteudoXML.GetElementsByTagName(conteudoXML.DocumentElement.FirstChild.Name)[0]).Attributes[TpcnResources.versao.ToString()] != null)
-                        {
-                            versao = ((XmlElement)conteudoXML.GetElementsByTagName(conteudoXML.DocumentElement.FirstChild.Name)[0]).Attributes[TpcnResources.versao.ToString()].Value;
-                        }
-
-                        if(versao == "4.00")
-                        {
-                            url = Empresas.Configuracoes[emp].AmbienteCodigo == (int)TipoAmbiente.taHomologacao ? Empresas.Configuracoes[emp].URLConsultaDFe.UrlNFCeH_400 : Empresas.Configuracoes[emp].URLConsultaDFe.UrlNFCe_400;
-                        }
-                        else
-                        {
-                            url = Empresas.Configuracoes[emp].AmbienteCodigo == (int)TipoAmbiente.taHomologacao ? Empresas.Configuracoes[emp].URLConsultaDFe.UrlNFCeH : Empresas.Configuracoes[emp].URLConsultaDFe.UrlNFCe;
-                        }
-
-                        var linkUFManual = Empresas.Configuracoes[emp].AmbienteCodigo == (int)TipoAmbiente.taHomologacao ? Empresas.Configuracoes[emp].URLConsultaDFe.UrlNFCeMH : Empresas.Configuracoes[emp].URLConsultaDFe.UrlNFCeM;
-
-                        qrCode.GerarLinkConsulta(url, Empresas.Configuracoes[emp].IdentificadorCSC, Empresas.Configuracoes[emp].TokenCSC, linkUFManual);
-
-                        var sw = File.CreateText(Arquivo);
-                        sw.Write(conteudoXML.OuterXml);
-                        sw.Close();
-                    }
-                }
-                #endregion
-
                 // Validar o Arquivo XML
                 if(TipoArqXml.nRetornoTipoArq >= 1 && TipoArqXml.nRetornoTipoArq <= SchemaXML.MaxID)
                 {

@@ -2,6 +2,7 @@
 using NFe.Components.HGeisWeb;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;
+using System.Text;
 using System.Xml;
 
 namespace NFe.Components.GeisWeb.ItatingaSP.h
@@ -38,13 +39,12 @@ namespace NFe.Components.GeisWeb.ItatingaSP.h
             doc.Load(file);
 
             GeisWebService Service = new GeisWebService();
-            Service.ClientCertificates.Add(Certificado);
-            string strResult = Service.EnviaLoteRps(doc.OuterXml);
+            string strResult = Service.EnviaLoteRPS(doc.OuterXml);
 
             GerarRetorno(file,
                 strResult,
                 Propriedade.Extensao(Propriedade.TipoEnvio.EnvLoteRps).EnvioXML,
-                Propriedade.Extensao(Propriedade.TipoEnvio.EnvLoteRps).RetornoXML);
+                Propriedade.Extensao(Propriedade.TipoEnvio.EnvLoteRps).RetornoXML, Encoding.UTF8);
         }
 
         public override void CancelarNfse(string file)
@@ -53,13 +53,12 @@ namespace NFe.Components.GeisWeb.ItatingaSP.h
             doc.Load(file);
 
             GeisWebService Service = new GeisWebService();
-            Service.ClientCertificates.Add(Certificado);
-            string strResult = Service.CancelaNfse(doc.OuterXml);
+            string strResult = Service.CancelaNota(doc.OuterXml);
 
             GerarRetorno(file,
                 strResult,
                 Propriedade.Extensao(Propriedade.TipoEnvio.PedCanNFSe).EnvioXML,
-                Propriedade.Extensao(Propriedade.TipoEnvio.PedCanNFSe).RetornoXML);
+                Propriedade.Extensao(Propriedade.TipoEnvio.PedCanNFSe).RetornoXML, Encoding.UTF8);
         }
 
         public override void ConsultarLoteRps(string file)
@@ -69,28 +68,17 @@ namespace NFe.Components.GeisWeb.ItatingaSP.h
             doc.Load(file);
 
             GeisWebService Service = new GeisWebService();
-            Service.ClientCertificates.Add(Certificado);
-            string strResult = Service.ConsultaLoteRps(doc.OuterXml);
+            string strResult = Service.ConsultaNota(doc.OuterXml);
 
             GerarRetorno(file,
                 strResult,
                 Propriedade.Extensao(Propriedade.TipoEnvio.PedLoteRps).EnvioXML,
-                Propriedade.Extensao(Propriedade.TipoEnvio.PedLoteRps).RetornoXML);
+                Propriedade.Extensao(Propriedade.TipoEnvio.PedLoteRps).RetornoXML, Encoding.UTF8);
         }
 
         public override void ConsultarNfse(string file)
         {
-            XmlDocument doc = new XmlDocument();
-            doc.Load(file);
-
-            GeisWebService Service = new GeisWebService();
-            Service.ClientCertificates.Add(Certificado);
-            string strResult = Service.ConsultaNfse(doc.OuterXml);
-
-            GerarRetorno(file,
-                strResult,
-                Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSe).EnvioXML,
-                Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSe).RetornoXML);
+            throw new System.NotImplementedException();
         }
 
         public override void ConsultarSituacaoLoteRps(string file)

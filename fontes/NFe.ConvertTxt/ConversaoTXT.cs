@@ -80,6 +80,7 @@ namespace NFe.ConvertTxt
                     _LayoutTXT.Add("I50", prefix + "I50|nDraw|");
                     _LayoutTXT.Add("I52", prefix + "I52|nRE|chNFe|qExport|");
                     _LayoutTXT.Add("I80", prefix + "I80|nLote|qLote|dFab|dVal|cAgreg|");
+                    _LayoutTXT.Add("IRT", prefix + "IRT|CNPJ|xContato|email|fone|idCSRT|hashCSRT|");
                     /// "J"
                     _LayoutTXT.Add("J", prefix + "J|tpOp|Chassi|CCor|XCor|Pot|cilin|pesoL|pesoB|NSerie|TpComb|NMotor|CMT|Dist|anoMod|anoFab|tpPint|tpVeic|espVeic|VIN|condVeic|cMod|cCorDENATRAN|lota|tpRest|");
                     _LayoutTXT.Add("JA", prefix + "JA|tpOp|Chassi|CCor|XCor|Pot|cilin|pesoL|pesoB|NSerie|TpComb|NMotor|CMT|Dist|anoMod|anoFab|tpPint|tpVeic|espVeic|VIN|condVeic|cMod|cCorDENATRAN|lota|tpRest|");
@@ -122,7 +123,9 @@ namespace NFe.ConvertTxt
                     _LayoutTXT.Add("N10_22", prefix + "N10|orig|CST|modBC|vBC|pRedBC|pICMS|vICMS|vBCFCP|pFCP|vFCP|modBCST|pMVAST|pRedBCST|vBCST|pICMSST|vICMSST|vBCFCPST|pFCPST|vFCPST|vICMSDeson|motDesICMS|");
                     _LayoutTXT.Add("N10_24", prefix + "N10|orig|CST|modBC|vBC|pRedBC|pICMS|vICMS|vBCFCP|pFCP|vFCP|modBCST|pMVAST|pRedBCST|vBCST|pICMSST|vICMSST|vBCFCPST|pFCPST|vFCPST|vICMSDeson|motDesICMS|vICMSSTDeson|motDesICMSST|");
 
-                    _LayoutTXT.Add("N10A_400", prefix + "N10a|orig|CST|modBC|vBC|pRedBC|pICMS|vICMS|modBCST|pMVAST|pRedBCST|vBCST|pICMSST|vICMSST|pBCOp|UFST|");
+                    _LayoutTXT.Add("N10A_400_16", prefix + "N10a|orig|CST|modBC|vBC|pRedBC|pICMS|vICMS|modBCST|pMVAST|pRedBCST|vBCST|pICMSST|vICMSST|pBCOp|UFST|");
+                    _LayoutTXT.Add("N10A_400_19", prefix + "N10a|orig|CST|modBC|vBC|pRedBC|pICMS|vICMS|modBCST|pMVAST|pRedBCST|vBCST|pICMSST|vICMSST|vBCFCPST|pFCPST|vFCPST|pBCOp|UFST|");
+
                     _LayoutTXT.Add("N10B", prefix + "N10b|orig|CST|vBCSTRet|vICMSSTRet|vBCSTDest|vICMSSTDest|");
                     _LayoutTXT.Add("N10B_16", prefix + "N10b|orig|CST|vBCSTRet|pST|vICMSSubstituto|vICMSSTRet|vBCFCPSTRet|pFCPSTRet|vFCPSTRet|vBCSTDest|vICMSSTDest|pRedBCEfet|vBCEfet|pICMSEfet|vICMSEfet|");
                     _LayoutTXT.Add("N10C", prefix + "N10c|orig|CSOSN|pCredSN|vCredICMSSN|");
@@ -176,6 +179,11 @@ namespace NFe.ConvertTxt
                     /// "U":
                     _LayoutTXT.Add("U_400", prefix + "U|VBC|VAliq|VISSQN|CMunFG|CListServ|vDeducao|vOutro|vDescIncond|vDescCond|vISSRet|indISS|cServico|cMun|cPais|nProcesso|indIncentivo|");
                     _LayoutTXT.Add("UA", prefix + "UA|pDevol|vIPIDevol|");
+
+                    /// "V":
+                    _LayoutTXT.Add("VA02", prefix + "VA02|XCampo|XTexto|");
+                    _LayoutTXT.Add("VA05", prefix + "VA05|XCampo|XTexto|");
+
                     /// "W"
                     _LayoutTXT.Add("W02_400_17", prefix + "W02|vBC|vICMS|vICMSDeson|vBCST|vST|vProd|vFrete|vSeg|vDesc|vII|vIPI|vPIS|vCOFINS|vOutro|vNF|vTotTrib|");
                     _LayoutTXT.Add("W02_400_20", prefix + "W02|vBC|vICMS|vICMSDeson|vFCPUFDest|vICMSUFDest|vICMSUFRemet|vBCST|vST|vProd|vFrete|vSeg|vDesc|vII|vIPI|vPIS|vCOFINS|vOutro|vNF|vTotTrib|");
@@ -213,6 +221,7 @@ namespace NFe.ConvertTxt
                     _LayoutTXT.Add("Z04", prefix + "Z04|XCampo|XTexto|");
                     _LayoutTXT.Add("Z07", prefix + "Z07|XCampo|XTexto|");
                     _LayoutTXT.Add("Z10", prefix + "Z10|NProc|IndProc|");
+                    _LayoutTXT.Add("Z10_4", prefix + "Z10|NProc|IndProc|tpAto|");
                     _LayoutTXT.Add("ZA_400", prefix + "ZA|UFSaidaPais|xLocExporta|xLocDespacho|");
                     _LayoutTXT.Add("ZA01_400", prefix + "ZA01|UFSaidaPais|xLocExporta|xLocDespacho|");
                     _LayoutTXT.Add("ZB", prefix + "ZB|XNEmp|XPed|XCont|");
@@ -1465,6 +1474,16 @@ namespace NFe.ConvertTxt
                     #endregion
                     break;
 
+                case "IRT":
+                    //layout = "IRT|CNPJ|xContato|email|fone|idCSRT|hashCSRT|"
+                    NFe.resptecnico.CNPJ = this.LerString(TpcnResources.CNPJ, ObOp.Obrigatorio, 14, 14);
+                    NFe.resptecnico.xContato = this.LerString(nameof(RespTecnico.xContato), ObOp.Obrigatorio, 2, 60);
+                    NFe.resptecnico.email = this.LerString(TpcnResources.email, ObOp.Obrigatorio, 2, 60);
+                    NFe.resptecnico.fone = this.LerString(TpcnResources.fone, ObOp.Obrigatorio, 6, 14);
+                    NFe.resptecnico.idCSRT = this.LerInt32(nameof(RespTecnico.idCSRT), ObOp.Opcional, 2, 2);
+                    NFe.resptecnico.hashCSRT = this.LerString(nameof(RespTecnico.hashCSRT), ObOp.Opcional, 28, 28);
+                    break;
+
                 case "J":
                 case "JA":
                     ///
@@ -1865,8 +1884,8 @@ namespace NFe.ConvertTxt
 
                 case "N10A":
                     //layout = (NFe.infNFe.Versao >= 3 ?
-                    //            "§N10a|orig|CST|modBC|vBC|pRedBC|pICMS|vICMS|modBCST|pMVAST|pRedBCST|vBCST|pICMSST|vICMSST|pBCOp|UFST" :
-                    //            "§N10a|Orig|CST|ModBC|PRedBC|VBC|PICMS|VICMS|ModBCST|PMVAST|PRedBCST|VBCST|PICMSST|VICMSST|pBCOp|UFST");
+                    //            "§N10a|orig|CST|modBC|vBC|pRedBC|pICMS|vICMS|modBCST|pMVAST|pRedBCST|vBCST|pICMSST|vICMSST|pBCOp|UFST|" :
+                    //            "§N10a|orig|CST|modBC|vBC|pRedBC|pICMS|vICMS|modBCST|pMVAST|pRedBCST|vBCST|pICMSST|vICMSST|vBCFCPST|pFCPST|vFCPST|pBCOp|UFST|");
 
                     #region ICMSPart-10, ICMSPart-90
 
@@ -1889,7 +1908,13 @@ namespace NFe.ConvertTxt
                         NFe.det[nProd].Imposto.ICMS.ICMSPart10 = 1;
                     else
                         NFe.det[nProd].Imposto.ICMS.ICMSPart90 = 1;
-
+                   
+                    if(lenPipesRegistro >= 19)
+                    {
+                        NFe.det[nProd].Imposto.ICMS.vBCFCPST = this.LerDouble(TpcnTipoCampo.tcDec2, TpcnResources.vBCFCPST, ObOp.Obrigatorio, 15);
+                        NFe.det[nProd].Imposto.ICMS.pFCPST = this.LerDouble(TpcnTipoCampo.tcDec4, TpcnResources.pFCPST, ObOp.Obrigatorio, 15);
+                        NFe.det[nProd].Imposto.ICMS.vFCPST = this.LerDouble(TpcnTipoCampo.tcDec2, TpcnResources.vFCPST, ObOp.Obrigatorio, 15);
+                    }
 
                     #endregion
                     break;
@@ -2399,6 +2424,32 @@ namespace NFe.ConvertTxt
                     NFe.det[nProd].impostoDevol.vIPIDevol = this.LerDouble(TpcnTipoCampo.tcDec2, TpcnResources.vIPIDevol, ObOp.Opcional, 5);
                     break;
 
+                case "VA02":
+                    //layout = "§V02|XCampo|XTexto"; //ok
+                    ///
+                    /// Grupo da TAG <obsItem><obsCont>
+                    /// 
+                    #region <obsItem><obsCont>
+
+                    NFe.det[nProd].ObsItem.ObsCont.xCampo = this.LerString(TpcnResources.xCampo, ObOp.Obrigatorio, 1, 20);
+                    NFe.det[nProd].ObsItem.ObsCont.xTexto = this.LerString(TpcnResources.xTexto, ObOp.Obrigatorio, 1, 60);
+
+                    #endregion
+                    break;
+
+                case "VA05":
+                    //layout = "§V05|XCampo|XTexto"; //ok - ?
+                    ///
+                    /// Grupo da TAG <obsItem><obsFisco>
+                    /// 
+                    #region <obsItem><obsFisco>
+
+                    NFe.det[nProd].ObsItem.ObsFisco.xCampo = this.LerString(TpcnResources.xCampo, ObOp.Obrigatorio, 1, 20);
+                    NFe.det[nProd].ObsItem.ObsFisco.xTexto = this.LerString(TpcnResources.xTexto, ObOp.Obrigatorio, 1, 60);
+
+                    #endregion
+                    break;
+
                 case "W02":
                     ///
                     /// Grupo da TAG <total><ICMSTot>
@@ -2705,6 +2756,10 @@ namespace NFe.ConvertTxt
                     NFe.InfAdic.procRef.Add(new procRef());
                     NFe.InfAdic.procRef[NFe.InfAdic.procRef.Count - 1].nProc = this.LerString(TpcnResources.nProc, ObOp.Obrigatorio, 1, 60);
                     NFe.InfAdic.procRef[NFe.InfAdic.procRef.Count - 1].indProc = this.LerString(TpcnResources.indProc, ObOp.Obrigatorio, 1, 1);
+                    if (lenPipesRegistro >= 4)
+                    {
+                        NFe.InfAdic.procRef[NFe.InfAdic.procRef.Count - 1].tpAto = this.LerString(TpcnResources.tpAto, ObOp.Opcional, 2, 2);
+                    }
                     #endregion
                     break;
 
@@ -2777,6 +2832,7 @@ namespace NFe.ConvertTxt
                     NFe.resptecnico.idCSRT = this.LerInt32(nameof(RespTecnico.idCSRT), ObOp.Opcional, 2, 2);
                     NFe.resptecnico.hashCSRT = this.LerString(nameof(RespTecnico.hashCSRT), ObOp.Opcional, 28, 28);
                     break;
+
             }
         }
     }

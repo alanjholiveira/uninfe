@@ -52,7 +52,6 @@ namespace NFe.Service.NFSe
                     case PadroesNFSe.SIMPLISS:
                     case PadroesNFSe.SONNER:
                     case PadroesNFSe.SMARAPD:
-                    case PadroesNFSe.TRIBUTUS:
                         ExecuteDLL(emp, dadosXML.cMunicipio, padraoNFSe);
                         break;
 
@@ -61,6 +60,11 @@ namespace NFe.Service.NFSe
                         {
                             case 3530805: //Mogi Mirim-SP
                             case 3131307: //Ipatinga-MG
+                            case 2610004: //Palmares-PE
+                            case 3552205: //Sorocaba-SP
+                            case 4310009: //Ibirubá-RS
+                            case 3168606: //Teófilo Otoni-MG
+                            case 3115300: //Cataguases-MG
                                 ExecuteDLL(emp, dadosXML.cMunicipio, padraoNFSe);
                                 break;
 
@@ -250,7 +254,8 @@ namespace NFe.Service.NFSe
                 TipoAmbiente = (Unimake.Business.DFe.Servicos.TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
                 CodigoMunicipio = municipio,
                 Servico = Unimake.Business.DFe.Servicos.Servico.NFSeSubstituirNfse,
-                SchemaVersao = versaoXML
+                SchemaVersao = versaoXML,
+                MunicipioToken = Empresas.Configuracoes[emp].SenhaWS
             };
 
             var substituirNfse = new Unimake.Business.DFe.Servicos.NFSe.SubstituirNfse(conteudoXML, configuracao);
@@ -283,20 +288,26 @@ namespace NFe.Service.NFSe
 
             switch (padraoNFSe)
             {
+                case PadroesNFSe.DIGIFRED:
+                    versaoXML = "2.00";
+                    break;
+
+                case PadroesNFSe.SONNER:
+                    versaoXML = "2.01";
+                    break;
+
                 case PadroesNFSe.NOTAINTELIGENTE:
                 case PadroesNFSe.AVMB_ASTEN:
                 case PadroesNFSe.COPLAN:
+                case PadroesNFSe.VERSATEC:
                     versaoXML = "2.02";
                     break;
 
                 case PadroesNFSe.SIGCORP_SIGISS:
                 case PadroesNFSe.SIMPLISS:
                 case PadroesNFSe.SMARAPD:
+                case PadroesNFSe.DSF:
                     versaoXML = "2.03";
-                    break;
-
-                case PadroesNFSe.SONNER:
-                    versaoXML = "2.01";
                     break;
 
                 case PadroesNFSe.TRIBUTUS:
