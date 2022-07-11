@@ -123,6 +123,8 @@ namespace NFe.Service.NFSe
                             case 3168606: //Teófilo Otoni-MG
                             case 3523107: //Itaquaquecetuba-SP
                             case 3115300: //Cataguases-MG
+                            case 3147907: //Passos-MG
+                            case 5107602: //Rondonópolis-MT
                                 ExecuteDLL(emp, oDadosPedCanNfse.cMunicipio, padraoNFSe);
                                 break;
 
@@ -522,7 +524,8 @@ namespace NFe.Service.NFSe
                                             oDadosPedCanNfse.cMunicipio == 4322509 ||
                                             oDadosPedCanNfse.cMunicipio == 4301057 ||
                                             oDadosPedCanNfse.cMunicipio == 4115804 ||
-                                            oDadosPedCanNfse.cMunicipio == 3550803)
+                                            oDadosPedCanNfse.cMunicipio == 3550803 ||
+                                            oDadosPedCanNfse.cMunicipio == 4313953)
                                         {
                                             var pronin = new Pronin((TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
                                                 Empresas.Configuracoes[emp].PastaXmlRetorno,
@@ -673,6 +676,24 @@ namespace NFe.Service.NFSe
                                         break;
 
                                     #endregion GIAP
+
+                                    #region SIGISSWEB
+
+                                    case PadroesNFSe.SIGISSWEB:
+                                        var sigissweb = new Components.SIGISSWEB.SIGISSWEB((TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
+                                                                        Empresas.Configuracoes[emp].PastaXmlRetorno,
+                                                                        Empresas.Configuracoes[emp].UsuarioWS,
+                                                                        Empresas.Configuracoes[emp].SenhaWS);
+
+                                        if (ConfiguracaoApp.Proxy)
+                                        {
+                                            sigissweb.Proxy = Unimake.Net.Utility.GetProxy(ConfiguracaoApp.ProxyServidor, ConfiguracaoApp.ProxyUsuario, ConfiguracaoApp.ProxySenha, ConfiguracaoApp.ProxyPorta);
+                                        }
+
+                                        sigissweb.CancelarNfse(NomeArquivoXML);
+                                        break;
+
+                                    #endregion SIGISSWEB
 
                                     #region CENTI
 
@@ -1024,7 +1045,6 @@ namespace NFe.Service.NFSe
                 case PadroesNFSe.NOTAINTELIGENTE:
                 case PadroesNFSe.AVMB_ASTEN:
                 case PadroesNFSe.WEBISS:
-                case PadroesNFSe.COPLAN:
                 case PadroesNFSe.VERSATEC:
                     versaoXML = "2.02";
                     break;
@@ -1032,6 +1052,7 @@ namespace NFe.Service.NFSe
                 case PadroesNFSe.SIGCORP_SIGISS:
                 case PadroesNFSe.SMARAPD:
                 case PadroesNFSe.DSF:
+                case PadroesNFSe.COPLAN:
                     versaoXML = "2.03";
                     break;
 
@@ -1039,6 +1060,10 @@ namespace NFe.Service.NFSe
                 case PadroesNFSe.EL:
                 case PadroesNFSe.TRIBUTUS:
                     versaoXML = "2.04";
+                    break;
+
+                case PadroesNFSe.GINFES:
+                    versaoXML = "3.00";
                     break;
             }
 

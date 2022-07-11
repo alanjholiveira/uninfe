@@ -1116,12 +1116,12 @@ namespace TesteDLL_Unimake.Business.DFe
                     {
                         Ano = "19",
                         CNPJ = "06117473000150",
-                        CUF = UFBrasil.PR,
+                        CUF = UFBrasil.MG,
                         Mod = ModeloDFe.CTe,
                         NCTIni = 57919,
                         NCTFin = 57919,
                         Serie = 1,
-                        TpAmb = TipoAmbiente.Homologacao,
+                        TpAmb = TipoAmbiente.Producao,
                         XJust = "Justificativa da inutilizacao de teste"
                     }
                 };
@@ -1272,7 +1272,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 {
                     Versao = "3.00",
                     TpAmb = TipoAmbiente.Homologacao,
-                    ChMDFe = "31220437920833000180580010000000021000000020"
+                    ChMDFe = "31220637920833000180580010000000051000000061"
                 };
 
                 var configuracao = new Configuracao
@@ -1283,6 +1283,9 @@ namespace TesteDLL_Unimake.Business.DFe
 
                 var consultaProtocolo = new Unimake.Business.DFe.Servicos.MDFe.ConsultaProtocolo(xml, configuracao);
                 consultaProtocolo.Executar();
+
+
+                Clipboard.SetText(consultaProtocolo.RetornoWSString);
 
                 //Pra pegar se o MDFe foi autorizado ou não pela consulta protocolo
                 if (consultaProtocolo.Result.ProtMDFe.InfProt.CStat == 100) //MDFe autorizado
@@ -1551,34 +1554,40 @@ namespace TesteDLL_Unimake.Business.DFe
         {
             try
             {
+                //var xml = new EnvEvento
+                //{
+                //    Versao = "1.00",
+                //    IdLote = "000000000000001",
+                //    Evento = new List<Evento> {
+                //        new Evento
+                //        {
+                //            Versao = "1.00",
+                //            InfEvento = new Unimake.Business.DFe.Xml.NFe.InfEvento(new Unimake.Business.DFe.Xml.NFe.DetEventoCanc
+                //            {
+                //                NProt = "141190000660363",
+                //                Versao = "1.00",
+                //                XJust = "Justificativa para cancelamento da NFe de teste"
+                //            })
+                //            {
+                //                COrgao = UFBrasil.PR,
+                //                ChNFe = "41190806117473000150550010000579131943463890",
+                //                CNPJ = "06117473000150",
+                //                DhEvento = DateTime.Now,
+                //                TpEvento = TipoEventoNFe.Cancelamento,
+                //                NSeqEvento = 1,
+                //                VerEvento = "1.00",
+                //                TpAmb = TipoAmbiente.Homologacao
+                //            }
+                //        }
+                //    }
+                //};
 
-                var xml = new EnvEvento
-                {
-                    Versao = "1.00",
-                    IdLote = "000000000000001",
-                    Evento = new List<Evento> {
-                        new Evento
-                        {
-                            Versao = "1.00",
-                            InfEvento = new Unimake.Business.DFe.Xml.NFe.InfEvento(new Unimake.Business.DFe.Xml.NFe.DetEventoCanc
-                            {
-                                NProt = "141190000660363",
-                                Versao = "1.00",
-                                XJust = "Justificativa para cancelamento da NFe de teste"
-                            })
-                            {
-                                COrgao = UFBrasil.PR,
-                                ChNFe = "41190806117473000150550010000579131943463890",
-                                CNPJ = "06117473000150",
-                                DhEvento = DateTime.Now,
-                                TpEvento = TipoEventoNFe.Cancelamento,
-                                NSeqEvento = 1,
-                                VerEvento = "1.00",
-                                TpAmb = TipoAmbiente.Homologacao
-                            }
-                        }
-                    }
-                };
+                XmlDocument doc = new XmlDocument();
+                doc.Load(@"C:\Users\Wandrey\Downloads\canc.xml");
+
+                var xml = new EnvEvento();
+                //xml.LerXML<EnvEvento>(doc);
+                xml = xml.LoadFromFile(@"D:\testenfe\xharbour\Unimake.DFe\xmlcancelamento-ped-eve.xml");
 
                 var configuracao = new Configuracao
                 {
@@ -1595,8 +1604,6 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show(recepcaoEvento.Result.XMotivo);
 
                 var qq = recepcaoEvento.ProcEventoNFeResult[0].GerarXML().OuterXml;
-
-
 
                 //Gravar o XML de distribuição se a inutilização foi homologada
                 if (recepcaoEvento.Result.CStat == 128) //128 = Lote de evento processado com sucesso
@@ -4217,6 +4224,35 @@ namespace TesteDLL_Unimake.Business.DFe
                                 Transp = new Unimake.Business.DFe.Xml.NFe.Transp
                                 {
                                     ModFrete = ModalidadeFrete.ContratacaoFretePorContaRemetente_CIF,
+                                    Transporta = new Transporta
+                                    {
+                                        CNPJ = "00000000000000",
+                                        IE = "00000000",
+                                        XEnder = "Rua bla bla bla",
+                                        XMun = "Sao Paulo",
+                                        XNome = "transportadora ltda"
+                                    },
+                                    VeicTransp = new VeicTransp
+                                    {
+                                        Placa = "asdasdas",
+                                        UF = UFBrasil.SP,
+                                        RNTC = ""
+                                    },
+                                    Reboque = new List<Reboque>
+                                    {
+                                        new Reboque
+                                        {
+                                            Placa = "asdasdas",
+                                            UF = UFBrasil.SP,
+                                            RNTC = ""
+                                        },
+                                        new Reboque
+                                        {
+                                            Placa = "asdasdas",
+                                            UF = UFBrasil.SP,
+                                            RNTC = ""
+                                        }
+                                    }, 
                                     Vol = new List<Unimake.Business.DFe.Xml.NFe.Vol>
                                     {
                                         new Unimake.Business.DFe.Xml.NFe.Vol
@@ -4227,7 +4263,7 @@ namespace TesteDLL_Unimake.Business.DFe
                                             PesoL = 0.000,
                                             PesoB = 0.000
                                         }
-                                    }
+                                    },
                                 },
                                 Cobr = new Unimake.Business.DFe.Xml.NFe.Cobr()
                                 {
@@ -4481,7 +4517,6 @@ namespace TesteDLL_Unimake.Business.DFe
                             EnviNFe = XMLUtility.Deserializar<EnviNFe>(autorizacao.ConteudoXMLAssinado.OuterXml)
                         };
                         retAutorizacao.Executar();
-                      
 
                         //Código para conferir o DigestValue da assinatura, considerando que pode ter mais de uma NFe no lote.
                         foreach (var nfe in autorizacao.EnviNFe.NFe)
@@ -4519,8 +4554,6 @@ namespace TesteDLL_Unimake.Business.DFe
                         }
 
                         autorizacao.RetConsReciNFe = retAutorizacao.Result;
-
-
 
                         var mes = xml.NFe[0].InfNFe[0].Ide.DhEmi.Month;
                         var ano = xml.NFe[0].InfNFe[0].Ide.DhEmi.Year;
@@ -4711,7 +4744,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 CertificadoDigital = CertificadoSelecionado
             };
 
-
+#if INTEROP
             for (var i = 0; i < autorizacao.EnviNFe.GetNFeCount; i++)
             {
                 var teste = autorizacao.EnviNFe.GetNFe(i);
@@ -4719,6 +4752,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 var teste3 = teste2.Chave;
 
             }
+#endif
 
             foreach (var item in xml.NFe)
             {
@@ -4732,19 +4766,18 @@ namespace TesteDLL_Unimake.Business.DFe
                 var consultaProtocolo = new Unimake.Business.DFe.Servicos.NFe.ConsultaProtocolo(xmlSit, configSit);
                 consultaProtocolo.Executar();
 
-                autorizacao.AddRetConsSitNFes(consultaProtocolo.Result);
                 autorizacao.RetConsSitNFes.Add(consultaProtocolo.Result);
             }
 
             //Gravar o XML -procnfe.xml (distribuição do XML com o protocolo)
             autorizacao.GravarXmlDistribuicao(@"c:\testenfe\");
 
-            #endregion
+#endregion
         }
 
         private EnviNFe CriarNFe()
         {
-            #region CriarNFe
+#region CriarNFe
 
             var xml = new EnviNFe
             {
@@ -4976,7 +5009,7 @@ namespace TesteDLL_Unimake.Business.DFe
                     }
             };
 
-            #endregion CriarNFe
+#endregion CriarNFe
 
             return xml;
         }
@@ -5002,7 +5035,7 @@ namespace TesteDLL_Unimake.Business.DFe
         {
             try
             {
-                #region Criar CTeOS
+#region Criar CTeOS
 
                 var xml = new CTeOS
                 {
@@ -5183,7 +5216,7 @@ namespace TesteDLL_Unimake.Business.DFe
                     },
                 };
 
-                #endregion Criar CTeOS
+#endregion Criar CTeOS
 
                 var configuracao = new Configuracao
                 {
@@ -5503,11 +5536,16 @@ namespace TesteDLL_Unimake.Business.DFe
         {
             try
             {
-
                 var doc = new XmlDocument();
-                doc.Load(@"C:\Users\Wandrey\Downloads\51220513062376000172550010002136181624290564-nfe.xml");
+                doc.Load(@"C:\Users\Wandrey\Downloads\qqq2.xml");
 
-                #region Evento Pagamento Operacao MDFe
+#region Deserializar NfeProc (XML de distribuição da NFe)
+
+                //var xmlNfeProc = XMLUtility.Deserializar<Unimake.Business.DFe.Xml.NFe.NfeProc>(doc);
+
+#endregion
+
+#region Evento Pagamento Operacao MDFe
 
                 //var xmlEvento = XMLUtility.Deserializar<Unimake.Business.DFe.Xml.MDFe.EventoMDFe>(doc);
 
@@ -5520,9 +5558,9 @@ namespace TesteDLL_Unimake.Business.DFe
                 //var autorizacao = new Unimake.Business.DFe.Servicos.MDFe.RecepcaoEvento(xmlEvento, config);
                 //autorizacao.Executar();
 
-                #endregion
+#endregion
 
-                #region Evento EPEC NFe
+#region Evento EPEC NFe
 
                 //var xmlEvento = XMLUtility.Deserializar<Unimake.Business.DFe.Xml.NFe.EnvEvento>(doc);
 
@@ -5535,15 +5573,9 @@ namespace TesteDLL_Unimake.Business.DFe
                 //var autorizacao = new Unimake.Business.DFe.Servicos.NFe.RecepcaoEvento(xmlEvento, config);
                 //autorizacao.Executar();
 
-                #endregion
+#endregion
 
-                #region Consulta Distribuição DFe
-
-
-
-                #endregion
-
-                #region NFe / NFCe
+#region NFe / NFCe
 
                 var xmlNFe = new EnviNFe
                 {
@@ -5562,16 +5594,14 @@ namespace TesteDLL_Unimake.Business.DFe
                     CSCIDToken = 2
                 };
 
-                var autorizacao = new Unimake.Business.DFe.Servicos.NFCe.Autorizacao(xmlNFe, config);
+                var autorizacao = new Unimake.Business.DFe.Servicos.NFe.Autorizacao(xmlNFe, config);
                 ////autorizacao.SetXMLConfiguracao(xmlNFe, config);
                 ////var notaAssinada = autorizacao.GetConteudoNFeAssinada(0);
                 autorizacao.Executar();
-                ////var autorizacao = new Unimake.Business.DFe.Servicos.NFCe.Autorizacao(xmlNFe, config);
-                ////autorizacao.Executar();
 
-                #endregion
+#endregion
 
-                #region CTe
+#region CTe
 
                 //var xmlCTe = new EnviCTe();
                 //xmlCTe.IdLote = "000000000000001";
@@ -5588,9 +5618,9 @@ namespace TesteDLL_Unimake.Business.DFe
                 //Unimake.Business.DFe.Servicos.CTe.Autorizacao autorizacao = new Unimake.Business.DFe.Servicos.CTe.Autorizacao(xmlCTe, config);
                 //autorizacao.Executar();
 
-                #endregion
+#endregion
 
-                #region CTeOS
+#region CTeOS
 
                 //var xmlCTeOS = XMLUtility.Deserializar<CTeOS>(doc);
 
@@ -5603,9 +5633,9 @@ namespace TesteDLL_Unimake.Business.DFe
                 //Unimake.Business.DFe.Servicos.CTeOS.Autorizacao autorizacao = new Unimake.Business.DFe.Servicos.CTeOS.Autorizacao(xmlCTeOS, config);
                 //autorizacao.Executar();
 
-                #endregion
+#endregion
 
-                #region MDFe
+#region MDFe
 
                 //var xmlMDFe = new EnviMDFe
                 //{
@@ -5624,9 +5654,9 @@ namespace TesteDLL_Unimake.Business.DFe
                 //var autorizacao = new Unimake.Business.DFe.Servicos.MDFe.Autorizacao(xmlMDFe, config);
                 //autorizacao.Executar();
 
-                #endregion
+#endregion
 
-                #region MDFe Síncrono
+#region MDFe Síncrono
 
                 //var xmlMDFe = XMLUtility.Deserializar<MDFe>(doc);
                 //var config = new Configuracao
@@ -5638,7 +5668,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 //Unimake.Business.DFe.Servicos.MDFe.AutorizacaoSinc autorizacao = new Unimake.Business.DFe.Servicos.MDFe.AutorizacaoSinc(xmlMDFe, config);
                 //autorizacao.Executar();
 
-                #endregion
+#endregion
             }
             catch (Exception ex)
             {
@@ -6229,7 +6259,7 @@ namespace TesteDLL_Unimake.Business.DFe
 
             //Converter o valor de string para double (ponto flutuante) - Resultado: 4999.2
             var valorDouble = Convert.ToDouble(valor, CultureInfo.InvariantCulture);
-            
+
             //Converter o valor de Decimal para Double (ponto flutuante) - Resultado: 4999.2
             var valorDouble2 = (double)valorDec;
 
@@ -6251,7 +6281,7 @@ namespace TesteDLL_Unimake.Business.DFe
 
             //Ou vc pode fazer assim
             XmlDocument docNfeProc = new XmlDocument();
-            docNfeProc.Load(@"C:\Users\Wandrey\Downloads\Telegram Desktop\35220401157555001852550010001972511906066785-procNFe.xml");                
+            docNfeProc.Load(@"C:\Users\Wandrey\Downloads\Telegram Desktop\35220401157555001852550010001972511906066785-procNFe.xml");
             Unimake.Business.DFe.Xml.NFe.NfeProc nfeProc2 = Unimake.Business.DFe.Utility.XMLUtility.Deserializar<Unimake.Business.DFe.Xml.NFe.NfeProc>(docNfeProc);
 
             MessageBox.Show("Chave da NFe: " + nfeProc2.NFe.InfNFe[0].Chave);
@@ -6261,7 +6291,7 @@ namespace TesteDLL_Unimake.Business.DFe
 
 
             string qq = ConvertToOEM("MARKETING ÇAÇA");
-            
+
             var certDig = new CertificadoDigital();
 
             try
@@ -6282,7 +6312,7 @@ namespace TesteDLL_Unimake.Business.DFe
                 MessageBox.Show("Ocorreu falha na seleção do certificado digital.\r\n\r\nErro: " + ex.Message);
             }
 
-            #region Ler retorno SAT
+#region Ler retorno SAT
 
             var xmlRetornoSAT = new XmlDocument();
             xmlRetornoSAT.Load(@"C:\Users\Wandrey\Downloads\Telegram Desktop\1155-sat-ret.xml"); //Informar no parâmetro o arquivo que vai estar na pasta de retorno do UNINFE
@@ -6325,9 +6355,9 @@ namespace TesteDLL_Unimake.Business.DFe
                 }
             }
 
-            #endregion
+#endregion
 
-            #region Ler retorno de envio de NFSe
+#region Ler retorno de envio de NFSe
             //var doc = new XmlDocument();
             //doc.Load(@"C:\Users\Wandrey\Downloads\Telegram Desktop\35904220000124_0000001-env-loterps2 (2).xml");
 
@@ -6363,7 +6393,7 @@ namespace TesteDLL_Unimake.Business.DFe
             //            "Correção: " + correcao);
             //    }
             //}
-            #endregion
+#endregion
         }
 
         private void button53_Click(object sender, EventArgs e)
@@ -6955,14 +6985,14 @@ namespace TesteDLL_Unimake.Business.DFe
             var xmlNFSe = new XDocument(new XDeclaration("1.0", "utf-8", null));
             XNamespace xNamespace = "http://www.prefeitura.sp.gov.br/nfe";
 
-            #region Criar a primeira tag <PedidoEnvioRPS> do XML com o namespace
+#region Criar a primeira tag <PedidoEnvioRPS> do XML com o namespace
 
             //Criar a tag <PedidoEnvioRps>
             var tagPedidoEnvioRPS = new XElement(xNamespace + "PedidoEnvioRPS");
 
-            #endregion
+#endregion
 
-            #region Criar o grupo de tag <Cabecalho>
+#region Criar o grupo de tag <Cabecalho>
 
             //Criar tag <Cabecalho>
             var tagCabecalho = new XElement("Cabecalho");
@@ -6982,9 +7012,9 @@ namespace TesteDLL_Unimake.Business.DFe
             //Adicionar a tag <Cabelhalho> dentro da tag <PedidoEnvioRPS>
             tagPedidoEnvioRPS.Add(tagCabecalho);
 
-            #endregion
+#endregion
 
-            #region Criar o grupo de tag <RPS>
+#region Criar o grupo de tag <RPS>
 
             //Criar tag <RPS>
             var tagRPS = new XElement("RPS");
@@ -7053,7 +7083,7 @@ namespace TesteDLL_Unimake.Business.DFe
             //Adicionar a tag <RPS> dentro da tag <PedidoEnvioRPS>
             tagPedidoEnvioRPS.Add(tagRPS);
 
-            #endregion
+#endregion
 
             //Adicionar a tag <PedidoEnvioRPS> no xmlNfse
             xmlNFSe.Add(tagPedidoEnvioRPS);

@@ -124,7 +124,44 @@ namespace NFe.Components.SOFTPLAN
         }
 
         public override void ConsultarNfsePorRps(string file)
-        { }
+        {
+            string result = "";
+            string numero = "";
+
+            TokenTimeExpire();
+
+            if (String.IsNullOrEmpty(Token))
+                throw new Exception("Token inválido");      
+
+            XmlDocument xmlConsulta = new XmlDocument();
+            xmlConsulta.Load(file);
+
+            XmlNode consultaNFSeNumero = xmlConsulta?.GetElementsByTagName("ConsultarNfsePorNumero")[0];
+            numero = consultaNFSeNumero?.FirstChild?.InnerText;
+
+            using (GetRequest get = new GetRequest
+            {
+                Proxy = Proxy
+            })
+            {
+                IList<string> autorizations = new List<string>()
+                {
+                    $"Authorization: bearer {Token}"
+                };
+
+                result = get.GetAuto(Path.Combine(URLAPIBase, $"consultas/notas/numero/{numero}"),
+                    new Dictionary<string, string>
+                    {
+                        { "f1", file}
+                    },
+                    autorizations); 
+            }
+
+            XmlDocument consultaResult = JsonConvert.DeserializeXmlNode(result, "RetornoConsultarNfsePorNumero");
+
+            GerarRetorno(file, consultaResult.InnerXml, Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeRps).EnvioXML,
+                                       Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeRps).RetornoXML);
+        }
 
         public override void ConsultarSituacaoLoteRps(string file)
         { }

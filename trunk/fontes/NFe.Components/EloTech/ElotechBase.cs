@@ -33,6 +33,10 @@ namespace NFe.Components.Elotech
                             elotechService = new MarialvaPR(tpAmb, PastaRetorno, UsuarioProxy, SenhaProxy, DomainProxy, Certificado);
                             break;
 
+                        case 4119509: //Piraquara-PR
+                            elotechService = new PiraquaraPR(tpAmb, PastaRetorno, UsuarioProxy, SenhaProxy, DomainProxy, Certificado);
+                            break;
+
                         default:
                             throw new Exceptions.ServicoInexistenteException();
                     }

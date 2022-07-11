@@ -10,6 +10,7 @@ using NFe.Components.Elotech;
 using NFe.Components.Fiorilli;
 using NFe.Components.GeisWeb;
 using NFe.Components.GIAP;
+using NFe.Components.SIGISSWEB;
 using NFe.Components.GovDigital;
 using NFe.Components.Memory;
 using NFe.Components.Metropolis;
@@ -22,6 +23,7 @@ using NFe.Components.SimplISS;
 using NFe.Components.SystemPro;
 using NFe.Components.Tinus;
 using NFe.Components.WEBFISCO_TECNOLOGIA;
+using NFe.Components.CENTI;
 using NFe.Settings;
 using NFe.Validate;
 using NFSe.Components;
@@ -111,6 +113,11 @@ namespace NFe.Service.NFSe
                             case 3168606: //Teófilo Otoni-MG
                             case 3523107: //Itaquaquecetuba-SP
                             case 3115300: //Cataguases-MG
+                            case 3147907: //Passos-MG
+                            case 5107602: //Rondonópolis-MT
+                            case 3147105: //Pará de Minas-MG
+                            case 3303401: //Nova Friburgo-RJ
+                            case 3529005: //Marília-SP
                                 ExecuteDLL(emp, oDadosEnvLoteRps.cMunicipio, padraoNFSe);
                                 break;
 
@@ -625,7 +632,8 @@ namespace NFe.Service.NFSe
                                             oDadosEnvLoteRps.cMunicipio == 4322509 ||
                                             oDadosEnvLoteRps.cMunicipio == 4301057 ||
                                             oDadosEnvLoteRps.cMunicipio == 4115804 ||
-                                            oDadosEnvLoteRps.cMunicipio == 3550803)
+                                            oDadosEnvLoteRps.cMunicipio == 3550803 ||
+                                            oDadosEnvLoteRps.cMunicipio == 4313953)
                                         {
                                             var pronin = new Pronin((TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
                                                 Empresas.Configuracoes[emp].PastaXmlRetorno,
@@ -754,8 +762,9 @@ namespace NFe.Service.NFSe
                                     #region CENTI
 
                                     case PadroesNFSe.CENTI:
-                                        var centi = new Components.CENTI.CENTI((TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
+                                        var centi = new CENTI((TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
                                                                         Empresas.Configuracoes[emp].PastaXmlRetorno,
+                                                                        oDadosEnvLoteRps.cMunicipio,
                                                                         Empresas.Configuracoes[emp].UsuarioWS,
                                                                         Empresas.Configuracoes[emp].SenhaWS);
 
@@ -801,6 +810,24 @@ namespace NFe.Service.NFSe
                                         break;
 
                                     #endregion GIAP
+
+                                    #region SIGISSWEB
+
+                                    case PadroesNFSe.SIGISSWEB:
+                                        var sigissweb = new Components.SIGISSWEB.SIGISSWEB((TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
+                                                                        Empresas.Configuracoes[emp].PastaXmlRetorno,
+                                                                        Empresas.Configuracoes[emp].UsuarioWS,
+                                                                        Empresas.Configuracoes[emp].SenhaWS);
+
+                                        if (ConfiguracaoApp.Proxy)
+                                        {
+                                            sigissweb.Proxy = Unimake.Net.Utility.GetProxy(ConfiguracaoApp.ProxyServidor, ConfiguracaoApp.ProxyUsuario, ConfiguracaoApp.ProxySenha, ConfiguracaoApp.ProxyPorta);
+                                        }
+
+                                        sigissweb.EmiteNF(NomeArquivoXML);
+                                        break;
+
+                                    #endregion SIGISSWEB
 
                                     case PadroesNFSe.INTERSOL:
                                         cabecMsg = "<?xml version=\"1.0\" encoding=\"utf-8\"?><p:cabecalho versao=\"1\" xmlns:ds=\"http://www.w3.org/2000/09/xmldsig#\" xmlns:p=\"http://ws.speedgov.com.br/cabecalho_v1.xsd\" xmlns:p1=\"http://ws.speedgov.com.br/tipos_v1.xsd\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://ws.speedgov.com.br/cabecalho_v1.xsd cabecalho_v1.xsd \"><versaoDados>1</versaoDados></p:cabecalho>";
@@ -1165,6 +1192,7 @@ namespace NFe.Service.NFSe
                 case PadroesNFSe.DSF:
                 case PadroesNFSe.DIGIFRED:
                 case PadroesNFSe.VERSATEC:
+                case PadroesNFSe.QUASAR:
                     switch (doc.DocumentElement.Name)
                     {
                         case "EnviarLoteRpsSincronoEnvio":
@@ -1198,6 +1226,7 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadroesNFSe.NOBESISTEMAS:
+                case PadroesNFSe.GINFES:
                     result = Unimake.Business.DFe.Servicos.Servico.NFSeRecepcionarLoteRps;
                     break;
 
@@ -1205,14 +1234,20 @@ namespace NFe.Service.NFSe
                     switch (doc.DocumentElement.Name)
                     {
                         case "PedidoEnvioLoteRPS":
-                            result = Unimake.Business.DFe.Servicos.Servico.NFSeEnvioLoteRps;
+
+                            if (Empresas.Configuracoes[Empresas.FindEmpresaByThread()].AmbienteCodigo == (int)NFe.Components.TipoAmbiente.taHomologacao)
+                            {
+                                result = Unimake.Business.DFe.Servicos.Servico.NFSeTesteEnvioLoteRps;
+                            }
+                            else
+                            {
+                                result = Unimake.Business.DFe.Servicos.Servico.NFSeEnvioLoteRps;
+                            }
                             break;
+
                         case "PedidoEnvioRPS":
                             result = Unimake.Business.DFe.Servicos.Servico.NFSeEnvioRps;
-                            break;
-                        case "TesteEnvioLoteRps":
-                            result = Unimake.Business.DFe.Servicos.Servico.NFSeTesteEnvioLoteRps;
-                            break;
+                            break;          
                     }
                     break;
             }
@@ -1269,21 +1304,21 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadroesNFSe.SONNER:
+                case PadroesNFSe.QUASAR:
                     versaoXML = "2.01";
                     break;
 
                 case PadroesNFSe.NOTAINTELIGENTE:
                 case PadroesNFSe.AVMB_ASTEN:
                 case PadroesNFSe.WEBISS:
-                case PadroesNFSe.COPLAN:
                 case PadroesNFSe.VERSATEC:
                     versaoXML = "2.02";
                     break;
 
-                case PadroesNFSe.SIGCORP_SIGISS:
                 case PadroesNFSe.SIMPLISS:
                 case PadroesNFSe.SMARAPD:
                 case PadroesNFSe.DSF:
+                case PadroesNFSe.COPLAN:
                     versaoXML = "2.03";
                     break;
 
@@ -1291,6 +1326,21 @@ namespace NFe.Service.NFSe
                 case PadroesNFSe.EL:
                 case PadroesNFSe.TRIBUTUS:
                     versaoXML = "2.04";
+                    break;
+
+                case PadroesNFSe.GINFES:
+                    versaoXML = "3.00";
+                    break;
+
+                case PadroesNFSe.SIGCORP_SIGISS:
+                    if (codMunicipio == 3530805 || codMunicipio == 3131307)
+                    {
+                        versaoXML = "2.03";
+                    }
+                    else
+                    {
+                        versaoXML = "3.00";
+                    }
                     break;
             }
 

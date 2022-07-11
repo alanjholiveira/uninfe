@@ -4076,8 +4076,6 @@
     <EmbeddedResource Include="NFse\WSDL\Producao\PJalesSP-RLZ_INFORMATICA.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Homologacao\HSabaraMG-SUPERNOVA.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Producao\PSabaraMG-SUPERNOVA.wsdl" />
-    <EmbeddedResource Include="NFse\WSDL\Homologacao\HRondonopolisMT-COPLAN.wsdl" />
-    <EmbeddedResource Include="NFse\WSDL\Producao\PRondonopolisMT-COPLAN.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Producao\PSjbicas-GovDigital.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Homologacao\HSjbicas-GovDigital.wsdl" />
     <EmbeddedResource Include="NFse\schemas\NFSe\D2TI\CancelamentoNFSe_v1.00.xsd">
@@ -4585,6 +4583,62 @@
     <EmbeddedResource Include="NFse\WSDL\Producao\PRibasDoRioPardoMS-Fiorilli.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Homologacao\HRibasDoRioPardoMS-Fiorilli.wsdl" />
     <EmbeddedResource Include="NFse\schemas\NFSe\SMARAPD\nfse_v2-03.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NFse\WSDL\Producao\PPantanoGrandeRS-PRONIN.wsdl" />
+    <EmbeddedResource Include="NFse\WSDL\Homologacao\HPiraquaraPR-Elotech.wsdl" />
+    <EmbeddedResource Include="NFse\WSDL\Producao\PPiraquaraPR-Elotech.wsdl" />
+    <EmbeddedResource Include="NFse\WSDL\Homologacao\HTresLagoasMS-Fiorilli.wsdl" />
+    <EmbeddedResource Include="NFse\WSDL\Producao\PTresLagoasMS-Fiorilli.wsdl" />
+    <EmbeddedResource Include="NFse\schemas\NFSe\PAULISTANA\PedidoCancelamentoLote_v01.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NFse\schemas\NFSe\PAULISTANA\PedidoCancelamentoNFe_v01.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NFse\schemas\NFSe\PAULISTANA\PedidoConsultaCNPJ_v01.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NFse\schemas\NFSe\PAULISTANA\PedidoConsultaLote_v01.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NFse\schemas\NFSe\PAULISTANA\PedidoConsultaNFePeriodo_v01.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NFse\schemas\NFSe\PAULISTANA\PedidoConsultaNFe_v01.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NFse\schemas\NFSe\PAULISTANA\PedidoEnvioLoteRPS_v01.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NFse\schemas\NFSe\PAULISTANA\PedidoEnvioRPS_v01.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NFse\schemas\NFSe\PAULISTANA\PedidoInformacoesLote_v01.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NFse\schemas\NFSe\PAULISTANA\RetornoCancelamentoNFe_v01.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NFse\schemas\NFSe\PAULISTANA\RetornoConsultaCNPJ_v01.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NFse\schemas\NFSe\PAULISTANA\RetornoConsulta_v01.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NFse\schemas\NFSe\PAULISTANA\RetornoEnvioLoteRPS_v01.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NFse\schemas\NFSe\PAULISTANA\RetornoEnvioRPS_v01.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NFse\schemas\NFSe\PAULISTANA\RetornoInformacoesLote_v01.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NFse\schemas\NFSe\PAULISTANA\TiposNFe_v01.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NFse\schemas\NFSe\PAULISTANA\xmldsig-core-schema_v01.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

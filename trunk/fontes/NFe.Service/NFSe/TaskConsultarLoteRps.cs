@@ -88,6 +88,11 @@ namespace NFe.Service.NFSe
                             case 4310009: //Ibirubá-RS
                             case 3523107: //Itaquaquecetuba-SP
                             case 3115300: //Cataguases-MG
+                            case 3147907: //Passos-MG
+                            case 5107602: //Rondonópolis-MT
+                            case 3147105: //Pará de Minas-MG
+                            case 3303401: //Nova Friburgo-RJ
+                            case 3529005: //Marília-SP
                                 ExecuteDLL(emp, ler.oDadosPedSitNfseRps.cMunicipio, padraoNFSe);
                                 break;
 
@@ -412,7 +417,8 @@ namespace NFe.Service.NFSe
                                             ler.oDadosPedSitNfseRps.cMunicipio == 1502400 ||
                                             ler.oDadosPedSitNfseRps.cMunicipio == 4301057 ||
                                             ler.oDadosPedSitNfseRps.cMunicipio == 4115804 ||
-                                            ler.oDadosPedSitNfseRps.cMunicipio == 3550803)
+                                            ler.oDadosPedSitNfseRps.cMunicipio == 3550803 ||
+                                            ler.oDadosPedSitNfseRps.cMunicipio == 4313953)
 
                                         {
                                             var pronin = new Pronin((TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
@@ -738,21 +744,21 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadroesNFSe.PRODATA:
+                case PadroesNFSe.QUASAR:
                     versaoXML = "2.01";
                     break;
                               
                 case PadroesNFSe.NOTAINTELIGENTE:
                 case PadroesNFSe.AVMB_ASTEN:
                 case PadroesNFSe.WEBISS:
-                case PadroesNFSe.COPLAN:
                 case PadroesNFSe.VERSATEC:
                     versaoXML = "2.02";
                     break;
 
-                case PadroesNFSe.SIGCORP_SIGISS:
                 case PadroesNFSe.SIMPLISS:
                 case PadroesNFSe.SMARAPD:
                 case PadroesNFSe.DSF:
+                case PadroesNFSe.COPLAN:
                     versaoXML = "2.03";
                     break;
 
@@ -760,6 +766,21 @@ namespace NFe.Service.NFSe
                 case PadroesNFSe.EL:
                 case PadroesNFSe.TRIBUTUS:
                     versaoXML = "2.04";
+                    break;
+
+                case PadroesNFSe.GINFES:
+                    versaoXML = "3.00";
+                    break;
+
+                case PadroesNFSe.SIGCORP_SIGISS:
+                    if (codMunicipio == 3530805 || codMunicipio == 3131307)
+                    {
+                        versaoXML = "2.03";
+                    }
+                    else
+                    {
+                        versaoXML = "3.00";
+                    }
                     break;
             }
 

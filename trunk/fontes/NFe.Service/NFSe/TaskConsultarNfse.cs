@@ -1,5 +1,6 @@
 ﻿using NFe.Certificado;
 using NFe.Components;
+using NFe.Components.CENTI;
 using NFe.Components.Conam;
 using NFe.Components.Consist;
 using NFe.Components.Coplan;
@@ -100,6 +101,11 @@ namespace NFe.Service.NFSe
                             case 3168606: //Teófilo Otoni-MG
                             case 3523107: //Itaquaquecetuba-SP
                             case 3115300: //Cataguases-MG
+                            case 3147907: //Passos-MG
+                            case 5107602: //Rondonópolis-MT
+                            case 3147105: //Pará de Minas-MG
+                            case 3303401: //Nova Friburgo-RJ
+                            case 3529005: //Marília-SP
                                 ExecuteDLL(emp, oDadosPedSitNfse.cMunicipio, padraoNFSe);
                                 break;
 
@@ -450,7 +456,8 @@ namespace NFe.Service.NFSe
                                             oDadosPedSitNfse.cMunicipio == 1502400 ||
                                             oDadosPedSitNfse.cMunicipio == 4301057 ||
                                             oDadosPedSitNfse.cMunicipio == 4115804 ||
-                                            oDadosPedSitNfse.cMunicipio == 3550803)
+                                            oDadosPedSitNfse.cMunicipio == 3550803 ||
+                                            oDadosPedSitNfse.cMunicipio == 4313953)
                                         {
                                             var pronin = new Pronin((TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
                                                 Empresas.Configuracoes[emp].PastaXmlRetorno,
@@ -535,8 +542,9 @@ namespace NFe.Service.NFSe
                                     #region CENTI
 
                                     case PadroesNFSe.CENTI:
-                                        var centi = new Components.CENTI.CENTI((TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
+                                        var centi = new CENTI((TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
                                                                       Empresas.Configuracoes[emp].PastaXmlRetorno,
+                                                                      oDadosPedSitNfse.cMunicipio,
                                                                       Empresas.Configuracoes[emp].UsuarioWS,
                                                                       Empresas.Configuracoes[emp].SenhaWS);
 
@@ -815,15 +823,14 @@ namespace NFe.Service.NFSe
                     result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarNotaPrestador;
                     break;
 
-                case PadroesNFSe.WEBISS:
-                    result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarNfseServicoPrestado;
-                    break;
-
                 case PadroesNFSe.SONNER:
                 case PadroesNFSe.SMARAPD:
                 case PadroesNFSe.TRIBUTUS:
                 case PadroesNFSe.DSF:
                 case PadroesNFSe.DIGIFRED:
+                case PadroesNFSe.WEBISS:
+                case PadroesNFSe.QUASAR:
+                case PadroesNFSe.EL:
                     switch (doc.DocumentElement.Name)
                     {
                         case "ConsultarNfseServicoPrestadoEnvio":
@@ -845,6 +852,7 @@ namespace NFe.Service.NFSe
 
                 case PadroesNFSe.PAULISTANA:
                 case PadroesNFSe.NOBESISTEMAS:
+                case PadroesNFSe.GINFES:
                     result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultarNfse;
                     break;
 
@@ -913,25 +921,41 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadroesNFSe.SONNER:
+                case PadroesNFSe.QUASAR:
                     versaoXML = "2.01";
                     break;
 
                 case PadroesNFSe.AVMB_ASTEN:
                 case PadroesNFSe.WEBISS:
-                case PadroesNFSe.COPLAN:
                 case PadroesNFSe.VERSATEC:
                     versaoXML = "2.02";
                     break;
 
-                case PadroesNFSe.SIGCORP_SIGISS:
                 case PadroesNFSe.SIMPLISS:
                 case PadroesNFSe.SMARAPD:
                 case PadroesNFSe.DSF:
+                case PadroesNFSe.COPLAN:
                     versaoXML = "2.03";
                     break;
 
+                case PadroesNFSe.EL:
                 case PadroesNFSe.TRIBUTUS:
                     versaoXML = "2.04";
+                    break;
+
+                case PadroesNFSe.GINFES:
+                    versaoXML = "3.00";
+                    break;
+
+                case PadroesNFSe.SIGCORP_SIGISS:
+                    if (codMunicipio == 3530805 || codMunicipio == 3131307)
+                    {
+                        versaoXML = "2.03";
+                    }
+                    else
+                    {
+                        versaoXML = "3.00";
+                    }
                     break;
             }
 

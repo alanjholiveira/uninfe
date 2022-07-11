@@ -812,6 +812,26 @@ namespace NFe.Service
 
     #endregion DadosPedLoteRps
 
+    #region DadosPedNFSeEmit
+    /// <summary>
+    /// Classe com os dados do XML da consulta da nfse emitidas
+    /// </summary>
+    public class DadosPedNFSeEmit
+    {
+        public int cMunicipio { get; set; }
+        public int tpAmb { get; set; }
+        public int tpEmis { get; set; }
+
+        public DadosPedNFSeEmit(int emp)
+        {
+            tpEmis = Empresas.Configuracoes[emp].tpEmis;
+            tpAmb = Empresas.Configuracoes[emp].AmbienteCodigo;
+            cMunicipio = Empresas.Configuracoes[emp].UnidadeFederativaCodigo;
+        }
+    }
+
+    #endregion DadosPedNFSeEmit
+
     #region DadosPedSitNfse
 
     /// <summary>

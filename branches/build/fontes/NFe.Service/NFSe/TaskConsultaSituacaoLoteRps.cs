@@ -55,6 +55,7 @@ namespace NFe.Service.NFSe
                 {
                     case 3106200: //Belo Horizonte-MG
                     case 3550308: //São Paulo-SP
+                    case 3523107: //Itaquaquecetuba-SP
                         ExecuteDLL(emp, oDadosPedSitLoteRps.cMunicipio, padraoNFSe);
                         break;
 
@@ -258,7 +259,8 @@ namespace NFe.Service.NFSe
                                     oDadosPedSitLoteRps.cMunicipio == 1502400 ||
                                     oDadosPedSitLoteRps.cMunicipio == 4301057 ||
                                     oDadosPedSitLoteRps.cMunicipio == 4115804 ||
-                                    oDadosPedSitLoteRps.cMunicipio == 3550803)
+                                    oDadosPedSitLoteRps.cMunicipio == 3550803 ||
+                                    oDadosPedSitLoteRps.cMunicipio == 4313953)
                                 {
                                     var pronin = new Pronin((TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
                                         Empresas.Configuracoes[emp].PastaXmlRetorno,
@@ -501,6 +503,10 @@ namespace NFe.Service.NFSe
 
                 case PadroesNFSe.PAULISTANA:
                     versaoXML = "2.00";
+                    break;
+
+                case PadroesNFSe.GINFES:
+                    versaoXML = "3.00";
                     break;
             }
 

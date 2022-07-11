@@ -100,6 +100,148 @@ namespace NFSe.Components
                 TargetNameSpace = ""
             });
             #endregion
+
+            #region Validação para o município de Itaquaquecetuba
+
+            #region XML de lote RPS
+
+            SchemaXML.InfSchemas.Add("NFSE-SMARAPD-EnviarLoteRpsEnvio", new InfSchema()
+            {
+                Tag = "EnviarLoteRpsEnvio",
+                ID = SchemaXML.InfSchemas.Count + 1,
+                ArquivoXSD = "NFSe\\SMARAPD\\nfse_v2-03.xsd",
+                Descricao = "XML de Lote RPS",
+                TagAssinatura = "",
+                TagAtributoId = "",
+                TagLoteAssinatura = "EnviarLoteRpsEnvio",
+                TagLoteAtributoId = "LoteRps",
+                TargetNameSpace = "http://www.abrasf.org.br/nfse.xsd"
+            });
+            #endregion XML de lote RPS
+
+            #region XML de lote RPS Síncrono
+
+            SchemaXML.InfSchemas.Add("NFSE-SMARAPD-EnviarLoteRpsSincronoEnvio", new InfSchema()
+            {
+                Tag = "EnviarLoteRpsSincronoEnvio",
+                ID = SchemaXML.InfSchemas.Count + 1,
+                ArquivoXSD = "NFSe\\SMARAPD\\nfse_v2-03.xsd",
+                Descricao = "XML de Lote RPS",
+                TagAssinatura = "",
+                TagAtributoId = "",
+                TagLoteAssinatura = "EnviarLoteRpsSincronoEnvio",
+                TagLoteAtributoId = "LoteRps",
+                TargetNameSpace = "http://www.abrasf.org.br/nfse.xsd"
+            });
+            #endregion XML de lote RPS Síncrono
+
+            #region XML de Cancelamento de NFS-e
+
+            SchemaXML.InfSchemas.Add("NFSE-SMARAPD-CancelarNfseEnvio", new InfSchema()
+            {
+                Tag = "CancelarNfseEnvio",
+                ID = SchemaXML.InfSchemas.Count + 1,
+                ArquivoXSD = "NFSe\\SMARAPD\\nfse_v2-03.xsd",
+                Descricao = "XML de Cancelamento da NFS-e",
+                TagAssinatura = "Pedido",
+                TagAtributoId = "InfPedidoCancelamento",
+                TargetNameSpace = "http://www.abrasf.org.br/nfse.xsd"
+            });
+            #endregion XML de Cancelamento de NFS-e
+
+            #region XML de Consulta de Lote RPS
+
+            SchemaXML.InfSchemas.Add("NFSE-SMARAPD-ConsultarLoteRpsEnvio", new InfSchema()
+            {
+                Tag = "ConsultarLoteRpsEnvio",
+                ID = SchemaXML.InfSchemas.Count + 1,
+                ArquivoXSD = "NFSe\\SMARAPD\\nfse_v2-03.xsd",
+                Descricao = "XML de Consulta de Lote RPS",
+                TagAssinatura = "ConsultarLoteRpsEnvio",
+                TagAtributoId = "Prestador",
+                TargetNameSpace = "http://www.abrasf.org.br/nfse.xsd"
+            });
+            #endregion XML de Consulta de Lote RPS
+
+            #region XML de Consulta de NFSe por Rps
+
+            SchemaXML.InfSchemas.Add("NFSE-SMARAPD-ConsultarNfseRpsEnvio", new InfSchema()
+            {
+                Tag = "ConsultarNfseRpsEnvio",
+                ID = SchemaXML.InfSchemas.Count + 1,
+                ArquivoXSD = "NFSe\\SMARAPD\\nfse_v2-03.xsd",
+                Descricao = "XML de Consulta de NFSe por Rps",
+                TagAssinatura = "ConsultarNfseRpsEnvio",
+                TagAtributoId = "Prestador",
+                TargetNameSpace = "http://www.abrasf.org.br/nfse.xsd"
+            });
+            #endregion XML de Consulta de NFSe por Rps
+
+            #region XML de Consulta de NFSe por Faixa
+
+            SchemaXML.InfSchemas.Add("NFSE-SMARAPD-ConsultarNfseFaixaEnvio", new InfSchema()
+            {
+                Tag = "ConsultarNfseFaixaEnvio",
+                ID = SchemaXML.InfSchemas.Count + 1,
+                ArquivoXSD = "NFSe\\SMARAPD\\nfse_v2-03.xsd",
+                Descricao = "XML de Consulta de NFSe por Faixa",
+                TagAssinatura = "ConsultarNfseFaixaEnvio",
+                TagAtributoId = "Prestador",
+                TargetNameSpace = "http://www.abrasf.org.br/nfse.xsd"
+            });
+
+            #endregion XML de Consulta de NFSe por Faixa
+
+            #region Gerar NFSe Envio
+
+            SchemaXML.InfSchemas.Add("NFSE-SMARAPD-GerarNfseEnvio", new InfSchema()
+            {
+                Tag = "EnviarLoteRpsEnvio",
+                ID = SchemaXML.InfSchemas.Count + 1,
+                ArquivoXSD = "NFSe\\SMARAPD\\nfse_v2-03.xsd",
+                Descricao = "XML de Lote RPS",
+                TagAssinatura = "Rps",
+                TagAtributoId = "InfDeclaracaoPrestacaoServico",
+                TargetNameSpace = "http://www.abrasf.org.br/nfse.xsd"
+            });
+            #endregion Gerar NFSe Envio
+
+            #region Substituir Nfse
+
+            SchemaXML.InfSchemas.Add("NFSE-SMARAPD-SubstituirNfseEnvio", new InfSchema()
+            {
+                Tag = "SubstituirNfseEnvio",
+                ID = SchemaXML.InfSchemas.Count + 1,
+                ArquivoXSD = "NFSe\\SMARAPD\\nfse_v2-03.xsd",
+                Descricao = "XML de Substituição de NFSe",
+                TagAssinatura0 = "Pedido",
+                TagAtributoId0 = "InfPedidoCancelamento",
+                TagAssinatura = "Rps",
+                TagAtributoId = "InfDeclaracaoPrestacaoServico",
+                TagLoteAssinatura = "SubstituirNfseEnvio",
+                TagLoteAtributoId = "SubstituicaoNfse",
+                TargetNameSpace = "http://www.abrasf.org.br/nfse.xsd"
+            });
+
+            #endregion Substituir Nfse
+
+            #region Consulta NFSe Servico Tomado
+
+            SchemaXML.InfSchemas.Add("NFSE-SMARAPD-ConsultarNfseServicoPrestadoEnvio", new InfSchema()
+            {
+                Tag = "ConsultarNfseServicoPrestadoEnvio",
+                ID = SchemaXML.InfSchemas.Count + 1,
+                ArquivoXSD = "NFSe\\SMARAPD\\nfse_v2-03.xsd",
+                Descricao = "XML de Consulta da NFSe Servicos Tomados",
+                TagAssinatura = "",
+                TagAtributoId = "",
+                TargetNameSpace = "http://www.abrasf.org.br/nfse.xsd"
+            });
+
+            #endregion Consulta NFSe Servico Tomado
+
+            #endregion Validação para o município de Itaquaquecetuba
+
             /*
             #region XML de consulta da URL para impressão da NFSe
             SchemaXML.InfSchemas.Add("NFSE-ISSNET-ConsultarUrlVisualizacaoNfseEnvio", new InfSchema()

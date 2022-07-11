@@ -36,8 +36,9 @@ namespace NFe.Components.Conam
                         case 3509007:   //Caieiras
                         case 3522208:   //Itapecerica da Serra
                         case 3506102:   //Bebedouro - SP
-                            //if (tpAmb == TipoAmbiente.taHomologacao)
-                                conamService = new NFe.Components.Conam.VarginhaMG.h.ConamH(tpAmb, PastaRetorno, Usuario, SenhaWs, CodigoMun);
+                        case 3553708:   //Taquaritinga - SP
+                                        //if (tpAmb == TipoAmbiente.taHomologacao)
+                            conamService = new NFe.Components.Conam.VarginhaMG.h.ConamH(tpAmb, PastaRetorno, Usuario, SenhaWs, CodigoMun);
                             //else
                                 //conamService = new NFe.Components.Conam.VarginhaMG.p.ConamP(tpAmb, PastaRetorno, Usuario, SenhaWs);
                             break;

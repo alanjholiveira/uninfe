@@ -81,7 +81,7 @@ namespace NFe.Validate
             {
                 if (retornoArquivo)
                 {
-                    if (arquivoXML.ToLower().Contains(Empresas.Configuracoes[emp].PastaXmlEmLote.ToLower()))
+                    if (arquivoXML.ToLower().Contains((Empresas.Configuracoes[emp].PastaXmlEmLote.Trim() + "\\temp").ToLower()))
                     {
                         //Gravar XML assinado
                         var SW_2 = File.CreateText(arquivoXML);
@@ -91,7 +91,7 @@ namespace NFe.Validate
                     else
                     {
                         string pasta = Empresas.Configuracoes[emp].PastaValidado;
-                        
+
                         if (!Directory.Exists(pasta))
                         {
                             Directory.CreateDirectory(pasta);
@@ -104,7 +104,6 @@ namespace NFe.Validate
                         SW_2.Write(xmlSalvar.OuterXml);
                         SW_2.Close();
                     }
-
 
                     GravarXMLRetornoValidacao(arquivoXML, "1", "XML assinado e validado com sucesso.");
                 }
@@ -459,14 +458,17 @@ namespace NFe.Validate
 
                         if (xmlNFe.NFe[0].InfNFe[0].Ide.Mod == ModeloDFe.NFCe)
                         {
-                            if (string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].IdentificadorCSC.Trim()) || string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].TokenCSC))
+                            if (xmlDoc.GetElementsByTagName("qrCode").Count == 0)
                             {
-                                throw new Exception("Para autorizar NFC-e é obrigatório informar nas configurações do UniNFe os campos CSC e IDToken do CSC.");
+                                if (string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].IdentificadorCSC.Trim()) || string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].TokenCSC))
+                                {
+                                    throw new Exception("Para autorizar NFC-e é obrigatório informar nas configurações do UniNFe os campos CSC e IDToken do CSC.");
+                                }
                             }
 
                             configuracao.TipoDFe = TipoDFe.NFCe;
                             configuracao.CSC = Empresas.Configuracoes[emp].IdentificadorCSC;
-                            configuracao.CSCIDToken = Convert.ToInt32(Empresas.Configuracoes[emp].TokenCSC);
+                            configuracao.CSCIDToken = Convert.ToInt32((string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].TokenCSC) ? "0" : Empresas.Configuracoes[emp].TokenCSC));
 
                             var autorizacao = new Unimake.Business.DFe.Servicos.NFCe.Autorizacao(xmlNFe, configuracao);
                             xmlDoc = autorizacao.ConteudoXMLAssinado;
@@ -488,14 +490,17 @@ namespace NFe.Validate
 
                         if (xmlEnviNFe.NFe[0].InfNFe[0].Ide.Mod == ModeloDFe.NFCe)
                         {
-                            if (string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].IdentificadorCSC.Trim()) || string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].TokenCSC))
+                            if (xmlDoc.GetElementsByTagName("qrCode").Count == 0)
                             {
-                                throw new Exception("Para autorizar NFC-e é obrigatório informar nas configurações do UniNFe os campos CSC e IDToken do CSC.");
+                                if (string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].IdentificadorCSC.Trim()) || string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].TokenCSC))
+                                {
+                                    throw new Exception("Para autorizar NFC-e é obrigatório informar nas configurações do UniNFe os campos CSC e IDToken do CSC.");
+                                }
                             }
 
                             configuracao.TipoDFe = TipoDFe.NFCe;
                             configuracao.CSC = Empresas.Configuracoes[emp].IdentificadorCSC;
-                            configuracao.CSCIDToken = Convert.ToInt32(Empresas.Configuracoes[emp].TokenCSC);
+                            configuracao.CSCIDToken = Convert.ToInt32((string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].TokenCSC) ? "0" : Empresas.Configuracoes[emp].TokenCSC));
 
                             var autorizacao = new Unimake.Business.DFe.Servicos.NFCe.Autorizacao(xmlEnviNFe, configuracao);
                             xmlDoc = autorizacao.ConteudoXMLAssinado;
@@ -737,7 +742,7 @@ namespace NFe.Validate
                     Validar(tipoXML, configuracao, validarSchema, retornoArquivo, xmlSalvar, arquivoXML, xmlDoc, emp);
                 }
             }
-            catch (Exception ex)            
+            catch (Exception ex)
             {
                 var exception = ex.GetLastException();
 

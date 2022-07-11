@@ -218,14 +218,6 @@ namespace NFe.Settings
                             var rc = empresa.BuscaConfiguracao(ref tipoerro);
                             switch (tipoerro)
                             {
-                                case 0:
-                                    var uf = GetUF(empresa.UnidadeFederativaCodigo);
-                                    if (uf != null)
-                                    {
-                                        empresa.URLConsultaDFe = ConfiguracaoApp.CarregarURLConsultaDFe(uf);
-                                    }
-
-                                    break;
                                 case 1:
                                     erro = true;
                                     throw new Exception(rc);

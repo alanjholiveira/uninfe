@@ -162,6 +162,8 @@ namespace NFe.Components.Abstract
         {
         }
 
+        public virtual void ConsultarNfsePDF(string file) { }
+
         public virtual void ConsultarXml(string file) { }
 
         public virtual void ConsultarURLNfse(string file) { }

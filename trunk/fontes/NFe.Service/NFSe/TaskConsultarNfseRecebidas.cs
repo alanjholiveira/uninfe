@@ -124,10 +124,9 @@ namespace NFe.Service.NFSe
             var conteudoXML = new XmlDocument();
             conteudoXML.Load(NomeArquivoXML);
 
-            var finalArqEnvio = Propriedade.Extensao(Propriedade.TipoEnvio.PedSitLoteRps).EnvioXML;
-            var finalArqRetorno = Propriedade.Extensao(Propriedade.TipoEnvio.PedSitLoteRps).RetornoXML;
+            var finalArqEnvio = Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeRec).EnvioXML;
+            var finalArqRetorno = Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeRec).RetornoXML;
             var versaoXML = DefinirVersaoXML(municipio, conteudoXML, padraoNFSe);
-            var servico = DefinirServico(municipio, conteudoXML);
 
             Functions.DeletarArquivo(Empresas.Configuracoes[emp].PastaXmlRetorno + "\\" + Functions.ExtrairNomeArq(NomeArquivoXML, finalArqEnvio) + Functions.ExtractExtension(finalArqRetorno) + ".err");
 
@@ -137,61 +136,25 @@ namespace NFe.Service.NFSe
                 CertificadoDigital = Empresas.Configuracoes[emp].X509Certificado,
                 TipoAmbiente = (Unimake.Business.DFe.Servicos.TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
                 CodigoMunicipio = municipio,
-                Servico = servico,
+                Servico = Unimake.Business.DFe.Servicos.Servico.NFSeConsultaNFeRecebidas,
                 SchemaVersao = versaoXML
             };
 
-            switch (servico)
-            {
-                case Unimake.Business.DFe.Servicos.Servico.NFSeConsultaNFeRecebidas:
-                    var consultaNFeRecebidas = new Unimake.Business.DFe.Servicos.NFSe.ConsultaNFeRecebidas(conteudoXML, configuracao);
-                    consultaNFeRecebidas.Executar();
+            var consultaNFeRecebidas = new Unimake.Business.DFe.Servicos.NFSe.ConsultaNFeRecebidas(conteudoXML, configuracao);
+            consultaNFeRecebidas.Executar();
 
-                    vStrXmlRetorno = consultaNFeRecebidas.RetornoWSString;
-                    break;
-
-                case Unimake.Business.DFe.Servicos.Servico.NFSeConsultaNFeEmitidas:
-                    var consultaNFeEmitidas = new Unimake.Business.DFe.Servicos.NFSe.ConsultaNFeEmitidas(conteudoXML, configuracao);
-                    consultaNFeEmitidas.Executar();
-
-                    vStrXmlRetorno = consultaNFeEmitidas.RetornoWSString;
-                    break;
-            }
+            vStrXmlRetorno = consultaNFeRecebidas.RetornoWSString;
 
             XmlRetorno(finalArqEnvio, finalArqRetorno);
 
             /// grava o arquivo no FTP
             var filenameFTP = Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno,
-                Functions.ExtrairNomeArq(NomeArquivoXML, Propriedade.Extensao(Propriedade.TipoEnvio.PedSubstNfse).EnvioXML) + Propriedade.Extensao(Propriedade.TipoEnvio.PedSubstNfse).RetornoXML);
+                Functions.ExtrairNomeArq(NomeArquivoXML, Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeRec).EnvioXML) + Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeRec).RetornoXML);
 
             if (File.Exists(filenameFTP))
             {
                 new GerarXML(emp).XmlParaFTP(emp, filenameFTP);
             }
-        }
-
-        private Unimake.Business.DFe.Servicos.Servico DefinirServico(int municipio, XmlDocument doc)
-        {
-            var result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultaNFeRecebidas;
-
-            var padraoNFSe = Functions.PadraoNFSe(municipio);
-
-            switch (padraoNFSe)
-            {
-                case PadroesNFSe.PAULISTANA:
-                    switch (doc.DocumentElement.Name)
-                    {
-                        case "ConsultaNFeEmitidas":
-                            result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultaNFeEmitidas;
-                            break;
-                        case "ConsultaNFeRecebidas":
-                            result = Unimake.Business.DFe.Servicos.Servico.NFSeConsultaNFeRecebidas;
-                            break;
-                    }
-                    break;
-            }
-
-            return result;
         }
 
         /// <summary>

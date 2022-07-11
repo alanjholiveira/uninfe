@@ -38,7 +38,7 @@ namespace NFe.Components
 
             pastaInstalar = Application.StartupPath;
             localArq = Path.Combine(Application.StartupPath, nomeInstalador);
-            url = $"http://www.unimake.com.br/downloads/{nomeInstalador}";
+            url = $"https://www.unimake.com.br/downloads/{nomeInstalador}";
         }
 
         public UniNFeUpdate(IWebProxy proxy)

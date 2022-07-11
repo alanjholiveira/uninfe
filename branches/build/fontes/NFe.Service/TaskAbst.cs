@@ -1,6 +1,5 @@
 ﻿using NFe.Certificado;
 using NFe.Components;
-using NFe.Components.QRCode;
 using NFe.Settings;
 using NFe.Validate;
 using System;
@@ -3236,7 +3235,8 @@ namespace NFe.Service
                         cMunicipio == 1502400 || 
                         cMunicipio == 4301057 ||
                         cMunicipio == 4115804 ||
-                        cMunicipio == 3550803)
+                        cMunicipio == 3550803 ||
+                        cMunicipio == 4313953)
                     {
                         retorno = false;
                     }
@@ -3272,6 +3272,7 @@ namespace NFe.Service
                 case PadroesNFSe.AGILI:
                 case PadroesNFSe.GEISWEB:
                 case PadroesNFSe.CENTI:
+                case PadroesNFSe.SIGISSWEB:
                     retorno = false;
                     break;
 

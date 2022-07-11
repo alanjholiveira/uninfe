@@ -303,6 +303,12 @@ namespace NFe.Components
         [Description("Consultar NFS-e tomados")]
         NFSeConsultarNFSeTomados,
 
+        // <summary>
+        /// Consultar as notas fiscais de serviço emitidas
+        /// </summary>
+        [Description("Consultar NFS-e emitidas")]
+        NFSeConsultarNFSeEmitidas,
+
         #endregion NFSe
 
         #region CFSe
@@ -516,6 +522,15 @@ namespace NFe.Components
         #endregion Impressao do relatorio de e-mails do DANFE
 
         DFeEnviar,
+
+        #region CCG
+
+        /// <summary>
+        /// /// Consulta Centralizada de Código GTIN (CCG)
+        /// </summary>
+        CCGConsGTIN,
+
+        #endregion
 
         #region EFDReinf
 
@@ -1257,7 +1272,19 @@ namespace NFe.Components
         /// VERSATEC - Tecnologia, Educação e Comunicação
         /// </summary>
         [Description("VERSATEC")]
-        VERSATEC
+        VERSATEC,
+
+        /// <summary>
+        /// SIGISSWEB
+        /// </summary>
+        [Description("SIGISSWEB")]
+        SIGISSWEB,
+
+        /// <summary>
+        /// QUASAR - Sistemas Inteligentes de Gestão
+        /// </summary>
+        [Description("QUASAR")]
+        QUASAR
 
         ///***ATENÇÃO***
         ///o nome deste enum tem que coincidir com o nome da url, pq faço um "IndexOf" deste enum para pegar o padrao
