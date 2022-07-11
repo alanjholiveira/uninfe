@@ -235,10 +235,18 @@ namespace NFe.Service
                 if (ret.ChildNodes[n].Name.Equals(tagNameDoc))
                 {
                     var FileToFtp = "";
-                    var NSU = ret.ChildNodes[n].Attributes[TpcnResources.NSU.ToString()].Value;
+                    var NSU = "";
+                    if (ret.ChildNodes[n].Attributes[TpcnResources.NSU.ToString()] == null)
+                    {
+                        NSU = "000000000000000";
+                    }
+                    else
+                    {
+                        NSU = ret.ChildNodes[n].Attributes[TpcnResources.NSU.ToString()].Value;                        
+                    }
 
                     ///
-                    /// descompacta o conteudo
+                    /// descompacta o conteúdo
                     ///
                     var xmlRes = TFunctions.Decompress(ret.ChildNodes[n].InnerText);
 
@@ -247,7 +255,7 @@ namespace NFe.Service
 
                     if (string.IsNullOrEmpty(xmlRes))
                     {
-                        Auxiliar.WriteLog("LeRetornoNFe: Não foi possivel descompactar o conteudo da NSU: " + NSU, false);
+                        Auxiliar.WriteLog("LeRetornoNFe: Não foi possível descompactar o conteúdo da NSU: " + NSU, false);
                     }
                     else
                     {
@@ -263,7 +271,7 @@ namespace NFe.Service
                             var tpEvento = Functions.LerTag(((XmlElement)((XmlElement)docXML.GetElementsByTagName("evento")[0]).GetElementsByTagName("infEvento")[0]), "tpEvento", false);
                             var nSeqEvento = Functions.LerTag(((XmlElement)((XmlElement)docXML.GetElementsByTagName("evento")[0]).GetElementsByTagName("infEvento")[0]), "nSeqEvento", false);
 
-                            if (Empresas.Configuracoes[emp].ArqNSU)
+                            if (Empresas.Configuracoes[emp].ArqNSU && Convert.ToInt64((string.IsNullOrWhiteSpace(NSU) ? "0" : NSU)) > 0)
                             {
                                 FileToFtp = Path.Combine(folderTerceiros, fileRetorno2 + "-" + NSU + Propriedade.ExtRetorno.ProcEventoNFe);
                             }
@@ -276,7 +284,7 @@ namespace NFe.Service
                         {
                             var chave = ((XmlElement)docXML.GetElementsByTagName("infNFe")[0]).GetAttribute("Id").Substring(3, 44);
 
-                            if (Empresas.Configuracoes[emp].ArqNSU)
+                            if (Empresas.Configuracoes[emp].ArqNSU && Convert.ToInt64((string.IsNullOrWhiteSpace(NSU) ? "0" : NSU)) > 0)
                             {
                                 FileToFtp = Path.Combine(folderTerceiros, fileRetorno2 + "-" + NSU + Propriedade.ExtRetorno.ProcNFe);
                             }

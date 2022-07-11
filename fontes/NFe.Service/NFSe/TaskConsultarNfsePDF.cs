@@ -41,30 +41,63 @@ namespace NFe.Service.NFSe
                         break;
 
                     default:
-                        var wsProxy = ConfiguracaoApp.DefinirWS(Servico, emp, oDadosPedNfsePDF.cMunicipio, oDadosPedNfsePDF.tpAmb, oDadosPedNfsePDF.tpEmis, padraoNFSe, oDadosPedNfsePDF.cMunicipio);
-                        var pedNfsePNG = wsProxy.CriarObjeto(wsProxy.NomeClasseWS);
-                        var cabecMsg = "";
+                        WebServiceProxy wsProxy = null;
+                        object pedNfsePNG = null;
 
-                        var securityProtocolType = WebServiceProxy.DefinirProtocoloSeguranca(oDadosPedNfsePDF.cMunicipio, oDadosPedNfsePDF.tpAmb, oDadosPedNfsePDF.tpEmis, padraoNFSe, Servico);
-
-                        var ad = new AssinaturaDigital();
-                        ad.Assinar(NomeArquivoXML, emp, Convert.ToInt32(oDadosPedNfsePDF.cMunicipio));
-
-                        oInvocarObj.InvocarNFSe(wsProxy, pedNfsePNG, NomeMetodoWS(Servico, oDadosPedNfsePDF.cMunicipio), cabecMsg, this,
-                                                Propriedade.Extensao(Propriedade.TipoEnvio.PedNFSePDF).EnvioXML,
-                                                Propriedade.Extensao(Propriedade.TipoEnvio.PedNFSePDF).RetornoXML,
-                                                padraoNFSe, Servico, securityProtocolType);
-
-                        ConvertBase64ToPDF(emp, padraoNFSe);
-
-                        var filenameFTP = Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno,
-                                                        Functions.ExtrairNomeArq(NomeArquivoXML, Propriedade.Extensao(Propriedade.TipoEnvio.PedNFSePDF).EnvioXML) +
-                                                        Propriedade.Extensao(Propriedade.TipoEnvio.PedNFSePDF).RetornoXML);
-                        if(File.Exists(filenameFTP))
+                        if (IsUtilizaCompilacaoWs(padraoNFSe))
                         {
-                            new GerarXML(emp).XmlParaFTP(emp, filenameFTP);
+                            wsProxy = ConfiguracaoApp.DefinirWS(Servico, emp, oDadosPedNfsePDF.cMunicipio, oDadosPedNfsePDF.tpAmb, oDadosPedNfsePDF.tpEmis, padraoNFSe, oDadosPedNfsePDF.cMunicipio);
+                            pedNfsePNG = wsProxy.CriarObjeto(wsProxy.NomeClasseWS);
                         }
 
+                        var cabecMsg = "";
+
+                        switch (padraoNFSe)
+                        {
+                            #region SIGISSWEB
+
+                            case PadroesNFSe.SIGISSWEB:
+                                var sigissweb = new Components.SIGISSWEB.SIGISSWEB((TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
+                                                                Empresas.Configuracoes[emp].PastaXmlRetorno,
+                                                                Empresas.Configuracoes[emp].UsuarioWS,
+                                                                Empresas.Configuracoes[emp].SenhaWS);
+
+                                if (ConfiguracaoApp.Proxy)
+                                {
+                                    sigissweb.Proxy = Unimake.Net.Utility.GetProxy(ConfiguracaoApp.ProxyServidor, ConfiguracaoApp.ProxyUsuario, ConfiguracaoApp.ProxySenha, ConfiguracaoApp.ProxyPorta);
+                                }
+
+                                sigissweb.ConsultarNfsePDF(NomeArquivoXML);
+                                break;
+
+                                #endregion SIGISSWEB
+                        }
+                       
+                        var securityProtocolType = WebServiceProxy.DefinirProtocoloSeguranca(oDadosPedNfsePDF.cMunicipio, oDadosPedNfsePDF.tpAmb, oDadosPedNfsePDF.tpEmis, padraoNFSe, Servico);
+
+                        if (IsInvocar(padraoNFSe, Servico, oDadosPedNfsePDF.cMunicipio))
+                        {
+                            
+
+                            var ad = new AssinaturaDigital();
+                            ad.Assinar(NomeArquivoXML, emp, Convert.ToInt32(oDadosPedNfsePDF.cMunicipio));
+
+                            oInvocarObj.InvocarNFSe(wsProxy, pedNfsePNG, NomeMetodoWS(Servico, oDadosPedNfsePDF.cMunicipio), cabecMsg, this,
+                                                    Propriedade.Extensao(Propriedade.TipoEnvio.PedNFSePDF).EnvioXML,
+                                                    Propriedade.Extensao(Propriedade.TipoEnvio.PedNFSePDF).RetornoXML,
+                                                    padraoNFSe, Servico, securityProtocolType);
+
+                            ConvertBase64ToPDF(emp, padraoNFSe);
+
+                            var filenameFTP = Path.Combine(Empresas.Configuracoes[emp].PastaXmlRetorno,
+                                                            Functions.ExtrairNomeArq(NomeArquivoXML, Propriedade.Extensao(Propriedade.TipoEnvio.PedNFSePDF).EnvioXML) +
+                                                            Propriedade.Extensao(Propriedade.TipoEnvio.PedNFSePDF).RetornoXML);
+                            if (File.Exists(filenameFTP))
+                            {
+                                new GerarXML(emp).XmlParaFTP(emp, filenameFTP);
+                            }
+                        }
+                          
                         break;
                 }
             }

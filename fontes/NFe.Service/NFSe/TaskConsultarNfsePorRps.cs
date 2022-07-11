@@ -76,6 +76,10 @@ namespace NFe.Service.NFSe
                             case 3168606: //Teófilo Otoni-MG
                             case 3523107: //Itaquaquecetuba-SP
                             case 3115300: //Cataguases-MG
+                            case 3147907: //Passos-MG
+                            case 5107602: //Rondonópolis-MT
+                            case 3147105: //Pará de Minas-MG
+                            case 3303401: //Nova Friburgo-RJ
                                 ExecuteDLL(emp, ler.oDadosPedSitNfseRps.cMunicipio, padraoNFSe);
                                 break;
 
@@ -269,6 +273,24 @@ namespace NFe.Service.NFSe
                                         geisWeb.ConsultarNfsePorRps(NomeArquivoXML);
                                         break;
 
+                                   case PadroesNFSe.SOFTPLAN:
+                                        var softplan = new Components.SOFTPLAN.SOFTPLAN((TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
+                                                                        Empresas.Configuracoes[emp].PastaXmlRetorno,
+                                                                        Empresas.Configuracoes[emp].TokenNFse,
+                                                                        Empresas.Configuracoes[emp].TokenNFSeExpire,
+                                                                        Empresas.Configuracoes[emp].UsuarioWS,
+                                                                        Empresas.Configuracoes[emp].SenhaWS,
+                                                                        Empresas.Configuracoes[emp].ClientID,
+                                                                        Empresas.Configuracoes[emp].ClientSecret);
+
+                                        if (ConfiguracaoApp.Proxy)
+                                        {
+                                            softplan.Proxy = Unimake.Net.Utility.GetProxy(ConfiguracaoApp.ProxyServidor, ConfiguracaoApp.ProxyUsuario, ConfiguracaoApp.ProxySenha, ConfiguracaoApp.ProxyPorta);
+                                        }
+
+                                        softplan.ConsultarNfsePorRps(NomeArquivoXML);
+                                        break;
+
                                     case PadroesNFSe.EQUIPLANO:
                                         cabecMsg = "1";
                                         break;
@@ -420,7 +442,8 @@ namespace NFe.Service.NFSe
                                             ler.oDadosPedSitNfseRps.cMunicipio == 1502400 ||
                                             ler.oDadosPedSitNfseRps.cMunicipio == 4301057 ||
                                             ler.oDadosPedSitNfseRps.cMunicipio == 4115804 ||
-                                            ler.oDadosPedSitNfseRps.cMunicipio == 3550803)
+                                            ler.oDadosPedSitNfseRps.cMunicipio == 3550803 ||
+                                            ler.oDadosPedSitNfseRps.cMunicipio == 4313953)
                                         {
                                             var pronin = new Pronin((TipoAmbiente)Empresas.Configuracoes[emp].AmbienteCodigo,
                                                 Empresas.Configuracoes[emp].PastaXmlRetorno,
@@ -686,12 +709,12 @@ namespace NFe.Service.NFSe
                     break;
 
                 case PadroesNFSe.SONNER:
+                case PadroesNFSe.QUASAR:
                     versaoXML = "2.01";
                     break;
 
                 case PadroesNFSe.AVMB_ASTEN:
                 case PadroesNFSe.WEBISS:
-                case PadroesNFSe.COPLAN:
                 case PadroesNFSe.VERSATEC:
                     versaoXML = "2.02";
                     break;
@@ -700,6 +723,7 @@ namespace NFe.Service.NFSe
                 case PadroesNFSe.SIMPLISS:
                 case PadroesNFSe.SMARAPD:
                 case PadroesNFSe.DSF:
+                case PadroesNFSe.COPLAN:
                     versaoXML = "2.03";
                     break;
 
@@ -709,6 +733,9 @@ namespace NFe.Service.NFSe
                     versaoXML = "2.04";
                     break;
 
+                case PadroesNFSe.GINFES:
+                    versaoXML = "3.00";
+                    break;
             }
 
             return versaoXML;

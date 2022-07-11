@@ -524,7 +524,6 @@ namespace NFe.UI.Formularios
                            ufCod == 4207502 /*Indaial-SC*/ ||
                            ufCod == 4211801 /*Ouro-SC*/ ||
                            ufCod == 3500501 /*Aguas de Lindoia-SP*/ ||
-                           ufCod == 3523107 /*Itaquaquecetuba-SP*/ ||
                            ufCod == 3143104 /*Monte Carnmelo-MG*/||
                            ufCod == 2931350 /*Teixeira de Freitas-BA*/||
                            ufCod == 3205101 /*Viana-ES*/ ||
@@ -561,7 +560,6 @@ namespace NFe.UI.Formularios
                            ufCod == 4213500 /*Porto Belo-SC*/||
                            ufCod == 4215000 /*Rio Negrinho-SC*/||
                            ufCod == 3205200 /*Vila Velha-ES*/||
-                           ufCod == 3303401 /*Nova Friburgo-RJ*/||
                            ufCod == 4109401 /*Guarapuava-PR*/||
                            ufCod == 4218202 /*Timbó-SC*/||
                            ufCod == 3306305 /*Volta Redonda-RJ*/||
@@ -575,7 +573,11 @@ namespace NFe.UI.Formularios
                            ufCod == 4214706 /*Rio dos Cedros-SC*/||
                            ufCod == 5220454 /*Senador Canedo-GO*/||
                            ufCod == 4212809 /*Balneário Piçarras-SC*/||
-                           ufCod == 5007109 /*Ribas do Rio Pardo-MS*/;
+                           ufCod == 5007109 /*Ribas do Rio Pardo-MS*/||
+                           ufCod == 3526704 /*Leme-SP*/||
+                           ufCod == 5008305 /*Tres Lagoas-MS*/||
+                           ufCod == 5220603 /*Silvânia-GO*/||
+                           ufCod == 4204509 /*Corupá-SC*/;
 
             lbl_UsuarioWS.Visible = txtUsuarioWS.Visible = lbl_SenhaWS.Visible = txtSenhaWS.Visible = visible;
         }

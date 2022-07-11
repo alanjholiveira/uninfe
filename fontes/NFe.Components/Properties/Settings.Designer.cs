@@ -12,7 +12,7 @@ namespace NFe.Components.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.0.3.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -166,7 +166,7 @@ namespace NFe.Components.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://srv2-isscuritiba.curitiba.pr.gov.br/Iss.NfseWebService/nfsews.asmx")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://isscuritiba.curitiba.pr.gov.br/Iss.NfseWebService/NfseWs.asmx")]
         public string NFe_Components_br_gov_egoverne_isscuritiba_curitiba_p_WS_x0020___x0020_NFS_e_x0020_V1_0_0_1 {
             get {
                 return ((string)(this["NFe_Components_br_gov_egoverne_isscuritiba_curitiba_p_WS_x0020___x0020_NFS_e_x002" +
@@ -1672,27 +1672,6 @@ namespace NFe.Components.Properties {
         public string NFe_Components_HParanapanemaSP_NFSeIntegracao {
             get {
                 return ((string)(this["NFe_Components_HParanapanemaSP_NFSeIntegracao"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://www.gp.srv.br/tributario_homologacao/servlet/anfse_web_service")]
-        public string NFe_Components_HRondonopolisMT_nfse_web_service {
-            get {
-                return ((string)(this["NFe_Components_HRondonopolisMT_nfse_web_service"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://intranet.rondonopolis.mt.gov.br/tributario_rondonopolis/servlet/anfse_web_" +
-            "service")]
-        public string NFe_Components_PRondonopolisMT_nfse_web_service {
-            get {
-                return ((string)(this["NFe_Components_PRondonopolisMT_nfse_web_service"]));
             }
         }
         
@@ -3512,6 +3491,36 @@ namespace NFe.Components.Properties {
         public string NFe_Components_HRibasDoRioPardoMS_IssWebWS {
             get {
                 return ((string)(this["NFe_Components_HRibasDoRioPardoMS_IssWebWS"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://pantanogrande-portais.govcloud.com.br/NFSe.Portal.Integracao/Services.svc")]
+        public string NFe_Components_PPantanoGrandeRS_NFSeIntegracao {
+            get {
+                return ((string)(this["NFe_Components_PPantanoGrandeRS_NFSeIntegracao"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://fi1.fiorilli.com.br:5663/IssWeb-ejb/IssWebWS/IssWebWS")]
+        public string NFe_Components_HTresLagoasMS_IssWebWS {
+            get {
+                return ((string)(this["NFe_Components_HTresLagoasMS_IssWebWS"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://issweb.treslagoas.ms.gov.br:8080/IssWeb-ejb/IssWebWS/IssWebWS")]
+        public string NFe_Components_PTresLagoasMS_IssWebWS {
+            get {
+                return ((string)(this["NFe_Components_PTresLagoasMS_IssWebWS"]));
             }
         }
     }

@@ -4,6 +4,7 @@
 using System;
 using System.IO;
 using System.Net;
+using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Security.Cryptography.Xml;
 using System.Xml;
@@ -138,7 +139,7 @@ namespace NFe.Components.EloTech.WS
             signedXml.AddReference(reference);
 
             // *** Finally create the signature
-            signedXml.ComputeSignature();
+            signedXml.ComputeSignature(KeyedHashAlgorithm.Create());
 
             // *** wsse:Security element
             var soapSignature = doc.DocumentElement.SelectSingleNode(@"//wsse:Security", ns) as XmlElement;

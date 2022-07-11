@@ -6,7 +6,7 @@ namespace NFSe.Components
     {
         public static void CriarListaIDXML()
         {
-            #region 2.02
+            #region 2.03
 
             #region XML de Lote RPS
 
@@ -17,6 +17,21 @@ namespace NFSe.Components
                 ArquivoXSD = "NFSe\\RLZ_INFORMATICA_02\\XSDRLZ_Informatica_02.xsd",
                 Descricao = "XML de Lote RPS",
                 TagLoteAssinatura = "EnviarLoteRpsEnvio",
+                TagLoteAtributoId = "LoteRps",
+                TargetNameSpace = "http://www.abrasf.org.br/nfse.xsd"
+            });
+
+            #endregion XML de Lote RPS
+
+            #region XML de Lote RPS
+
+            SchemaXML.InfSchemas.Add("NFSE-RLZ_INFORMATICA_02-EnviarLoteRpsSincronoEnvio", new InfSchema()
+            {
+                Tag = "EnviarLoteRpsSincronoEnvio",
+                ID = SchemaXML.InfSchemas.Count + 1,
+                ArquivoXSD = "NFSe\\RLZ_INFORMATICA_02\\XSDRLZ_Informatica_02.xsd",
+                Descricao = "XML de Lote RPS",
+                TagLoteAssinatura = "EnviarLoteRpsSincronoEnvio",
                 TagLoteAtributoId = "LoteRps",
                 TargetNameSpace = "http://www.abrasf.org.br/nfse.xsd"
             });
@@ -98,7 +113,7 @@ namespace NFSe.Components
 
             #endregion XML para Gerar NFse
 
-            #endregion 2.02
+            #endregion 2.03
         }
     }
 }

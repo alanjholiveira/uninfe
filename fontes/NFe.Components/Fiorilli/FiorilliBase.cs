@@ -102,8 +102,12 @@ namespace NFe.Components.Fiorilli
                                 fiorilliService = new SenadorCanedoGO.h.FiorilliH(tpAmb, PastaRetorno, Usuario, SenhaWs, ProxyUser, ProxyPass, ProxyServer, Certificado);
                                 break;
 
-                            case 5007109://Senador Canedo-GO
+                            case 5007109://Ribas do Rio Pardo-MS
                                 fiorilliService = new RibasDoRioPardoMS.h.FiorilliH(tpAmb, PastaRetorno, Usuario, SenhaWs, ProxyUser, ProxyPass, ProxyServer, Certificado);
+                                break;
+
+                            case 5008305://Tres Lagos-MS
+                                fiorilliService = new TresLagoasMS.h.FiorilliH(tpAmb, PastaRetorno, Usuario, SenhaWs, ProxyUser, ProxyPass, ProxyServer, Certificado);
                                 break;
 
                             default:
@@ -204,8 +208,12 @@ namespace NFe.Components.Fiorilli
                                 fiorilliService = new PSenadorCanedoGO.p.FiorilliP(tpAmb, PastaRetorno, Usuario, SenhaWs, ProxyUser, ProxyPass, ProxyServer, Certificado);
                                 break;
 
-                            case 5007109://Senador Canedo-GO
+                            case 5007109://Ribas do Rio Pardo-GO
                                 fiorilliService = new RibasDoRioPardoMS.p.FiorilliP(tpAmb, PastaRetorno, Usuario, SenhaWs, ProxyUser, ProxyPass, ProxyServer, Certificado);
+                                break;
+
+                            case 5008305://Tres Lagoas-MS
+                                fiorilliService = new TresLagoasMS.p.FiorilliP(tpAmb, PastaRetorno, Usuario, SenhaWs, ProxyUser, ProxyPass, ProxyServer, Certificado);
                                 break;
 
                             default:

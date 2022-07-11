@@ -23,7 +23,7 @@ namespace NFe.Components
         public static string SenhaAdm = "6669cd292bdd72783706b013860c546a";
 
 
-        public const string UrlManualUniNFe = "http://wiki.unimake.com.br/index.php/Manuais:UniNFe";
+        public const string UrlManualUniNFe = "https://wiki.unimake.com.br/index.php/Manuais:UniNFe";
 
         /// <summary>
         /// Nome para a pasta dos XML assinados
@@ -323,6 +323,7 @@ namespace NFe.Components
             PedSitNFSeRec,
             PedSitNFSeTom,
             PedStaNFse,
+            PedNFSeEmit,
 
             /// <summary>
             /// CFSe
@@ -407,7 +408,12 @@ namespace NFe.Components
             /// GNRE
             ///
             GNRE,
-            GNRE_consconfiguf
+            GNRE_consconfiguf,
+
+            ///
+            /// CCG
+            ///
+            CCG_consgtin
         }
 
         private static Dictionary<TipoEnvio, ExtensaoClass> ListaExtensoes = new Dictionary<TipoEnvio, ExtensaoClass>();
@@ -710,6 +716,12 @@ namespace NFe.Components
                 "",
                 "Pedido de Status da nota (NFSe)"));
 
+            ListaExtensoes.Add(TipoEnvio.PedNFSeEmit, new ExtensaoClass(
+                "-ped-nfseemit.xml", "",
+                "-nfseemit.xml", "",
+                "-nfseemit.err",
+                "Consultar NFSe emitidas"));
+
             #endregion Extensoes da NFSe
 
             #region Extensões CFSe
@@ -923,6 +935,16 @@ namespace NFe.Components
                "Envio da consulta configuração da UF da GNRE"));
 
             #endregion
+
+            #region CCG
+
+            ListaExtensoes.Add(TipoEnvio.CCG_consgtin, new ExtensaoClass(
+               "-consGTIN.xml", "",
+               "-ret-consGTIN.xml", "",
+               "-ret-consGTIN.err",
+               "Consulta Centralizada de Código GTIN (CCG)"));
+
+            #endregion CCG
 
             #region Exporadicos
 

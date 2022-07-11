@@ -4,6 +4,7 @@ using NFe.Components.Info;
 using NFe.ConvertTxt;
 using NFe.Exceptions;
 using NFe.SAT;
+using NFe.Service.CCG;
 using NFe.Service.GNRE;
 using NFe.Settings;
 using NFe.Validate;
@@ -121,6 +122,10 @@ namespace NFe.Service
 
                         case Servicos.NFSeConsultarNFSeRecebidas:
                             DirecionarArquivo(emp, true, true, arquivo, new NFSe.TaskConsultarNfseRecebidas(arquivo));
+                            break;
+
+                        case Servicos.NFSeConsultarNFSeEmitidas:
+                            DirecionarArquivo(emp, true, true, arquivo, new NFSe.TaskConsultarNfseEmitidas(arquivo));
                             break;
 
                         case Servicos.NFSeConsultarNFSeTomados:
@@ -483,6 +488,13 @@ namespace NFe.Service
                         case Servicos.ConsultaConfigUfGNRE:
                             DirecionarArquivo(emp, true, true, arquivo, new TaskConsultaConfigUfGNRE(arquivo));
                             break;
+                        #endregion
+
+                        #region CCG
+                        case Servicos.CCGConsGTIN:
+                            DirecionarArquivo(emp, true, true, arquivo, new TaskCcgConsGTIN(arquivo));
+                            break;
+
                             #endregion
 
                     }
@@ -771,10 +783,22 @@ namespace NFe.Service
                     #region Arquivos com extensão XML
 
                     {
-                        var doc = new XmlDocument();
-                        doc.Load(fullPath);
+                        string nameTag = "";
+                        string lastChildName = "";
+                        try
+                        {
+                            var doc = new XmlDocument();
+                            doc.Load(fullPath);
 
-                        switch(doc.DocumentElement.Name)
+                            nameTag = doc.DocumentElement.Name;
+                            lastChildName = doc.DocumentElement.LastChild.Name;
+                        }
+                        catch
+                        { 
+                        }
+
+
+                        switch(nameTag)
                         {
                             #region DFe
 
@@ -957,7 +981,7 @@ namespace NFe.Service
                             #region EFDReinf
 
                             case "Reinf":
-                                switch(doc.DocumentElement.LastChild.Name)
+                                switch(lastChildName)
                                 {
                                     case "ConsultaResultadoFechamento2099":
                                     case "ConsultaInformacoesConsolidadas":
@@ -981,7 +1005,7 @@ namespace NFe.Service
                             #region eSocial
 
                             case "eSocial":
-                                switch(doc.DocumentElement.LastChild.Name)
+                                switch(lastChildName)
                                 {
                                     case "consultaLoteEventos":
                                         tipoServico = Servicos.ConsultarLoteeSocial;
@@ -1022,6 +1046,14 @@ namespace NFe.Service
 
                             case "TConsultaConfigUf":
                                 tipoServico = Servicos.ConsultaConfigUfGNRE;
+                                break;
+
+                            #endregion
+
+                            #region CCG
+
+                            case "consGTIN":
+                                tipoServico = Servicos.CCGConsGTIN;
                                 break;
 
                             #endregion
@@ -1097,6 +1129,10 @@ namespace NFe.Service
                                 else if(arq.IndexOf(Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeRec).EnvioXML) >= 0)
                                 {
                                     tipoServico = Servicos.NFSeConsultarNFSeRecebidas;
+                                }
+                                else if (arq.IndexOf(Propriedade.Extensao(Propriedade.TipoEnvio.PedNFSeEmit).EnvioXML) >= 0)
+                                {
+                                    tipoServico = Servicos.NFSeConsultarNFSeEmitidas;
                                 }
                                 else if(arq.IndexOf(Propriedade.Extensao(Propriedade.TipoEnvio.PedSitNFSeTom).EnvioXML) >= 0)
                                 {

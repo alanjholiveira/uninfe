@@ -14,21 +14,25 @@
 #pragma warning disable 1591
 
 namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
-    using System;
-    using System.Web.Services;
     using System.Diagnostics;
-    using System.Web.Services.Protocols;
+    using System;
     using System.Xml.Serialization;
     using System.ComponentModel;
+    using System.Web.Services.Protocols;
+    using System.Web.Services;
     
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Web.Services.WebServiceBindingAttribute(Name="WS - NFS-e V1.0.0.1Soap", Namespace="http://www.e-governeapps2.com.br/")]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(tcRps))]
     public partial class WSNFSeV1001 : System.Web.Services.Protocols.SoapHttpClientProtocol {
+        
+        private System.Threading.SendOrPostCallback CancelarLoteNfseOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback CancelarLoteRpsOperationCompleted;
         
         private System.Threading.SendOrPostCallback RecepcionarLoteRpsOperationCompleted;
         
@@ -45,10 +49,6 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
         private System.Threading.SendOrPostCallback ValidarXmlOperationCompleted;
         
         private System.Threading.SendOrPostCallback RecepcionarXmlOperationCompleted;
-        
-        private System.Threading.SendOrPostCallback CancelarLoteNfseOperationCompleted;
-        
-        private System.Threading.SendOrPostCallback CancelarLoteRpsOperationCompleted;
         
         private bool useDefaultCredentialsSetExplicitly;
         
@@ -89,6 +89,12 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
         }
         
         /// <remarks/>
+        public event CancelarLoteNfseCompletedEventHandler CancelarLoteNfseCompleted;
+        
+        /// <remarks/>
+        public event CancelarLoteRpsCompletedEventHandler CancelarLoteRpsCompleted;
+        
+        /// <remarks/>
         public event RecepcionarLoteRpsCompletedEventHandler RecepcionarLoteRpsCompleted;
         
         /// <remarks/>
@@ -113,10 +119,62 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
         public event RecepcionarXmlCompletedEventHandler RecepcionarXmlCompleted;
         
         /// <remarks/>
-        public event CancelarLoteNfseCompletedEventHandler CancelarLoteNfseCompleted;
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://www.e-governeapps2.com.br/CancelarLoteNfse", RequestNamespace="http://www.e-governeapps2.com.br/", ResponseNamespace="http://www.e-governeapps2.com.br/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public CancelarLoteNfseResposta CancelarLoteNfse(CancelarLoteNfseEnvio CancelarLoteNfseEnvio) {
+            object[] results = this.Invoke("CancelarLoteNfse", new object[] {
+                        CancelarLoteNfseEnvio});
+            return ((CancelarLoteNfseResposta)(results[0]));
+        }
         
         /// <remarks/>
-        public event CancelarLoteRpsCompletedEventHandler CancelarLoteRpsCompleted;
+        public void CancelarLoteNfseAsync(CancelarLoteNfseEnvio CancelarLoteNfseEnvio) {
+            this.CancelarLoteNfseAsync(CancelarLoteNfseEnvio, null);
+        }
+        
+        /// <remarks/>
+        public void CancelarLoteNfseAsync(CancelarLoteNfseEnvio CancelarLoteNfseEnvio, object userState) {
+            if ((this.CancelarLoteNfseOperationCompleted == null)) {
+                this.CancelarLoteNfseOperationCompleted = new System.Threading.SendOrPostCallback(this.OnCancelarLoteNfseOperationCompleted);
+            }
+            this.InvokeAsync("CancelarLoteNfse", new object[] {
+                        CancelarLoteNfseEnvio}, this.CancelarLoteNfseOperationCompleted, userState);
+        }
+        
+        private void OnCancelarLoteNfseOperationCompleted(object arg) {
+            if ((this.CancelarLoteNfseCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.CancelarLoteNfseCompleted(this, new CancelarLoteNfseCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://www.e-governeapps2.com.br/CancelarLoteRps", RequestNamespace="http://www.e-governeapps2.com.br/", ResponseNamespace="http://www.e-governeapps2.com.br/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public CancelarLoteRpsResposta CancelarLoteRps(CancelarLoteRpsEnvio CancelarLoteRpsEnvio) {
+            object[] results = this.Invoke("CancelarLoteRps", new object[] {
+                        CancelarLoteRpsEnvio});
+            return ((CancelarLoteRpsResposta)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void CancelarLoteRpsAsync(CancelarLoteRpsEnvio CancelarLoteRpsEnvio) {
+            this.CancelarLoteRpsAsync(CancelarLoteRpsEnvio, null);
+        }
+        
+        /// <remarks/>
+        public void CancelarLoteRpsAsync(CancelarLoteRpsEnvio CancelarLoteRpsEnvio, object userState) {
+            if ((this.CancelarLoteRpsOperationCompleted == null)) {
+                this.CancelarLoteRpsOperationCompleted = new System.Threading.SendOrPostCallback(this.OnCancelarLoteRpsOperationCompleted);
+            }
+            this.InvokeAsync("CancelarLoteRps", new object[] {
+                        CancelarLoteRpsEnvio}, this.CancelarLoteRpsOperationCompleted, userState);
+        }
+        
+        private void OnCancelarLoteRpsOperationCompleted(object arg) {
+            if ((this.CancelarLoteRpsCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.CancelarLoteRpsCompleted(this, new CancelarLoteRpsCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://www.e-governeapps2.com.br/RecepcionarLoteRps", RequestNamespace="http://www.e-governeapps2.com.br/", ResponseNamespace="http://www.e-governeapps2.com.br/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -353,64 +411,6 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://www.e-governeapps2.com.br/CancelarLoteNfse", RequestNamespace="http://www.e-governeapps2.com.br/", ResponseNamespace="http://www.e-governeapps2.com.br/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public CancelarLoteNfseResposta CancelarLoteNfse(CancelarLoteNfseEnvio CancelarLoteNfseEnvio) {
-            object[] results = this.Invoke("CancelarLoteNfse", new object[] {
-                        CancelarLoteNfseEnvio});
-            return ((CancelarLoteNfseResposta)(results[0]));
-        }
-        
-        /// <remarks/>
-        public void CancelarLoteNfseAsync(CancelarLoteNfseEnvio CancelarLoteNfseEnvio) {
-            this.CancelarLoteNfseAsync(CancelarLoteNfseEnvio, null);
-        }
-        
-        /// <remarks/>
-        public void CancelarLoteNfseAsync(CancelarLoteNfseEnvio CancelarLoteNfseEnvio, object userState) {
-            if ((this.CancelarLoteNfseOperationCompleted == null)) {
-                this.CancelarLoteNfseOperationCompleted = new System.Threading.SendOrPostCallback(this.OnCancelarLoteNfseOperationCompleted);
-            }
-            this.InvokeAsync("CancelarLoteNfse", new object[] {
-                        CancelarLoteNfseEnvio}, this.CancelarLoteNfseOperationCompleted, userState);
-        }
-        
-        private void OnCancelarLoteNfseOperationCompleted(object arg) {
-            if ((this.CancelarLoteNfseCompleted != null)) {
-                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.CancelarLoteNfseCompleted(this, new CancelarLoteNfseCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-            }
-        }
-        
-        /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://www.e-governeapps2.com.br/CancelarLoteRps", RequestNamespace="http://www.e-governeapps2.com.br/", ResponseNamespace="http://www.e-governeapps2.com.br/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public CancelarLoteRpsResposta CancelarLoteRps(CancelarLoteRpsEnvio CancelarLoteRpsEnvio) {
-            object[] results = this.Invoke("CancelarLoteRps", new object[] {
-                        CancelarLoteRpsEnvio});
-            return ((CancelarLoteRpsResposta)(results[0]));
-        }
-        
-        /// <remarks/>
-        public void CancelarLoteRpsAsync(CancelarLoteRpsEnvio CancelarLoteRpsEnvio) {
-            this.CancelarLoteRpsAsync(CancelarLoteRpsEnvio, null);
-        }
-        
-        /// <remarks/>
-        public void CancelarLoteRpsAsync(CancelarLoteRpsEnvio CancelarLoteRpsEnvio, object userState) {
-            if ((this.CancelarLoteRpsOperationCompleted == null)) {
-                this.CancelarLoteRpsOperationCompleted = new System.Threading.SendOrPostCallback(this.OnCancelarLoteRpsOperationCompleted);
-            }
-            this.InvokeAsync("CancelarLoteRps", new object[] {
-                        CancelarLoteRpsEnvio}, this.CancelarLoteRpsOperationCompleted, userState);
-        }
-        
-        private void OnCancelarLoteRpsOperationCompleted(object arg) {
-            if ((this.CancelarLoteRpsCompleted != null)) {
-                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.CancelarLoteRpsCompleted(this, new CancelarLoteRpsCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-            }
-        }
-        
-        /// <remarks/>
         public new void CancelAsync(object userState) {
             base.CancelAsync(userState);
         }
@@ -430,24 +430,24 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.e-governeapps2.com.br/")]
-    public partial class EnviarLoteRpsEnvio {
+    public partial class CancelarLoteNfseEnvio {
         
-        private tcLoteRps loteRpsField;
+        private LoteCancelamento loteCancelamentoField;
         
         private SignatureType signatureField;
         
         /// <remarks/>
-        public tcLoteRps LoteRps {
+        public LoteCancelamento LoteCancelamento {
             get {
-                return this.loteRpsField;
+                return this.loteCancelamentoField;
             }
             set {
-                this.loteRpsField = value;
+                this.loteCancelamentoField = value;
             }
         }
         
@@ -463,30 +463,149 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.e-governeapps2.com.br/")]
-    public partial class tcLoteRps {
-        
-        private ulong numeroLoteField;
+    public partial class LoteCancelamento {
         
         private string cnpjField;
         
         private string inscricaoMunicipalField;
         
-        private int quantidadeRpsField;
-        
-        private Rps[] listaRpsField;
+        private PedidoCancelamento[] pedidosCancelamentoField;
         
         /// <remarks/>
-        public ulong NumeroLote {
+        public string Cnpj {
             get {
-                return this.numeroLoteField;
+                return this.cnpjField;
             }
             set {
-                this.numeroLoteField = value;
+                this.cnpjField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string InscricaoMunicipal {
+            get {
+                return this.inscricaoMunicipalField;
+            }
+            set {
+                this.inscricaoMunicipalField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public PedidoCancelamento[] PedidosCancelamento {
+            get {
+                return this.pedidosCancelamentoField;
+            }
+            set {
+                this.pedidosCancelamentoField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.e-governeapps2.com.br/")]
+    public partial class PedidoCancelamento : tcPedidoCancelamento {
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(PedidoCancelamento))]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.e-governeapps2.com.br/")]
+    public partial class tcPedidoCancelamento {
+        
+        private tcInfPedidoCancelamento infPedidoCancelamentoField;
+        
+        private SignatureType signatureField;
+        
+        /// <remarks/>
+        public tcInfPedidoCancelamento InfPedidoCancelamento {
+            get {
+                return this.infPedidoCancelamentoField;
+            }
+            set {
+                this.infPedidoCancelamentoField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public SignatureType Signature {
+            get {
+                return this.signatureField;
+            }
+            set {
+                this.signatureField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.e-governeapps2.com.br/")]
+    public partial class tcInfPedidoCancelamento {
+        
+        private tcIdentificacaoNfse identificacaoNfseField;
+        
+        private string codigoCancelamentoField;
+        
+        /// <remarks/>
+        public tcIdentificacaoNfse IdentificacaoNfse {
+            get {
+                return this.identificacaoNfseField;
+            }
+            set {
+                this.identificacaoNfseField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string CodigoCancelamento {
+            get {
+                return this.codigoCancelamentoField;
+            }
+            set {
+                this.codigoCancelamentoField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.e-governeapps2.com.br/")]
+    public partial class tcIdentificacaoNfse {
+        
+        private ulong numeroField;
+        
+        private string cnpjField;
+        
+        private string inscricaoMunicipalField;
+        
+        private int codigoMunicipioField;
+        
+        /// <remarks/>
+        public ulong Numero {
+            get {
+                return this.numeroField;
+            }
+            set {
+                this.numeroField = value;
             }
         }
         
@@ -511,338 +630,40 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
         }
         
         /// <remarks/>
-        public int QuantidadeRps {
+        public int CodigoMunicipio {
             get {
-                return this.quantidadeRpsField;
+                return this.codigoMunicipioField;
             }
             set {
-                this.quantidadeRpsField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public Rps[] ListaRps {
-            get {
-                return this.listaRpsField;
-            }
-            set {
-                this.listaRpsField = value;
+                this.codigoMunicipioField = value;
             }
         }
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.e-governeapps2.com.br/")]
-    public partial class Rps : tcRps {
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Rps))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.e-governeapps2.com.br/")]
-    public partial class tcRps {
+    public partial class ListaMensagemRetorno {
         
-        private tcInfRps infRpsField;
-        
-        private SignatureType signatureField;
+        private tcMensagemRetorno[] mensagemRetornoField;
         
         /// <remarks/>
-        public tcInfRps InfRps {
+        public tcMensagemRetorno[] MensagemRetorno {
             get {
-                return this.infRpsField;
+                return this.mensagemRetornoField;
             }
             set {
-                this.infRpsField = value;
+                this.mensagemRetornoField = value;
             }
         }
-        
-        /// <remarks/>
-        public SignatureType Signature {
-            get {
-                return this.signatureField;
-            }
-            set {
-                this.signatureField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.e-governeapps2.com.br/")]
-    public partial class tcInfRps {
-        
-        private tcIdentificacaoRps identificacaoRpsField;
-        
-        private System.DateTime dataEmissaoField;
-        
-        private byte naturezaOperacaoField;
-        
-        private System.Nullable<byte> regimeEspecialTributacaoField;
-        
-        private byte optanteSimplesNacionalField;
-        
-        private byte incentivadorCulturalField;
-        
-        private byte statusField;
-        
-        private tcIdentificacaoRps rpsSubstituidoField;
-        
-        private tcDadosServico servicoField;
-        
-        private tcIdentificacaoPrestador prestadorField;
-        
-        private tcDadosTomador tomadorField;
-        
-        private tcIdentificacaoIntermediarioServico intermediarioServicoField;
-        
-        private tcDadosConstrucaoCivil contrucaoCivilField;
-        
-        /// <remarks/>
-        public tcIdentificacaoRps IdentificacaoRps {
-            get {
-                return this.identificacaoRpsField;
-            }
-            set {
-                this.identificacaoRpsField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public System.DateTime DataEmissao {
-            get {
-                return this.dataEmissaoField;
-            }
-            set {
-                this.dataEmissaoField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public byte NaturezaOperacao {
-            get {
-                return this.naturezaOperacaoField;
-            }
-            set {
-                this.naturezaOperacaoField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<byte> RegimeEspecialTributacao {
-            get {
-                return this.regimeEspecialTributacaoField;
-            }
-            set {
-                this.regimeEspecialTributacaoField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public byte OptanteSimplesNacional {
-            get {
-                return this.optanteSimplesNacionalField;
-            }
-            set {
-                this.optanteSimplesNacionalField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public byte IncentivadorCultural {
-            get {
-                return this.incentivadorCulturalField;
-            }
-            set {
-                this.incentivadorCulturalField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public byte Status {
-            get {
-                return this.statusField;
-            }
-            set {
-                this.statusField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public tcIdentificacaoRps RpsSubstituido {
-            get {
-                return this.rpsSubstituidoField;
-            }
-            set {
-                this.rpsSubstituidoField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public tcDadosServico Servico {
-            get {
-                return this.servicoField;
-            }
-            set {
-                this.servicoField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public tcIdentificacaoPrestador Prestador {
-            get {
-                return this.prestadorField;
-            }
-            set {
-                this.prestadorField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public tcDadosTomador Tomador {
-            get {
-                return this.tomadorField;
-            }
-            set {
-                this.tomadorField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public tcIdentificacaoIntermediarioServico IntermediarioServico {
-            get {
-                return this.intermediarioServicoField;
-            }
-            set {
-                this.intermediarioServicoField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public tcDadosConstrucaoCivil ContrucaoCivil {
-            get {
-                return this.contrucaoCivilField;
-            }
-            set {
-                this.contrucaoCivilField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.e-governeapps2.com.br/")]
-    public partial class tcIdentificacaoRps {
-        
-        private ulong numeroField;
-        
-        private string serieField;
-        
-        private byte tipoField;
-        
-        /// <remarks/>
-        public ulong Numero {
-            get {
-                return this.numeroField;
-            }
-            set {
-                this.numeroField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string Serie {
-            get {
-                return this.serieField;
-            }
-            set {
-                this.serieField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public byte Tipo {
-            get {
-                return this.tipoField;
-            }
-            set {
-                this.tipoField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.e-governeapps2.com.br/")]
-    public partial class CancelarLoteRpsResposta {
-        
-        private System.Nullable<System.DateTime> dataRecebimentoField;
-        
-        private string protocoloField;
-        
-        private MensagemRetorno[] listaMensagemRetornoField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<System.DateTime> DataRecebimento {
-            get {
-                return this.dataRecebimentoField;
-            }
-            set {
-                this.dataRecebimentoField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string Protocolo {
-            get {
-                return this.protocoloField;
-            }
-            set {
-                this.protocoloField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public MensagemRetorno[] ListaMensagemRetorno {
-            get {
-                return this.listaMensagemRetornoField;
-            }
-            set {
-                this.listaMensagemRetornoField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.e-governeapps2.com.br/")]
-    public partial class MensagemRetorno : tcMensagemRetorno {
     }
     
     /// <remarks/>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(MensagemRetorno))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -887,69 +708,66 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.e-governeapps2.com.br/")]
-    public partial class tcLoteCancelamentoRps {
+    public partial class MensagemRetorno : tcMensagemRetorno {
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.e-governeapps2.com.br/")]
+    public partial class CancelarNfseResposta {
         
-        private string protocoloField;
+        private tcCancelamentoNfse cancelamentoField;
         
-        private string cnpjField;
-        
-        private string inscricaoMunicipalField;
+        private MensagemRetorno[] listaMensagemRetornoField;
         
         /// <remarks/>
-        public string Protocolo {
+        public tcCancelamentoNfse Cancelamento {
             get {
-                return this.protocoloField;
+                return this.cancelamentoField;
             }
             set {
-                this.protocoloField = value;
+                this.cancelamentoField = value;
             }
         }
         
         /// <remarks/>
-        public string Cnpj {
+        public MensagemRetorno[] ListaMensagemRetorno {
             get {
-                return this.cnpjField;
+                return this.listaMensagemRetornoField;
             }
             set {
-                this.cnpjField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string InscricaoMunicipal {
-            get {
-                return this.inscricaoMunicipalField;
-            }
-            set {
-                this.inscricaoMunicipalField = value;
+                this.listaMensagemRetornoField = value;
             }
         }
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.e-governeapps2.com.br/")]
-    public partial class CancelarLoteRpsEnvio {
+    public partial class tcCancelamentoNfse {
         
-        private tcLoteCancelamentoRps loteRpsField;
+        private tcConfirmacaoCancelamento confirmacaoField;
         
         private SignatureType signatureField;
         
         /// <remarks/>
-        public tcLoteCancelamentoRps LoteRps {
+        public tcConfirmacaoCancelamento Confirmacao {
             get {
-                return this.loteRpsField;
+                return this.confirmacaoField;
             }
             set {
-                this.loteRpsField = value;
+                this.confirmacaoField = value;
             }
         }
         
@@ -965,7 +783,40 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.e-governeapps2.com.br/")]
+    public partial class tcConfirmacaoCancelamento {
+        
+        private tcPedidoCancelamento pedidoField;
+        
+        private System.DateTime dataHoraCancelamentoField;
+        
+        /// <remarks/>
+        public tcPedidoCancelamento Pedido {
+            get {
+                return this.pedidoField;
+            }
+            set {
+                this.pedidoField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public System.DateTime DataHoraCancelamento {
+            get {
+                return this.dataHoraCancelamentoField;
+            }
+            set {
+                this.dataHoraCancelamentoField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1036,7 +887,7 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1095,7 +946,7 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1131,7 +982,7 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1180,7 +1031,7 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1266,7 +1117,7 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1315,7 +1166,7 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1351,7 +1202,7 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1386,7 +1237,7 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1456,7 +1307,7 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1493,7 +1344,7 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1593,7 +1444,7 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1628,7 +1479,7 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1667,7 +1518,7 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.w3.org/2000/09/xmldsig#", IncludeInSchema=false)]
     public enum ItemsChoiceType {
@@ -1684,7 +1535,7 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1732,7 +1583,7 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1767,7 +1618,7 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1809,7 +1660,7 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1843,7 +1694,7 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.w3.org/2000/09/xmldsig#", IncludeInSchema=false)]
     public enum ItemsChoiceType1 {
@@ -1869,7 +1720,7 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.w3.org/2000/09/xmldsig#", IncludeInSchema=false)]
     public enum ItemsChoiceType2 {
@@ -1901,7 +1752,7 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1963,384 +1814,7 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.e-governeapps2.com.br/")]
-    public partial class CancelarLoteNfseResposta {
-        
-        private System.Nullable<System.DateTime> dataRecebimentoField;
-        
-        private string protocoloField;
-        
-        private MensagemRetorno[] listaMensagemRetornoField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public System.Nullable<System.DateTime> DataRecebimento {
-            get {
-                return this.dataRecebimentoField;
-            }
-            set {
-                this.dataRecebimentoField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string Protocolo {
-            get {
-                return this.protocoloField;
-            }
-            set {
-                this.protocoloField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public MensagemRetorno[] ListaMensagemRetorno {
-            get {
-                return this.listaMensagemRetornoField;
-            }
-            set {
-                this.listaMensagemRetornoField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.e-governeapps2.com.br/")]
-    public partial class LoteCancelamento {
-        
-        private string cnpjField;
-        
-        private string inscricaoMunicipalField;
-        
-        private PedidoCancelamento[] pedidosCancelamentoField;
-        
-        /// <remarks/>
-        public string Cnpj {
-            get {
-                return this.cnpjField;
-            }
-            set {
-                this.cnpjField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string InscricaoMunicipal {
-            get {
-                return this.inscricaoMunicipalField;
-            }
-            set {
-                this.inscricaoMunicipalField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public PedidoCancelamento[] PedidosCancelamento {
-            get {
-                return this.pedidosCancelamentoField;
-            }
-            set {
-                this.pedidosCancelamentoField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.e-governeapps2.com.br/")]
-    public partial class PedidoCancelamento : tcPedidoCancelamento {
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(PedidoCancelamento))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.e-governeapps2.com.br/")]
-    public partial class tcPedidoCancelamento {
-        
-        private tcInfPedidoCancelamento infPedidoCancelamentoField;
-        
-        private SignatureType signatureField;
-        
-        /// <remarks/>
-        public tcInfPedidoCancelamento InfPedidoCancelamento {
-            get {
-                return this.infPedidoCancelamentoField;
-            }
-            set {
-                this.infPedidoCancelamentoField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public SignatureType Signature {
-            get {
-                return this.signatureField;
-            }
-            set {
-                this.signatureField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.e-governeapps2.com.br/")]
-    public partial class tcInfPedidoCancelamento {
-        
-        private tcIdentificacaoNfse identificacaoNfseField;
-        
-        private string codigoCancelamentoField;
-        
-        /// <remarks/>
-        public tcIdentificacaoNfse IdentificacaoNfse {
-            get {
-                return this.identificacaoNfseField;
-            }
-            set {
-                this.identificacaoNfseField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string CodigoCancelamento {
-            get {
-                return this.codigoCancelamentoField;
-            }
-            set {
-                this.codigoCancelamentoField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.e-governeapps2.com.br/")]
-    public partial class tcIdentificacaoNfse {
-        
-        private ulong numeroField;
-        
-        private string cnpjField;
-        
-        private string inscricaoMunicipalField;
-        
-        private int codigoMunicipioField;
-        
-        /// <remarks/>
-        public ulong Numero {
-            get {
-                return this.numeroField;
-            }
-            set {
-                this.numeroField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string Cnpj {
-            get {
-                return this.cnpjField;
-            }
-            set {
-                this.cnpjField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string InscricaoMunicipal {
-            get {
-                return this.inscricaoMunicipalField;
-            }
-            set {
-                this.inscricaoMunicipalField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public int CodigoMunicipio {
-            get {
-                return this.codigoMunicipioField;
-            }
-            set {
-                this.codigoMunicipioField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.e-governeapps2.com.br/")]
-    public partial class CancelarLoteNfseEnvio {
-        
-        private LoteCancelamento loteCancelamentoField;
-        
-        private SignatureType signatureField;
-        
-        /// <remarks/>
-        public LoteCancelamento LoteCancelamento {
-            get {
-                return this.loteCancelamentoField;
-            }
-            set {
-                this.loteCancelamentoField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public SignatureType Signature {
-            get {
-                return this.signatureField;
-            }
-            set {
-                this.signatureField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.e-governeapps2.com.br/")]
-    public partial class ListaMensagemRetorno {
-        
-        private tcMensagemRetorno[] mensagemRetornoField;
-        
-        /// <remarks/>
-        public tcMensagemRetorno[] MensagemRetorno {
-            get {
-                return this.mensagemRetornoField;
-            }
-            set {
-                this.mensagemRetornoField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.e-governeapps2.com.br/")]
-    public partial class CancelarNfseResposta {
-        
-        private tcCancelamentoNfse cancelamentoField;
-        
-        private MensagemRetorno[] listaMensagemRetornoField;
-        
-        /// <remarks/>
-        public tcCancelamentoNfse Cancelamento {
-            get {
-                return this.cancelamentoField;
-            }
-            set {
-                this.cancelamentoField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public MensagemRetorno[] ListaMensagemRetorno {
-            get {
-                return this.listaMensagemRetornoField;
-            }
-            set {
-                this.listaMensagemRetornoField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.e-governeapps2.com.br/")]
-    public partial class tcCancelamentoNfse {
-        
-        private tcConfirmacaoCancelamento confirmacaoField;
-        
-        private SignatureType signatureField;
-        
-        /// <remarks/>
-        public tcConfirmacaoCancelamento Confirmacao {
-            get {
-                return this.confirmacaoField;
-            }
-            set {
-                this.confirmacaoField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public SignatureType Signature {
-            get {
-                return this.signatureField;
-            }
-            set {
-                this.signatureField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.e-governeapps2.com.br/")]
-    public partial class tcConfirmacaoCancelamento {
-        
-        private tcPedidoCancelamento pedidoField;
-        
-        private System.DateTime dataHoraCancelamentoField;
-        
-        /// <remarks/>
-        public tcPedidoCancelamento Pedido {
-            get {
-                return this.pedidoField;
-            }
-            set {
-                this.pedidoField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public System.DateTime DataHoraCancelamento {
-            get {
-                return this.dataHoraCancelamentoField;
-            }
-            set {
-                this.dataHoraCancelamentoField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -2361,7 +1835,7 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -2394,7 +1868,7 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -2415,7 +1889,7 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -2460,7 +1934,7 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -2493,7 +1967,7 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -2730,7 +2204,52 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.e-governeapps2.com.br/")]
+    public partial class tcIdentificacaoRps {
+        
+        private ulong numeroField;
+        
+        private string serieField;
+        
+        private byte tipoField;
+        
+        /// <remarks/>
+        public ulong Numero {
+            get {
+                return this.numeroField;
+            }
+            set {
+                this.numeroField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Serie {
+            get {
+                return this.serieField;
+            }
+            set {
+                this.serieField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public byte Tipo {
+            get {
+                return this.tipoField;
+            }
+            set {
+                this.tipoField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -2811,7 +2330,7 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -3012,7 +2531,7 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -3081,7 +2600,7 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -3114,7 +2633,7 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -3207,7 +2726,7 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -3240,7 +2759,7 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -3297,7 +2816,7 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -3330,7 +2849,7 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -3363,7 +2882,7 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -3408,7 +2927,7 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -3441,7 +2960,7 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -3474,7 +2993,7 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -3507,7 +3026,7 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -3528,7 +3047,7 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -3561,7 +3080,7 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -3594,7 +3113,7 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -3629,7 +3148,7 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -3699,7 +3218,7 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -3732,7 +3251,7 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -3765,7 +3284,7 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -3812,7 +3331,7 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -3845,7 +3364,7 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -3904,219 +3423,492 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
-    public delegate void RecepcionarLoteRpsCompletedEventHandler(object sender, RecepcionarLoteRpsCompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
+    [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class RecepcionarLoteRpsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.e-governeapps2.com.br/")]
+    public partial class tcInfRps {
         
-        private object[] results;
+        private tcIdentificacaoRps identificacaoRpsField;
         
-        internal RecepcionarLoteRpsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
+        private System.DateTime dataEmissaoField;
+        
+        private byte naturezaOperacaoField;
+        
+        private System.Nullable<byte> regimeEspecialTributacaoField;
+        
+        private byte optanteSimplesNacionalField;
+        
+        private byte incentivadorCulturalField;
+        
+        private byte statusField;
+        
+        private tcIdentificacaoRps rpsSubstituidoField;
+        
+        private tcDadosServico servicoField;
+        
+        private tcIdentificacaoPrestador prestadorField;
+        
+        private tcDadosTomador tomadorField;
+        
+        private tcIdentificacaoIntermediarioServico intermediarioServicoField;
+        
+        private tcDadosConstrucaoCivil contrucaoCivilField;
+        
+        /// <remarks/>
+        public tcIdentificacaoRps IdentificacaoRps {
+            get {
+                return this.identificacaoRpsField;
+            }
+            set {
+                this.identificacaoRpsField = value;
+            }
         }
         
         /// <remarks/>
-        public EnviarLoteRpsResposta Result {
+        public System.DateTime DataEmissao {
             get {
-                this.RaiseExceptionIfNecessary();
-                return ((EnviarLoteRpsResposta)(this.results[0]));
+                return this.dataEmissaoField;
+            }
+            set {
+                this.dataEmissaoField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public byte NaturezaOperacao {
+            get {
+                return this.naturezaOperacaoField;
+            }
+            set {
+                this.naturezaOperacaoField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<byte> RegimeEspecialTributacao {
+            get {
+                return this.regimeEspecialTributacaoField;
+            }
+            set {
+                this.regimeEspecialTributacaoField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public byte OptanteSimplesNacional {
+            get {
+                return this.optanteSimplesNacionalField;
+            }
+            set {
+                this.optanteSimplesNacionalField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public byte IncentivadorCultural {
+            get {
+                return this.incentivadorCulturalField;
+            }
+            set {
+                this.incentivadorCulturalField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public byte Status {
+            get {
+                return this.statusField;
+            }
+            set {
+                this.statusField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public tcIdentificacaoRps RpsSubstituido {
+            get {
+                return this.rpsSubstituidoField;
+            }
+            set {
+                this.rpsSubstituidoField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public tcDadosServico Servico {
+            get {
+                return this.servicoField;
+            }
+            set {
+                this.servicoField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public tcIdentificacaoPrestador Prestador {
+            get {
+                return this.prestadorField;
+            }
+            set {
+                this.prestadorField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public tcDadosTomador Tomador {
+            get {
+                return this.tomadorField;
+            }
+            set {
+                this.tomadorField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public tcIdentificacaoIntermediarioServico IntermediarioServico {
+            get {
+                return this.intermediarioServicoField;
+            }
+            set {
+                this.intermediarioServicoField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public tcDadosConstrucaoCivil ContrucaoCivil {
+            get {
+                return this.contrucaoCivilField;
+            }
+            set {
+                this.contrucaoCivilField = value;
             }
         }
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
-    public delegate void ConsultarSituacaoLoteRpsCompletedEventHandler(object sender, ConsultarSituacaoLoteRpsCompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Rps))]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
+    [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class ConsultarSituacaoLoteRpsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.e-governeapps2.com.br/")]
+    public partial class tcRps {
         
-        private object[] results;
+        private tcInfRps infRpsField;
         
-        internal ConsultarSituacaoLoteRpsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
+        private SignatureType signatureField;
+        
+        /// <remarks/>
+        public tcInfRps InfRps {
+            get {
+                return this.infRpsField;
+            }
+            set {
+                this.infRpsField = value;
+            }
         }
         
         /// <remarks/>
-        public ConsultarSituacaoLoteRpsResposta Result {
+        public SignatureType Signature {
             get {
-                this.RaiseExceptionIfNecessary();
-                return ((ConsultarSituacaoLoteRpsResposta)(this.results[0]));
+                return this.signatureField;
+            }
+            set {
+                this.signatureField = value;
             }
         }
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
-    public delegate void ConsultarNfsePorRpsCompletedEventHandler(object sender, ConsultarNfsePorRpsCompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
+    [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class ConsultarNfsePorRpsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.e-governeapps2.com.br/")]
+    public partial class Rps : tcRps {
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.e-governeapps2.com.br/")]
+    public partial class tcLoteRps {
         
-        private object[] results;
+        private ulong numeroLoteField;
         
-        internal ConsultarNfsePorRpsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
+        private string cnpjField;
+        
+        private string inscricaoMunicipalField;
+        
+        private int quantidadeRpsField;
+        
+        private Rps[] listaRpsField;
+        
+        /// <remarks/>
+        public ulong NumeroLote {
+            get {
+                return this.numeroLoteField;
+            }
+            set {
+                this.numeroLoteField = value;
+            }
         }
         
         /// <remarks/>
-        public ConsultarNfseRpsResposta Result {
+        public string Cnpj {
             get {
-                this.RaiseExceptionIfNecessary();
-                return ((ConsultarNfseRpsResposta)(this.results[0]));
+                return this.cnpjField;
+            }
+            set {
+                this.cnpjField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string InscricaoMunicipal {
+            get {
+                return this.inscricaoMunicipalField;
+            }
+            set {
+                this.inscricaoMunicipalField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public int QuantidadeRps {
+            get {
+                return this.quantidadeRpsField;
+            }
+            set {
+                this.quantidadeRpsField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public Rps[] ListaRps {
+            get {
+                return this.listaRpsField;
+            }
+            set {
+                this.listaRpsField = value;
             }
         }
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
-    public delegate void ConsultarNfseCompletedEventHandler(object sender, ConsultarNfseCompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
+    [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class ConsultarNfseCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.e-governeapps2.com.br/")]
+    public partial class EnviarLoteRpsEnvio {
         
-        private object[] results;
+        private tcLoteRps loteRpsField;
         
-        internal ConsultarNfseCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
+        private SignatureType signatureField;
+        
+        /// <remarks/>
+        public tcLoteRps LoteRps {
+            get {
+                return this.loteRpsField;
+            }
+            set {
+                this.loteRpsField = value;
+            }
         }
         
         /// <remarks/>
-        public ConsultarNfseResposta Result {
+        public SignatureType Signature {
             get {
-                this.RaiseExceptionIfNecessary();
-                return ((ConsultarNfseResposta)(this.results[0]));
+                return this.signatureField;
+            }
+            set {
+                this.signatureField = value;
             }
         }
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
-    public delegate void ConsultarLoteRpsCompletedEventHandler(object sender, ConsultarLoteRpsCompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
+    [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class ConsultarLoteRpsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.e-governeapps2.com.br/")]
+    public partial class CancelarLoteRpsResposta {
         
-        private object[] results;
+        private System.Nullable<System.DateTime> dataRecebimentoField;
         
-        internal ConsultarLoteRpsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
+        private string protocoloField;
+        
+        private MensagemRetorno[] listaMensagemRetornoField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<System.DateTime> DataRecebimento {
+            get {
+                return this.dataRecebimentoField;
+            }
+            set {
+                this.dataRecebimentoField = value;
+            }
         }
         
         /// <remarks/>
-        public ConsultarLoteRpsResposta Result {
+        public string Protocolo {
             get {
-                this.RaiseExceptionIfNecessary();
-                return ((ConsultarLoteRpsResposta)(this.results[0]));
+                return this.protocoloField;
+            }
+            set {
+                this.protocoloField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public MensagemRetorno[] ListaMensagemRetorno {
+            get {
+                return this.listaMensagemRetornoField;
+            }
+            set {
+                this.listaMensagemRetornoField = value;
             }
         }
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
-    public delegate void CancelarNfseCompletedEventHandler(object sender, CancelarNfseCompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
+    [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class CancelarNfseCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.e-governeapps2.com.br/")]
+    public partial class tcLoteCancelamentoRps {
         
-        private object[] results;
+        private string protocoloField;
         
-        internal CancelarNfseCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
+        private string cnpjField;
+        
+        private string inscricaoMunicipalField;
+        
+        /// <remarks/>
+        public string Protocolo {
+            get {
+                return this.protocoloField;
+            }
+            set {
+                this.protocoloField = value;
+            }
         }
         
         /// <remarks/>
-        public CancelarNfseResposta Result {
+        public string Cnpj {
             get {
-                this.RaiseExceptionIfNecessary();
-                return ((CancelarNfseResposta)(this.results[0]));
+                return this.cnpjField;
+            }
+            set {
+                this.cnpjField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string InscricaoMunicipal {
+            get {
+                return this.inscricaoMunicipalField;
+            }
+            set {
+                this.inscricaoMunicipalField = value;
             }
         }
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
-    public delegate void ValidarXmlCompletedEventHandler(object sender, ValidarXmlCompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
+    [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class ValidarXmlCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.e-governeapps2.com.br/")]
+    public partial class CancelarLoteRpsEnvio {
         
-        private object[] results;
+        private tcLoteCancelamentoRps loteRpsField;
         
-        internal ValidarXmlCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
+        private SignatureType signatureField;
+        
+        /// <remarks/>
+        public tcLoteCancelamentoRps LoteRps {
+            get {
+                return this.loteRpsField;
+            }
+            set {
+                this.loteRpsField = value;
+            }
         }
         
         /// <remarks/>
-        public ListaMensagemRetorno Result {
+        public SignatureType Signature {
             get {
-                this.RaiseExceptionIfNecessary();
-                return ((ListaMensagemRetorno)(this.results[0]));
+                return this.signatureField;
+            }
+            set {
+                this.signatureField = value;
             }
         }
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
-    public delegate void RecepcionarXmlCompletedEventHandler(object sender, RecepcionarXmlCompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4161.0")]
+    [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class RecepcionarXmlCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.e-governeapps2.com.br/")]
+    public partial class CancelarLoteNfseResposta {
         
-        private object[] results;
+        private System.Nullable<System.DateTime> dataRecebimentoField;
         
-        internal RecepcionarXmlCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
+        private string protocoloField;
+        
+        private MensagemRetorno[] listaMensagemRetornoField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<System.DateTime> DataRecebimento {
+            get {
+                return this.dataRecebimentoField;
+            }
+            set {
+                this.dataRecebimentoField = value;
+            }
         }
         
         /// <remarks/>
-        public string Result {
+        public string Protocolo {
             get {
-                this.RaiseExceptionIfNecessary();
-                return ((string)(this.results[0]));
+                return this.protocoloField;
+            }
+            set {
+                this.protocoloField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public MensagemRetorno[] ListaMensagemRetorno {
+            get {
+                return this.listaMensagemRetornoField;
+            }
+            set {
+                this.listaMensagemRetornoField = value;
             }
         }
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
     public delegate void CancelarLoteNfseCompletedEventHandler(object sender, CancelarLoteNfseCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class CancelarLoteNfseCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -4138,11 +3930,11 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
     public delegate void CancelarLoteRpsCompletedEventHandler(object sender, CancelarLoteRpsCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class CancelarLoteRpsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -4159,6 +3951,214 @@ namespace NFe.Components.br.gov.pr.curitiba.pilotoisscuritiba.h {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((CancelarLoteRpsResposta)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
+    public delegate void RecepcionarLoteRpsCompletedEventHandler(object sender, RecepcionarLoteRpsCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class RecepcionarLoteRpsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal RecepcionarLoteRpsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public EnviarLoteRpsResposta Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((EnviarLoteRpsResposta)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
+    public delegate void ConsultarSituacaoLoteRpsCompletedEventHandler(object sender, ConsultarSituacaoLoteRpsCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ConsultarSituacaoLoteRpsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ConsultarSituacaoLoteRpsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public ConsultarSituacaoLoteRpsResposta Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((ConsultarSituacaoLoteRpsResposta)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
+    public delegate void ConsultarNfsePorRpsCompletedEventHandler(object sender, ConsultarNfsePorRpsCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ConsultarNfsePorRpsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ConsultarNfsePorRpsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public ConsultarNfseRpsResposta Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((ConsultarNfseRpsResposta)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
+    public delegate void ConsultarNfseCompletedEventHandler(object sender, ConsultarNfseCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ConsultarNfseCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ConsultarNfseCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public ConsultarNfseResposta Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((ConsultarNfseResposta)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
+    public delegate void ConsultarLoteRpsCompletedEventHandler(object sender, ConsultarLoteRpsCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ConsultarLoteRpsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ConsultarLoteRpsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public ConsultarLoteRpsResposta Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((ConsultarLoteRpsResposta)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
+    public delegate void CancelarNfseCompletedEventHandler(object sender, CancelarNfseCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class CancelarNfseCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal CancelarNfseCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public CancelarNfseResposta Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((CancelarNfseResposta)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
+    public delegate void ValidarXmlCompletedEventHandler(object sender, ValidarXmlCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ValidarXmlCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ValidarXmlCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public ListaMensagemRetorno Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((ListaMensagemRetorno)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
+    public delegate void RecepcionarXmlCompletedEventHandler(object sender, RecepcionarXmlCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4161.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class RecepcionarXmlCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal RecepcionarXmlCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
             }
         }
     }

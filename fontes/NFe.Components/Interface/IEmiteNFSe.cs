@@ -10,6 +10,7 @@ namespace NFe.Components
         void ConsultarLoteRps(string file);
         void ConsultarSituacaoLoteRps(string file);
         void ConsultarNfse(string file);
+        void ConsultarNfsePDF(string file);
         void ConsultarNfsePorRps(string file);
         void GerarRetorno(string file, string result, string extEnvio, string extRetorno);
 

@@ -1300,11 +1300,12 @@ namespace NFe.Settings
 
                 if (emp.Servico != TipoAplicativo.Nfse && !string.IsNullOrWhiteSpace(emp.PastaXmlEnviado))
                 {
-                    if (emp.PastaXmlRetorno.Contains(emp.PastaXmlEnviado))
+                    if (IsPastaEnviadoPath(emp.PastaXmlRetorno, emp.PastaXmlEnviado))
                     {
                         erro += "\r\nNão é permitido informar o conteúdo da pasta enviados na pasta de retorno.";
                     }
-                    if (emp.PastaXmlErro.Contains(emp.PastaXmlEnviado))
+
+                    if (IsPastaEnviadoPath(emp.PastaXmlErro, emp.PastaXmlEnviado))
                     {
                         erro += "\r\nNão é permitido informar o conteúdo da pasta enviados na pasta de xml com erros.";
                     }
@@ -2546,6 +2547,24 @@ namespace NFe.Settings
         }
 
         #endregion ForceUpdateWSDL()
+
+        private bool IsPastaEnviadoPath(string pasta, string PastaEnviado)
+        {
+            if (pasta.Trim().ToLower() == PastaEnviado.Trim().ToLower() ||
+                pasta.Trim().ToLower() == (PastaEnviado + "\\" + PastaEnviados.Autorizados.ToString()).Trim().ToLower() ||
+                pasta.Trim().ToLower() == (PastaEnviado + "\\" + PastaEnviados.Denegados.ToString()).Trim().ToLower() ||
+                pasta.Trim().ToLower() == (PastaEnviado + "\\" + PastaEnviados.EmProcessamento.ToString()).Trim().ToLower())
+            {
+                return true;
+            }
+
+            if (PastaEnviado.Trim().ToLower().Contains(pasta.Trim().ToLower()))
+            {
+                return true;
+            }
+
+            return false;
+        }
 
         #endregion Métodos gerais
     }

@@ -329,6 +329,9 @@ namespace NFSe.Components
 
                 case 4212809: //Balneário Piçarras-SC
                     return 8251;
+
+                case 4204509: //Corupá-SC
+                    return 8087;
             }
 
             return 0;
