@@ -4076,8 +4076,6 @@
     <EmbeddedResource Include="NFse\WSDL\Producao\PJalesSP-RLZ_INFORMATICA.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Homologacao\HSabaraMG-SUPERNOVA.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Producao\PSabaraMG-SUPERNOVA.wsdl" />
-    <EmbeddedResource Include="NFse\WSDL\Homologacao\HRondonopolisMT-COPLAN.wsdl" />
-    <EmbeddedResource Include="NFse\WSDL\Producao\PRondonopolisMT-COPLAN.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Producao\PSjbicas-GovDigital.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Homologacao\HSjbicas-GovDigital.wsdl" />
     <EmbeddedResource Include="NFse\schemas\NFSe\D2TI\CancelamentoNFSe_v1.00.xsd">
@@ -4584,6 +4582,12 @@
     <EmbeddedResource Include="NFse\WSDL\Homologacao\HErechimRS-SystemPro.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Producao\PRibasDoRioPardoMS-Fiorilli.wsdl" />
     <EmbeddedResource Include="NFse\WSDL\Homologacao\HRibasDoRioPardoMS-Fiorilli.wsdl" />
+    <EmbeddedResource Include="NFse\schemas\NFSe\SMARAPD\nfse_v2-03.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NFse\WSDL\Producao\PPantanoGrandeRS-PRONIN.wsdl" />
+    <EmbeddedResource Include="NFse\WSDL\Homologacao\HPiraquaraPR-Elotech.wsdl" />
+    <EmbeddedResource Include="NFse\WSDL\Producao\PPiraquaraPR-Elotech.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="NFse\WSDL\Producao\PCamacariBA.wsdl">

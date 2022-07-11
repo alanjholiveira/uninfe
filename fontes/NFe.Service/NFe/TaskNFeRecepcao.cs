@@ -89,7 +89,7 @@ namespace NFe.Service
                     }
 
                     configuracao.CSC = Empresas.Configuracoes[emp].IdentificadorCSC;
-                    configuracao.CSCIDToken = Convert.ToInt32(Empresas.Configuracoes[emp].TokenCSC);
+                    configuracao.CSCIDToken = Convert.ToInt32((string.IsNullOrWhiteSpace(Empresas.Configuracoes[emp].TokenCSC) ? "0" : Empresas.Configuracoes[emp].TokenCSC));
 
                     var autorizacao = new Unimake.Business.DFe.Servicos.NFCe.Autorizacao(xmlNFe, configuracao);
                     autorizacao.Executar();

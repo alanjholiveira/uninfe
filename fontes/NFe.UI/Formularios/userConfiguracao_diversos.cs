@@ -524,7 +524,6 @@ namespace NFe.UI.Formularios
                            ufCod == 4207502 /*Indaial-SC*/ ||
                            ufCod == 4211801 /*Ouro-SC*/ ||
                            ufCod == 3500501 /*Aguas de Lindoia-SP*/ ||
-                           ufCod == 3523107 /*Itaquaquecetuba-SP*/ ||
                            ufCod == 3143104 /*Monte Carnmelo-MG*/||
                            ufCod == 2931350 /*Teixeira de Freitas-BA*/||
                            ufCod == 3205101 /*Viana-ES*/ ||
@@ -575,7 +574,8 @@ namespace NFe.UI.Formularios
                            ufCod == 4214706 /*Rio dos Cedros-SC*/||
                            ufCod == 5220454 /*Senador Canedo-GO*/||
                            ufCod == 4212809 /*Balneário Piçarras-SC*/||
-                           ufCod == 5007109 /*Ribas do Rio Pardo-MS*/;
+                           ufCod == 5007109 /*Ribas do Rio Pardo-MS*/||
+                           ufCod == 3526704 /*Leme-SP*/;
 
             lbl_UsuarioWS.Visible = txtUsuarioWS.Visible = lbl_SenhaWS.Visible = txtSenhaWS.Visible = visible;
         }

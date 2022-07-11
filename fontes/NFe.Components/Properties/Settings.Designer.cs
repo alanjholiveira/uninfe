@@ -1678,27 +1678,6 @@ namespace NFe.Components.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://www.gp.srv.br/tributario_homologacao/servlet/anfse_web_service")]
-        public string NFe_Components_HRondonopolisMT_nfse_web_service {
-            get {
-                return ((string)(this["NFe_Components_HRondonopolisMT_nfse_web_service"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://intranet.rondonopolis.mt.gov.br/tributario_rondonopolis/servlet/anfse_web_" +
-            "service")]
-        public string NFe_Components_PRondonopolisMT_nfse_web_service {
-            get {
-                return ((string)(this["NFe_Components_PRondonopolisMT_nfse_web_service"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
         [global::System.Configuration.DefaultSettingValueAttribute("https://ws.govdigital.com.br/ws/sjbicas")]
         public string NFe_Components_PSjbicas_NfseServiceImplSjbicasService {
             get {
@@ -3512,6 +3491,16 @@ namespace NFe.Components.Properties {
         public string NFe_Components_HRibasDoRioPardoMS_IssWebWS {
             get {
                 return ((string)(this["NFe_Components_HRibasDoRioPardoMS_IssWebWS"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://pantanogrande-portais.govcloud.com.br/NFSe.Portal.Integracao/Services.svc")]
+        public string NFe_Components_PPantanoGrandeRS_NFSeIntegracao {
+            get {
+                return ((string)(this["NFe_Components_PPantanoGrandeRS_NFSeIntegracao"]));
             }
         }
     }

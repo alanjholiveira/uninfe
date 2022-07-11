@@ -55,8 +55,9 @@ namespace NFe.Service.NFSe
                             case 3552205: //Sorocaba-SP
                             case 4310009: //Ibirubá-RS
                             case 3168606: //Teófilo Otoni-MG
-                            case 3523107: //Itaquaquecetuba-SP
                             case 3115300: //Cataguases-MG
+                            case 3147907: //Passos-MG
+                            case 5107602: //Rondonópolis-MT
                                 ExecuteDLL(emp, dadosXML.cMunicipio, padraoNFSe);
                                 break;
 
@@ -218,15 +219,16 @@ namespace NFe.Service.NFSe
                     versaoXML = "2.01";
                     break;
 
-                case PadroesNFSe.COPLAN:
                 case PadroesNFSe.BETHA:
                 case PadroesNFSe.VERSATEC:
+                case PadroesNFSe.WEBISS:
                     versaoXML = "2.02";
                     break;
 
                 case PadroesNFSe.SIMPLISS:
                 case PadroesNFSe.SMARAPD:
                 case PadroesNFSe.DSF:
+                case PadroesNFSe.COPLAN:
                     versaoXML = "2.03";
                     break;
 

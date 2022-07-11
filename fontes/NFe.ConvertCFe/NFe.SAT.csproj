@@ -103,14 +103,14 @@
     <When Condition="'$(Configuration)|$(Platform)' == 'Release46_x86|x86'">
       <ItemGroup>
         <Reference Include="Unimake.SAT">
-          <HintPath>..\packages\Unimake.SAT.20211105.930.18\lib\net\x86\Unimake.SAT.dll</HintPath>
+          <HintPath>..\packages\Unimake.SAT.20220624.1005.36\lib\net\x86\Unimake.SAT.dll</HintPath>
         </Reference>
       </ItemGroup>
     </When>
     <Otherwise>
       <ItemGroup>
         <Reference Include="Unimake.SAT">
-          <HintPath>..\packages\Unimake.SAT.20211105.930.18\lib\net\Any CPU\Unimake.SAT.dll</HintPath>
+          <HintPath>..\packages\Unimake.SAT.20220624.1005.36\lib\net\Any CPU\Unimake.SAT.dll</HintPath>
           <Private>True</Private>
         </Reference>
       </ItemGroup>

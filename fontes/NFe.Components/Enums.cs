@@ -1257,7 +1257,13 @@ namespace NFe.Components
         /// VERSATEC - Tecnologia, Educação e Comunicação
         /// </summary>
         [Description("VERSATEC")]
-        VERSATEC
+        VERSATEC,
+
+        /// <summary>
+        /// SIGISSWEB
+        /// </summary>
+        [Description("SIGISSWEB")]
+        SIGISSWEB
 
         ///***ATENÇÃO***
         ///o nome deste enum tem que coincidir com o nome da url, pq faço um "IndexOf" deste enum para pegar o padrao

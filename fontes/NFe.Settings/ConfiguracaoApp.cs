@@ -348,207 +348,6 @@ namespace NFe.Settings
 
         #endregion StartVersoes
 
-        private static string LocalFile => Application.StartupPath + "\\sefaz.inc";
-
-        #region URLs do Estados p/ ConsultaDFe
-
-        public static EstadoURLConsultaDFe CarregarURLConsultaDFe(string uf)
-        {
-            var estado = new EstadoURLConsultaDFe();
-
-            if (File.Exists(LocalFile))
-            {
-                var inifile = new IniFile(LocalFile);
-
-                estado.UF = uf;
-                estado.UrlCTeQrCodeP = inifile.Read("CTeQrCodeP", uf);
-                estado.UrlCTeQrCodeH = inifile.Read("CTeQrCodeH", uf);
-                estado.UrlNFCe = inifile.Read("NFC-e", uf);
-                estado.UrlNFCeH = inifile.Read("NFC-e(h)", uf);
-                estado.UrlNFCeM = inifile.Read("NFC-e_ConsultaManual", uf);
-                estado.UrlNFCeMH = inifile.Read("NFC-e_ConsultaManual(h)", uf);
-                estado.UrlNFCe_400 = inifile.Read("NFC-e_400", uf);
-                estado.UrlNFCeH_400 = inifile.Read("NFC-e(h)_400", uf);
-
-                if (string.IsNullOrEmpty(estado.UrlNFCeM))
-                {
-                    estado.UrlNFCeM = estado.UrlNFCe;
-                }
-
-                if (string.IsNullOrEmpty(estado.UrlNFCeMH))
-                {
-                    estado.UrlNFCeMH = estado.UrlNFCeH;
-                }
-
-                if (string.IsNullOrEmpty(estado.UrlNFCe_400))
-                {
-                    estado.UrlNFCe_400 = estado.UrlNFCe;
-                }
-
-                if (string.IsNullOrEmpty(estado.UrlNFCeH_400))
-                {
-                    estado.UrlNFCeH_400 = estado.UrlNFCeH;
-                }
-            }
-            else
-            {
-                throw new Exception("O arquivo SEFAZ.INC não foi localizado, por favor reinstale o UniNFe.");
-            }
-
-            return estado;
-        }
-
-        public static void DownloadArquivoURLConsultaDFe()
-        {
-            var URL = "http://www.unimake.com.br/pub/downloads/sefaz.inc";
-            var URL2 = "http://74.222.1.252/download/sefaz.inc";
-            HttpWebRequest webRequest = null;
-            HttpWebResponse webResponse = null;
-            Stream strResponse = null;
-            Stream strLocal = null;
-            var result = true;
-
-            if (File.Exists(LocalFile))
-            {
-                var dateFile = File.GetLastWriteTime(LocalFile).Date;
-
-                var lastUpdate = (DateTime.Now.Date - dateFile).TotalDays;
-
-                if (lastUpdate < 30)
-                {
-                    return;
-                }
-            }
-
-            using (var Client = new WebClient())
-            {
-                try
-                {
-                    for (var i = 0; i <= 1; i++)
-                    {
-                        try
-                        {
-                            // Criar um pedido do arquivo que será baixado
-                            webRequest = (HttpWebRequest)WebRequest.Create(URL);
-
-                            // Definir dados da conexao do proxy
-                            if (ConfiguracaoApp.Proxy)
-                            {
-                                webRequest.Proxy = Unimake.Net.Utility.GetProxy(ConfiguracaoApp.ProxyServidor, ConfiguracaoApp.ProxyUsuario, ConfiguracaoApp.ProxySenha, ConfiguracaoApp.ProxyPorta, ConfiguracaoApp.DetectarConfiguracaoProxyAuto);
-                            }
-
-                            webRequest.Timeout = 10000; //10 segundos, se não conseguir, vai abortar para não atrabalhar o sistema. Wandrey
-
-                            // Atribuir autenticação padrão para a recuperação do arquivo
-                            webRequest.Credentials = CredentialCache.DefaultCredentials;
-
-                            // Obter a resposta do servidor
-                            webResponse = (HttpWebResponse)webRequest.GetResponse();
-                            break;
-                        }
-                        catch
-                        {
-                            if (i == 0)
-                            {
-                                URL = URL2;
-                            }
-                            else
-                            {
-                                throw;
-                            }
-                        }
-                    }
-
-                    // Perguntar ao servidor o tamanho do arquivo que será baixado
-                    var fileSize = webResponse.ContentLength;
-
-                    // Abrir a URL para download
-                    strResponse = Client.OpenRead(URL);
-
-                    // Criar um novo arquivo a partir do fluxo de dados que será salvo na local disk
-                    var arqSefazIncTemp = LocalFile.Replace(".inc", ".tmp");
-                    File.Delete(arqSefazIncTemp);
-                    strLocal = new FileStream(arqSefazIncTemp, FileMode.Create, FileAccess.Write, FileShare.Read);
-
-                    // Ele irá armazenar o número atual de bytes recuperados do servidor
-                    var bytesSize = 0;
-
-                    // Um buffer para armazenar e gravar os dados recuperados do servidor
-                    var downBuffer = new byte[2048];
-
-                    // Loop através do buffer - Até que o buffer esteja vazio
-                    while ((bytesSize = strResponse.Read(downBuffer, 0, downBuffer.Length)) > 0)
-                    {
-                        // Gravar os dados do buffer no disco rigido
-                        strLocal.Write(downBuffer, 0, bytesSize);
-                    }
-
-                    if (File.Exists(arqSefazIncTemp))
-                    {
-                        strLocal.Close();
-                        if (new FileInfo(arqSefazIncTemp).Length > 0)
-                        {
-                            File.Copy(arqSefazIncTemp, LocalFile, true);
-                        }
-
-                        File.Delete(arqSefazIncTemp);
-                    }
-                }
-                catch (IOException ex)
-                {
-                    Auxiliar.WriteLog(ex.Message, true);
-                    result = false;
-                }
-                catch (WebException ex)
-                {
-                    Auxiliar.WriteLog(ex.Message, true);
-                    result = false;
-                }
-                catch (Exception ex)
-                {
-                    Auxiliar.WriteLog(ex.Message, true);
-                    result = false;
-                }
-                finally
-                {
-                    // Encerrar as streams
-                    if (strResponse != null)
-                    {
-                        strResponse.Close();
-                    }
-
-                    if (strLocal != null)
-                    {
-                        strLocal.Close();
-                    }
-
-                    webRequest.Abort();
-
-                    if (webResponse != null)
-                    {
-                        webResponse.Close();
-                    }
-                }
-
-                if (result)
-                {
-                    if (Empresas.Configuracoes != null)
-                    {
-                        foreach (var empresa in Empresas.Configuracoes)
-                        {
-                            var uf = Empresas.GetUF(empresa.UnidadeFederativaCodigo);
-                            if (uf != null)
-                            {
-                                empresa.URLConsultaDFe = ConfiguracaoApp.CarregarURLConsultaDFe(uf);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        #endregion URLs do Estados p/ ConsultaDFe
-
         #region CarregarDados()
 
         /// <summary>
@@ -1501,11 +1300,12 @@ namespace NFe.Settings
 
                 if (emp.Servico != TipoAplicativo.Nfse && !string.IsNullOrWhiteSpace(emp.PastaXmlEnviado))
                 {
-                    if (emp.PastaXmlRetorno.Contains(emp.PastaXmlEnviado))
+                    if (IsPastaEnviadoPath(emp.PastaXmlRetorno, emp.PastaXmlEnviado))
                     {
                         erro += "\r\nNão é permitido informar o conteúdo da pasta enviados na pasta de retorno.";
                     }
-                    if (emp.PastaXmlErro.Contains(emp.PastaXmlEnviado))
+
+                    if (IsPastaEnviadoPath(emp.PastaXmlErro, emp.PastaXmlEnviado))
                     {
                         erro += "\r\nNão é permitido informar o conteúdo da pasta enviados na pasta de xml com erros.";
                     }
@@ -2747,6 +2547,24 @@ namespace NFe.Settings
         }
 
         #endregion ForceUpdateWSDL()
+
+        private bool IsPastaEnviadoPath(string pasta, string PastaEnviado)
+        {
+            if (pasta.Trim().ToLower() == PastaEnviado.Trim().ToLower() ||
+                pasta.Trim().ToLower() == (PastaEnviado + "\\" + PastaEnviados.Autorizados.ToString()).Trim().ToLower() ||
+                pasta.Trim().ToLower() == (PastaEnviado + "\\" + PastaEnviados.Denegados.ToString()).Trim().ToLower() ||
+                pasta.Trim().ToLower() == (PastaEnviado + "\\" + PastaEnviados.EmProcessamento.ToString()).Trim().ToLower())
+            {
+                return true;
+            }
+
+            if (PastaEnviado.Trim().ToLower().Contains(pasta.Trim().ToLower()))
+            {
+                return true;
+            }
+
+            return false;
+        }
 
         #endregion Métodos gerais
     }
