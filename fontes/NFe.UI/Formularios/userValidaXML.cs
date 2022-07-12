@@ -41,6 +41,8 @@ namespace NFe.UI
 
                 arqDestino = new FileInfo(arquivo);
 
+                if (arqDestino.Exists) arqDestino.Delete();
+
                 fileInfo.CopyTo(arquivo, true);
 
                 //Remover atributo de somente leitura que pode gerar problemas no acesso do arquivo
@@ -112,7 +114,7 @@ namespace NFe.UI
                     AssinaturaDigital oAD = new AssinaturaDigital();
                     try
                     {
-                        validarXML.EncryptAssinatura(arquivo);
+                        validarXML.EncryptAssinatura(Emp, arquivo);
                         oAD.Assinar(arquivo,
                             Emp,
                             Empresas.Configuracoes[Emp].UnidadeFederativaCodigo,
