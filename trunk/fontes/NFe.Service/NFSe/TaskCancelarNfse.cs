@@ -53,7 +53,7 @@ namespace NFe.Service.NFSe
         {
             ///danasa: 12/2013
             var val = new ValidarXML(NomeArquivoXML, oDadosPedCanNfse.cMunicipio, false);
-            val.EncryptAssinatura(NomeArquivoXML);
+            val.EncryptAssinatura(Empresas.FindEmpresaByThread(), NomeArquivoXML);
         }
 
         /// <summary>

@@ -2,6 +2,7 @@
 using NFe.Components.Info;
 using NFe.Settings;
 using System;
+using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 
@@ -52,6 +53,25 @@ namespace uninfe
 
             if (args.Length >= 1)
             {
+                ///
+                /// O Uninfe pode carregar primeiro que um mapeamento de unidades que contenham
+                /// as pastas das empresas.
+                /// Neste caso ao executar o Uninfe ele reporta erro de endereçamento dos arquivos
+                /// 
+                /// Sendo assim, uma solucao seria definir um delay para que o Uninfe continue a
+                /// carregar os arquivos.
+                /// 
+                var dl = args.FirstOrDefault(w => w.ToLower().Contains("/delay"));
+                if (dl != null)
+                    try
+                    {
+                        ///
+                        /// ex: /delay=10000
+                        /// 
+                        System.Threading.Thread.Sleep(Convert.ToInt32(Functions.OnlyNumbers(dl)));
+                    }
+                    catch { }
+
                 foreach (string param in args)
                 {
                     if (param.ToLower().Equals("/silent"))

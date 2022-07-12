@@ -2,12 +2,10 @@
 using NFe.Components;
 using NFe.Settings;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Schema;
-using Unimake.Business.DFe.Xml.CTe;
 
 namespace NFe.Validate
 {
@@ -60,8 +58,12 @@ namespace NFe.Validate
         /// Encriptar a tag Assinatura quando for município de Blumenau - SC
         /// </summary>
         /// 
-        public bool EncryptAssinatura(string arquivoXML)
+        public bool EncryptAssinatura(int Emp, string arquivoXML)
         {
+            ///
+            /// o parametro 'Emp' foi codificado aqui pq ao utilizar a validacao via
+            /// userValidaXML nao se pegava corretamente a empresa processada
+            /// 
             if(TipoArqXml.cArquivoSchema.Contains("DSF\\SJCSP"))
                 return false;
 
@@ -77,6 +79,18 @@ namespace NFe.Validate
                     var sh1 = "";
                     var doc = new XmlDocument();
                     doc.Load(arquivoXML);
+                    ///
+                    /// OPS!!!!
+                    /// 
+                    /// Se o arquivo já foi totalmente assinado, nao precisa mais
+                    /// criptografar a tag 'Assinatura'
+                    /// 
+                    var signature = doc.GetElementsByTagName("Signature");
+                    if (signature.Count > 0)
+                        ///
+                        /// ********** NAO testei sobre DSF | BLUMENAU
+                        /// 
+                        return false;
 
                     if(arquivoXML.EndsWith(Propriedade.Extensao(Propriedade.TipoEnvio.EnvLoteRps).EnvioXML, StringComparison.InvariantCultureIgnoreCase))
                     {
@@ -91,8 +105,13 @@ namespace NFe.Validate
                             {
                                 found = true;
                                 //Encryptar a tag Assinatura
-                                var len = TipoArqXml.cArquivoSchema.Contains("DSF") ? 94 : 86;
-                                if(rpsElement.GetElementsByTagName(Assinatura)[0].InnerText.Length == len)    //jah assinado?
+                                var len = new int[] {
+                                    TipoArqXml.cArquivoSchema.Contains("DSF") ? 94 : 86,
+                                    TipoArqXml.cArquivoSchema.Contains("DSF") ? 94 : 101 /* pode ter o CPF/CNPJ do intermediario */
+                                };
+                                var ntag = rpsElement.GetElementsByTagName(Assinatura)[0].InnerText.TrimEnd();
+                                var llen = ntag.Length;
+                                if (llen == len[0] || llen == len[1])    //jah assinado?
                                 {
                                     bSave = true;
                                     if(TipoArqXml.cArquivoSchema.Contains("DSF"))
@@ -101,19 +120,19 @@ namespace NFe.Validate
                                     }
                                     else
                                     {
-                                        if(Empresas.Configuracoes[Empresas.FindEmpresaByThread()].X509Certificado == null)
+                                        if(Empresas.Configuracoes[Emp/*Empresas.FindEmpresaByThread()*/].X509Certificado == null)
                                         {
                                             throw new Exceptions.ExceptionCertificadoDigital(ErroPadrao.CertificadoNaoEncontrado);
                                         }
 
-                                        sh1 = Criptografia.SignWithRSASHA1(Empresas.Configuracoes[Empresas.FindEmpresaByThread()].X509Certificado,
+                                        sh1 = Criptografia.SignWithRSASHA1(Empresas.Configuracoes[Emp/*Empresas.FindEmpresaByThread()*/].X509Certificado,
                                                 rpsElement.GetElementsByTagName(Assinatura)[0].InnerText);
                                     }
                                     rpsElement.GetElementsByTagName(Assinatura)[0].InnerText = sh1;
                                 }
                                 else
                                 {
-                                    throw new Exception("Tag assinatura do XML de envio não contém a quantidade de caracteres descrito no manual da prefeitura.");
+                                    throw new Exception($"Tag assinatura do XML de envio não contém a quantidade de caracteres descrito no manual da prefeitura.\nConteudo: {ntag} - Tamanho: {llen}");
                                 }
                             }
                         }
@@ -122,7 +141,7 @@ namespace NFe.Validate
                             throw new Exception("Não foi possivel encontrar a tag <RPS><" + Assinatura + ">");
                         }
                     }
-                    else if(arquivoXML.EndsWith(NFe.Components.Propriedade.Extensao(Propriedade.TipoEnvio.PedCanNFSe).EnvioXML, StringComparison.InvariantCultureIgnoreCase) &&
+                    else if(arquivoXML.EndsWith(Propriedade.Extensao(Propriedade.TipoEnvio.PedCanNFSe).EnvioXML, StringComparison.InvariantCultureIgnoreCase) &&
                             !TipoArqXml.cArquivoSchema.Contains("DSF"))
                     {
                         const string AssinaturaCancelamento = "AssinaturaCancelamento";
@@ -137,14 +156,14 @@ namespace NFe.Validate
                                 found = true;
                                 if(detalheElement.GetElementsByTagName(AssinaturaCancelamento)[0].InnerText.Length == 20)
                                 {
-                                    if(Empresas.Configuracoes[Empresas.FindEmpresaByThread()].X509Certificado == null)
+                                    if(Empresas.Configuracoes[Emp/*Empresas.FindEmpresaByThread()*/].X509Certificado == null)
                                     {
                                         throw new Exceptions.ExceptionCertificadoDigital(ErroPadrao.CertificadoNaoEncontrado);
                                     }
 
                                     bSave = true;
                                     //Encryptar a tag Assinatura
-                                    sh1 = Criptografia.SignWithRSASHA1(Empresas.Configuracoes[Empresas.FindEmpresaByThread()].X509Certificado,
+                                    sh1 = Criptografia.SignWithRSASHA1(Empresas.Configuracoes[Emp/*Empresas.FindEmpresaByThread()*/].X509Certificado,
                                                     detalheElement.GetElementsByTagName(AssinaturaCancelamento)[0].InnerText);
 
                                     detalheElement.GetElementsByTagName(AssinaturaCancelamento)[0].InnerText = sh1;
@@ -223,7 +242,7 @@ namespace NFe.Validate
                 {
                     ValidarInformacaoContingencia(conteudoXML);
 
-                    EncryptAssinatura(rotaArqXML);    //danasa: 12/2013
+                    EncryptAssinatura(Empresas.FindEmpresaByThread(), rotaArqXML);    //danasa: 12/2013
 
                     var settings = new XmlReaderSettings
                     {
@@ -409,7 +428,7 @@ namespace NFe.Validate
 
                 if(TipoArqXml.nRetornoTipoArq >= 1 && TipoArqXml.nRetornoTipoArq <= SchemaXML.MaxID)
                 {
-                    if(EncryptAssinatura(Arquivo))
+                    if(EncryptAssinatura(emp, Arquivo))
                         conteudoXML.Load(Arquivo);
 
                     if(TipoArqXml.TargetNameSpace.Contains("envioLoteEventos") && TipoArqXml.TargetNameSpace.Contains("reinf")) //Lote de eventos do EFDReinf
@@ -500,7 +519,7 @@ namespace NFe.Validate
                         ///
                         /// OPS!!! Arquivo de NFS-e enviado p/ a pasta de validação, mas não existe definicao de schemas p/ sua validacao
                         ///
-                        GravarXMLRetornoValidacao(Arquivo, "1", "XML não validado contra o schema da prefeitura. XML: " + TipoArqXml.cRetornoTipoArq);
+                        GravarXMLRetornoValidacao(Arquivo, "6", "XML não validado contra o schema da prefeitura. XML: " + TipoArqXml.cRetornoTipoArq);
                         new Auxiliar().MoveArqErro(Arquivo);
                     }
                     else

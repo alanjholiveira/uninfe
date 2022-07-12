@@ -1062,7 +1062,7 @@ namespace NFe.Service.NFSe
         {
             ///danasa: 12/2013
             var val = new Validate.ValidarXML(NomeArquivoXML, oDadosEnvLoteRps.cMunicipio, false);
-            val.EncryptAssinatura(NomeArquivoXML);
+            val.EncryptAssinatura(Empresas.FindEmpresaByThread(), NomeArquivoXML);
         }
 
         #endregion EncryptAssinatura()

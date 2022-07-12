@@ -197,6 +197,19 @@ namespace NFe.Settings
 
                                 ExtractResourceToDisk(ass, s, fileoutput);
                             }
+                            ///
+                            /// verifica a existencia dos XML's de configuracao dos WSDL's
+                            /// e dá um delay só para dar um tempo para que os WSDL's
+                            /// estejam totalmente gravados nas pastas.
+                            /// 
+                            /// Isto pode evitar que dê erro
+                            /// em NFe.Components.WebServiceProxy.CarregaWebServicesList() na E:\Usr\NFe\uninfe\a_uninfe\NFe.Components\WebServiceProxy.cs:linha 812
+                            /// 
+                            int passo = 0;
+                            while ( !File.Exists(Propriedade.NomeArqXMLWebService_NFSe) &&
+                                    !File.Exists(Propriedade.NomeArqXMLWebService_NFe) && 
+                                    ++passo < 100)
+                                Thread.Sleep(500);
                         }
                     }
                     catch (Exception ex)
@@ -235,7 +248,17 @@ namespace NFe.Settings
 
                     try
                     {
-                        if (!File.Exists(Propriedade.XMLVersaoWSDLXSD))
+                        ///
+                        /// pega a pasta dos WSDL
+                        /// 
+                        var folderWSDL = Path.GetDirectoryName(Propriedade.NomeArqXMLWebService_NFe);
+                        ///
+                        /// verifica a existencia dp arquivo 'VersaoWSDLXSD.xml'
+                        /// e se a pasta dos arquivos WSDL's existe, pq o usuario 
+                        /// pode te-las excluido.
+                        /// 
+                        if (!File.Exists(Propriedade.XMLVersaoWSDLXSD) ||
+                            !Directory.Exists(folderWSDL))
                         {
                             retorna = true;
                         }
